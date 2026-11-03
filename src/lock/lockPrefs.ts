@@ -15,8 +15,10 @@ export interface LockPrefs {
   exitLock: ExitLock;
 }
 
-export const DEFAULT_LOCK_PREFS: LockPrefs = { holdSec: 3, exitLock: 'pin' };
+export const DEFAULT_LOCK_PREFS: LockPrefs = { holdSec: 1, exitLock: 'pin' };
 const PREFS_KEY = 'ksm.lockPrefs.v1';
+/** Set once 3 seconds (the old default) has been moved to the new 1-second default. */
+const HOLD_MOVED_KEY = 'ksm.lockPrefs.hold1';
 const PICTURE_CODE_KEY = 'ksm.pictureCode.v1';
 
 export function sanitizeLockPrefs(raw: unknown): LockPrefs {
@@ -28,7 +30,16 @@ export function sanitizeLockPrefs(raw: unknown): LockPrefs {
 }
 
 export function loadLockPrefs(): LockPrefs {
-  const prefs = sanitizeLockPrefs(local.getJson(PREFS_KEY));
+  let prefs = sanitizeLockPrefs(local.getJson(PREFS_KEY));
+  // November 2026: the default became 1 second. Phones still on the old 3 seconds move to 1, once;
+  // choosing 3 again in Settings afterwards is kept.
+  if (!local.get(HOLD_MOVED_KEY)) {
+    if (prefs.holdSec === 3) {
+      prefs = { ...prefs, holdSec: 1 };
+      saveLockPrefs(prefs);
+    }
+    local.set(HOLD_MOVED_KEY, '1');
+  }
   // Pictures without a saved picture code would lock the parent out: fall back to the PIN.
   return prefs.exitLock === 'pictures' && !loadPictureCode() ? { ...prefs, exitLock: 'pin' } : prefs;
 }

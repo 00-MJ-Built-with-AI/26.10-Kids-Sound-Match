@@ -8,7 +8,7 @@ import { loadLockPrefs } from '../../lock/lockPrefs';
 import { ParentGate } from '../../lock/ParentGate';
 import { PictureGate } from '../../lock/PicturePad';
 import { PlayIcon } from './icons';
-import { onQuestionDone, REST_GRACE_MS, useSitting } from './sitting';
+import { onQuestionDone, pinNeeded, REST_GRACE_MS, useSitting } from './sitting';
 
 /** Screens with no question in progress: a rest that is due starts straight away. */
 const BETWEEN_QUESTIONS = new Set(['idle', 'paused', 'explore']);
@@ -43,7 +43,7 @@ export function KidFrame({
   // The play-time timer: once the time is up, the next pause between questions (or the end
   // screen) becomes the rest screen. It pauses the game like the gate does, and only the gate
   // (hold, then the PIN or the pictures) leads out of it.
-  const { restAt, restClips } = useSitting();
+  const { restAt, restClips, startedAt } = useSitting();
   const [resting, setResting] = useState(false);
   const restingRef = useRef(false);
   const restDueRef = useRef(false);
@@ -115,6 +115,13 @@ export function KidFrame({
           label={t('parentExit')}
           holdMs={prefs.holdSec * 1000}
           onUnlock={() => {
+            // Just started from Home (and not resting): the parent is still there, no PIN.
+            if (!restingRef.current && !pinNeeded(startedAt)) {
+              onGateOpen();
+              void exitFullscreen();
+              onExit();
+              return;
+            }
             setGateOpen(true);
             onGateOpen();
           }}

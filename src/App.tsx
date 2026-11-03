@@ -650,7 +650,7 @@ function Shell({
           })
         : [];
       body = kid && (
-        <SittingContext.Provider value={{ restAt: restTime(sittingStart.current, settings.playMinutes), restClips }}>
+        <SittingContext.Provider value={{ restAt: restTime(sittingStart.current, settings.playMinutes), restClips, startedAt: sittingStart.current }}>
         <KidMode
           key={kid.run}
           pack={kid.pack}

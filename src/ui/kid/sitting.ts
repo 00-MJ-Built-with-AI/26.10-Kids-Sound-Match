@@ -12,9 +12,21 @@ export interface Sitting {
   restAt: number | null;
   /** "وقت الراحة" / "Time to rest", in the game's languages. */
   restClips: readonly Clip[];
+  /** When the parent started the game from Home (ms since 1970); null when unknown. */
+  startedAt?: number | null;
 }
 
-export const SittingContext = createContext<Sitting>({ restAt: null, restClips: [] });
+export const SittingContext = createContext<Sitting>({ restAt: null, restClips: [], startedAt: null });
+
+/**
+ * Within this long of starting a game from Home, holding the corner leaves without the PIN: the
+ * parent is still there (often trying a game out). Play-agains don't restart the clock.
+ */
+export const NO_PIN_AFTER_START_MS = 2 * 60_000;
+
+export function pinNeeded(startedAt: number | null | undefined, now: number = Date.now()): boolean {
+  return startedAt == null || now - startedAt >= NO_PIN_AFTER_START_MS;
+}
 
 export function useSitting(): Sitting {
   return useContext(SittingContext);

@@ -252,6 +252,8 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Come alive | A right answer moves for a moment inside the existing celebration: animals hop, vehicles drive off and come back, food is munched, weather floats up, instruments shake, toys and things bounce, people wave. Also on Talk time's ✓ |
 | Evening calm | Settings → Evening calm: off (default), or from 6, 7 or 8 pm until 6 in the morning. The games turn dark blue with soft stars, the cards beige and dimmer, the celebrations slower and softer |
 | Movement and less motion | All the new movement stops when the phone asks for less motion |
+| Hold to leave: 1 second | The corner circle now needs 1 second by default instead of 3. Phones still on 3 seconds moved to 1 once; choosing another time in Settings → Leaving a game is kept |
+| No PIN just after starting | For 2 minutes after a game is started from Home, holding the corner goes straight back to Home without the PIN or the pictures (the parent is still there, often trying a game out). Play again and the end screen's picker don't restart the 2 minutes, and the rest screen always asks |
 
 ## Fixes applied by default
 

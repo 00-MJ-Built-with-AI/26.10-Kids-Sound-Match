@@ -11,8 +11,9 @@
 - This is the **test version**: the phone reads the names aloud until the real voice recordings are added.
 - **It won't open?** Some internet connections block every `*.vercel.app` address (the page never loads).
   Try mobile data instead of Wi-Fi, or give the project a domain of your own in Vercel → Settings → Domains.
-- **Leaving a game:** hold the small circle in the top corner (3 seconds, or 1, 2, 5, 7 or 10 chosen in
-  Settings → Leaving a game), then enter your PIN or your 4 pictures. That is the only lock: on the home
+- **Leaving a game:** hold the small circle in the top corner (1 second, or 2, 3, 5, 7 or 10 chosen in
+  Settings → Leaving a game), then enter your PIN or your 4 pictures. In the first 2 minutes after you
+  start a game from Home, no PIN is asked (handy for trying games out). That is the only lock: on the home
   screen, Settings, the Report and My packs open straight away.
 - **Arabic voice silent or beeping?** The phone needs an Arabic voice of its own. Settings → **Voices on
   this phone** shows which voice reads each language, lets you choose and test it, and says how to add
@@ -56,7 +57,7 @@ npm run dev
   Over plain Wi-Fi http, the phone won't keep the screen awake or work offline; everything else works.
 
 The first run asks you to set a 4-digit parent PIN. To leave Kid Mode, press and hold the small circle
-in the top corner for 3 seconds (1, 2, 5, 7 or 10 in Settings → Leaving a game), then enter the PIN, or
+in the top corner for 1 second (2, 3, 5, 7 or 10 in Settings → Leaving a game), then enter the PIN, or
 your 4 pictures if you chose the picture lock there. The home screen itself has no lock.
 
 ## Scripts

@@ -74,8 +74,8 @@ describe('picture lock', () => {
 
   it('holds the corner 3, 5, 7 or 10 seconds, and repairs whatever was stored', async () => {
     const { sanitizeLockPrefs } = await import('./lockPrefs');
-    expect(sanitizeLockPrefs(null)).toEqual({ holdSec: 3, exitLock: 'pin' });
+    expect(sanitizeLockPrefs(null)).toEqual({ holdSec: 1, exitLock: 'pin' });
     expect(sanitizeLockPrefs({ holdSec: 7, exitLock: 'pictures' })).toEqual({ holdSec: 7, exitLock: 'pictures' });
-    expect(sanitizeLockPrefs({ holdSec: 4, exitLock: 'emoji' })).toEqual({ holdSec: 3, exitLock: 'pin' });
+    expect(sanitizeLockPrefs({ holdSec: 4, exitLock: 'emoji' })).toEqual({ holdSec: 1, exitLock: 'pin' });
   });
 });

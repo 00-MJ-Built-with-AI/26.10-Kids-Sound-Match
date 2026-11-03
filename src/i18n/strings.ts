@@ -20,7 +20,7 @@ export const en = {
   firstRunLockTip:
     "For a real lock, turn on your phone's own feature: App pinning on Android, or Guided Access on iPhone and iPad.",
   firstRunLockExit:
-    'To leave the game, press and hold the small circle in the top corner for 3 seconds (you can change this in Settings), then enter your PIN.',
+    'To leave the game, press and hold the small circle in the top corner for 1 second (you can change this in Settings), then enter your PIN.',
   firstRunPrivacyTitle: 'Our privacy promise',
   privacyNoAds: 'No ads.',
   privacyNoAccount: 'No account needed.',
@@ -130,7 +130,7 @@ export const en = {
   aboutSounds: 'Pictures: Microsoft Fluent Emoji (MIT licence), and drawings made for this app. Sounds: Pixabay.',
 
   replaySound: 'Play the sound again',
-  parentExit: 'Parents: press and hold for 3 seconds',
+  parentExit: 'Parents: press and hold the circle',
   resumeGame: 'Continue the game',
 
   contentErrorTitle: 'Content problems found',
@@ -482,7 +482,7 @@ export const ar: Record<StringKey, string> = {
   firstRunLockBody:
     'أثناء اللعب تملأ اللعبة الشاشة وتُبقيها مضاءة وتتجاهل زر الرجوع. لكن صفحة الويب لا تستطيع قفل الهاتف بالكامل، فقد يتمكن الطفل من الخروج بالسحب.',
   firstRunLockTip: 'لقفل حقيقي، فعّل ميزة هاتفك نفسه: «تثبيت التطبيق» على أندرويد، أو «الوصول الموجّه» على آيفون وآيباد.',
-  firstRunLockExit: 'للخروج من اللعبة، اضغط مطوّلاً على الدائرة الصغيرة في أعلى الشاشة لمدة 3 ثوانٍ (يمكنك تغيير ذلك من الإعدادات)، ثم أدخل الرمز السري.',
+  firstRunLockExit: 'للخروج من اللعبة، اضغط مطوّلاً على الدائرة الصغيرة في أعلى الشاشة لمدة ثانية واحدة (يمكنك تغيير ذلك من الإعدادات)، ثم أدخل الرمز السري.',
   firstRunPrivacyTitle: 'وعدنا بالخصوصية',
   privacyNoAds: 'لا إعلانات.',
   privacyNoAccount: 'لا حاجة إلى حساب.',
@@ -589,7 +589,7 @@ export const ar: Record<StringKey, string> = {
   aboutSounds: 'الصور: Microsoft Fluent Emoji (رخصة MIT)، ورسومات صُنعت لهذا التطبيق. الأصوات: Pixabay.',
 
   replaySound: 'أعد تشغيل الصوت',
-  parentExit: 'للأهل: اضغط مطوّلاً لمدة 3 ثوانٍ',
+  parentExit: 'للأهل: اضغط مطوّلاً على الدائرة',
   resumeGame: 'تابع اللعبة',
 
   contentErrorTitle: 'توجد مشكلات في المحتوى',

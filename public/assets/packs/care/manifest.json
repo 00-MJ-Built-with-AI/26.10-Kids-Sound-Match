@@ -1,0 +1,171 @@
+{
+  "pack_id": "care",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.6,
+  "name": {
+    "en": "Look after the baby",
+    "ar": "اهتمّي بالبيبي"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "items": [
+    {
+      "item_key": "baby_food",
+      "name": {
+        "en": "Food",
+        "ar": "أكل"
+      },
+      "image": "care/food.svg",
+      "sound": "feelings/hungry_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_food_name_en.mp3",
+        "ar": "care/baby_food_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is hungry!",
+          "audio": "care/baby_food_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي جوعان!",
+          "audio": "care/baby_food_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي جوعان!",
+          "audio": "care/baby_food_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_milk",
+      "name": {
+        "en": "Milk",
+        "ar": "حليب"
+      },
+      "image": "care/milk.svg",
+      "sound": "feelings/thirsty_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_milk_name_en.mp3",
+        "ar": "care/baby_milk_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is thirsty!",
+          "audio": "care/baby_milk_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي عطشان!",
+          "audio": "care/baby_milk_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي عطشان!",
+          "audio": "care/baby_milk_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_bath",
+      "name": {
+        "en": "Bath",
+        "ar": "حمّام"
+      },
+      "image": "care/bath.svg",
+      "name_audio": {
+        "en": "care/baby_bath_name_en.mp3",
+        "ar": "care/baby_bath_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is dirty!",
+          "audio": "care/baby_bath_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي وسخان!",
+          "audio": "care/baby_bath_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي وسخان!",
+          "audio": "care/baby_bath_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_bed",
+      "name": {
+        "en": "Bed",
+        "ar": "تخت"
+      },
+      "image": "care/bed.svg",
+      "sound": "feelings/sleepy_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_bed_name_en.mp3",
+        "ar": "care/baby_bed_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is sleepy!",
+          "audio": "care/baby_bed_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي نعسان!",
+          "audio": "care/baby_bed_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي نعسان!",
+          "audio": "care/baby_bed_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_hug",
+      "name": {
+        "en": "Hug",
+        "ar": "عبطة"
+      },
+      "image": "care/hug.svg",
+      "sound": "feelings/sad_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_hug_name_en.mp3",
+        "ar": "care/baby_hug_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is sad!",
+          "audio": "care/baby_hug_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي زعلان!",
+          "audio": "care/baby_hug_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي زعلان!",
+          "audio": "care/baby_hug_need_ar.mp3"
+        }
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

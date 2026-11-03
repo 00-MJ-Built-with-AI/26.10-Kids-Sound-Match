@@ -1,5 +1,6 @@
 import { feedbackAssetPath, itemAssetPath, placeholderPathFor } from './paths';
 import {
+  FEEDBACK_LINE_IDS,
   LANGS,
   POINT_VOICES,
   type ContentIssue,
@@ -142,6 +143,13 @@ export async function loadContent(opts: LoadOptions): Promise<LoadedContent> {
       ...(fb?.odd_question ? { oddQuestion: perLang((lang) => feedbackAsset(fb.odd_question?.[lang])) } : {}),
       ...(fb?.peekaboo ? { peekaboo: perLang((lang) => feedbackAsset(fb.peekaboo?.[lang])) } : {}),
       ...(fb?.rest ? { rest: perLang((lang) => feedbackAsset(fb.rest?.[lang])) } : {}),
+      ...(fb?.lines
+        ? {
+            lines: Object.fromEntries(
+              FEEDBACK_LINE_IDS.filter((id) => fb.lines?.[id]).map((id) => [id, perLang((lang) => feedbackAsset(fb.lines?.[id]?.[lang]))]),
+            ),
+          }
+        : {}),
     };
 
     const assoc = manifest.association;

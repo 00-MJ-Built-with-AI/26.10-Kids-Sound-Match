@@ -219,6 +219,7 @@ for (const packId of packIds) {
       ...Object.values(fb.odd_question ?? {}),
       ...Object.values(fb.peekaboo ?? {}),
       ...Object.values(fb.rest ?? {}),
+      ...Object.values(fb.lines ?? {}).flatMap((line) => Object.values(line)),
     ];
     for (const p of feedbackPaths) count += write(p, wav(feedbackTone(p)));
   }

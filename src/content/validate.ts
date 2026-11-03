@@ -1,6 +1,6 @@
 import { ConfusionGraph, pickNonConfusable } from '../engine';
 import { feedbackAssetPath, itemAssetPath } from './paths';
-import { LANGS, POINT_VOICES, type ContentIssue, type ManifestItem, type PackManifest } from './types';
+import { FEEDBACK_LINE_IDS, LANGS, POINT_VOICES, type ContentIssue, type ManifestItem, type PackManifest } from './types';
 
 export const MIN_ITEMS_PER_PACK = 5;
 const MAX_CHOICES = 4;
@@ -127,6 +127,7 @@ export function validatePack(manifest: PackManifest, exists: (assetPath: string)
       ...LANGS.map((lang) => fb.odd_question?.[lang]),
       ...LANGS.map((lang) => fb.peekaboo?.[lang]),
       ...LANGS.map((lang) => fb.rest?.[lang]),
+      ...FEEDBACK_LINE_IDS.flatMap((id) => LANGS.map((lang) => fb.lines?.[id]?.[lang])),
     ];
     for (const p of feedbackPaths) {
       if (typeof p === 'string' && p && !exists(feedbackAssetPath(p))) warn(`Feedback audio not found: ${feedbackAssetPath(p)}`);

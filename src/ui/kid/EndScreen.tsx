@@ -3,7 +3,7 @@ import type { LoadedPack } from '../../content/types';
 import { useI18n } from '../../i18n/I18n';
 import { activeGroup, groupPlayable, pickPatch } from '../../settings/quickPick';
 import type { Settings } from '../../settings/settings';
-import { ActionsIcon, ExploreIcon, MemoryIcon, OddIcon, PeekabooIcon, PlayIcon, PointIcon, SceneIcon } from './icons';
+import { ActionsIcon, BookIcon, CareIcon, ExploreIcon, MemoryIcon, OddIcon, PeekabooIcon, PlayIcon, PointIcon, SceneIcon, TalkIcon, TurnsIcon } from './icons';
 import type { KidKind } from './kidSnapshot';
 import { choosePictures } from './layout';
 import { AlbumIcon } from './Stickers';
@@ -22,7 +22,7 @@ export interface PickerOptions {
 }
 
 /** Games that play the chosen pack; the others bring their own pictures. */
-const USES_PACK: readonly KidKind[] = ['game', 'peekaboo', 'explore', 'memory'];
+const USES_PACK: readonly KidKind[] = ['game', 'turns', 'talk', 'book', 'peekaboo', 'explore', 'memory'];
 
 /** Four squares: "choose". */
 function PickIcon() {
@@ -79,7 +79,7 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
   const [game, setGame] = useState<KidKind>(available.includes(kind) ? kind : available[0]);
   const usesPack = USES_PACK.includes(game);
   // Explore, Peekaboo and Memory show the pictures themselves; "Who eats what?" is a question game.
-  const packChoices = useMemo(() => packs.filter((p) => game === 'game' || p.kind !== 'association'), [packs, game]);
+  const packChoices = useMemo(() => packs.filter((p) => game === 'game' || game === 'turns' || p.kind !== 'association'), [packs, game]);
   const [packId, setPackId] = useState(settings.packId);
   const pack = packChoices.find((p) => p.id === packId) ?? packChoices[0];
   // null: the group wasn't touched, so the pictures chosen in Settings stay as they are.
@@ -97,6 +97,10 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
     { id: 'scene', label: t('sceneGame'), icon: <SceneIcon /> },
     { id: 'point', label: t('pointGame'), icon: <PointIcon /> },
     { id: 'actions', label: t('actionsGame'), icon: <ActionsIcon /> },
+    { id: 'talk', label: t('talkGame'), icon: <TalkIcon /> },
+    { id: 'care', label: t('careGame'), icon: <CareIcon /> },
+    { id: 'turns', label: t('turnsGame'), icon: <TurnsIcon /> },
+    { id: 'book', label: t('bookGame'), icon: <BookIcon /> },
     { id: 'memory', label: t('memoryGame'), icon: <MemoryIcon /> },
     { id: 'odd', label: t('oddOneOut'), icon: <OddIcon /> },
   ];

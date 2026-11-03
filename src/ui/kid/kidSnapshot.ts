@@ -4,8 +4,12 @@ import { FIRST_PROFILE_ID } from '../../settings/profiles';
 import type { GameLanguage, GameMode } from '../../settings/settings';
 import { session as tabStorage } from '../../settings/storage';
 
-/** The matching game, Explore, Memory, Odd one out, Peekaboo, Find it in the picture, Where's your nose? or Do it with me. */
-export type KidKind = 'game' | 'explore' | 'memory' | 'odd' | 'peekaboo' | 'scene' | 'point' | 'actions';
+/**
+ * The matching game, Explore, Memory, Odd one out, Peekaboo, Find it in the picture, Where's your
+ * nose?, Do it with me, Talk time, her picture book, Look after the baby, or the matching game
+ * taking turns with a grown-up.
+ */
+export type KidKind = 'game' | 'explore' | 'memory' | 'odd' | 'peekaboo' | 'scene' | 'point' | 'actions' | 'talk' | 'book' | 'care' | 'turns';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {
@@ -35,6 +39,8 @@ export interface KidConfig {
   arGender?: ArGender;
   /** Names on the pictures (English top left, Arabic bottom right). Missing in older snapshots: off. */
   cardNames?: boolean;
+  /** Taking turns: the child's animal and colour, shown on her turns. */
+  avatar?: { animal: string; color: string };
 }
 
 /**

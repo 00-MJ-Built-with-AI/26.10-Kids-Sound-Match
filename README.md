@@ -34,7 +34,12 @@ colour) with their own settings and Report, and the Report can be shared as a pi
 
 Games: the matching game, Peekaboo, Explore, Find it in the picture, Where's your nose?, **Do it with
 me** (the app says "سقّفي!" or "Clap your hands!" and shows it; the parent ticks when the child does it),
-Memory and Odd one out. Settings → **Play time** ends a sitting after 5 to 30 minutes with a calm "time
+Memory and Odd one out. Made for playing together with the youngest: **Talk time** (a picture and
+"شو هاد؟"; you tick when she says it, and it goes into Words I know), **Her picture book** (a goodnight book
+of the words she knows), **Look after the baby** (feed it, bath it, put it to bed, hug it), **My turn,
+your turn** (the matching game, taking turns with a grown-up) and **Our day** (routine cards: now, and
+what comes next). Right answers come alive for a moment, and Settings → **Evening calm** makes the games
+dark and soft from 6, 7 or 8 pm. Settings → **Play time** ends a sitting after 5 to 30 minutes with a calm "time
 to rest" screen that only the lock closes. With both languages, Settings → **Which first** chooses
 Arabic or English first.
 

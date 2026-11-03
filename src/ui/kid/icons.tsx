@@ -109,3 +109,53 @@ export function PointIcon() {
     </svg>
   );
 }
+
+const ICON = { fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
+
+export function TalkIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V16.5H4A1.5 1.5 0 0 1 2.5 15V7A1.5 1.5 0 0 1 4 5.5z" {...ICON} />
+      <circle cx="8" cy="11" r="1.2" fill="currentColor" />
+      <circle cx="12" cy="11" r="1.2" fill="currentColor" />
+      <circle cx="16" cy="11" r="1.2" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function BookIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 6.5C9.5 4.8 6 4.5 3 5.5v13c3-1 6.5-.7 9 1 2.5-1.7 6-2 9-1v-13c-3-1-6.5-.7-9 1zM12 6.5v13" {...ICON} />
+      <path d="M17.5 2.5a2.6 2.6 0 1 0 2.5 3.2 2 2 0 1 1-2.5-3.2z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function CareIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="8" y="8" width="8" height="13" rx="3" {...ICON} />
+      <path d="M9 8V6.5h6V8M10.5 6.5c0-2 .6-3.5 1.5-3.5s1.5 1.5 1.5 3.5M10 12.5h2.5M10 15.5h2.5" {...ICON} />
+    </svg>
+  );
+}
+
+export function TurnsIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 10a7 7 0 0 1 12.5-3.5M19 14a7 7 0 0 1-12.5 3.5" {...ICON} />
+      <path d="M18 3v4h-4M6 21v-4h4" {...ICON} />
+    </svg>
+  );
+}
+
+export function DayIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="9" cy="9" r="3.5" {...ICON} />
+      <path d="M9 2v1.5M9 14.5V16M2 9h1.5M14.5 9H16M4 4l1 1M13 13l1 1M14 4l-1 1M5 13l-1 1" {...ICON} />
+      <path d="M20.5 15.5a4.5 4.5 0 1 1-5-5 3.5 3.5 0 0 0 5 5z" fill="currentColor" />
+    </svg>
+  );
+}

@@ -3865,3 +3865,637 @@ html.kid-locked body {
     animation: none;
   }
 }
+
+/* A right answer comes alive for a moment (see aliveMotion): it plays inside the celebration. */
+.option.celebrate.alive-hop img { animation: alive-hop 1s ease-out; }
+.option.celebrate.alive-drive img { animation: alive-drive 1.1s ease-in-out; }
+.option.celebrate.alive-munch img { animation: alive-munch 1s ease-in-out; }
+.option.celebrate.alive-float img { animation: alive-float 1.1s ease-in-out; }
+.option.celebrate.alive-shake img { animation: alive-shake 1s ease-in-out; }
+.option.celebrate.alive-bounce img { animation: alive-bounce 1s ease-out; }
+.option.celebrate.alive-wave img { animation: alive-wave 1s ease-in-out; transform-origin: 50% 90%; }
+.option.celebrate.alive-spin img { animation: alive-spin 1s ease-in-out; }
+
+@keyframes alive-hop {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  15% { transform: translateY(0) scale(1.08, 0.9); }
+  35% { transform: translateY(-14%) scale(0.95, 1.06); }
+  55% { transform: translateY(0) scale(1.06, 0.94); }
+  70% { transform: translateY(-6%) scale(1); }
+}
+@keyframes alive-drive {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  40% { transform: translateX(60%); opacity: 0; }
+  41% { transform: translateX(-60%); opacity: 0; }
+  80% { transform: translateX(0); opacity: 1; }
+}
+@keyframes alive-munch {
+  0%, 100% { transform: scale(1); }
+  20% { transform: scale(0.88, 1.06); }
+  40% { transform: scale(1.06, 0.92); }
+  60% { transform: scale(0.9, 1.05); }
+  80% { transform: scale(1.04, 0.96); }
+}
+@keyframes alive-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-12%) rotate(-6deg); }
+}
+@keyframes alive-shake {
+  0%, 100% { transform: rotate(0); }
+  15%, 45%, 75% { transform: rotate(-9deg); }
+  30%, 60%, 90% { transform: rotate(9deg); }
+}
+@keyframes alive-bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-12%); }
+  55% { transform: translateY(0); }
+  75% { transform: translateY(-5%); }
+}
+@keyframes alive-wave {
+  0%, 100% { transform: rotate(0); }
+  25%, 75% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg); }
+}
+@keyframes alive-spin {
+  0% { transform: rotate(0) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* My turn, your turn: whose turn it is, top centre. Pops in at each question. */
+.turn-badge {
+  position: absolute;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  z-index: 3;
+  width: 74px;
+  height: 74px;
+  margin-left: -37px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 44px;
+  line-height: 1;
+  box-shadow: 0 0 0 5px #fff, 0 6px 18px rgba(0, 0, 0, 0.18);
+  animation: turn-pop 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+  pointer-events: none;
+}
+.turn-badge.grown {
+  background: #8e9aaf;
+}
+@keyframes turn-pop {
+  0% { transform: scale(0.2); }
+  100% { transform: scale(1); }
+}
+.game-tile:nth-child(8) { --tile: #d0563b; --tile-soft: #fbe4dd; }
+.game-tile:nth-child(9) { --tile: #4b5bc4; --tile-soft: #e3e6fa; }
+.game-tile:nth-child(10) { --tile: #138a9c; --tile-soft: #d9f1f4; }
+.game-tile:nth-child(11) { --tile: #b0477f; --tile-soft: #f8e1ee; }
+.game-tile:nth-child(12) { --tile: #5a8a1e; --tile-soft: #e7f2d6; }
+
+/* ---------- Her picture book: a night sky, one big page, big arrows to turn ---------- */
+.kid.stage-book {
+  background: radial-gradient(circle at 50% 30%, #3a467e 0%, #232c58 65%, #18203f 100%);
+}
+.kid.stage-book::before {
+  display: none;
+}
+.book {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 8px 96px 40px;
+}
+.book-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.book-moon {
+  position: absolute;
+  top: 4%;
+  right: 7%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  box-shadow: -14px 8px 0 0 #ffe08a;
+}
+.book-star {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff6c8;
+  box-shadow: 0 0 10px 3px rgba(255, 246, 200, 0.6);
+  animation: book-twinkle 2.4s ease-in-out infinite;
+}
+@keyframes book-twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.book-page {
+  position: relative;
+  width: min(100%, 64vh, 520px);
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 30px;
+  background: #fffaf0;
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.12), 0 24px 48px rgba(0, 0, 0, 0.35), inset -14px 0 0 rgba(0, 0, 0, 0.04);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  animation: book-in-next 0.5s ease-out;
+}
+.book-page.back {
+  animation-name: book-in-back;
+}
+@keyframes book-in-next {
+  from { transform: translateX(18%) rotateY(-20deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes book-in-back {
+  from { transform: translateX(-18%) rotateY(20deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.book-picture {
+  position: relative;
+  width: 82%;
+  height: 82%;
+  display: grid;
+  place-items: center;
+}
+.book-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14%;
+}
+.book-cover {
+  width: 64%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f4a261;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 14px #fff, 0 0 0 20px #ffe08a;
+}
+.book-cover-face {
+  font-family: var(--emoji);
+  font-size: min(26vh, 200px);
+  line-height: 1;
+}
+.book-end {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+}
+.book-end-moon {
+  width: min(30vh, 220px);
+  height: min(30vh, 220px);
+  border-radius: 50%;
+  box-shadow: -36px 18px 0 0 #f2c94c;
+  transform: translateX(18px);
+}
+.book-zzz {
+  font: 900 min(7vh, 52px) / 1 var(--font);
+  color: #7a86c8;
+  letter-spacing: 0.2em;
+  animation: book-twinkle 2.4s ease-in-out infinite;
+}
+.book-turn {
+  position: absolute;
+  top: 50%;
+  width: 84px;
+  height: 84px;
+  margin-top: -42px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffe08a;
+  color: #2b2a33;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+.book-turn svg {
+  width: 44px;
+  height: 44px;
+}
+.book-turn.back {
+  width: 64px;
+  height: 64px;
+  margin-top: -32px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.book-turn.right {
+  right: max(12px, env(safe-area-inset-right));
+}
+.book-turn.left {
+  left: max(12px, env(safe-area-inset-left));
+}
+.book-turn:active {
+  transform: scale(0.94);
+}
+.book-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.book-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+.book-dots span.on {
+  background: #ffe08a;
+}
+@media (max-width: 560px) {
+  .book {
+    padding: 8px 12px 120px;
+  }
+  .book-turn {
+    top: auto;
+    bottom: 36px;
+    margin-top: 0;
+  }
+}
+
+/* ---------- Look after the baby ---------- */
+.kid.stage-care {
+  background: radial-gradient(circle at 50% 30%, #fffdf8 0%, #fdeef2 60%, #f9dbe5 100%);
+}
+.care {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px 16px;
+}
+.care-baby {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  display: grid;
+  place-items: center;
+}
+.baby-svg {
+  height: 100%;
+  max-height: 60vh;
+  width: auto;
+  max-width: 92vw;
+  overflow: visible;
+}
+.care-tools {
+  flex: none;
+  display: flex;
+  gap: min(2.4vw, 14px);
+  justify-content: center;
+}
+.care-tool {
+  width: min(17vw, 15vh, 120px);
+  aspect-ratio: 1;
+  border: 0;
+  padding: 0;
+  border-radius: 22%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 3px rgba(240, 90, 140, 0.25), 0 8px 18px rgba(150, 60, 90, 0.18);
+}
+.care-tool img {
+  width: 92%;
+  height: 92%;
+  pointer-events: none;
+}
+.care-tool:active {
+  transform: scale(0.94);
+}
+.care-tool.used {
+  box-shadow: 0 0 0 6px #ffd54a, 0 0 30px 8px rgba(255, 213, 74, 0.6);
+}
+.care-tool.wobble.w0 {
+  animation: care-wobble-a 0.5s ease-in-out;
+}
+.care-tool.wobble.w1 {
+  animation: care-wobble-b 0.5s ease-in-out;
+}
+@keyframes care-wobble-a {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+@keyframes care-wobble-b {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+@media (orientation: landscape) {
+  .care {
+    flex-direction: row;
+  }
+  .care-tools {
+    flex-direction: column;
+  }
+  .care-tool {
+    width: min(15vh, 17vw, 120px);
+  }
+}
+.baby-svg .baby-head {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+}
+.baby-svg.no .baby-head {
+  animation: baby-no 0.8s ease-in-out;
+}
+@keyframes baby-no {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-8deg); }
+  40%, 80% { transform: rotate(8deg); }
+}
+.baby-rumble {
+  animation: rumble 0.35s ease-in-out infinite alternate;
+}
+@keyframes rumble {
+  from { transform: translateX(-3px); }
+  to { transform: translateX(3px); }
+}
+.baby-tears path {
+  animation: baby-tear 1.6s ease-in infinite;
+}
+.baby-tears path + path {
+  animation-delay: 0.8s;
+}
+@keyframes baby-tear {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.baby-zzz,
+.give-z {
+  animation: baby-z 2.4s ease-out infinite;
+}
+.give-z.b {
+  animation-delay: 1.2s;
+}
+@keyframes baby-z {
+  0% { transform: translate(0, 10px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(16px, -30px); opacity: 0; }
+}
+.baby-stink {
+  animation: baby-stink 1.6s ease-in-out infinite alternate;
+}
+@keyframes baby-stink {
+  from { transform: translateY(4px); opacity: 0.5; }
+  to { transform: translateY(-6px); opacity: 1; }
+}
+.baby-sweat {
+  animation: baby-tear 2s ease-in infinite;
+}
+.baby-svg .baby-mud {
+  transition: opacity 1.8s ease;
+}
+.baby-svg.doing-bath .baby-mud {
+  opacity: 0;
+}
+.give-spoon {
+  animation: give-spoon 1.3s ease-in-out infinite;
+}
+@keyframes give-spoon {
+  0%, 100% { transform: translate(60px, 50px); }
+  50% { transform: translate(0, 0); }
+}
+.give-bottle {
+  animation: give-bottle 0.8s ease-in-out infinite alternate;
+}
+@keyframes give-bottle {
+  from { translate: 0 0; }
+  to { translate: -4px -4px; }
+}
+.give-bubbles circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: give-bubble 0.7s ease-out both;
+}
+@keyframes give-bubble {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+.give-blanket {
+  animation: give-blanket 0.9s ease-out both;
+}
+@keyframes give-blanket {
+  from { transform: translateY(120px); }
+  to { transform: translateY(0); }
+}
+.give-hearts path {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: give-heart 1.3s ease-out infinite;
+}
+.give-hearts .b {
+  animation-delay: 0.4s;
+}
+.give-hearts .c {
+  animation-delay: 0.8s;
+}
+@keyframes give-heart {
+  0% { transform: translateY(10px) scale(0.6); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-40px) scale(1.15); opacity: 0; }
+}
+
+/* ---------- Our day ---------- */
+.routine {
+  display: grid;
+  gap: 14px;
+}
+.routine-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: end;
+}
+.routine-card {
+  position: relative;
+  border: 0;
+  border-radius: 26px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 12px;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  color: var(--ink);
+  font: inherit;
+}
+.routine-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+.routine-card strong {
+  font-size: 1.25rem;
+}
+.routine-card.now {
+  box-shadow: 0 0 0 4px var(--accent), var(--shadow);
+  animation: routine-in 0.5s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.routine-card.next {
+  opacity: 0.85;
+}
+.routine-card.next strong {
+  font-size: 1rem;
+}
+.routine-label {
+  justify-self: start;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.routine-card.next .routine-label {
+  color: var(--muted);
+}
+@keyframes routine-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.routine-strip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 2px;
+}
+.routine-strip img {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--surface);
+}
+.routine-strip img.past {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+.routine-strip img.current {
+  box-shadow: 0 0 0 3px var(--accent);
+}
+.routine-done {
+  font-size: 1.3rem;
+}
+.routine-finished {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px 0;
+}
+.routine-moon {
+  font-family: var(--emoji);
+  font-size: 84px;
+  line-height: 1;
+}
+.routine-finished p {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+.routine-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.routine-list.out {
+  opacity: 0.75;
+  margin-top: 8px;
+}
+.routine-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.routine-pick {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 6px 10px;
+  font: inherit;
+  color: var(--ink);
+  text-align: start;
+}
+.routine-pick.on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.routine-pick img {
+  width: 48px;
+  height: 48px;
+  flex: none;
+}
+
+/* ---------- Evening calm: soft, dark and slow from the chosen hour until morning ---------- */
+html[data-calm] .kid,
+html[data-calm] .kid.stage-care {
+  background: radial-gradient(circle at 50% 30%, #3b3f63 0%, #2a2d4c 60%, #1e2038 100%);
+}
+html[data-calm] .kid::before {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 246, 200, 0.18) 0 3px, transparent 4px),
+    radial-gradient(circle at 80% 12%, rgba(255, 246, 200, 0.22) 0 4px, transparent 5px),
+    radial-gradient(circle at 66% 30%, rgba(255, 246, 200, 0.14) 0 3px, transparent 4px),
+    radial-gradient(circle at 24% 70%, rgba(255, 246, 200, 0.16) 0 4px, transparent 5px),
+    radial-gradient(circle at 88% 80%, rgba(255, 246, 200, 0.18) 0 3px, transparent 4px);
+}
+html[data-calm] .kid .option,
+html[data-calm] .care-tool {
+  background: #f1ece4;
+  box-shadow: 0 0 0 3px rgba(255, 224, 138, 0.25), 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+html[data-calm] .kid .option img,
+html[data-calm] .care-tool img,
+html[data-calm] .baby-svg {
+  filter: brightness(0.9) saturate(0.85);
+}
+html[data-calm] .kid .option.celebrate {
+  box-shadow: 0 0 0 6px #f2c94c, 0 0 30px 6px rgba(242, 201, 76, 0.35);
+  animation-duration: 1.6s;
+}
+html[data-calm] .kid .option.celebrate img {
+  animation-duration: 1.6s;
+  animation-timing-function: ease-in-out;
+}
+html[data-calm] .kid .burst {
+  opacity: 0.55;
+}
+html[data-calm] .kid .burst * {
+  animation-duration: 2.2s !important;
+}
+html[data-calm] .kid .turn-badge {
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.6), 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+html[data-calm] .point-found,
+html[data-calm] .point-skip {
+  filter: brightness(0.9);
+}

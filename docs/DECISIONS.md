@@ -235,6 +235,24 @@ Chosen from 10 sketched options: 1 (the part lit up), 2 (the whole child acts th
 | Shape | A rounded square tile instead of the circle the other drawn packs use, so the whole child and the scene fit |
 | Drawing script | `tools/art/draw-feelings-body.mjs` draws all 37; `draw-more.mjs` now draws only the actions |
 
+## Added on 3 November 2026: games to play together, and more life in the pictures
+
+For playing with a 20-month-old: five new things on Home, and three visual changes.
+
+| Change | Decision |
+|---|---|
+| Talk time | Built on Where's your nose?: one big picture from the chosen pack, its sound, then "شو هاد؟" / "What's this?", asked up to 3 times with 6-second gaps so she has time. When she says it (or tries), the parent taps ✓: the name is said back, the word is marked "Says it" in Words I know (a mark is never taken away by the game), and it counts as understood like a right answer. Skip still says the name, so she always hears the word. Saved in the Report as "Talk time · N said" |
+| Her picture book | A goodnight book from the words she understands or says, newest first (at most 10), topped up from the chosen pack when she knows fewer than 6. Cover (her animal on her colour), one page per word ("ليلة سعيدة" + the word, in each spoken language), then "ليلة سعيدة! نوم الهنا". Big arrows to turn the pages, the next page on the left in Arabic; tapping the picture reads the page again. Nothing is scored |
+| Look after the baby | Pretend play. The baby (drawn in the app so it can react) is hungry (its tummy rumbles), thirsty, dirty (mud and stink lines), sleepy (yawns) or sad (tears), with "البيبي جوعان!" and the Feelings sound. She taps the bowl, the bottle, the bath, the bed or the teddy (a hug): the baby is fed, bathed in bubbles, tucked in or hugged, then laughs. A wrong one is named ("حليب") while the baby shakes its head, then it asks again. Every need once, in a new order. New pack `care` (own game): its pictures are drawn like Do it with me |
+| My turn, your turn | The matching game with turns: her animal pops up for her turn ("دورك!"), a grown-up for yours ("دوري!", best recorded in your own voice in Your voice and photos). Only her answers go into the Report, practice and stickers |
+| Our day | Routine cards for the parent to show her: a big "Now" card, a smaller "Next" one and a strip of the day. "Done!" praises, then says "حمّام… وبعدين قصة". "Change the day" adds, removes and reorders the 12 cards (wake up, eat, brush teeth, get dressed, shoes, go out, park, play, wash hands, bath, story, sleep). Per child, on this phone; a new day starts at the first card. New pack `routine` (own game); eat, brush teeth, wash hands and sleep reuse the Do it with me pictures |
+| New lines | 6 shared lines in the Animals manifest (`feedback_audio.lines`): شو هاد؟، ليلة سعيدة، ليلة سعيدة! نوم الهنا، وبعدين، دورك!، دوري! (and English). The phone reads them until recorded; the Recording studio and Your voice and photos list them. The baby's 5 needs and the 12 routine names are new words to record too |
+| Do it with me redrawn | The 25 actions are now the girl from Body parts, and each moves: the hands clap, she jumps, the arm waves, the legs dance and stamp, the spoon goes to her mouth, the ball rolls away, Zzz float up, hearts float from a kiss. Drawn by `tools/art/draw-play.mjs` (with the baby's things and the routine cards); the child kit is now shared in `tools/art/child-lib.mjs` |
+| Family and Jobs move | Every person sways gently on the spot. Their original drawing script was lost, so `tools/art/add-motion.mjs` adds the movement to the existing pictures (safe to run again) |
+| Come alive | A right answer moves for a moment inside the existing celebration: animals hop, vehicles drive off and come back, food is munched, weather floats up, instruments shake, toys and things bounce, people wave. Also on Talk time's ✓ |
+| Evening calm | Settings → Evening calm: off (default), or from 6, 7 or 8 pm until 6 in the morning. The games turn dark blue with soft stars, the cards beige and dimmer, the celebrations slower and softer |
+| Movement and less motion | All the new movement stops when the phone asks for less motion |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

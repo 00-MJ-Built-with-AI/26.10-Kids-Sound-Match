@@ -41,6 +41,8 @@ export interface Settings {
   cardNames: boolean;
   /** Play-time timer: minutes per sitting, then a "time to rest" screen. 0 = off. */
   playMinutes: PlayMinutes;
+  /** Evening calm: from this hour (18, 19 or 20) until morning, soft dark colours and slower movement. 0 = off. */
+  eveningCalm: EveningCalm;
 }
 
 export const CHOICE_COUNTS = [2, 3, 4, 5, 6, 7, 8, 10] as const;
@@ -50,6 +52,17 @@ export const MODES = ['SOUND_AND_NAME', 'SOUND_ONLY', 'NAME_ONLY'] as const;
 export const GAME_LANGUAGES = ['ar', 'en', 'both', 'both_en'] as const;
 export const PLAY_MINUTES = [0, 5, 10, 15, 20, 30] as const;
 export type PlayMinutes = (typeof PLAY_MINUTES)[number];
+export const EVENING_CALM = [0, 18, 19, 20] as const;
+export type EveningCalm = (typeof EVENING_CALM)[number];
+/** Evening calm ends at this hour in the morning. */
+const CALM_UNTIL = 6;
+
+/** Whether the evening calm look is on at this moment. */
+export function calmNow(from: EveningCalm, now: Date = new Date()): boolean {
+  if (!from) return false;
+  const h = now.getHours();
+  return h >= from || h < CALM_UNTIL;
+}
 const UI_LANGUAGES = ['system', 'ar', 'en'] as const;
 
 const STORAGE_KEY = 'ksm.settings.v1';
@@ -99,6 +112,7 @@ export function defaultSettings(device: Lang): Settings {
     memoryPairs: 3,
     cardNames: true,
     playMinutes: 0,
+    eveningCalm: 0,
   };
 }
 
@@ -137,6 +151,7 @@ export function sanitizeSettings(raw: unknown, device: Lang): Settings {
     memoryPairs: pick(r.memoryPairs, MEMORY_PAIRS, d.memoryPairs),
     cardNames: bool(r.cardNames, d.cardNames),
     playMinutes: pick(r.playMinutes, PLAY_MINUTES, d.playMinutes),
+    eveningCalm: pick(r.eveningCalm, EVENING_CALM, d.eveningCalm),
   };
 }
 

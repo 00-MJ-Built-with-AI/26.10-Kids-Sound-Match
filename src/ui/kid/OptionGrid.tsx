@@ -12,10 +12,48 @@ interface Props {
   hint: { key: string; pulse: number } | null;
   /** The names to show on each picture; none when the names are switched off. */
   names?: Readonly<Record<string, LocalizedText>>;
+  /** How the right answer comes alive (see aliveMotion). */
+  aliveFor?: (key: string) => string;
   onTap: (key: string) => void;
 }
 
-export function OptionGrid({ options, pictures, faded, celebratedKey, hint, names, onTap }: Props) {
+/**
+ * The little moment a right answer comes alive, by the pack its picture comes from: animals hop,
+ * vehicles drive off and come back, food is munched, weather floats up, instruments shake, toys
+ * bounce, people wave. Stopped when the phone asks for less motion.
+ */
+export function aliveMotion(packId: string): string {
+  switch (packId) {
+    case 'animals':
+    case 'animal-babies':
+    case 'where-lives':
+      return 'alive-hop';
+    case 'vehicles':
+      return 'alive-drive';
+    case 'food':
+    case 'who-eats-what':
+      return 'alive-munch';
+    case 'weather':
+      return 'alive-float';
+    case 'instruments':
+      return 'alive-shake';
+    case 'toys':
+    case 'first-words':
+    case 'home':
+    case 'clothes':
+      return 'alive-bounce';
+    case 'family':
+    case 'jobs':
+    case 'body':
+    case 'feelings':
+    case 'actions':
+      return 'alive-wave';
+    default:
+      return 'alive-spin';
+  }
+}
+
+export function OptionGrid({ options, pictures, faded, celebratedKey, hint, names, aliveFor, onTap }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const box = useBoxSize(ref);
   const rows = layoutRows(options.length, box.w > box.h ? 'landscape' : 'portrait');
@@ -29,7 +67,7 @@ export function OptionGrid({ options, pictures, faded, celebratedKey, hint, name
             {row.map((i) => {
               const key = options[i];
               let state = '';
-              if (celebratedKey === key) state = ' celebrate';
+              if (celebratedKey === key) state = ` celebrate ${aliveFor?.(key) ?? ''}`;
               else if (faded.includes(key)) state = ' faded';
               else if (celebratedKey) state = ' resting';
               else if (hint?.key === key) state = hint.pulse % 2 ? ' hint-a' : ' hint-b';

@@ -46,6 +46,10 @@ export function applyOverrides(
     sessionEnd: { ar: swap(fb.sessionEnd.ar), en: swap(fb.sessionEnd.en) },
     ...(fb.oddQuestion ? { oddQuestion: { ar: swap(fb.oddQuestion.ar), en: swap(fb.oddQuestion.en) } } : {}),
     ...(fb.peekaboo ? { peekaboo: { ar: swap(fb.peekaboo.ar), en: swap(fb.peekaboo.en) } } : {}),
+    ...(fb.rest ? { rest: { ar: swap(fb.rest.ar), en: swap(fb.rest.en) } } : {}),
+    ...(fb.lines
+      ? { lines: Object.fromEntries(Object.entries(fb.lines).map(([id, l]) => [id, { ar: swap(l.ar), en: swap(l.en) }])) }
+      : {}),
   });
   const association = (a: LoadedAssociation): LoadedAssociation => ({
     ...a,

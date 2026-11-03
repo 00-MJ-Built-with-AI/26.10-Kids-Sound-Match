@@ -63,7 +63,16 @@ export interface ManifestFeedback {
   peekaboo?: Record<Lang, string>;
   /** The play-time timer: "وقت الراحة" / "Time to rest", when a sitting ends. */
   rest?: Record<Lang, string>;
+  /**
+   * Other shared lines, by id (see FEEDBACK_LINE_IDS): "What's this?" for Talk time, "Goodnight" for
+   * the picture book, "And then" for Our day, "Your turn!" for taking turns.
+   */
+  lines?: Record<string, Partial<Record<Lang, string>>>;
 }
+
+/** The shared lines a manifest's `feedback_audio.lines` may hold. */
+export const FEEDBACK_LINE_IDS = ['talk', 'goodnight', 'sleep_tight', 'then', 'your_turn', 'my_turn'] as const;
+export type FeedbackLineId = (typeof FEEDBACK_LINE_IDS)[number];
 
 /**
  * "match": hear a sound or name, tap its picture. "association": see and hear something from the
@@ -165,6 +174,8 @@ export interface LoadedFeedback {
   readonly peekaboo?: Readonly<Record<Lang, ResolvedAsset | null>>;
   /** The play-time timer: "Time to rest". Missing in packs without it. */
   readonly rest?: Readonly<Record<Lang, ResolvedAsset | null>>;
+  /** Other shared lines, by id (see ManifestFeedback.lines). */
+  readonly lines?: Readonly<Partial<Record<FeedbackLineId, Readonly<Record<Lang, ResolvedAsset | null>>>>>;
 }
 
 export interface LoadedAssociation {

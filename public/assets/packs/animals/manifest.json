@@ -1054,6 +1054,32 @@
     "rest": {
       "en": "feedback/rest_en.mp3",
       "ar": "feedback/rest_ar.mp3"
+    },
+    "lines": {
+      "talk": {
+        "en": "feedback/talk_question_en.mp3",
+        "ar": "feedback/talk_question_ar.mp3"
+      },
+      "goodnight": {
+        "en": "feedback/goodnight_en.mp3",
+        "ar": "feedback/goodnight_ar.mp3"
+      },
+      "sleep_tight": {
+        "en": "feedback/sleep_tight_en.mp3",
+        "ar": "feedback/sleep_tight_ar.mp3"
+      },
+      "then": {
+        "en": "feedback/then_en.mp3",
+        "ar": "feedback/then_ar.mp3"
+      },
+      "your_turn": {
+        "en": "feedback/your_turn_en.mp3",
+        "ar": "feedback/your_turn_ar.mp3"
+      },
+      "my_turn": {
+        "en": "feedback/my_turn_en.mp3",
+        "ar": "feedback/my_turn_ar.mp3"
+      }
     }
   }
 }

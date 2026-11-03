@@ -517,6 +517,23 @@ function buildGameLines(packs: readonly LoadedPack[], t: ReturnType<typeof useI1
         lines: (['ar', 'en'] as const).flatMap((lang) => line(rest[lang], lang, lang === 'ar' ? t('langArabic') : t('langEnglish'))),
       });
     }
+    // Talk time, the picture book, Our day and taking turns.
+    const shared = feedback.lines ?? {};
+    for (const [id, title] of [
+      ['talk', t('talkGame')],
+      ['goodnight', t('bookGame')],
+      ['sleep_tight', t('bookGame')],
+      ['then', t('routineTitle')],
+      ['your_turn', t('turnsGame')],
+      ['my_turn', t('turnsGame')],
+    ] as const) {
+      const l = shared[id];
+      if (!l) continue;
+      sections.push({
+        title: `${title}: «${FEEDBACK_SPEECH[l.ar?.path ?? ''] ?? ''}»`,
+        lines: (['ar', 'en'] as const).flatMap((lang) => line(l[lang], lang, lang === 'ar' ? t('langArabic') : t('langEnglish'))),
+      });
+    }
     sections.push({
       title: t('linesEnd'),
       lines: (['ar', 'en'] as const).flatMap((lang) =>

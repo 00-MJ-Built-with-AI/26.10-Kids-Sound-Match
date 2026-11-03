@@ -1,5 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    .alive { animation: alive 3.2s ease-in-out infinite; transform-origin: 0 0; }
+    @keyframes alive { 0%,100% { transform: rotate(-1.6deg) translateY(0) } 50% { transform: rotate(1.6deg) translateY(-6px) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
   <circle cx="256" cy="256" r="240" fill="#FFE3EF"/>
+  <g transform="translate(256 480)"><g class="alive"><g transform="translate(-256 -480)">
   <g transform="translate(256 269) scale(1.078) translate(-256 -272)">
   <path d="M234 354 L232 450" fill="none" stroke="#4A2C12" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M234 354 L232 450" fill="none" stroke="#2E2E3A" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,4 +59,5 @@
   <circle cx="100" cy="170" r="9" fill="#3DAA5C" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="3"/>
   <path d="M108 170 L108 136 Q122 144 126 156" fill="none" stroke="#4A2C12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
+</g></g></g>
 </svg>

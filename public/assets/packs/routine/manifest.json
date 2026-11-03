@@ -1,0 +1,181 @@
+{
+  "pack_id": "routine",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.7,
+  "name": {
+    "en": "Our day",
+    "ar": "نهارنا"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "items": [
+    {
+      "item_key": "day_wake_up",
+      "name": {
+        "en": "Wake up",
+        "ar": "صباح الخير"
+      },
+      "image": "routine/wake_up.svg",
+      "name_audio": {
+        "en": "routine/day_wake_up_name_en.mp3",
+        "ar": "routine/day_wake_up_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_eat",
+      "name": {
+        "en": "Eat",
+        "ar": "أكل"
+      },
+      "image": "actions/eat.svg",
+      "name_audio": {
+        "en": "routine/day_eat_name_en.mp3",
+        "ar": "routine/day_eat_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_brush_teeth",
+      "name": {
+        "en": "Brush teeth",
+        "ar": "فرشاية السنان"
+      },
+      "image": "actions/brush_teeth.svg",
+      "name_audio": {
+        "en": "routine/day_brush_teeth_name_en.mp3",
+        "ar": "routine/day_brush_teeth_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_get_dressed",
+      "name": {
+        "en": "Get dressed",
+        "ar": "لبس"
+      },
+      "image": "routine/get_dressed.svg",
+      "name_audio": {
+        "en": "routine/day_get_dressed_name_en.mp3",
+        "ar": "routine/day_get_dressed_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_shoes",
+      "name": {
+        "en": "Shoes on",
+        "ar": "الحذاء"
+      },
+      "image": "routine/shoes.svg",
+      "name_audio": {
+        "en": "routine/day_shoes_name_en.mp3",
+        "ar": "routine/day_shoes_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_go_out",
+      "name": {
+        "en": "Go out",
+        "ar": "طلعة"
+      },
+      "image": "routine/go_out.svg",
+      "name_audio": {
+        "en": "routine/day_go_out_name_en.mp3",
+        "ar": "routine/day_go_out_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_park",
+      "name": {
+        "en": "Park",
+        "ar": "حديقة"
+      },
+      "image": "routine/park.svg",
+      "name_audio": {
+        "en": "routine/day_park_name_en.mp3",
+        "ar": "routine/day_park_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_play",
+      "name": {
+        "en": "Play",
+        "ar": "لعب"
+      },
+      "image": "routine/play.svg",
+      "name_audio": {
+        "en": "routine/day_play_name_en.mp3",
+        "ar": "routine/day_play_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_wash_hands",
+      "name": {
+        "en": "Wash hands",
+        "ar": "غسل الإيدين"
+      },
+      "image": "actions/wash_hands.svg",
+      "name_audio": {
+        "en": "routine/day_wash_hands_name_en.mp3",
+        "ar": "routine/day_wash_hands_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_bath",
+      "name": {
+        "en": "Bath",
+        "ar": "حمّام"
+      },
+      "image": "routine/bath.svg",
+      "name_audio": {
+        "en": "routine/day_bath_name_en.mp3",
+        "ar": "routine/day_bath_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_story",
+      "name": {
+        "en": "Story",
+        "ar": "قصة"
+      },
+      "image": "routine/story.svg",
+      "name_audio": {
+        "en": "routine/day_story_name_en.mp3",
+        "ar": "routine/day_story_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "day_sleep",
+      "name": {
+        "en": "Sleep",
+        "ar": "نوم"
+      },
+      "image": "actions/sleep.svg",
+      "name_audio": {
+        "en": "routine/day_sleep_name_en.mp3",
+        "ar": "routine/day_sleep_name_ar.mp3"
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

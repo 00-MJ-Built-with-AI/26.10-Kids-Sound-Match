@@ -1,25 +1,30 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { audioEngine } from '../../audio/audioEngine';
-import { ClipResolver } from '../../audio/clips';
+import { ClipResolver, findLine } from '../../audio/clips';
 import { GameAudio } from '../../audio/gameAudio';
+import { sourcePacks } from '../../content/mixed';
 import { sceneQuestionOrder } from '../../content/scenes';
 import type { ArGender, Lang, LoadedItem, LoadedPack } from '../../content/types';
 import { useI18n } from '../../i18n/I18n';
 import { reportStore } from '../../report/db';
+import { wordId } from '../../report/words';
 import { countReplay, replaysLeft } from '../../settings/replays';
 import { spokenLanguages } from '../../settings/settings';
+import { loadWordMarks, saveWordMarks } from '../../settings/words';
 import { CardNames } from './CardNames';
 import { KidFrame, PausedScreen } from './KidFrame';
 import { clearKidSnapshot, saveKidSnapshot, type KidConfig, type KidSnapshot } from './kidSnapshot';
 import { questionDone } from './sitting';
 import { choosePictures, useBoxSize } from './layout';
-import { Burst } from './OptionGrid';
+import { aliveMotion, Burst } from './OptionGrid';
 import { IdleScene, SessionEndScene } from './scenes';
 import { EndScreen, type PickerOptions } from './EndScreen';
 import { awardSticker, StickerAlbum, stickerPicture, StickerReveal } from './Stickers';
 
 /** Found it: a second of confetti, no words, then the next one. */
 const CELEBRATION_MS = 1000;
+/** Talk time: the most we wait for the name to be said back before moving on. */
+const NAME_MAX_MS = 2600;
 const SESSION_END_MS = 1800;
 const SESSION_END_MAX_MS = 4000;
 /** A body part can't be marked found the moment it appears (an excited double tap). */
@@ -43,6 +48,10 @@ export function pointItems(pack: LoadedPack | undefined, languages: readonly Lan
  *
  * Do it with me is the same game with actions: the app shows clapping and says "سقّفي!"; she
  * claps, the parent ticks.
+ *
+ * Talk time is the same game for saying words: the app shows a cat and asks "شو هاد؟", then waits.
+ * When she says it (or tries), the parent ticks: the name is said back, the word is marked as said
+ * in Words I know, and it counts as understood. Skipping says the name too, so she always hears it.
  */
 export function KidPoint({
   pack,
@@ -62,15 +71,20 @@ export function KidPoint({
   const { t } = useI18n();
   const gender: ArGender = config.arGender ?? 'f';
   const actions = config.kind === 'actions';
+  const talk = config.kind === 'talk';
+  // Mixed game: which pack each picture came from (for Words I know).
+  const sources = useMemo(() => sourcePacks(pack), [pack]);
+  const talkLine = useMemo(() => findLine(packs, 'talk'), [packs]);
   /** On an action's picture, what to do ("Clap your hands!", "سقّفي!") rather than its name. */
   const cardName = (item: LoadedItem) => {
-    if (!actions) return item.name;
+    if (!actions || talk) return item.name;
     const en = item.point?.en?.text ?? item.name.en;
     const ar = item.point?.[gender === 'm' ? 'ar_m' : 'ar_f']?.text ?? item.name.ar;
     return { en, ar };
   };
   const items = useMemo(() => {
     const allowed = new Set(config.itemKeys);
+    if (talk) return pack.items.filter((i) => allowed.has(i.key));
     return pointItems(pack, spokenLanguages(config.language), gender).filter((i) => allowed.has(i.key));
   }, [pack, config, gender]);
   const pictures = useMemo(() => choosePictures(items), [items]);
@@ -119,7 +133,9 @@ export function KidPoint({
   const persist = (s: 'playing' | 'idle') => saveKidSnapshot({ v: 1, config, startedAt: startedAt.current, stage: s, session: null });
   const ask = () => {
     const it = item();
-    if (it && canPlay()) void audio.pointAsk(it, gender);
+    if (!it || !canPlay()) return;
+    if (talk) void audio.talkAsk(it, audio.resolver.line(talkLine));
+    else void audio.pointAsk(it, gender);
   };
 
   const present = () => {
@@ -147,9 +163,9 @@ export function KidPoint({
           mode: config.mode,
           completed: true,
           profileId: config.profileId,
-          game: actions ? 'actions' : 'point',
+          game: talk ? 'talk' : actions ? 'actions' : 'point',
         },
-        foundKeys.current.map((key) => ({ itemKey: key, packId: pack.id, firstTryCorrect: true, attempts: 1, choiceCount: 1 })),
+        foundKeys.current.map((key) => ({ itemKey: key, packId: sources.get(key) ?? pack.id, firstTryCorrect: true, attempts: 1, choiceCount: 1 })),
       );
     } catch (e) {
       console.warn('[report] could not save the game', e);
@@ -200,12 +216,27 @@ export function KidPoint({
     busy.current = true;
     setFound(true);
     foundKeys.current.push(it.key);
+    if (talk) {
+      // She said it: mark it in Words I know (a mark stays; only the parent takes one away).
+      const id = wordId(sources.get(it.key) ?? pack.id, it.key);
+      const marks = loadWordMarks(config.profileId);
+      if (marks.says[id] === undefined) saveWordMarks(config.profileId, { ...marks, says: { ...marks.says, [id]: Date.now() } });
+      void Promise.all([sleep(CELEBRATION_MS), Promise.race([audio.say(audio.resolver.names(it)), sleep(NAME_MAX_MS)])]).then(next);
+      return;
+    }
     audio.stop();
     void sleep(CELEBRATION_MS).then(next);
   };
 
   const onSkip = () => {
     if (stageRef.current !== 'playing' || gateRef.current || busy.current) return;
+    const it = item();
+    if (talk && it) {
+      // Not this time: she still hears the word before the next picture.
+      busy.current = true;
+      void Promise.race([audio.say(audio.resolver.names(it)), sleep(NAME_MAX_MS)]).then(next);
+      return;
+    }
     audio.stop();
     next();
   };
@@ -280,7 +311,7 @@ export function KidPoint({
               <button
                 type="button"
                 key={index}
-                className={`option point-card${config.cardNames ? ' named' : ''}${found ? ' celebrate' : ''}`}
+                className={`option point-card${config.cardNames ? ' named' : ''}${found ? ` celebrate ${aliveMotion(sources.get(key) ?? pack.id)}` : ''}`}
                 style={{ width: size, height: size }}
                 tabIndex={-1}
                 aria-hidden="true"

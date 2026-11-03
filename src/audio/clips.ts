@@ -1,4 +1,4 @@
-import type { ArGender, Lang, LoadedItem, LoadedPack, ResolvedAsset } from '../content/types';
+import type { ArGender, FeedbackLineId, Lang, LoadedItem, LoadedPack, ResolvedAsset } from '../content/types';
 import { speechSupported } from './speech';
 
 export type ClipCategory = 'sound' | 'name' | 'feedback';
@@ -44,7 +44,31 @@ export const FEEDBACK_SPEECH: Record<string, string> = {
   'feedback/peekaboo_en.mp3': 'Peekaboo!',
   'feedback/rest_ar.mp3': 'وقت الراحة',
   'feedback/rest_en.mp3': 'Time to rest',
+  // Talk time: the picture, then this, then a quiet wait for the child to say the word.
+  'feedback/talk_question_ar.mp3': 'شو هاد؟',
+  'feedback/talk_question_en.mp3': "What's this?",
+  // The picture book: "ليلة سعيدة يا قطة" on each page, and a last line.
+  'feedback/goodnight_ar.mp3': 'ليلة سعيدة',
+  'feedback/goodnight_en.mp3': 'Goodnight',
+  'feedback/sleep_tight_ar.mp3': 'ليلة سعيدة! نوم الهنا',
+  'feedback/sleep_tight_en.mp3': 'Goodnight! Sleep tight',
+  // Our day: "وبعدين… حمّام".
+  'feedback/then_ar.mp3': 'وبعدين',
+  'feedback/then_en.mp3': 'And then',
+  // Taking turns in the matching game.
+  'feedback/your_turn_ar.mp3': 'دورك!',
+  'feedback/your_turn_en.mp3': 'Your turn!',
+  'feedback/my_turn_ar.mp3': 'دوري!',
+  'feedback/my_turn_en.mp3': 'My turn!',
 };
+
+/** A shared line in both languages (see FeedbackLineId). */
+export type SharedLine = Readonly<Record<Lang, ResolvedAsset | null>>;
+
+/** A shared line ("What's this?", "Goodnight"...) from whichever pack holds it (the Animals pack). */
+export function findLine(packs: readonly LoadedPack[], id: FeedbackLineId): SharedLine | undefined {
+  return packs.find((p) => p.feedback.lines?.[id])?.feedback.lines?.[id];
+}
 
 /** Peekaboo's "بَخ!" lines, which live with the shared game lines (the Animals pack). */
 export type PeekabooLines = Readonly<Record<Lang, ResolvedAsset | null>>;
@@ -120,6 +144,25 @@ export class ClipResolver {
       const line = lang === 'en' ? lines.en : lines[gender === 'm' ? 'ar_m' : 'ar_f'];
       return line ? [this.voiced(line.audio, line.text, lang, 'feedback', `point:${item.key}:${lang}`)] : [];
     });
+  }
+
+  /** A shared line in each spoken language, or only in `only`. */
+  line(line: SharedLine | undefined, only?: Lang): Clip[] {
+    if (!line) return [];
+    return (only ? [only] : this.languages).flatMap((lang) => {
+      const asset = line[lang];
+      return asset ? [this.voiced(asset, FEEDBACK_SPEECH[asset.path], lang, 'feedback', `line:${asset.path}`)] : [];
+    });
+  }
+
+  /** The name in one language. */
+  nameIn(item: LoadedItem, lang: Lang): Clip {
+    return this.voiced(item.nameAudio[lang], item.name[lang], lang, 'name', `name:${item.key}:${lang}`);
+  }
+
+  /** The spoken languages, in order. */
+  get spoken(): readonly Lang[] {
+    return this.languages;
   }
 
   /** Association games: a happy "yum" after a right answer. */

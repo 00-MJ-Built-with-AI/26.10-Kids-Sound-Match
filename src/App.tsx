@@ -3,7 +3,7 @@ import { audioEngine } from './audio/audioEngine';
 import { FEEDBACK_SPEECH, voicedClip } from './audio/clips';
 import { placeholderPictureUsable } from './content/emojiSupport';
 import { loadContent } from './content/loader';
-import { buildMixedPack } from './content/mixed';
+import { buildMixedPack, sourcePacks } from './content/mixed';
 import type { ChoiceCount, MemoryPairs } from './engine';
 import { buildOddPack } from './content/odd';
 import { MIN_SCENE_THINGS, SCENES, sceneCandidates, sceneCapacity, type SceneDef } from './content/scenes';
@@ -17,9 +17,11 @@ import type { AssetOverride, CustomItem, CustomPack } from './custom/types';
 import { I18nProvider, useI18n } from './i18n/I18n';
 import { enterFullscreen } from './lock/fullscreen';
 import { loadPinRecord } from './lock/pin';
+import { bookWords } from './report/book';
 import { reportStore } from './report/db';
 import { memoryReady, oddLevel, type MemoryNext, type OddLevel } from './report/levels';
 import { practiceWeights, readyForMore, type NextLevel } from './report/practice';
+import { knownWords, wordEvidence, wordId } from './report/words';
 import {
   forProfile,
   loadProfiles,
@@ -31,8 +33,9 @@ import {
 } from './settings/profiles';
 import { countReplay, forgetReplays } from './settings/replays';
 import { forgetStickers } from './settings/stickers';
-import { forgetWordMarks } from './settings/words';
+import { forgetWordMarks, loadWordMarks } from './settings/words';
 import {
+  calmNow,
   effectiveMode,
   enabledItemKeys,
   forgetSettings,
@@ -55,6 +58,7 @@ import { AboutScreen, ContentProblems, PrivacyScreen } from './ui/parent/InfoScr
 import { MyPacks } from './ui/parent/MyPacks';
 import { Personalize } from './ui/parent/Personalize';
 import { ReportScreen } from './ui/parent/ReportScreen';
+import { RoutineScreen } from './ui/parent/RoutineScreen';
 import { SettingsScreen } from './ui/parent/SettingsScreen';
 import { StartFlow, type StartStep } from './ui/parent/StartFlow';
 import { Overlay } from './ui/parent/components';
@@ -75,6 +79,7 @@ type Screen =
   | 'studio'
   | 'flashcards'
   | 'words'
+  | 'routine'
   | 'start'
   | 'kid';
 
@@ -137,6 +142,16 @@ export function App() {
   const activeRef = useRef(profiles.activeId);
   const [settings, setSettings] = useState<Settings>(() => loadSettings(profiles.activeId));
   const lang = uiLanguage(settings);
+  // Evening calm: soft dark colours from the chosen hour until morning (checked every minute).
+  useEffect(() => {
+    const apply = () => document.documentElement.toggleAttribute('data-calm', calmNow(settings.eveningCalm));
+    apply();
+    const timer = window.setInterval(apply, 60_000);
+    return () => {
+      window.clearInterval(timer);
+      document.documentElement.removeAttribute('data-calm');
+    };
+  }, [settings.eveningCalm]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -243,6 +258,10 @@ function Shell({
   const bodyPack = allPacks.find((p) => p.id === 'body');
   const canPoint = pointItems(bodyPack, languages, profile?.arGender ?? 'f').length >= MIN_POINT_ITEMS;
   const actionsPack = allPacks.find((p) => p.id === 'actions');
+  const carePack = allPacks.find((p) => p.id === 'care');
+  const routinePack = allPacks.find((p) => p.id === 'routine');
+  // Look after the baby needs every one of its needs (food, milk, bath, bed, hug).
+  const canCare = pointItems(carePack, languages, profile?.arGender ?? 'f').length >= 5;
   const canActions = pointItems(actionsPack, languages, profile?.arGender ?? 'f').length >= MIN_POINT_ITEMS;
   /** The play-time timer: when this sitting began (the first game played from Home), null at Home. */
   const sittingStart = useRef<number | null>(null);
@@ -371,6 +390,17 @@ function Shell({
     return scene;
   };
 
+  /** Words from the pack being played, shuffled: to top up her picture book while it's short. */
+  const fillWords = (p: LoadedPack, s: Settings): string[] => {
+    const sources = sourcePacks(p);
+    const keys = [...enabledItemKeys(p, s)];
+    for (let i = keys.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [keys[i], keys[j]] = [keys[j], keys[i]];
+    }
+    return keys.map((k) => wordId(sources.get(k) ?? p.id, k));
+  };
+
   /** Starts a game. `s` is the settings to use: the quick picker passes the ones it just saved. */
   const startKid = async (kind: KidKind, s: Settings = settings) => {
     const scene = kind === 'scene' ? pickScene() : undefined;
@@ -388,12 +418,15 @@ function Shell({
             ? bodyPack
             : kind === 'actions'
               ? actionsPack
-              : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
+              : kind === 'care'
+                ? carePack
+                : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
     if (!gamePack) return;
     // Toddler mode is for the matching game: the others have a right answer even for the youngest.
     const toddlerMode = s.toddlerMode && kind === 'game' && gamePack.kind !== 'association';
     let weights: Record<string, number> = {};
     let level: OddLevel = 'easy';
+    let bookIds: string[] = [];
     try {
       const sessions = forProfile(await reportStore.sessions(), profileId);
       // Adaptive practice: weights come from the Report on this device when the game starts.
@@ -402,7 +435,20 @@ function Shell({
         weights = practiceWeights(sessions, await reportStore.questions(), packIds);
       }
       if (kind === 'odd') level = oddLevel(sessions, await reportStore.questions());
+      if (kind === 'book') {
+        // Her picture book: the words she knows or says, newest first, topped up from this pack.
+        const ids = new Set(sessions.map((x) => x.id));
+        const questions = (await reportStore.questions()).filter((q) => ids.has(q.sessionId));
+        const wordPacks = allPacks.filter((p) => p.kind === 'match' && !p.parts && !p.ownGame);
+        const usable = (id: string) => {
+          const slash = id.indexOf('/');
+          return wordPacks.some((p) => p.id === id.slice(0, slash) && p.items.some((i) => i.key === id.slice(slash + 1)));
+        };
+        const known = knownWords(wordEvidence(sessions, questions, (packId) => wordPacks.some((p) => p.id === packId)));
+        bookIds = bookWords(known, loadWordMarks(profileId).says, fillWords(gamePack, s), usable);
+      }
     } catch {
+      if (kind === 'book') bookIds = fillWords(gamePack, s);
       // No history available: every animal equally often, and an easy Odd one out.
     }
     // The first game from Home starts the sitting; play-agains and the end screen's picker continue it.
@@ -419,9 +465,11 @@ function Shell({
             ? gamePack.items.map((i) => i.key)
             : kind === 'scene' && scene
               ? sceneKeys(scene, s)
-              : kind === 'point' || kind === 'actions'
+              : kind === 'point' || kind === 'actions' || kind === 'care'
                 ? pointItems(gamePack, spoken, arGender).map((i) => i.key)
-                : enabledItemKeys(gamePack, s),
+                : kind === 'book'
+                  ? bookIds
+                  : enabledItemKeys(gamePack, s),
         // Odd one out shows 3 or 4: two or three alike and the different one.
         choiceCount: kind === 'odd' ? (Math.min(4, Math.max(3, s.choiceCount)) as ChoiceCount) : s.choiceCount,
         questionsPerSession: s.questionsPerSession,
@@ -430,9 +478,11 @@ function Shell({
         toddlerMode,
         // Packs without sounds (Food, Colours...) are played by name whatever the setting says. A scene
         // mixes packs, so it keeps the setting (things without a sound are asked for by name).
-        mode: kind === 'scene' ? s.mode : effectiveMode(gamePack, s.mode),
+        // The baby's needs always come with their sound (a rumbling tummy, a yawn).
+        mode: kind === 'scene' ? s.mode : kind === 'care' ? 'SOUND_AND_NAME' : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
-        ...(kind === 'point' || kind === 'actions' ? { arGender } : {}),
+        ...(kind === 'point' || kind === 'actions' || kind === 'care' ? { arGender } : {}),
+        ...((kind === 'turns' || kind === 'book') && profile ? { avatar: { animal: profile.animal, color: profile.color } } : {}),
         language: s.language,
         repeatIntervalSec: s.repeatIntervalSec,
         hints: s.hints,
@@ -463,6 +513,10 @@ function Shell({
     ...(playableScenes.length ? (['scene'] as const) : []),
     ...(canPoint && genderKnown ? (['point'] as const) : []),
     ...(canActions && genderKnown ? (['actions'] as const) : []),
+    'talk',
+    ...(canCare ? (['care'] as const) : []),
+    'turns',
+    'book',
     'memory',
     ...(oddPack ? (['odd'] as const) : []),
   ];
@@ -559,6 +613,11 @@ function Shell({
     case 'flashcards':
       body = <Flashcards packs={playablePacks.filter((p) => !p.parts)} initialPackId={pack?.id} onBack={home} />;
       break;
+    case 'routine':
+      body = routinePack && profile && (
+        <RoutineScreen pack={routinePack} packs={allPacks} profileId={profile.id} language={settings.language} onBack={home} />
+      );
+      break;
     case 'words':
       body = <WordsScreen packs={allPacks} profiles={profiles.state} onBack={home} />;
       break;
@@ -634,6 +693,13 @@ function Shell({
           canPoint={canPoint}
           onActions={() => beginWithGender('actions')}
           canActions={canActions}
+          canCare={canCare}
+          canRoutine={(routinePack?.items.length ?? 0) > 0}
+          onTalk={() => begin('talk')}
+          onBook={() => begin('book')}
+          onCare={() => begin('care')}
+          onTurns={() => begin('turns')}
+          onRoutine={() => setScreen('routine')}
           memoryNudge={memoryNudge}
           onMemoryNudgeAccept={(to) => {
             update({ memoryPairs: to as MemoryPairs });

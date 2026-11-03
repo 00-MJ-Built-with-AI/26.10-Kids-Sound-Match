@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>.beat { animation: beat 1.1s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes beat { 0%,100% { transform: scale(1) } 15% { transform: scale(1.18) } 30% { transform: scale(1) } 45% { transform: scale(1.12) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs><clipPath id="tile"><rect x="4" y="4" width="392" height="392" rx="60"/></clipPath></defs>
+  <g transform="scale(1.28)"><g clip-path="url(#tile)"><rect x="4" y="4" width="392" height="392" rx="60" fill="#FDE9F0"/><circle cx="135.4" cy="135" r="26.599999999999998" fill="#C98E5A" stroke="#4A2C12" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="264.6" cy="135" r="26.599999999999998" fill="#C98E5A" stroke="#4A2C12" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="200" cy="180.6" r="64.6" fill="#C98E5A" stroke="#4A2C12" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="200" cy="279.4" rx="76" ry="68.39999999999999" fill="#C98E5A" stroke="#4A2C12" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="177.2" cy="169.2" r="7.6" fill="#4A2C12"/><circle cx="222.8" cy="169.2" r="7.6" fill="#4A2C12"/><ellipse cx="200" cy="195.8" rx="20.9" ry="15.2" fill="#E8C29A" stroke="#4A2C12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><g class="beat"><path d="M200 306.8 C169.2 287.2 177.6 262 200 277.4 C222.4 262 230.8 287.2 200 306.8 Z" fill="#E8304A" stroke="#4A2C12" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/></g></g></g>
+</svg>

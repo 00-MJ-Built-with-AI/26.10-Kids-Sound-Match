@@ -5,7 +5,20 @@ import type { MemoryNext } from '../../report/levels';
 import type { NextLevel } from '../../report/practice';
 import type { ProfileState } from '../../settings/profiles';
 import { effectiveMode, enabledItemKeys, type Settings } from '../../settings/settings';
-import { ActionsIcon, ExploreIcon, MemoryIcon, OddIcon, PeekabooIcon, PointIcon, SceneIcon } from '../kid/icons';
+import {
+  ActionsIcon,
+  BookIcon,
+  CareIcon,
+  DayIcon,
+  ExploreIcon,
+  MemoryIcon,
+  OddIcon,
+  PeekabooIcon,
+  PointIcon,
+  SceneIcon,
+  TalkIcon,
+  TurnsIcon,
+} from '../kid/icons';
 import { ChevronIcon } from './components';
 import { ProfileRow } from './ProfileRow';
 
@@ -34,6 +47,13 @@ export function Home({
   onScene,
   onPoint,
   onActions,
+  canCare,
+  canRoutine,
+  onTalk,
+  onBook,
+  onCare,
+  onTurns,
+  onRoutine,
   onOpen,
   onNudgeAccept,
   onNudgeDismiss,
@@ -65,6 +85,15 @@ export function Home({
   onScene: () => void;
   onPoint: () => void;
   onActions: () => void;
+  /** Look after the baby: its pack is ready. */
+  canCare: boolean;
+  /** Our day: its cards are ready. */
+  canRoutine: boolean;
+  onTalk: () => void;
+  onBook: () => void;
+  onCare: () => void;
+  onTurns: () => void;
+  onRoutine: () => void;
   onOpen: (link: HomeLink) => void;
   onNudgeAccept: (to: ChoiceCount) => void;
   onNudgeDismiss: (nudge: NextLevel) => void;
@@ -132,6 +161,16 @@ export function Home({
           <strong>{t('explore')}</strong>
           <small>{t('exploreSub')}</small>
         </button>
+        <button type="button" className="game-tile" onClick={onCare} disabled={!canCare}>
+          <CareIcon />
+          <strong>{t('careGame')}</strong>
+          <small>{t('careSub')}</small>
+        </button>
+        <button type="button" className="game-tile" onClick={onTalk} disabled={!canExplore}>
+          <TalkIcon />
+          <strong>{t('talkGame')}</strong>
+          <small>{t('talkSub')}</small>
+        </button>
         <button type="button" className="game-tile" onClick={onScene} disabled={!canScene}>
           <SceneIcon />
           <strong>{t('sceneGame')}</strong>
@@ -147,6 +186,16 @@ export function Home({
           <strong>{t('actionsGame')}</strong>
           <small>{t('actionsSub')}</small>
         </button>
+        <button type="button" className="game-tile" onClick={onBook} disabled={!canExplore}>
+          <BookIcon />
+          <strong>{t('bookGame')}</strong>
+          <small>{t('bookSub')}</small>
+        </button>
+        <button type="button" className="game-tile" onClick={onTurns} disabled={!canStart}>
+          <TurnsIcon />
+          <strong>{t('turnsGame')}</strong>
+          <small>{t('turnsSub')}</small>
+        </button>
         <button type="button" className="game-tile" onClick={onMemory} disabled={!canExplore}>
           <MemoryIcon />
           <strong>{t('memoryGame')}</strong>
@@ -156,6 +205,11 @@ export function Home({
           <OddIcon />
           <strong>{t('oddOneOut')}</strong>
           <small>{t('oddSub')}</small>
+        </button>
+        <button type="button" className="game-tile" onClick={onRoutine} disabled={!canRoutine}>
+          <DayIcon />
+          <strong>{t('routineTitle')}</strong>
+          <small>{t('routineSub')}</small>
         </button>
       </div>
       {!pack ? (

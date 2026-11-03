@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { audioEngine } from '../../audio/audioEngine';
-import { ClipResolver } from '../../audio/clips';
+import { ClipResolver, findLine, type Clip } from '../../audio/clips';
 import { GameAudio } from '../../audio/gameAudio';
 import { mixedGroups, sourcePacks } from '../../content/mixed';
 import type { AssociationCelebration, LoadedItem, LoadedPack } from '../../content/types';
@@ -18,7 +18,7 @@ import { KidFrame, PausedScreen } from './KidFrame';
 import { clearKidSnapshot, saveKidSnapshot, type KidConfig, type KidSnapshot } from './kidSnapshot';
 import { questionDone } from './sitting';
 import { choosePictures, useBoxSize } from './layout';
-import { OptionGrid } from './OptionGrid';
+import { aliveMotion, OptionGrid } from './OptionGrid';
 import { IdleScene, SessionEndScene } from './scenes';
 
 /** Taps are ignored briefly after a question appears, so a finger still tapping can't skip it. */
@@ -62,6 +62,11 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
   const { t } = useI18n();
   // Odd one out: "Which one is different?" instead of a sound or a name.
   const odd = config.kind === 'odd';
+  // My turn, your turn: the child and a grown-up take turns; only the child's answers are kept.
+  const turns = config.kind === 'turns';
+  const turnLines = useMemo(() => ({ child: findLine(packs, 'your_turn'), grownUp: findLine(packs, 'my_turn') }), [packs]);
+  const [childTurn, setChildTurn] = useState(true);
+  const turnIntro = useRef<Clip[]>([]);
   const items = useMemo(() => new Map(pack.items.map((i) => [i.key, i])), [pack]);
   // "Who eats what?": the animals the questions are about.
   const promptItems = useMemo(() => new Map(pack.items.flatMap((i) => i.prompts ?? []).map((p) => [p.key, p])), [pack]);
@@ -120,8 +125,17 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
   /** "Who eats what?": the animal a question is about. Undefined in the other games. */
   const aboutOf = (q: Question) => (q.promptKey !== undefined ? promptItems.get(q.promptKey) : undefined);
   const about = () => aboutOf(game().current.question);
-  /** The question, said again until it's answered. */
-  const ask = () => audio.prompt(target(), about(), odd);
+  /** The question, said again until it's answered (taking turns: whose turn it is, the first time). */
+  const ask = () => {
+    const intro = turnIntro.current;
+    turnIntro.current = [];
+    return audio.prompt(target(), about(), odd, intro);
+  };
+  /** Taking turns: the child answers the 1st, 3rd, 5th... question. */
+  const isChildTurn = () => game().result().questions.length % 2 === 0;
+  /** What goes into the Report: taking turns, only the child's own answers. */
+  const childOnly = (r: SessionResult): SessionResult =>
+    turns ? { ...r, questions: r.questions.filter((_, i) => i % 2 === 0) } : r;
   const asking = () => ['presenting', 'awaitingTap'].includes(game().current.phase);
   const canPlay = () =>
     alive.current && stageRef.current === 'playing' && !gateRef.current && document.visibilityState === 'visible';
@@ -180,6 +194,11 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
     setPromptPicture(a ? pics[a.key] : null);
     setPictures(pics);
     setQuestionNo((n) => n + 1);
+    if (turns) {
+      const mine = isChildTurn();
+      setChildTurn(mine);
+      turnIntro.current = audio.resolver.line(mine ? turnLines.child : turnLines.grownUp);
+    }
     const upcoming = game().upcoming;
     audio.preload([...shown(q.question), ...(upcoming ? shown(upcoming) : [])]);
     if (canPlay()) void ask();
@@ -190,7 +209,8 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
     }, INPUT_GUARD_MS);
   };
 
-  const saveToReport = async (result: SessionResult, completed: boolean) => {
+  const saveToReport = async (all: SessionResult, completed: boolean) => {
+    const result = childOnly(all);
     if (!result.questions.length) return;
     try {
       await reportStore.saveSession(
@@ -227,8 +247,8 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
 
   const finishSession = () => {
     clearHint();
-    const result = game().result();
-    void saveToReport(result, true);
+    const result = childOnly(game().result());
+    void saveToReport(game().result(), true);
     // The parent's own packs are personal: they never go into (even anonymous) statistics.
     // Mixed games can include them, so they're left out too.
     if (!isCustomPackId(pack.id) && !pack.parts) {
@@ -357,6 +377,7 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
       celebratedKey={view.celebratedKey}
       hint={hint}
       names={config.cardNames ? Object.fromEntries(view.question.options.map((k) => [k, item(k).name])) : undefined}
+      aliveFor={(k) => aliveMotion(sources.get(k) ?? pack.id)}
       onTap={onTap}
     />
   );
@@ -389,6 +410,16 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
       }}
       onExit={exit}
     >
+      {turns && stage === 'playing' && (
+        <div
+          key={`turn-${questionNo}`}
+          className={childTurn ? 'turn-badge child' : 'turn-badge grown'}
+          style={childTurn && config.avatar ? { background: config.avatar.color } : undefined}
+          aria-hidden="true"
+        >
+          <span>{childTurn ? (config.avatar?.animal ?? '🧒') : '🧑'}</span>
+        </div>
+      )}
       {grid && view.question.promptKey !== undefined && promptPicture ? (
         <AskAbout
           questionNo={questionNo}

@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    .alive { animation: alive 3.2s ease-in-out infinite; transform-origin: 0 0; }
+    @keyframes alive { 0%,100% { transform: rotate(-1.6deg) translateY(0) } 50% { transform: rotate(1.6deg) translateY(-6px) } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
   <defs><clipPath id="disc"><circle cx="256" cy="256" r="240"/></clipPath></defs>
   <circle cx="256" cy="256" r="240" fill="#1F2B4D"/>
+  <g transform="translate(256 480)"><g class="alive"><g transform="translate(-256 -480)">
   <g clip-path="url(#disc)">
   <circle cx="70" cy="120" r="6" fill="#fff"/>
   <circle cx="120" cy="70" r="4" fill="#fff"/>
@@ -58,4 +64,5 @@
   <circle cx="256" cy="150" r="89" fill="none" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="4"/>
   <path d="M196 104 Q214 84 240 78" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
   </g>
+</g></g></g>
 </svg>

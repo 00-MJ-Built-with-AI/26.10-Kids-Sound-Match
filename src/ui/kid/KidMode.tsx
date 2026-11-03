@@ -1,5 +1,7 @@
 import type { LoadedPack } from '../../content/types';
 import type { PickerOptions } from './EndScreen';
+import { KidBook } from './KidBook';
+import { KidCare } from './KidCare';
 import { KidExplore } from './KidExplore';
 import { KidGame } from './KidGame';
 import { KidMemory } from './KidMemory';
@@ -20,7 +22,10 @@ interface Props {
   onExit: () => void;
 }
 
-/** Kid Mode: the question game (also Odd one out), Explore, Memory, Peekaboo, a scene, Where's your nose? or Do it with me. */
+/**
+ * Kid Mode: the question game (also Odd one out, and taking turns), Explore, Memory, Peekaboo, a
+ * scene, Where's your nose?, Do it with me, Talk time, her picture book or Look after the baby.
+ */
 export function KidMode(props: Props) {
   const { pack, packs, config, snapshot, picker, onExit } = props;
   switch (config.kind) {
@@ -43,8 +48,13 @@ export function KidMode(props: Props) {
       );
     case 'scene':
       return <KidScene pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'book':
+      return <KidBook packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'care':
+      return <KidCare pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'point':
     case 'actions':
+    case 'talk':
       return <KidPoint pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     default:
       return <KidGame {...props} />;

@@ -15,6 +15,7 @@ import {
   effectiveMode,
   enabledItemKeys,
   isBoth,
+  EVENING_CALM,
   PLAY_MINUTES,
   QUESTIONS_PER_SESSION,
   REPEAT_INTERVALS,
@@ -194,6 +195,14 @@ export function SettingsScreen({
             value={settings.playMinutes}
             options={PLAY_MINUTES.map((n) => ({ value: n as number, label: n === 0 ? t('off') : t('minutesShort', { n }) }))}
             onChange={(playMinutes) => update({ playMinutes: playMinutes as Settings['playMinutes'] })}
+          />
+        </Row>
+        <Row label={t('calmTitle')} hint={t('calmHint')}>
+          <Segmented
+            label={t('calmTitle')}
+            value={settings.eveningCalm}
+            options={EVENING_CALM.map((h) => ({ value: h as number, label: h === 0 ? t('off') : t('calmFrom', { h: h > 12 ? h - 12 : h }) }))}
+            onChange={(eveningCalm) => update({ eveningCalm: eveningCalm as Settings['eveningCalm'] })}
           />
         </Row>
         <Row label={t('settingsRepeat')}>

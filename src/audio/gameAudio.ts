@@ -46,9 +46,11 @@ export class GameAudio {
    * ("Where's the cat?"). A pause, then again until stopped.
    * Association games (`about` = the animal): its sound, then "Cow! What does it eat?" in every mode.
    */
-  async prompt(target: LoadedItem, about?: LoadedItem, odd = false): Promise<void> {
+  async prompt(target: LoadedItem, about?: LoadedItem, odd = false, intro: readonly Clip[] = []): Promise<void> {
     const token = this.begin();
     const { mode } = this.options;
+    // Taking turns: "دورك!" once, before the question.
+    await this.playAll(intro, token);
     while (!token.cancelled) {
       if (odd) {
         // Odd one out: "Which one is different?"; the pictures say the rest.
@@ -117,6 +119,30 @@ export class GameAudio {
       if (i > 0) await this.wait(POINT_REPEAT_MS, token);
       await this.playAll(this.clips.pointQuestion(item, gender), token);
     }
+  }
+
+  /**
+   * Talk time: the picture's sound, then "شو هاد؟", asked a couple of times with long quiet gaps
+   * so the child has time to find the word.
+   */
+  async talkAsk(item: LoadedItem, question: readonly Clip[]): Promise<void> {
+    const token = this.begin();
+    for (let i = 0; i < POINT_ASKS && !token.cancelled; i++) {
+      if (i > 0) await this.wait(POINT_REPEAT_MS, token);
+      if (this.options.mode !== 'NAME_ONLY') await this.play(this.clips.sound(item), token);
+      await this.playAll(question, token);
+    }
+  }
+
+  /** Says these clips in order, stopping anything else. Resolves when done or stopped. */
+  async say(clips: readonly (Clip | null)[]): Promise<void> {
+    const token = this.begin();
+    for (const clip of clips) await this.play(clip, token);
+  }
+
+  /** The clips this game would play (for building a line to `say`). */
+  get resolver(): ClipResolver {
+    return this.clips;
   }
 
   /** The end of a game: the praise saved up from the answers ("رائع!"), then "انتهينا! برافو!". */

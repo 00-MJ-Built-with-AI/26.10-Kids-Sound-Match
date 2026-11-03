@@ -137,7 +137,8 @@ export function KidScene({
   );
 
   const things = round.things;
-  const pictures = useMemo(() => choosePictures(things.map((th) => th.item)), [things]);
+  // The scene is drawn, so its things are drawings too (when they all have one).
+  const pictures = useMemo(() => choosePictures(things.map((th) => th.item), Math.random, { drawingsFirst: true }), [things]);
   const thing = (key: string) => roundRef.current.things.find((th) => th.item.key === key);
   const targetKey = () => roundRef.current.order[indexRef.current];
   const target = (): LoadedItem | undefined => thing(targetKey())?.item;

@@ -14,12 +14,15 @@
         "en": "T-shirt",
         "ar": "قميص"
       },
-      "image": "clothes/tshirt.svg",
+      "image": "clothes/tshirt.jpg",
       "name_audio": {
         "en": "clothes/tshirt_name_en.mp3",
         "ar": "clothes/tshirt_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "jumper"
+      ],
+      "drawing": "clothes/tshirt.svg"
     },
     {
       "item_key": "dress",
@@ -27,12 +30,15 @@
         "en": "Dress",
         "ar": "فستان"
       },
-      "image": "clothes/dress.svg",
+      "image": "clothes/dress.jpg",
       "name_audio": {
         "en": "clothes/dress_name_en.mp3",
         "ar": "clothes/dress_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "skirt"
+      ],
+      "drawing": "clothes/dress.svg"
     },
     {
       "item_key": "trousers",
@@ -40,14 +46,15 @@
         "en": "Trousers",
         "ar": "بنطال"
       },
-      "image": "clothes/trousers.svg",
+      "image": "clothes/trousers.jpg",
       "name_audio": {
         "en": "clothes/trousers_name_en.mp3",
         "ar": "clothes/trousers_name_ar.mp3"
       },
       "confusable_with": [
         "shorts"
-      ]
+      ],
+      "drawing": "clothes/trousers.svg"
     },
     {
       "item_key": "shorts",
@@ -55,14 +62,15 @@
         "en": "Shorts",
         "ar": "شورت"
       },
-      "image": "clothes/shorts.svg",
+      "image": "clothes/shorts.jpg",
       "name_audio": {
         "en": "clothes/shorts_name_en.mp3",
         "ar": "clothes/shorts_name_ar.mp3"
       },
       "confusable_with": [
         "trousers"
-      ]
+      ],
+      "drawing": "clothes/shorts.svg"
     },
     {
       "item_key": "coat",
@@ -70,12 +78,16 @@
         "en": "Coat",
         "ar": "معطف"
       },
-      "image": "clothes/coat.svg",
+      "image": "clothes/coat.jpg",
       "name_audio": {
         "en": "clothes/coat_name_en.mp3",
         "ar": "clothes/coat_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "jacket",
+        "raincoat"
+      ],
+      "drawing": "clothes/coat.svg"
     },
     {
       "item_key": "scarf",
@@ -83,12 +95,13 @@
         "en": "Scarf",
         "ar": "وشاح"
       },
-      "image": "clothes/scarf.svg",
+      "image": "clothes/scarf.jpg",
       "name_audio": {
         "en": "clothes/scarf_name_en.mp3",
         "ar": "clothes/scarf_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "clothes/scarf.svg"
     },
     {
       "item_key": "gloves",
@@ -96,12 +109,13 @@
         "en": "Gloves",
         "ar": "قفازات"
       },
-      "image": "clothes/gloves.svg",
+      "image": "clothes/gloves.jpg",
       "name_audio": {
         "en": "clothes/gloves_name_en.mp3",
         "ar": "clothes/gloves_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "clothes/gloves.svg"
     },
     {
       "item_key": "glasses",
@@ -109,12 +123,15 @@
         "en": "Glasses",
         "ar": "نظارة"
       },
-      "image": "clothes/glasses.svg",
+      "image": "clothes/glasses.jpg",
       "name_audio": {
         "en": "clothes/glasses_name_en.mp3",
         "ar": "clothes/glasses_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "sunglasses"
+      ],
+      "drawing": "clothes/glasses.svg"
     },
     {
       "item_key": "boot",
@@ -122,10 +139,239 @@
         "en": "Boot",
         "ar": "جزمة"
       },
-      "image": "clothes/boot.svg",
+      "image": "clothes/boot.jpg",
       "name_audio": {
         "en": "clothes/boot_name_en.mp3",
         "ar": "clothes/boot_name_ar.mp3"
+      },
+      "confusable_with": [
+        "trainers"
+      ],
+      "drawing": "clothes/boot.svg"
+    },
+    {
+      "item_key": "pyjamas",
+      "name": {
+        "en": "Pyjamas",
+        "ar": "بيجاما"
+      },
+      "image": "clothes/pyjamas.jpg",
+      "name_audio": {
+        "en": "clothes/pyjamas_name_en.mp3",
+        "ar": "clothes/pyjamas_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "jacket",
+      "name": {
+        "en": "Jacket",
+        "ar": "جاكيت"
+      },
+      "image": "clothes/jacket.jpg",
+      "name_audio": {
+        "en": "clothes/jacket_name_en.mp3",
+        "ar": "clothes/jacket_name_ar.mp3"
+      },
+      "confusable_with": [
+        "coat",
+        "raincoat"
+      ]
+    },
+    {
+      "item_key": "jumper",
+      "name": {
+        "en": "Jumper",
+        "ar": "كنزة"
+      },
+      "image": "clothes/jumper.jpg",
+      "name_audio": {
+        "en": "clothes/jumper_name_en.mp3",
+        "ar": "clothes/jumper_name_ar.mp3"
+      },
+      "confusable_with": [
+        "tshirt"
+      ]
+    },
+    {
+      "item_key": "skirt",
+      "name": {
+        "en": "Skirt",
+        "ar": "تنّورة"
+      },
+      "image": "clothes/skirt.jpg",
+      "name_audio": {
+        "en": "clothes/skirt_name_en.mp3",
+        "ar": "clothes/skirt_name_ar.mp3"
+      },
+      "confusable_with": [
+        "dress"
+      ]
+    },
+    {
+      "item_key": "sandals",
+      "name": {
+        "en": "Sandals",
+        "ar": "صندل"
+      },
+      "image": "clothes/sandals.jpg",
+      "name_audio": {
+        "en": "clothes/sandals_name_en.mp3",
+        "ar": "clothes/sandals_name_ar.mp3"
+      },
+      "confusable_with": [
+        "slippers"
+      ]
+    },
+    {
+      "item_key": "slippers",
+      "name": {
+        "en": "Slippers",
+        "ar": "شحّاطة"
+      },
+      "image": "clothes/slippers.jpg",
+      "name_audio": {
+        "en": "clothes/slippers_name_en.mp3",
+        "ar": "clothes/slippers_name_ar.mp3"
+      },
+      "confusable_with": [
+        "sandals"
+      ]
+    },
+    {
+      "item_key": "trainers",
+      "name": {
+        "en": "Trainers",
+        "ar": "بوط رياضة"
+      },
+      "image": "clothes/trainers.jpg",
+      "name_audio": {
+        "en": "clothes/trainers_name_en.mp3",
+        "ar": "clothes/trainers_name_ar.mp3"
+      },
+      "confusable_with": [
+        "boot"
+      ]
+    },
+    {
+      "item_key": "cap",
+      "name": {
+        "en": "Cap",
+        "ar": "طاقية"
+      },
+      "image": "clothes/cap.jpg",
+      "name_audio": {
+        "en": "clothes/cap_name_en.mp3",
+        "ar": "clothes/cap_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "raincoat",
+      "name": {
+        "en": "Raincoat",
+        "ar": "جاكيت مطر"
+      },
+      "image": "clothes/raincoat.jpg",
+      "name_audio": {
+        "en": "clothes/raincoat_name_en.mp3",
+        "ar": "clothes/raincoat_name_ar.mp3"
+      },
+      "confusable_with": [
+        "coat",
+        "jacket"
+      ]
+    },
+    {
+      "item_key": "belt",
+      "name": {
+        "en": "Belt",
+        "ar": "قشاط"
+      },
+      "image": "clothes/belt.jpg",
+      "name_audio": {
+        "en": "clothes/belt_name_en.mp3",
+        "ar": "clothes/belt_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "tie",
+      "name": {
+        "en": "Tie",
+        "ar": "كرافيت"
+      },
+      "image": "clothes/tie.jpg",
+      "name_audio": {
+        "en": "clothes/tie_name_en.mp3",
+        "ar": "clothes/tie_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "sunglasses",
+      "name": {
+        "en": "Sunglasses",
+        "ar": "نظارة شمس"
+      },
+      "image": "clothes/sunglasses.jpg",
+      "name_audio": {
+        "en": "clothes/sunglasses_name_en.mp3",
+        "ar": "clothes/sunglasses_name_ar.mp3"
+      },
+      "confusable_with": [
+        "glasses"
+      ]
+    },
+    {
+      "item_key": "school_bag",
+      "name": {
+        "en": "School bag",
+        "ar": "شنطة"
+      },
+      "image": "clothes/school_bag.jpg",
+      "name_audio": {
+        "en": "clothes/school_bag_name_en.mp3",
+        "ar": "clothes/school_bag_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "umbrella",
+      "name": {
+        "en": "Umbrella",
+        "ar": "شمسية"
+      },
+      "image": "clothes/umbrella.jpg",
+      "name_audio": {
+        "en": "clothes/umbrella_name_en.mp3",
+        "ar": "clothes/umbrella_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "hair_clip",
+      "name": {
+        "en": "Hair clip",
+        "ar": "بكلة"
+      },
+      "image": "clothes/hair_clip.jpg",
+      "name_audio": {
+        "en": "clothes/hair_clip_name_en.mp3",
+        "ar": "clothes/hair_clip_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "watch",
+      "name": {
+        "en": "Watch",
+        "ar": "ساعة إيد"
+      },
+      "image": "clothes/watch.jpg",
+      "name_audio": {
+        "en": "clothes/watch_name_en.mp3",
+        "ar": "clothes/watch_name_ar.mp3"
       },
       "confusable_with": []
     }

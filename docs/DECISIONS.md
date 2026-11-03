@@ -207,6 +207,21 @@ The old pictures are in `dev-assets/replaced`.
 - Things at home: the names of the 6 new sounds (طفل يبكي، غسّالة، ميكروويف، تواليت، مجفّف شعر، خلّاط)
 - The studio lists them all
 
+## Added on 3 November 2026: about 25 cards per group, clearer pictures, a new look
+
+| Change | Decision |
+|---|---|
+| Pictures | Photos for the groups of things (Animals, Food, First words, Things at home, Clothes, Toys, Vehicles, Weather and nature, Instruments, Animal babies, Who eats what?): about 280 Pixabay photos, each picked by eye for one clear subject, cropped square around the subject on a plain background (720 px). Drawings stay for people, body parts, feelings, actions, colours, shapes and counting. Every photo card keeps its old 3D emoji as its "drawing": a screen shows photos only when every card on it has one (the Mixed game next to Body parts shows the drawings), and the drawn scenes and the stickers use the drawings |
+| 25 cards | First words, Things at home, Clothes, Toys, Vehicles, Weather and nature, Instruments, Body parts, Jobs and Do it with me have 25; Animals 54 and Food 25 already had them. Colours, shapes and feelings 12, Family 14, Counting 1 to 10. Animal babies 20, Who eats what? 25. Names in Standard Arabic, with the everyday Levantine word where it differs (بندورة-style: حرام، مخدّة، شبّاك، عربايّة، كنزة، شحّاطة، قشاط، تكسي، جرّافة، سوّاق، كهربجي…) |
+| Changed from the agreed list | Pixabay had nothing clear for some words, so they were swapped for close ones: swimsuit → raincoat (only bikinis and children in swimwear came up), bib → soap, potty → sofa, triangle → trombone, rababa → ukulele, mizmar → clarinet |
+| New sounds | 34 real Pixabay sounds, 1 to 4 seconds each: the 11 new vehicles, the 14 new instruments (the trombone is a cartoon "wah-wah": no plain recording), trampoline, rubber duck, rattle, whistle, fan, and hungry (tummy rumble), thirsty (gulps), sick (cough), cold (chattering teeth). Things that sound alike are never asked together (taxi and car; the trucks; tram, train and bus; flute, nay and clarinet…) |
+| A new look | Game cards: rounder, a soft orange ring and a deeper shadow, photos as rounded tiles, a press-in when tapped, a golden glow on the right answer, still soft bubbles in the background. Home: each game tile has its own colour and a round icon, the START button breathes gently, the logo bobs (both stop when the phone asks for less motion). Parent screens: rounder cards, coloured icon squares, brighter buttons and pack tiles |
+| Drawing scripts | Kept in `tools/art/` this time (the earlier ones lived in a scratch folder that was cleared): `people-lib.mjs` (the kit), `draw-people-more.mjs`, `draw-more.mjs`, `draw-basics.mjs` |
+
+### More clips for the voice session (ninth round)
+
+- The names of the 165 new cards in Arabic and English, the 12 new body parts' "أين…؟" lines (girl and boy) and the 7 new actions' lines; the Recording session lists the names Arabic first
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

@@ -19,7 +19,12 @@
         "en": "jobs/doctor_name_en.mp3",
         "ar": "jobs/doctor_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "dentist",
+        "nurse",
+        "vet",
+        "scientist"
+      ]
     },
     {
       "item_key": "police",
@@ -58,7 +63,9 @@
         "en": "jobs/cook_name_en.mp3",
         "ar": "jobs/cook_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "baker"
+      ]
     },
     {
       "item_key": "farmer",
@@ -71,7 +78,9 @@
         "en": "jobs/farmer_name_en.mp3",
         "ar": "jobs/farmer_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "gardener"
+      ]
     },
     {
       "item_key": "pilot",
@@ -84,7 +93,9 @@
         "en": "jobs/pilot_name_en.mp3",
         "ar": "jobs/pilot_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "driver"
+      ]
     },
     {
       "item_key": "builder",
@@ -97,7 +108,9 @@
         "en": "jobs/builder_name_en.mp3",
         "ar": "jobs/builder_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "carpenter"
+      ]
     },
     {
       "item_key": "teacher",
@@ -136,7 +149,231 @@
         "en": "jobs/mechanic_name_en.mp3",
         "ar": "jobs/mechanic_name_ar.mp3"
       },
+      "confusable_with": [
+        "electrician",
+        "plumber"
+      ]
+    },
+    {
+      "item_key": "dentist",
+      "name": {
+        "en": "Dentist",
+        "ar": "طبيب أسنان"
+      },
+      "image": "jobs/dentist.svg",
+      "name_audio": {
+        "en": "jobs/dentist_name_en.mp3",
+        "ar": "jobs/dentist_name_ar.mp3"
+      },
+      "confusable_with": [
+        "doctor",
+        "nurse",
+        "vet"
+      ]
+    },
+    {
+      "item_key": "nurse",
+      "name": {
+        "en": "Nurse",
+        "ar": "ممرّض"
+      },
+      "image": "jobs/nurse.svg",
+      "name_audio": {
+        "en": "jobs/nurse_name_en.mp3",
+        "ar": "jobs/nurse_name_ar.mp3"
+      },
+      "confusable_with": [
+        "doctor",
+        "dentist"
+      ]
+    },
+    {
+      "item_key": "vet",
+      "name": {
+        "en": "Vet",
+        "ar": "طبيب بيطري"
+      },
+      "image": "jobs/vet.svg",
+      "name_audio": {
+        "en": "jobs/vet_name_en.mp3",
+        "ar": "jobs/vet_name_ar.mp3"
+      },
+      "confusable_with": [
+        "doctor",
+        "dentist"
+      ]
+    },
+    {
+      "item_key": "baker",
+      "name": {
+        "en": "Baker",
+        "ar": "خبّاز"
+      },
+      "image": "jobs/baker.svg",
+      "name_audio": {
+        "en": "jobs/baker_name_en.mp3",
+        "ar": "jobs/baker_name_ar.mp3"
+      },
+      "confusable_with": [
+        "cook"
+      ]
+    },
+    {
+      "item_key": "postman",
+      "name": {
+        "en": "Postman",
+        "ar": "ساعي البريد"
+      },
+      "image": "jobs/postman.svg",
+      "name_audio": {
+        "en": "jobs/postman_name_en.mp3",
+        "ar": "jobs/postman_name_ar.mp3"
+      },
       "confusable_with": []
+    },
+    {
+      "item_key": "driver",
+      "name": {
+        "en": "Driver",
+        "ar": "سوّاق"
+      },
+      "image": "jobs/driver.svg",
+      "name_audio": {
+        "en": "jobs/driver_name_en.mp3",
+        "ar": "jobs/driver_name_ar.mp3"
+      },
+      "confusable_with": [
+        "pilot"
+      ]
+    },
+    {
+      "item_key": "fisherman",
+      "name": {
+        "en": "Fisherman",
+        "ar": "صيّاد"
+      },
+      "image": "jobs/fisherman.svg",
+      "name_audio": {
+        "en": "jobs/fisherman_name_en.mp3",
+        "ar": "jobs/fisherman_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "barber",
+      "name": {
+        "en": "Barber",
+        "ar": "حلّاق"
+      },
+      "image": "jobs/barber.svg",
+      "name_audio": {
+        "en": "jobs/barber_name_en.mp3",
+        "ar": "jobs/barber_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "singer",
+      "name": {
+        "en": "Singer",
+        "ar": "مغنّي"
+      },
+      "image": "jobs/singer.svg",
+      "name_audio": {
+        "en": "jobs/singer_name_en.mp3",
+        "ar": "jobs/singer_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "carpenter",
+      "name": {
+        "en": "Carpenter",
+        "ar": "نجّار"
+      },
+      "image": "jobs/carpenter.svg",
+      "name_audio": {
+        "en": "jobs/carpenter_name_en.mp3",
+        "ar": "jobs/carpenter_name_ar.mp3"
+      },
+      "confusable_with": [
+        "builder"
+      ]
+    },
+    {
+      "item_key": "electrician",
+      "name": {
+        "en": "Electrician",
+        "ar": "كهربجي"
+      },
+      "image": "jobs/electrician.svg",
+      "name_audio": {
+        "en": "jobs/electrician_name_en.mp3",
+        "ar": "jobs/electrician_name_ar.mp3"
+      },
+      "confusable_with": [
+        "mechanic",
+        "plumber"
+      ]
+    },
+    {
+      "item_key": "plumber",
+      "name": {
+        "en": "Plumber",
+        "ar": "سبّاك"
+      },
+      "image": "jobs/plumber.svg",
+      "name_audio": {
+        "en": "jobs/plumber_name_en.mp3",
+        "ar": "jobs/plumber_name_ar.mp3"
+      },
+      "confusable_with": [
+        "mechanic",
+        "electrician"
+      ]
+    },
+    {
+      "item_key": "gardener",
+      "name": {
+        "en": "Gardener",
+        "ar": "جنايني"
+      },
+      "image": "jobs/gardener.svg",
+      "name_audio": {
+        "en": "jobs/gardener_name_en.mp3",
+        "ar": "jobs/gardener_name_ar.mp3"
+      },
+      "confusable_with": [
+        "farmer"
+      ]
+    },
+    {
+      "item_key": "artist",
+      "name": {
+        "en": "Artist",
+        "ar": "رسّام"
+      },
+      "image": "jobs/artist.svg",
+      "name_audio": {
+        "en": "jobs/artist_name_en.mp3",
+        "ar": "jobs/artist_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "scientist",
+      "name": {
+        "en": "Scientist",
+        "ar": "عالِم"
+      },
+      "image": "jobs/scientist.svg",
+      "name_audio": {
+        "en": "jobs/scientist_name_en.mp3",
+        "ar": "jobs/scientist_name_ar.mp3"
+      },
+      "confusable_with": [
+        "doctor"
+      ]
     }
   ],
   "feedback_audio": {

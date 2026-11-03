@@ -18,6 +18,9 @@ import {
 import { itemPictures, MIN_ITEMS_PER_PACK, validatePack } from './validate';
 
 /** Shape of /assets/packs/index.json, written by tools/vite-plugin-ksm.ts. */
+/** Photos, as opposed to drawings (SVG, PNG). */
+const PHOTO_FILE = /\.(jpe?g|webp)$/i;
+
 export interface AssetIndex {
   packs: string[];
   files: string[];
@@ -103,8 +106,11 @@ export async function loadContent(opts: LoadOptions): Promise<LoadedContent> {
       .filter((item) => validation.validKeys.has(item.item_key))
       .map((item) => {
         const paths = itemPictures(item).map(itemAssetPath);
-        const pictures = paths.map(usable).filter(isAsset);
+        // Built-in photos (.jpg / .webp) count as photos, like a parent's own: a screen shows photos
+        // only when every picture on it has one.
+        const pictures = paths.map(usable).filter(isAsset).map((a) => (a.real && PHOTO_FILE.test(a.path) ? { ...a, photo: true } : a));
         const photos = pictures.filter((a) => a.real);
+        const drawing = item.drawing ? usable(itemAssetPath(item.drawing)) : null;
         const point = pointLines(item, (p) => resolve(itemAssetPath(p)));
         return {
           key: item.item_key,
@@ -121,6 +127,7 @@ export async function loadContent(opts: LoadOptions): Promise<LoadedContent> {
           picturePath: itemAssetPath(item.image ?? item.images![0]),
           arFeminine: arabicFeminine(item),
           ...(point ? { point } : {}),
+          ...(drawing?.real ? { drawings: [drawing] } : {}),
         };
       });
 

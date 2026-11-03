@@ -6,7 +6,7 @@ import { choosePictures } from './layout';
 
 /** A picture's sticker image: its drawing (or the parent's photo), the same one every time. */
 export function stickerPicture(item: LoadedItem): string {
-  return choosePictures([item], () => 0)[item.key];
+  return choosePictures([item], () => 0, { drawingsFirst: true })[item.key];
 }
 
 /** After a finished game: a sticker of a picture the child found, if there's one they don't have yet. */

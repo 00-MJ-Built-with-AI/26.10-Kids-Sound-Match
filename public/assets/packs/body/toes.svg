@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs><clipPath id="w"><circle cx="256" cy="256" r="236"/></clipPath></defs>
+  <circle cx="256" cy="256" r="236" fill="#FFE8D6"/>
+  <g clip-path="url(#w)">
+  <rect x="40" y="-40" width="432" height="300" rx="120" fill="#4A2C12" stroke="#4A2C12" stroke-width="14"/>
+  <circle cx="120" cy="300" r="66" fill="#4A2C12" stroke="#4A2C12" stroke-width="14"/>
+  <circle cx="222" cy="330" r="52" fill="#4A2C12" stroke="#4A2C12" stroke-width="14"/>
+  <circle cx="304" cy="334" r="46" fill="#4A2C12" stroke="#4A2C12" stroke-width="14"/>
+  <circle cx="376" cy="322" r="40" fill="#4A2C12" stroke="#4A2C12" stroke-width="14"/>
+  <circle cx="436" cy="300" r="34" fill="#4A2C12" stroke="#4A2C12" stroke-width="14"/>
+  <rect x="40" y="-40" width="432" height="300" rx="120" fill="#F6CBA5" stroke="#F6CBA5" stroke-width="0"/>
+  <circle cx="120" cy="300" r="66" fill="#F6CBA5" stroke="#F6CBA5" stroke-width="0"/>
+  <circle cx="222" cy="330" r="52" fill="#F6CBA5" stroke="#F6CBA5" stroke-width="0"/>
+  <circle cx="304" cy="334" r="46" fill="#F6CBA5" stroke="#F6CBA5" stroke-width="0"/>
+  <circle cx="376" cy="322" r="40" fill="#F6CBA5" stroke="#F6CBA5" stroke-width="0"/>
+  <circle cx="436" cy="300" r="34" fill="#F6CBA5" stroke="#F6CBA5" stroke-width="0"/>
+  <ellipse cx="120" cy="316" rx="30" ry="24" fill="#FFD9D2" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="4"/>
+  <ellipse cx="222" cy="346" rx="22" ry="17.6" fill="#FFD9D2" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="4"/>
+  <ellipse cx="304" cy="350" rx="19" ry="15.200000000000001" fill="#FFD9D2" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="4"/>
+  <ellipse cx="376" cy="338" rx="16" ry="12.8" fill="#FFD9D2" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="4"/>
+  <ellipse cx="436" cy="316" rx="14" ry="11.200000000000001" fill="#FFD9D2" stroke="#4A2C12" stroke-linejoin="round" stroke-linecap="round" stroke-width="4"/>
+  <path d="M100 180 Q256 220 420 180" fill="none" stroke="#E2A57C" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#4A2C12" stroke-width="10"/>
+</svg>

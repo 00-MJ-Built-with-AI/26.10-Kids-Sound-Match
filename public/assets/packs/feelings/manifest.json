@@ -4,33 +4,49 @@
   "schema_version": 1,
   "order": 10,
   "mix_alone": true,
-  "name": { "en": "Feelings", "ar": "المشاعر" },
+  "name": {
+    "en": "Feelings",
+    "ar": "المشاعر"
+  },
   "items": [
     {
       "item_key": "happy",
-      "name": { "en": "Happy", "ar": "سعيد" },
+      "name": {
+        "en": "Happy",
+        "ar": "سعيد"
+      },
       "image": "feelings/happy.svg",
       "sound": "feelings/happy_sound.mp3",
       "name_audio": {
         "en": "feelings/happy_name_en.mp3",
         "ar": "feelings/happy_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "shy"
+      ]
     },
     {
       "item_key": "sad",
-      "name": { "en": "Sad", "ar": "حزين" },
+      "name": {
+        "en": "Sad",
+        "ar": "حزين"
+      },
       "image": "feelings/sad.svg",
       "sound": "feelings/sad_sound.mp3",
       "name_audio": {
         "en": "feelings/sad_name_en.mp3",
         "ar": "feelings/sad_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "sick"
+      ]
     },
     {
       "item_key": "angry",
-      "name": { "en": "Angry", "ar": "غاضب" },
+      "name": {
+        "en": "Angry",
+        "ar": "غاضب"
+      },
       "image": "feelings/angry.svg",
       "sound": "feelings/angry_sound.mp3",
       "name_audio": {
@@ -41,36 +57,142 @@
     },
     {
       "item_key": "scared",
-      "name": { "en": "Scared", "ar": "خائف" },
+      "name": {
+        "en": "Scared",
+        "ar": "خائف"
+      },
       "image": "feelings/scared.svg",
       "sound": "feelings/scared_sound.mp3",
       "name_audio": {
         "en": "feelings/scared_name_en.mp3",
         "ar": "feelings/scared_name_ar.mp3"
       },
-      "confusable_with": ["surprised"]
+      "confusable_with": [
+        "surprised",
+        "cold"
+      ]
     },
     {
       "item_key": "sleepy",
-      "name": { "en": "Sleepy", "ar": "نعسان" },
+      "name": {
+        "en": "Sleepy",
+        "ar": "نعسان"
+      },
       "image": "feelings/sleepy.svg",
       "sound": "feelings/sleepy_sound.mp3",
       "name_audio": {
         "en": "feelings/sleepy_name_en.mp3",
         "ar": "feelings/sleepy_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "tired"
+      ]
     },
     {
       "item_key": "surprised",
-      "name": { "en": "Surprised", "ar": "متفاجئ" },
+      "name": {
+        "en": "Surprised",
+        "ar": "متفاجئ"
+      },
       "image": "feelings/surprised.svg",
       "sound": "feelings/surprised_sound.mp3",
       "name_audio": {
         "en": "feelings/surprised_name_en.mp3",
         "ar": "feelings/surprised_name_ar.mp3"
       },
-      "confusable_with": ["scared"]
+      "confusable_with": [
+        "scared"
+      ]
+    },
+    {
+      "item_key": "hungry",
+      "name": {
+        "en": "Hungry",
+        "ar": "جوعان"
+      },
+      "image": "feelings/hungry.svg",
+      "sound": "feelings/hungry_sound.mp3",
+      "name_audio": {
+        "en": "feelings/hungry_name_en.mp3",
+        "ar": "feelings/hungry_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "thirsty",
+      "name": {
+        "en": "Thirsty",
+        "ar": "عطشان"
+      },
+      "image": "feelings/thirsty.svg",
+      "sound": "feelings/thirsty_sound.mp3",
+      "name_audio": {
+        "en": "feelings/thirsty_name_en.mp3",
+        "ar": "feelings/thirsty_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "tired",
+      "name": {
+        "en": "Tired",
+        "ar": "تعبان"
+      },
+      "image": "feelings/tired.svg",
+      "name_audio": {
+        "en": "feelings/tired_name_en.mp3",
+        "ar": "feelings/tired_name_ar.mp3"
+      },
+      "confusable_with": [
+        "sleepy"
+      ]
+    },
+    {
+      "item_key": "sick",
+      "name": {
+        "en": "Sick",
+        "ar": "مريض"
+      },
+      "image": "feelings/sick.svg",
+      "sound": "feelings/sick_sound.mp3",
+      "name_audio": {
+        "en": "feelings/sick_name_en.mp3",
+        "ar": "feelings/sick_name_ar.mp3"
+      },
+      "confusable_with": [
+        "sad"
+      ]
+    },
+    {
+      "item_key": "shy",
+      "name": {
+        "en": "Shy",
+        "ar": "خجلان"
+      },
+      "image": "feelings/shy.svg",
+      "name_audio": {
+        "en": "feelings/shy_name_en.mp3",
+        "ar": "feelings/shy_name_ar.mp3"
+      },
+      "confusable_with": [
+        "happy"
+      ]
+    },
+    {
+      "item_key": "cold",
+      "name": {
+        "en": "Cold",
+        "ar": "بردان"
+      },
+      "image": "feelings/cold.svg",
+      "sound": "feelings/cold_sound.mp3",
+      "name_audio": {
+        "en": "feelings/cold_name_en.mp3",
+        "ar": "feelings/cold_name_ar.mp3"
+      },
+      "confusable_with": [
+        "scared"
+      ]
     }
   ],
   "feedback_audio": {

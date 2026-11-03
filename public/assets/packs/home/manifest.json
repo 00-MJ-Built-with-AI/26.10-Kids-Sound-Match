@@ -3,172 +3,267 @@
   "pack_version": 1,
   "schema_version": 1,
   "order": 2,
-  "name": { "en": "Things at home", "ar": "أشياء في البيت" },
+  "name": {
+    "en": "Things at home",
+    "ar": "أشياء في البيت"
+  },
   "items": [
     {
       "item_key": "doorbell",
-      "name": { "en": "Doorbell", "ar": "جرس الباب" },
-      "image": "home/doorbell.svg",
+      "name": {
+        "en": "Doorbell",
+        "ar": "جرس الباب"
+      },
+      "image": "home/doorbell.jpg",
       "sound": "home/doorbell_sound.mp3",
       "name_audio": {
         "en": "home/doorbell_name_en.mp3",
         "ar": "home/doorbell_name_ar.mp3"
       },
-      "confusable_with": ["phone", "alarm_clock"]
+      "confusable_with": [
+        "phone",
+        "alarm_clock"
+      ],
+      "drawing": "home/doorbell.svg"
     },
     {
       "item_key": "phone",
-      "name": { "en": "Phone", "ar": "هاتف" },
-      "image": "home/phone.svg",
+      "name": {
+        "en": "Phone",
+        "ar": "هاتف"
+      },
+      "image": "home/phone.jpg",
       "sound": "home/phone_sound.mp3",
       "name_audio": {
         "en": "home/phone_name_en.mp3",
         "ar": "home/phone_name_ar.mp3"
       },
-      "confusable_with": ["doorbell", "alarm_clock"]
+      "confusable_with": [
+        "doorbell",
+        "alarm_clock"
+      ],
+      "drawing": "home/phone.svg"
     },
     {
       "item_key": "alarm_clock",
-      "name": { "en": "Alarm clock", "ar": "منبّه" },
-      "image": "home/alarm_clock.svg",
+      "name": {
+        "en": "Alarm clock",
+        "ar": "منبّه"
+      },
+      "image": "home/alarm_clock.jpg",
       "sound": "home/alarm_clock_sound.mp3",
       "name_audio": {
         "en": "home/alarm_clock_name_en.mp3",
         "ar": "home/alarm_clock_name_ar.mp3"
       },
-      "confusable_with": ["doorbell", "phone"]
+      "confusable_with": [
+        "doorbell",
+        "phone"
+      ],
+      "drawing": "home/alarm_clock.svg"
     },
     {
       "item_key": "clock",
-      "name": { "en": "Clock", "ar": "ساعة" },
-      "image": "home/clock.svg",
+      "name": {
+        "en": "Clock",
+        "ar": "ساعة"
+      },
+      "image": "home/clock.jpg",
       "sound": "home/clock_sound.mp3",
       "name_audio": {
         "en": "home/clock_name_en.mp3",
         "ar": "home/clock_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "home/clock.svg"
     },
     {
       "item_key": "tap",
-      "name": { "en": "Tap", "ar": "حنفية" },
-      "image": "home/tap.svg",
+      "name": {
+        "en": "Tap",
+        "ar": "حنفية"
+      },
+      "image": "home/tap.jpg",
       "sound": "home/tap_sound.mp3",
       "name_audio": {
         "en": "home/tap_name_en.mp3",
         "ar": "home/tap_name_ar.mp3"
       },
-      "confusable_with": ["shower", "frying_pan", "toilet"]
+      "confusable_with": [
+        "shower",
+        "frying_pan",
+        "toilet"
+      ],
+      "drawing": "home/tap.svg"
     },
     {
       "item_key": "shower",
-      "name": { "en": "Shower", "ar": "دُش" },
-      "image": "home/shower.svg",
+      "name": {
+        "en": "Shower",
+        "ar": "دُش"
+      },
+      "image": "home/shower.jpg",
       "sound": "home/shower_sound.mp3",
       "name_audio": {
         "en": "home/shower_name_en.mp3",
         "ar": "home/shower_name_ar.mp3"
       },
-      "confusable_with": ["tap", "frying_pan", "toilet"]
+      "confusable_with": [
+        "tap",
+        "frying_pan",
+        "toilet"
+      ],
+      "drawing": "home/shower.svg"
     },
     {
       "item_key": "kettle",
-      "name": { "en": "Kettle", "ar": "إبريق" },
-      "image": "home/kettle.svg",
+      "name": {
+        "en": "Kettle",
+        "ar": "إبريق"
+      },
+      "image": "home/kettle.jpg",
       "sound": "home/kettle_sound.mp3",
       "name_audio": {
         "en": "home/kettle_name_en.mp3",
         "ar": "home/kettle_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "home/kettle.svg"
     },
     {
       "item_key": "frying_pan",
-      "name": { "en": "Frying pan", "ar": "مقلاة" },
-      "image": "home/frying_pan.svg",
+      "name": {
+        "en": "Frying pan",
+        "ar": "مقلاة"
+      },
+      "image": "home/frying_pan.jpg",
       "sound": "home/frying_pan_sound.mp3",
       "name_audio": {
         "en": "home/frying_pan_name_en.mp3",
         "ar": "home/frying_pan_name_ar.mp3"
       },
-      "confusable_with": ["tap", "shower"]
+      "confusable_with": [
+        "tap",
+        "shower"
+      ],
+      "drawing": "home/frying_pan.svg"
     },
     {
       "item_key": "door",
-      "name": { "en": "Door", "ar": "باب" },
-      "image": "home/door.svg",
+      "name": {
+        "en": "Door",
+        "ar": "باب"
+      },
+      "image": "home/door.jpg",
       "sound": "home/door_sound.mp3",
       "name_audio": {
         "en": "home/door_name_en.mp3",
         "ar": "home/door_name_ar.mp3"
       },
-      "confusable_with": ["hammer"]
+      "confusable_with": [
+        "hammer"
+      ],
+      "drawing": "home/door.svg"
     },
     {
       "item_key": "keys",
-      "name": { "en": "Keys", "ar": "مفاتيح" },
-      "image": "home/keys.svg",
+      "name": {
+        "en": "Keys",
+        "ar": "مفاتيح"
+      },
+      "image": "home/keys.jpg",
       "sound": "home/keys_sound.mp3",
       "name_audio": {
         "en": "home/keys_name_en.mp3",
         "ar": "home/keys_name_ar.mp3"
       },
-      "confusable_with": ["scissors"]
+      "confusable_with": [
+        "scissors"
+      ],
+      "drawing": "home/keys.svg"
     },
     {
       "item_key": "vacuum",
-      "name": { "en": "Vacuum cleaner", "ar": "مكنسة كهربائية" },
-      "image": "home/vacuum.svg",
+      "name": {
+        "en": "Vacuum cleaner",
+        "ar": "مكنسة كهربائية"
+      },
+      "image": "home/vacuum.jpg",
       "sound": "home/vacuum_sound.mp3",
       "name_audio": {
         "en": "home/vacuum_name_en.mp3",
         "ar": "home/vacuum_name_ar.mp3"
       },
-      "confusable_with": ["hair_dryer", "blender"]
+      "confusable_with": [
+        "hair_dryer",
+        "blender",
+        "fan"
+      ],
+      "drawing": "home/vacuum.svg"
     },
     {
       "item_key": "toothbrush",
-      "name": { "en": "Toothbrush", "ar": "فرشاة أسنان" },
-      "image": "home/toothbrush.svg",
+      "name": {
+        "en": "Toothbrush",
+        "ar": "فرشاة أسنان"
+      },
+      "image": "home/toothbrush.jpg",
       "sound": "home/toothbrush_sound.mp3",
       "name_audio": {
         "en": "home/toothbrush_name_en.mp3",
         "ar": "home/toothbrush_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "home/toothbrush.svg"
     },
     {
       "item_key": "scissors",
-      "name": { "en": "Scissors", "ar": "مقص" },
-      "image": "home/scissors.svg",
+      "name": {
+        "en": "Scissors",
+        "ar": "مقص"
+      },
+      "image": "home/scissors.jpg",
       "sound": "home/scissors_sound.mp3",
       "name_audio": {
         "en": "home/scissors_name_en.mp3",
         "ar": "home/scissors_name_ar.mp3"
       },
-      "confusable_with": ["keys"]
+      "confusable_with": [
+        "keys"
+      ],
+      "drawing": "home/scissors.svg"
     },
     {
       "item_key": "camera",
-      "name": { "en": "Camera", "ar": "كاميرا" },
-      "image": "home/camera.svg",
+      "name": {
+        "en": "Camera",
+        "ar": "كاميرا"
+      },
+      "image": "home/camera.jpg",
       "sound": "home/camera_sound.mp3",
       "name_audio": {
         "en": "home/camera_name_en.mp3",
         "ar": "home/camera_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "home/camera.svg"
     },
     {
       "item_key": "hammer",
-      "name": { "en": "Hammer", "ar": "مطرقة" },
-      "image": "home/hammer.svg",
+      "name": {
+        "en": "Hammer",
+        "ar": "مطرقة"
+      },
+      "image": "home/hammer.jpg",
       "sound": "home/hammer_sound.mp3",
       "name_audio": {
         "en": "home/hammer_name_en.mp3",
         "ar": "home/hammer_name_ar.mp3"
       },
-      "confusable_with": ["door"]
+      "confusable_with": [
+        "door"
+      ],
+      "drawing": "home/hammer.svg"
     },
     {
       "item_key": "baby_cry",
@@ -176,13 +271,14 @@
         "en": "Crying baby",
         "ar": "طفل يبكي"
       },
-      "image": "home/baby_cry.svg",
+      "image": "home/baby_cry.jpg",
       "sound": "home/baby_cry_sound.mp3",
       "name_audio": {
         "en": "home/baby_cry_name_en.mp3",
         "ar": "home/baby_cry_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "home/baby_cry.svg"
     },
     {
       "item_key": "washing_machine",
@@ -190,13 +286,16 @@
         "en": "Washing machine",
         "ar": "غسّالة"
       },
-      "image": "home/washing_machine.svg",
+      "image": "home/washing_machine.jpg",
       "sound": "home/washing_machine_sound.mp3",
       "name_audio": {
         "en": "home/washing_machine_name_en.mp3",
         "ar": "home/washing_machine_name_ar.mp3"
       },
-      "confusable_with": ["microwave"]
+      "confusable_with": [
+        "microwave"
+      ],
+      "drawing": "home/washing_machine.svg"
     },
     {
       "item_key": "microwave",
@@ -204,13 +303,16 @@
         "en": "Microwave",
         "ar": "ميكروويف"
       },
-      "image": "home/microwave.svg",
+      "image": "home/microwave.jpg",
       "sound": "home/microwave_sound.mp3",
       "name_audio": {
         "en": "home/microwave_name_en.mp3",
         "ar": "home/microwave_name_ar.mp3"
       },
-      "confusable_with": ["washing_machine"]
+      "confusable_with": [
+        "washing_machine"
+      ],
+      "drawing": "home/microwave.svg"
     },
     {
       "item_key": "toilet",
@@ -218,13 +320,17 @@
         "en": "Toilet",
         "ar": "تواليت"
       },
-      "image": "home/toilet.svg",
+      "image": "home/toilet.jpg",
       "sound": "home/toilet_sound.mp3",
       "name_audio": {
         "en": "home/toilet_name_en.mp3",
         "ar": "home/toilet_name_ar.mp3"
       },
-      "confusable_with": ["tap", "shower"]
+      "confusable_with": [
+        "tap",
+        "shower"
+      ],
+      "drawing": "home/toilet.svg"
     },
     {
       "item_key": "hair_dryer",
@@ -232,13 +338,18 @@
         "en": "Hair dryer",
         "ar": "مجفّف شعر"
       },
-      "image": "home/hair_dryer.svg",
+      "image": "home/hair_dryer.jpg",
       "sound": "home/hair_dryer_sound.mp3",
       "name_audio": {
         "en": "home/hair_dryer_name_en.mp3",
         "ar": "home/hair_dryer_name_ar.mp3"
       },
-      "confusable_with": ["vacuum", "blender"]
+      "confusable_with": [
+        "vacuum",
+        "blender",
+        "fan"
+      ],
+      "drawing": "home/hair_dryer.svg"
     },
     {
       "item_key": "blender",
@@ -246,13 +357,75 @@
         "en": "Blender",
         "ar": "خلّاط"
       },
-      "image": "home/blender.svg",
+      "image": "home/blender.jpg",
       "sound": "home/blender_sound.mp3",
       "name_audio": {
         "en": "home/blender_name_en.mp3",
         "ar": "home/blender_name_ar.mp3"
       },
-      "confusable_with": ["vacuum", "hair_dryer"]
+      "confusable_with": [
+        "vacuum",
+        "hair_dryer",
+        "fan"
+      ],
+      "drawing": "home/blender.svg"
+    },
+    {
+      "item_key": "tv",
+      "name": {
+        "en": "TV",
+        "ar": "تلفزيون"
+      },
+      "image": "home/tv.jpg",
+      "name_audio": {
+        "en": "home/tv_name_en.mp3",
+        "ar": "home/tv_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "fan",
+      "name": {
+        "en": "Fan",
+        "ar": "مروحة"
+      },
+      "image": "home/fan.jpg",
+      "sound": "home/fan_sound.mp3",
+      "name_audio": {
+        "en": "home/fan_name_en.mp3",
+        "ar": "home/fan_name_ar.mp3"
+      },
+      "confusable_with": [
+        "vacuum",
+        "hair_dryer",
+        "blender"
+      ]
+    },
+    {
+      "item_key": "fridge",
+      "name": {
+        "en": "Fridge",
+        "ar": "برّاد"
+      },
+      "image": "home/fridge.jpg",
+      "name_audio": {
+        "en": "home/fridge_name_en.mp3",
+        "ar": "home/fridge_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "lamp",
+      "name": {
+        "en": "Lamp",
+        "ar": "لمبة"
+      },
+      "image": "home/lamp.jpg",
+      "name_audio": {
+        "en": "home/lamp_name_en.mp3",
+        "ar": "home/lamp_name_ar.mp3"
+      },
+      "confusable_with": []
     }
   ],
   "feedback_audio": {

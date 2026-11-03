@@ -14,12 +14,13 @@
         "en": "Kite",
         "ar": "طائرة ورقية"
       },
-      "image": "toys/kite.svg",
+      "image": "toys/kite.jpg",
       "name_audio": {
         "en": "toys/kite_name_en.mp3",
         "ar": "toys/kite_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "toys/kite.svg"
     },
     {
       "item_key": "puzzle",
@@ -27,12 +28,13 @@
         "en": "Puzzle",
         "ar": "أحجية"
       },
-      "image": "toys/puzzle.svg",
+      "image": "toys/puzzle.jpg",
       "name_audio": {
         "en": "toys/puzzle_name_en.mp3",
         "ar": "toys/puzzle_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "toys/puzzle.svg"
     },
     {
       "item_key": "doll",
@@ -40,12 +42,13 @@
         "en": "Doll",
         "ar": "دمية"
       },
-      "image": "toys/doll.svg",
+      "image": "toys/doll.jpg",
       "name_audio": {
         "en": "toys/doll_name_en.mp3",
         "ar": "toys/doll_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "toys/doll.svg"
     },
     {
       "item_key": "robot",
@@ -53,12 +56,13 @@
         "en": "Robot",
         "ar": "روبوت"
       },
-      "image": "toys/robot.svg",
+      "image": "toys/robot.jpg",
       "name_audio": {
         "en": "toys/robot_name_en.mp3",
         "ar": "toys/robot_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "toys/robot.svg"
     },
     {
       "item_key": "crayon",
@@ -66,12 +70,15 @@
         "en": "Crayon",
         "ar": "قلم تلوين"
       },
-      "image": "toys/crayon.svg",
+      "image": "toys/crayon.jpg",
       "name_audio": {
         "en": "toys/crayon_name_en.mp3",
         "ar": "toys/crayon_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "paints"
+      ],
+      "drawing": "toys/crayon.svg"
     },
     {
       "item_key": "slide",
@@ -79,12 +86,13 @@
         "en": "Slide",
         "ar": "زحليقة"
       },
-      "image": "toys/slide.svg",
+      "image": "toys/slide.jpg",
       "name_audio": {
         "en": "toys/slide_name_en.mp3",
         "ar": "toys/slide_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "toys/slide.svg"
     },
     {
       "item_key": "scooter",
@@ -92,14 +100,15 @@
         "en": "Scooter",
         "ar": "سكوتر"
       },
-      "image": "toys/scooter.svg",
+      "image": "toys/scooter.jpg",
       "name_audio": {
         "en": "toys/scooter_name_en.mp3",
         "ar": "toys/scooter_name_ar.mp3"
       },
       "confusable_with": [
         "skateboard"
-      ]
+      ],
+      "drawing": "toys/scooter.svg"
     },
     {
       "item_key": "skateboard",
@@ -107,14 +116,15 @@
         "en": "Skateboard",
         "ar": "لوح تزلج"
       },
-      "image": "toys/skateboard.svg",
+      "image": "toys/skateboard.jpg",
       "name_audio": {
         "en": "toys/skateboard_name_en.mp3",
         "ar": "toys/skateboard_name_ar.mp3"
       },
       "confusable_with": [
         "scooter"
-      ]
+      ],
+      "drawing": "toys/skateboard.svg"
     },
     {
       "item_key": "dice",
@@ -122,12 +132,13 @@
         "en": "Dice",
         "ar": "نرد"
       },
-      "image": "toys/dice.svg",
+      "image": "toys/dice.jpg",
       "name_audio": {
         "en": "toys/dice_name_en.mp3",
         "ar": "toys/dice_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "toys/dice.svg"
     },
     {
       "item_key": "yoyo",
@@ -135,12 +146,214 @@
         "en": "Yo-yo",
         "ar": "يويو"
       },
-      "image": "toys/yoyo.svg",
+      "image": "toys/yoyo.jpg",
       "name_audio": {
         "en": "toys/yoyo_name_en.mp3",
         "ar": "toys/yoyo_name_ar.mp3"
       },
+      "confusable_with": [],
+      "drawing": "toys/yoyo.svg"
+    },
+    {
+      "item_key": "blocks",
+      "name": {
+        "en": "Blocks",
+        "ar": "مكعبات"
+      },
+      "image": "toys/blocks.jpg",
+      "name_audio": {
+        "en": "toys/blocks_name_en.mp3",
+        "ar": "toys/blocks_name_ar.mp3"
+      },
       "confusable_with": []
+    },
+    {
+      "item_key": "rocking_horse",
+      "name": {
+        "en": "Rocking horse",
+        "ar": "حصان هزّاز"
+      },
+      "image": "toys/rocking_horse.jpg",
+      "name_audio": {
+        "en": "toys/rocking_horse_name_en.mp3",
+        "ar": "toys/rocking_horse_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "swing",
+      "name": {
+        "en": "Swing",
+        "ar": "مرجوحة"
+      },
+      "image": "toys/swing.jpg",
+      "name_audio": {
+        "en": "toys/swing_name_en.mp3",
+        "ar": "toys/swing_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "bucket_spade",
+      "name": {
+        "en": "Bucket and spade",
+        "ar": "سطل ورفش"
+      },
+      "image": "toys/bucket_spade.jpg",
+      "name_audio": {
+        "en": "toys/bucket_spade_name_en.mp3",
+        "ar": "toys/bucket_spade_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "play_dough",
+      "name": {
+        "en": "Play dough",
+        "ar": "معجون"
+      },
+      "image": "toys/play_dough.jpg",
+      "name_audio": {
+        "en": "toys/play_dough_name_en.mp3",
+        "ar": "toys/play_dough_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "spinning_top",
+      "name": {
+        "en": "Spinning top",
+        "ar": "بلبل"
+      },
+      "image": "toys/spinning_top.jpg",
+      "name_audio": {
+        "en": "toys/spinning_top_name_en.mp3",
+        "ar": "toys/spinning_top_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "marbles",
+      "name": {
+        "en": "Marbles",
+        "ar": "قلول"
+      },
+      "image": "toys/marbles.jpg",
+      "name_audio": {
+        "en": "toys/marbles_name_en.mp3",
+        "ar": "toys/marbles_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "skipping_rope",
+      "name": {
+        "en": "Skipping rope",
+        "ar": "حبل نطّ"
+      },
+      "image": "toys/skipping_rope.jpg",
+      "name_audio": {
+        "en": "toys/skipping_rope_name_en.mp3",
+        "ar": "toys/skipping_rope_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "trampoline",
+      "name": {
+        "en": "Trampoline",
+        "ar": "ترامبولين"
+      },
+      "image": "toys/trampoline.jpg",
+      "sound": "toys/trampoline_sound.mp3",
+      "name_audio": {
+        "en": "toys/trampoline_name_en.mp3",
+        "ar": "toys/trampoline_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "rubber_duck",
+      "name": {
+        "en": "Rubber duck",
+        "ar": "بطّة مطّاط"
+      },
+      "image": "toys/rubber_duck.jpg",
+      "sound": "toys/rubber_duck_sound.mp3",
+      "name_audio": {
+        "en": "toys/rubber_duck_name_en.mp3",
+        "ar": "toys/rubber_duck_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "tricycle",
+      "name": {
+        "en": "Tricycle",
+        "ar": "بسكليت تلات عجلات"
+      },
+      "image": "toys/tricycle.jpg",
+      "name_audio": {
+        "en": "toys/tricycle_name_en.mp3",
+        "ar": "toys/tricycle_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "dinosaur",
+      "name": {
+        "en": "Dinosaur",
+        "ar": "ديناصور"
+      },
+      "image": "toys/dinosaur.jpg",
+      "name_audio": {
+        "en": "toys/dinosaur_name_en.mp3",
+        "ar": "toys/dinosaur_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "rattle",
+      "name": {
+        "en": "Rattle",
+        "ar": "خشخيشة"
+      },
+      "image": "toys/rattle.jpg",
+      "sound": "toys/rattle_sound.mp3",
+      "name_audio": {
+        "en": "toys/rattle_name_en.mp3",
+        "ar": "toys/rattle_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "whistle",
+      "name": {
+        "en": "Whistle",
+        "ar": "صفّارة"
+      },
+      "image": "toys/whistle.jpg",
+      "sound": "toys/whistle_sound.mp3",
+      "name_audio": {
+        "en": "toys/whistle_name_en.mp3",
+        "ar": "toys/whistle_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "paints",
+      "name": {
+        "en": "Paints",
+        "ar": "ألوان"
+      },
+      "image": "toys/paints.jpg",
+      "name_audio": {
+        "en": "toys/paints_name_en.mp3",
+        "ar": "toys/paints_name_ar.mp3"
+      },
+      "confusable_with": [
+        "crayon"
+      ]
     }
   ],
   "feedback_audio": {

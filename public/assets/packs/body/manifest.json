@@ -3,26 +3,46 @@
   "pack_version": 1,
   "schema_version": 1,
   "order": 6,
-  "name": { "en": "Body parts", "ar": "أعضاء الجسم" },
+  "name": {
+    "en": "Body parts",
+    "ar": "أعضاء الجسم"
+  },
   "items": [
     {
       "item_key": "eye",
-      "name": { "en": "Eye", "ar": "عين" },
+      "name": {
+        "en": "Eye",
+        "ar": "عين"
+      },
       "image": "body/eye.svg",
       "name_audio": {
         "en": "body/eye_name_en.mp3",
         "ar": "body/eye_name_ar.mp3"
       },
-      "confusable_with": [],
+      "confusable_with": [
+        "eyebrows"
+      ],
       "point": {
-        "en": { "text": "Where are your eyes?", "audio": "body/eye_point_en.mp3" },
-        "ar_f": { "text": "أين عيناكِ؟", "audio": "body/eye_point_ar_f.mp3" },
-        "ar_m": { "text": "أين عيناكَ؟", "audio": "body/eye_point_ar_m.mp3" }
+        "en": {
+          "text": "Where are your eyes?",
+          "audio": "body/eye_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين عيناكِ؟",
+          "audio": "body/eye_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين عيناكَ؟",
+          "audio": "body/eye_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "nose",
-      "name": { "en": "Nose", "ar": "أنف" },
+      "name": {
+        "en": "Nose",
+        "ar": "أنف"
+      },
       "image": "body/nose.svg",
       "name_audio": {
         "en": "body/nose_name_en.mp3",
@@ -30,29 +50,57 @@
       },
       "confusable_with": [],
       "point": {
-        "en": { "text": "Where's your nose?", "audio": "body/nose_point_en.mp3" },
-        "ar_f": { "text": "أين أنفُكِ؟", "audio": "body/nose_point_ar_f.mp3" },
-        "ar_m": { "text": "أين أنفُكَ؟", "audio": "body/nose_point_ar_m.mp3" }
+        "en": {
+          "text": "Where's your nose?",
+          "audio": "body/nose_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين أنفُكِ؟",
+          "audio": "body/nose_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين أنفُكَ؟",
+          "audio": "body/nose_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "mouth",
-      "name": { "en": "Mouth", "ar": "فم" },
+      "name": {
+        "en": "Mouth",
+        "ar": "فم"
+      },
       "image": "body/mouth.svg",
       "name_audio": {
         "en": "body/mouth_name_en.mp3",
         "ar": "body/mouth_name_ar.mp3"
       },
-      "confusable_with": ["tongue", "teeth"],
+      "confusable_with": [
+        "tongue",
+        "teeth",
+        "chin"
+      ],
       "point": {
-        "en": { "text": "Where's your mouth?", "audio": "body/mouth_point_en.mp3" },
-        "ar_f": { "text": "أين فمُكِ؟", "audio": "body/mouth_point_ar_f.mp3" },
-        "ar_m": { "text": "أين فمُكَ؟", "audio": "body/mouth_point_ar_m.mp3" }
+        "en": {
+          "text": "Where's your mouth?",
+          "audio": "body/mouth_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين فمُكِ؟",
+          "audio": "body/mouth_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين فمُكَ؟",
+          "audio": "body/mouth_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "ear",
-      "name": { "en": "Ear", "ar": "أذن" },
+      "name": {
+        "en": "Ear",
+        "ar": "أذن"
+      },
       "image": "body/ear.svg",
       "name_audio": {
         "en": "body/ear_name_en.mp3",
@@ -60,135 +108,608 @@
       },
       "confusable_with": [],
       "point": {
-        "en": { "text": "Where are your ears?", "audio": "body/ear_point_en.mp3" },
-        "ar_f": { "text": "أين أُذُناكِ؟", "audio": "body/ear_point_ar_f.mp3" },
-        "ar_m": { "text": "أين أُذُناكَ؟", "audio": "body/ear_point_ar_m.mp3" }
+        "en": {
+          "text": "Where are your ears?",
+          "audio": "body/ear_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين أُذُناكِ؟",
+          "audio": "body/ear_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين أُذُناكَ؟",
+          "audio": "body/ear_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "hand",
-      "name": { "en": "Hand", "ar": "يد" },
+      "name": {
+        "en": "Hand",
+        "ar": "يد"
+      },
       "image": "body/hand.svg",
       "name_audio": {
         "en": "body/hand_name_en.mp3",
         "ar": "body/hand_name_ar.mp3"
       },
-      "confusable_with": ["finger", "arm"],
+      "confusable_with": [
+        "finger",
+        "arm",
+        "nails"
+      ],
       "point": {
-        "en": { "text": "Where are your hands?", "audio": "body/hand_point_en.mp3" },
-        "ar_f": { "text": "أين يداكِ؟", "audio": "body/hand_point_ar_f.mp3" },
-        "ar_m": { "text": "أين يداكَ؟", "audio": "body/hand_point_ar_m.mp3" }
+        "en": {
+          "text": "Where are your hands?",
+          "audio": "body/hand_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين يداكِ؟",
+          "audio": "body/hand_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين يداكَ؟",
+          "audio": "body/hand_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "finger",
-      "name": { "en": "Finger", "ar": "إصبع" },
+      "name": {
+        "en": "Finger",
+        "ar": "إصبع"
+      },
       "image": "body/finger.svg",
       "name_audio": {
         "en": "body/finger_name_en.mp3",
         "ar": "body/finger_name_ar.mp3"
       },
-      "confusable_with": ["hand"],
+      "confusable_with": [
+        "hand",
+        "toes",
+        "nails"
+      ],
       "point": {
-        "en": { "text": "Where's your finger?", "audio": "body/finger_point_en.mp3" },
-        "ar_f": { "text": "أين إصبعُكِ؟", "audio": "body/finger_point_ar_f.mp3" },
-        "ar_m": { "text": "أين إصبعُكَ؟", "audio": "body/finger_point_ar_m.mp3" }
+        "en": {
+          "text": "Where's your finger?",
+          "audio": "body/finger_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين إصبعُكِ؟",
+          "audio": "body/finger_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين إصبعُكَ؟",
+          "audio": "body/finger_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "arm",
-      "name": { "en": "Arm", "ar": "ذراع" },
+      "name": {
+        "en": "Arm",
+        "ar": "ذراع"
+      },
       "image": "body/arm.svg",
       "name_audio": {
         "en": "body/arm_name_en.mp3",
         "ar": "body/arm_name_ar.mp3"
       },
-      "confusable_with": ["hand"],
+      "confusable_with": [
+        "hand",
+        "shoulder",
+        "elbow"
+      ],
       "point": {
-        "en": { "text": "Where's your arm?", "audio": "body/arm_point_en.mp3" },
-        "ar_f": { "text": "أين ذراعُكِ؟", "audio": "body/arm_point_ar_f.mp3" },
-        "ar_m": { "text": "أين ذراعُكَ؟", "audio": "body/arm_point_ar_m.mp3" }
+        "en": {
+          "text": "Where's your arm?",
+          "audio": "body/arm_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين ذراعُكِ؟",
+          "audio": "body/arm_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين ذراعُكَ؟",
+          "audio": "body/arm_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "foot",
-      "name": { "en": "Foot", "ar": "قدم" },
+      "name": {
+        "en": "Foot",
+        "ar": "قدم"
+      },
       "image": "body/foot.svg",
       "name_audio": {
         "en": "body/foot_name_en.mp3",
         "ar": "body/foot_name_ar.mp3"
       },
-      "confusable_with": ["leg"],
+      "confusable_with": [
+        "leg",
+        "toes"
+      ],
       "point": {
-        "en": { "text": "Where are your feet?", "audio": "body/foot_point_en.mp3" },
-        "ar_f": { "text": "أين قدماكِ؟", "audio": "body/foot_point_ar_f.mp3" },
-        "ar_m": { "text": "أين قدماكَ؟", "audio": "body/foot_point_ar_m.mp3" }
+        "en": {
+          "text": "Where are your feet?",
+          "audio": "body/foot_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين قدماكِ؟",
+          "audio": "body/foot_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين قدماكَ؟",
+          "audio": "body/foot_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "leg",
-      "name": { "en": "Leg", "ar": "رِجل" },
+      "name": {
+        "en": "Leg",
+        "ar": "رِجل"
+      },
       "image": "body/leg.svg",
       "name_audio": {
         "en": "body/leg_name_en.mp3",
         "ar": "body/leg_name_ar.mp3"
       },
-      "confusable_with": ["foot"],
+      "confusable_with": [
+        "foot",
+        "knee"
+      ],
       "point": {
-        "en": { "text": "Where's your leg?", "audio": "body/leg_point_en.mp3" },
-        "ar_f": { "text": "أين رِجلُكِ؟", "audio": "body/leg_point_ar_f.mp3" },
-        "ar_m": { "text": "أين رِجلُكَ؟", "audio": "body/leg_point_ar_m.mp3" }
+        "en": {
+          "text": "Where's your leg?",
+          "audio": "body/leg_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين رِجلُكِ؟",
+          "audio": "body/leg_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين رِجلُكَ؟",
+          "audio": "body/leg_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "teeth",
-      "name": { "en": "Teeth", "ar": "أسنان" },
+      "name": {
+        "en": "Teeth",
+        "ar": "أسنان"
+      },
       "image": "body/teeth.svg",
       "name_audio": {
         "en": "body/teeth_name_en.mp3",
         "ar": "body/teeth_name_ar.mp3"
       },
-      "confusable_with": ["mouth"],
+      "confusable_with": [
+        "mouth"
+      ],
       "point": {
-        "en": { "text": "Where are your teeth?", "audio": "body/teeth_point_en.mp3" },
-        "ar_f": { "text": "أين أسنانُكِ؟", "audio": "body/teeth_point_ar_f.mp3" },
-        "ar_m": { "text": "أين أسنانُكَ؟", "audio": "body/teeth_point_ar_m.mp3" }
+        "en": {
+          "text": "Where are your teeth?",
+          "audio": "body/teeth_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين أسنانُكِ؟",
+          "audio": "body/teeth_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين أسنانُكَ؟",
+          "audio": "body/teeth_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "tongue",
-      "name": { "en": "Tongue", "ar": "لسان" },
+      "name": {
+        "en": "Tongue",
+        "ar": "لسان"
+      },
       "image": "body/tongue.svg",
       "name_audio": {
         "en": "body/tongue_name_en.mp3",
         "ar": "body/tongue_name_ar.mp3"
       },
-      "confusable_with": ["mouth"],
+      "confusable_with": [
+        "mouth"
+      ],
       "point": {
-        "en": { "text": "Where's your tongue?", "audio": "body/tongue_point_en.mp3" },
-        "ar_f": { "text": "أين لسانُكِ؟", "audio": "body/tongue_point_ar_f.mp3" },
-        "ar_m": { "text": "أين لسانُكَ؟", "audio": "body/tongue_point_ar_m.mp3" }
+        "en": {
+          "text": "Where's your tongue?",
+          "audio": "body/tongue_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين لسانُكِ؟",
+          "audio": "body/tongue_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين لسانُكَ؟",
+          "audio": "body/tongue_point_ar_m.mp3"
+        }
       }
     },
     {
       "item_key": "face",
-      "name": { "en": "Face", "ar": "وجه" },
+      "name": {
+        "en": "Face",
+        "ar": "وجه"
+      },
       "image": "body/face.svg",
       "name_audio": {
         "en": "body/face_name_en.mp3",
         "ar": "body/face_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "cheek",
+        "chin"
+      ]
     },
     {
       "item_key": "heart",
-      "name": { "en": "Heart", "ar": "قلب" },
+      "name": {
+        "en": "Heart",
+        "ar": "قلب"
+      },
       "image": "body/heart.svg",
       "name_audio": {
         "en": "body/heart_name_en.mp3",
         "ar": "body/heart_name_ar.mp3"
       },
       "confusable_with": []
+    },
+    {
+      "item_key": "hair",
+      "name": {
+        "en": "Hair",
+        "ar": "شعر"
+      },
+      "image": "body/hair.svg",
+      "name_audio": {
+        "en": "body/hair_name_en.mp3",
+        "ar": "body/hair_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Where’s your hair?",
+          "audio": "body/hair_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين شعرُكِ؟",
+          "audio": "body/hair_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين شعرُكَ؟",
+          "audio": "body/hair_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "eyebrows",
+      "name": {
+        "en": "Eyebrows",
+        "ar": "حواجب"
+      },
+      "image": "body/eyebrows.svg",
+      "name_audio": {
+        "en": "body/eyebrows_name_en.mp3",
+        "ar": "body/eyebrows_name_ar.mp3"
+      },
+      "confusable_with": [
+        "eye"
+      ],
+      "point": {
+        "en": {
+          "text": "Where are your eyebrows?",
+          "audio": "body/eyebrows_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين حاجباكِ؟",
+          "audio": "body/eyebrows_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين حاجباكَ؟",
+          "audio": "body/eyebrows_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "cheek",
+      "name": {
+        "en": "Cheek",
+        "ar": "خدّ"
+      },
+      "image": "body/cheek.svg",
+      "name_audio": {
+        "en": "body/cheek_name_en.mp3",
+        "ar": "body/cheek_name_ar.mp3"
+      },
+      "confusable_with": [
+        "face"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your cheek?",
+          "audio": "body/cheek_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين خدُّكِ؟",
+          "audio": "body/cheek_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين خدُّكَ؟",
+          "audio": "body/cheek_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "chin",
+      "name": {
+        "en": "Chin",
+        "ar": "ذقن"
+      },
+      "image": "body/chin.svg",
+      "name_audio": {
+        "en": "body/chin_name_en.mp3",
+        "ar": "body/chin_name_ar.mp3"
+      },
+      "confusable_with": [
+        "mouth",
+        "face"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your chin?",
+          "audio": "body/chin_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين ذقنُكِ؟",
+          "audio": "body/chin_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين ذقنُكَ؟",
+          "audio": "body/chin_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "neck",
+      "name": {
+        "en": "Neck",
+        "ar": "رقبة"
+      },
+      "image": "body/neck.svg",
+      "name_audio": {
+        "en": "body/neck_name_en.mp3",
+        "ar": "body/neck_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Where’s your neck?",
+          "audio": "body/neck_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين رقبتُكِ؟",
+          "audio": "body/neck_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين رقبتُكَ؟",
+          "audio": "body/neck_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "shoulder",
+      "name": {
+        "en": "Shoulder",
+        "ar": "كتف"
+      },
+      "image": "body/shoulder.svg",
+      "name_audio": {
+        "en": "body/shoulder_name_en.mp3",
+        "ar": "body/shoulder_name_ar.mp3"
+      },
+      "confusable_with": [
+        "arm"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your shoulder?",
+          "audio": "body/shoulder_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين كتفُكِ؟",
+          "audio": "body/shoulder_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين كتفُكَ؟",
+          "audio": "body/shoulder_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "elbow",
+      "name": {
+        "en": "Elbow",
+        "ar": "كوع"
+      },
+      "image": "body/elbow.svg",
+      "name_audio": {
+        "en": "body/elbow_name_en.mp3",
+        "ar": "body/elbow_name_ar.mp3"
+      },
+      "confusable_with": [
+        "arm",
+        "knee"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your elbow?",
+          "audio": "body/elbow_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين كوعُكِ؟",
+          "audio": "body/elbow_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين كوعُكَ؟",
+          "audio": "body/elbow_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "tummy",
+      "name": {
+        "en": "Tummy",
+        "ar": "بطن"
+      },
+      "image": "body/tummy.svg",
+      "name_audio": {
+        "en": "body/tummy_name_en.mp3",
+        "ar": "body/tummy_name_ar.mp3"
+      },
+      "confusable_with": [
+        "back"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your tummy?",
+          "audio": "body/tummy_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين بطنُكِ؟",
+          "audio": "body/tummy_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين بطنُكَ؟",
+          "audio": "body/tummy_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "back",
+      "name": {
+        "en": "Back",
+        "ar": "ظهر"
+      },
+      "image": "body/back.svg",
+      "name_audio": {
+        "en": "body/back_name_en.mp3",
+        "ar": "body/back_name_ar.mp3"
+      },
+      "confusable_with": [
+        "tummy"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your back?",
+          "audio": "body/back_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين ظهرُكِ؟",
+          "audio": "body/back_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين ظهرُكَ؟",
+          "audio": "body/back_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "knee",
+      "name": {
+        "en": "Knee",
+        "ar": "ركبة"
+      },
+      "image": "body/knee.svg",
+      "name_audio": {
+        "en": "body/knee_name_en.mp3",
+        "ar": "body/knee_name_ar.mp3"
+      },
+      "confusable_with": [
+        "leg",
+        "elbow"
+      ],
+      "point": {
+        "en": {
+          "text": "Where’s your knee?",
+          "audio": "body/knee_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين ركبتُكِ؟",
+          "audio": "body/knee_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين ركبتُكَ؟",
+          "audio": "body/knee_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "toes",
+      "name": {
+        "en": "Toes",
+        "ar": "أصابع القدم"
+      },
+      "image": "body/toes.svg",
+      "name_audio": {
+        "en": "body/toes_name_en.mp3",
+        "ar": "body/toes_name_ar.mp3"
+      },
+      "confusable_with": [
+        "foot",
+        "finger"
+      ],
+      "point": {
+        "en": {
+          "text": "Where are your toes?",
+          "audio": "body/toes_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين أصابعُ قدمِكِ؟",
+          "audio": "body/toes_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين أصابعُ قدمِكَ؟",
+          "audio": "body/toes_point_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "nails",
+      "name": {
+        "en": "Nails",
+        "ar": "أظافر"
+      },
+      "image": "body/nails.svg",
+      "name_audio": {
+        "en": "body/nails_name_en.mp3",
+        "ar": "body/nails_name_ar.mp3"
+      },
+      "confusable_with": [
+        "finger",
+        "hand"
+      ],
+      "point": {
+        "en": {
+          "text": "Where are your nails?",
+          "audio": "body/nails_point_en.mp3"
+        },
+        "ar_f": {
+          "text": "أين أظافرُكِ؟",
+          "audio": "body/nails_point_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "أين أظافرُكَ؟",
+          "audio": "body/nails_point_ar_m.mp3"
+        }
+      }
     }
   ],
   "feedback_audio": {

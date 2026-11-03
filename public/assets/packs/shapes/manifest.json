@@ -4,41 +4,64 @@
   "schema_version": 1,
   "order": 9,
   "mix_alone": true,
-  "name": { "en": "Shapes", "ar": "الأشكال" },
+  "name": {
+    "en": "Shapes",
+    "ar": "الأشكال"
+  },
   "items": [
     {
       "item_key": "shape_circle",
-      "name": { "en": "Circle", "ar": "دائرة" },
+      "name": {
+        "en": "Circle",
+        "ar": "دائرة"
+      },
       "image": "shapes/shape_circle.svg",
       "name_audio": {
         "en": "shapes/shape_circle_name_en.mp3",
         "ar": "shapes/shape_circle_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "shape_oval",
+        "shape_hexagon"
+      ]
     },
     {
       "item_key": "shape_square",
-      "name": { "en": "Square", "ar": "مربع" },
+      "name": {
+        "en": "Square",
+        "ar": "مربع"
+      },
       "image": "shapes/shape_square.svg",
       "name_audio": {
         "en": "shapes/shape_square_name_en.mp3",
         "ar": "shapes/shape_square_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "shape_rectangle",
+        "shape_diamond"
+      ]
     },
     {
       "item_key": "shape_triangle",
-      "name": { "en": "Triangle", "ar": "مثلث" },
+      "name": {
+        "en": "Triangle",
+        "ar": "مثلث"
+      },
       "image": "shapes/shape_triangle.svg",
       "name_audio": {
         "en": "shapes/shape_triangle_name_en.mp3",
         "ar": "shapes/shape_triangle_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "shape_arrow"
+      ]
     },
     {
       "item_key": "shape_star",
-      "name": { "en": "Star", "ar": "نجمة" },
+      "name": {
+        "en": "Star",
+        "ar": "نجمة"
+      },
       "image": "shapes/shape_star.svg",
       "name_audio": {
         "en": "shapes/shape_star_name_en.mp3",
@@ -48,7 +71,10 @@
     },
     {
       "item_key": "shape_heart",
-      "name": { "en": "Heart", "ar": "قلب" },
+      "name": {
+        "en": "Heart",
+        "ar": "قلب"
+      },
       "image": "shapes/shape_heart.svg",
       "name_audio": {
         "en": "shapes/shape_heart_name_en.mp3",
@@ -58,13 +84,104 @@
     },
     {
       "item_key": "shape_moon",
-      "name": { "en": "Moon", "ar": "هلال" },
+      "name": {
+        "en": "Moon",
+        "ar": "هلال"
+      },
       "image": "shapes/shape_moon.svg",
       "name_audio": {
         "en": "shapes/shape_moon_name_en.mp3",
         "ar": "shapes/shape_moon_name_ar.mp3"
       },
       "confusable_with": []
+    },
+    {
+      "item_key": "shape_rectangle",
+      "name": {
+        "en": "Rectangle",
+        "ar": "مستطيل"
+      },
+      "image": "shapes/shape_rectangle.svg",
+      "name_audio": {
+        "en": "shapes/shape_rectangle_name_en.mp3",
+        "ar": "shapes/shape_rectangle_name_ar.mp3"
+      },
+      "confusable_with": [
+        "shape_square"
+      ]
+    },
+    {
+      "item_key": "shape_oval",
+      "name": {
+        "en": "Oval",
+        "ar": "بيضاوي"
+      },
+      "image": "shapes/shape_oval.svg",
+      "name_audio": {
+        "en": "shapes/shape_oval_name_en.mp3",
+        "ar": "shapes/shape_oval_name_ar.mp3"
+      },
+      "confusable_with": [
+        "shape_circle"
+      ]
+    },
+    {
+      "item_key": "shape_diamond",
+      "name": {
+        "en": "Diamond",
+        "ar": "معيّن"
+      },
+      "image": "shapes/shape_diamond.svg",
+      "name_audio": {
+        "en": "shapes/shape_diamond_name_en.mp3",
+        "ar": "shapes/shape_diamond_name_ar.mp3"
+      },
+      "confusable_with": [
+        "shape_square"
+      ]
+    },
+    {
+      "item_key": "shape_hexagon",
+      "name": {
+        "en": "Hexagon",
+        "ar": "مسدّس"
+      },
+      "image": "shapes/shape_hexagon.svg",
+      "name_audio": {
+        "en": "shapes/shape_hexagon_name_en.mp3",
+        "ar": "shapes/shape_hexagon_name_ar.mp3"
+      },
+      "confusable_with": [
+        "shape_circle"
+      ]
+    },
+    {
+      "item_key": "shape_plus",
+      "name": {
+        "en": "Plus",
+        "ar": "زائد"
+      },
+      "image": "shapes/shape_plus.svg",
+      "name_audio": {
+        "en": "shapes/shape_plus_name_en.mp3",
+        "ar": "shapes/shape_plus_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "shape_arrow",
+      "name": {
+        "en": "Arrow",
+        "ar": "سهم"
+      },
+      "image": "shapes/shape_arrow.svg",
+      "name_audio": {
+        "en": "shapes/shape_arrow_name_en.mp3",
+        "ar": "shapes/shape_arrow_name_ar.mp3"
+      },
+      "confusable_with": [
+        "shape_triangle"
+      ]
     }
   ],
   "feedback_audio": {

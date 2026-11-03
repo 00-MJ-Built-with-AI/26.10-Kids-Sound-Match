@@ -6,120 +6,346 @@
   "kind": "association",
   "association": {
     "prompt_pack": "animals",
-    "question_audio": { "en": "feedback/baby_question_en.mp3", "ar": "feedback/baby_question_ar.mp3" },
-    "question_audio_feminine": { "ar": "feedback/baby_question_ar_f.mp3" },
+    "question_audio": {
+      "en": "feedback/baby_question_en.mp3",
+      "ar": "feedback/baby_question_ar.mp3"
+    },
+    "question_audio_feminine": {
+      "ar": "feedback/baby_question_ar_f.mp3"
+    },
     "celebration": "baby"
   },
-  "name": { "en": "Animal babies", "ar": "صغار الحيوانات" },
+  "name": {
+    "en": "Animal babies",
+    "ar": "صغار الحيوانات"
+  },
   "items": [
     {
       "item_key": "calf",
-      "name": { "en": "Calf", "ar": "عِجل" },
+      "name": {
+        "en": "Calf",
+        "ar": "عِجل"
+      },
       "image": "animal-babies/calf.jpg",
       "name_audio": {
         "en": "animal-babies/calf_name_en.mp3",
         "ar": "animal-babies/calf_name_ar.mp3"
       },
-      "prompts": ["cow"],
-      "confusable_with": ["camel_calf"]
+      "prompts": [
+        "cow"
+      ],
+      "confusable_with": [
+        "camel_calf"
+      ]
     },
     {
       "item_key": "lamb",
-      "name": { "en": "Lamb", "ar": "حَمَل" },
+      "name": {
+        "en": "Lamb",
+        "ar": "حَمَل"
+      },
       "image": "animal-babies/lamb.jpg",
       "name_audio": {
         "en": "animal-babies/lamb_name_en.mp3",
         "ar": "animal-babies/lamb_name_ar.mp3"
       },
-      "prompts": ["sheep"],
-      "confusable_with": ["kid"]
+      "prompts": [
+        "sheep"
+      ],
+      "confusable_with": [
+        "kid"
+      ]
     },
     {
       "item_key": "kid",
-      "name": { "en": "Kid", "ar": "جَدي" },
+      "name": {
+        "en": "Kid",
+        "ar": "جَدي"
+      },
       "image": "animal-babies/kid.jpg",
       "name_audio": {
         "en": "animal-babies/kid_name_en.mp3",
         "ar": "animal-babies/kid_name_ar.mp3"
       },
-      "prompts": ["goat"],
-      "confusable_with": ["lamb"]
+      "prompts": [
+        "goat"
+      ],
+      "confusable_with": [
+        "lamb"
+      ]
     },
     {
       "item_key": "foal",
-      "name": { "en": "Foal", "ar": "مُهر" },
+      "name": {
+        "en": "Foal",
+        "ar": "مُهر"
+      },
       "image": "animal-babies/foal.jpg",
       "name_audio": {
         "en": "animal-babies/foal_name_en.mp3",
         "ar": "animal-babies/foal_name_ar.mp3"
       },
-      "prompts": ["horse"],
+      "prompts": [
+        "horse"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "puppy",
-      "name": { "en": "Puppy", "ar": "جَرو" },
+      "name": {
+        "en": "Puppy",
+        "ar": "جَرو"
+      },
       "image": "animal-babies/puppy.jpg",
       "name_audio": {
         "en": "animal-babies/puppy_name_en.mp3",
         "ar": "animal-babies/puppy_name_ar.mp3"
       },
-      "prompts": ["dog"],
+      "prompts": [
+        "dog"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "kitten",
-      "name": { "en": "Kitten", "ar": "هُرَيرة" },
+      "name": {
+        "en": "Kitten",
+        "ar": "هُرَيرة"
+      },
       "image": "animal-babies/kitten.jpg",
       "name_audio": {
         "en": "animal-babies/kitten_name_en.mp3",
         "ar": "animal-babies/kitten_name_ar.mp3"
       },
-      "prompts": ["cat"],
+      "prompts": [
+        "cat"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "chick",
-      "name": { "en": "Chick", "ar": "كتكوت" },
+      "name": {
+        "en": "Chick",
+        "ar": "كتكوت"
+      },
       "image": "animal-babies/chick.jpg",
       "name_audio": {
         "en": "animals/chick_name_en.mp3",
         "ar": "animals/chick_name_ar.mp3"
       },
-      "prompts": ["hen"],
+      "prompts": [
+        "hen"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "cub",
-      "name": { "en": "Lion cub", "ar": "شِبل" },
+      "name": {
+        "en": "Lion cub",
+        "ar": "شِبل"
+      },
       "image": "animal-babies/cub.jpg",
       "name_audio": {
         "en": "animal-babies/cub_name_en.mp3",
         "ar": "animal-babies/cub_name_ar.mp3"
       },
-      "prompts": ["lion"],
+      "prompts": [
+        "lion"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "camel_calf",
-      "name": { "en": "Baby camel", "ar": "حُوار" },
+      "name": {
+        "en": "Baby camel",
+        "ar": "حُوار"
+      },
       "image": "animal-babies/camel_calf.jpg",
       "name_audio": {
         "en": "animal-babies/camel_calf_name_en.mp3",
         "ar": "animal-babies/camel_calf_name_ar.mp3"
       },
-      "prompts": ["camel"],
-      "confusable_with": ["calf"]
+      "prompts": [
+        "camel"
+      ],
+      "confusable_with": [
+        "calf"
+      ]
     },
     {
       "item_key": "duckling",
-      "name": { "en": "Duckling", "ar": "فرخ البط" },
+      "name": {
+        "en": "Duckling",
+        "ar": "فرخ البط"
+      },
       "image": "animal-babies/duckling.jpg",
       "name_audio": {
         "en": "animal-babies/duckling_name_en.mp3",
         "ar": "animal-babies/duckling_name_ar.mp3"
       },
-      "prompts": ["duck"],
+      "prompts": [
+        "duck"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "bunny",
+      "name": {
+        "en": "Bunny",
+        "ar": "أرنب صغير"
+      },
+      "image": "animal-babies/bunny.jpg",
+      "name_audio": {
+        "en": "animal-babies/bunny_name_en.mp3",
+        "ar": "animal-babies/bunny_name_ar.mp3"
+      },
+      "prompts": [
+        "rabbit"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "tadpole",
+      "name": {
+        "en": "Tadpole",
+        "ar": "شرغوف"
+      },
+      "image": "animal-babies/tadpole.jpg",
+      "name_audio": {
+        "en": "animal-babies/tadpole_name_en.mp3",
+        "ar": "animal-babies/tadpole_name_ar.mp3"
+      },
+      "prompts": [
+        "frog"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "caterpillar",
+      "name": {
+        "en": "Caterpillar",
+        "ar": "يرقة"
+      },
+      "image": "animal-babies/caterpillar.jpg",
+      "name_audio": {
+        "en": "animal-babies/caterpillar_name_en.mp3",
+        "ar": "animal-babies/caterpillar_name_ar.mp3"
+      },
+      "prompts": [
+        "butterfly"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "gosling",
+      "name": {
+        "en": "Gosling",
+        "ar": "فرخ الإوز"
+      },
+      "image": "animal-babies/gosling.jpg",
+      "name_audio": {
+        "en": "animal-babies/gosling_name_en.mp3",
+        "ar": "animal-babies/gosling_name_ar.mp3"
+      },
+      "prompts": [
+        "goose"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "elephant_calf",
+      "name": {
+        "en": "Baby elephant",
+        "ar": "فيل صغير"
+      },
+      "image": "animal-babies/elephant_calf.jpg",
+      "name_audio": {
+        "en": "animal-babies/elephant_calf_name_en.mp3",
+        "ar": "animal-babies/elephant_calf_name_ar.mp3"
+      },
+      "prompts": [
+        "elephant"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "fawn",
+      "name": {
+        "en": "Fawn",
+        "ar": "خِشف"
+      },
+      "image": "animal-babies/fawn.jpg",
+      "name_audio": {
+        "en": "animal-babies/fawn_name_en.mp3",
+        "ar": "animal-babies/fawn_name_ar.mp3"
+      },
+      "prompts": [
+        "deer"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "bear_cub",
+      "name": {
+        "en": "Bear cub",
+        "ar": "دبّ صغير"
+      },
+      "image": "animal-babies/bear_cub.jpg",
+      "name_audio": {
+        "en": "animal-babies/bear_cub_name_en.mp3",
+        "ar": "animal-babies/bear_cub_name_ar.mp3"
+      },
+      "prompts": [
+        "bear"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "joey",
+      "name": {
+        "en": "Joey",
+        "ar": "كنغر صغير"
+      },
+      "image": "animal-babies/joey.jpg",
+      "name_audio": {
+        "en": "animal-babies/joey_name_en.mp3",
+        "ar": "animal-babies/joey_name_ar.mp3"
+      },
+      "prompts": [
+        "kangaroo"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "panda_cub",
+      "name": {
+        "en": "Panda cub",
+        "ar": "باندا صغير"
+      },
+      "image": "animal-babies/panda_cub.jpg",
+      "name_audio": {
+        "en": "animal-babies/panda_cub_name_en.mp3",
+        "ar": "animal-babies/panda_cub_name_ar.mp3"
+      },
+      "prompts": [
+        "panda"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "penguin_chick",
+      "name": {
+        "en": "Penguin chick",
+        "ar": "بطريق صغير"
+      },
+      "image": "animal-babies/penguin_chick.jpg",
+      "name_audio": {
+        "en": "animal-babies/penguin_chick_name_en.mp3",
+        "ar": "animal-babies/penguin_chick_name_ar.mp3"
+      },
+      "prompts": [
+        "penguin"
+      ],
       "confusable_with": []
     }
   ],

@@ -4,31 +4,47 @@
   "schema_version": 1,
   "order": 8,
   "mix_alone": true,
-  "name": { "en": "Colours", "ar": "الألوان" },
+  "name": {
+    "en": "Colours",
+    "ar": "الألوان"
+  },
   "items": [
     {
       "item_key": "color_red",
-      "name": { "en": "Red", "ar": "أحمر" },
+      "name": {
+        "en": "Red",
+        "ar": "أحمر"
+      },
       "image": "colors/color_red.svg",
       "name_audio": {
         "en": "colors/color_red_name_en.mp3",
         "ar": "colors/color_red_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "color_pink"
+      ]
     },
     {
       "item_key": "color_yellow",
-      "name": { "en": "Yellow", "ar": "أصفر" },
+      "name": {
+        "en": "Yellow",
+        "ar": "أصفر"
+      },
       "image": "colors/color_yellow.svg",
       "name_audio": {
         "en": "colors/color_yellow_name_en.mp3",
         "ar": "colors/color_yellow_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "color_gold"
+      ]
     },
     {
       "item_key": "color_blue",
-      "name": { "en": "Blue", "ar": "أزرق" },
+      "name": {
+        "en": "Blue",
+        "ar": "أزرق"
+      },
       "image": "colors/color_blue.svg",
       "name_audio": {
         "en": "colors/color_blue_name_en.mp3",
@@ -38,7 +54,10 @@
     },
     {
       "item_key": "color_green",
-      "name": { "en": "Green", "ar": "أخضر" },
+      "name": {
+        "en": "Green",
+        "ar": "أخضر"
+      },
       "image": "colors/color_green.svg",
       "name_audio": {
         "en": "colors/color_green_name_en.mp3",
@@ -48,23 +67,127 @@
     },
     {
       "item_key": "color_orange",
-      "name": { "en": "Orange", "ar": "برتقالي" },
+      "name": {
+        "en": "Orange",
+        "ar": "برتقالي"
+      },
       "image": "colors/color_orange.svg",
       "name_audio": {
         "en": "colors/color_orange_name_en.mp3",
         "ar": "colors/color_orange_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "color_brown",
+        "color_gold"
+      ]
     },
     {
       "item_key": "color_purple",
-      "name": { "en": "Purple", "ar": "بنفسجي" },
+      "name": {
+        "en": "Purple",
+        "ar": "بنفسجي"
+      },
       "image": "colors/color_purple.svg",
       "name_audio": {
         "en": "colors/color_purple_name_en.mp3",
         "ar": "colors/color_purple_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "color_pink"
+      ]
+    },
+    {
+      "item_key": "color_pink",
+      "name": {
+        "en": "Pink",
+        "ar": "زهري"
+      },
+      "image": "colors/color_pink.svg",
+      "name_audio": {
+        "en": "colors/color_pink_name_en.mp3",
+        "ar": "colors/color_pink_name_ar.mp3"
+      },
+      "confusable_with": [
+        "color_red",
+        "color_purple"
+      ]
+    },
+    {
+      "item_key": "color_brown",
+      "name": {
+        "en": "Brown",
+        "ar": "بنّي"
+      },
+      "image": "colors/color_brown.svg",
+      "name_audio": {
+        "en": "colors/color_brown_name_en.mp3",
+        "ar": "colors/color_brown_name_ar.mp3"
+      },
+      "confusable_with": [
+        "color_orange"
+      ]
+    },
+    {
+      "item_key": "color_black",
+      "name": {
+        "en": "Black",
+        "ar": "أسود"
+      },
+      "image": "colors/color_black.svg",
+      "name_audio": {
+        "en": "colors/color_black_name_en.mp3",
+        "ar": "colors/color_black_name_ar.mp3"
+      },
+      "confusable_with": [
+        "color_grey"
+      ]
+    },
+    {
+      "item_key": "color_white",
+      "name": {
+        "en": "White",
+        "ar": "أبيض"
+      },
+      "image": "colors/color_white.svg",
+      "name_audio": {
+        "en": "colors/color_white_name_en.mp3",
+        "ar": "colors/color_white_name_ar.mp3"
+      },
+      "confusable_with": [
+        "color_grey"
+      ]
+    },
+    {
+      "item_key": "color_grey",
+      "name": {
+        "en": "Grey",
+        "ar": "رمادي"
+      },
+      "image": "colors/color_grey.svg",
+      "name_audio": {
+        "en": "colors/color_grey_name_en.mp3",
+        "ar": "colors/color_grey_name_ar.mp3"
+      },
+      "confusable_with": [
+        "color_white",
+        "color_black"
+      ]
+    },
+    {
+      "item_key": "color_gold",
+      "name": {
+        "en": "Gold",
+        "ar": "دهبي"
+      },
+      "image": "colors/color_gold.svg",
+      "name_audio": {
+        "en": "colors/color_gold_name_en.mp3",
+        "ar": "colors/color_gold_name_ar.mp3"
+      },
+      "confusable_with": [
+        "color_yellow",
+        "color_orange"
+      ]
     }
   ],
   "feedback_audio": {

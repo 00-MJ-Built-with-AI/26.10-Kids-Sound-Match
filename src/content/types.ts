@@ -32,6 +32,11 @@ export interface ManifestItem {
    * أين أنفُكَ؟), with the words for the stand-in voice. Body parts only.
    */
   point?: Partial<Record<PointVoice, { text: string; audio: string }>>;
+  /**
+   * For a photo item: its drawing (the 3D emoji it had before), shown wherever photos would mix
+   * with drawings (the Mixed game next to Body parts) and in the drawn scenes and stickers.
+   */
+  drawing?: string;
 }
 
 /** Who a "Where's your…?" line is said to: English, or Arabic for a girl or a boy. */

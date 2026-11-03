@@ -3,31 +3,49 @@
   "pack_version": 1,
   "schema_version": 1,
   "order": 7,
-  "name": { "en": "Family", "ar": "العائلة" },
+  "name": {
+    "en": "Family",
+    "ar": "العائلة"
+  },
   "items": [
     {
       "item_key": "mama",
-      "name": { "en": "Mama", "ar": "ماما" },
+      "name": {
+        "en": "Mama",
+        "ar": "ماما"
+      },
       "image": "family/mama.svg",
       "name_audio": {
         "en": "family/mama_name_en.mp3",
         "ar": "family/mama_name_ar.mp3"
       },
-      "confusable_with": ["aunt"]
+      "confusable_with": [
+        "aunt",
+        "aunt_paternal"
+      ]
     },
     {
       "item_key": "baba",
-      "name": { "en": "Baba", "ar": "بابا" },
+      "name": {
+        "en": "Baba",
+        "ar": "بابا"
+      },
       "image": "family/baba.svg",
       "name_audio": {
         "en": "family/baba_name_en.mp3",
         "ar": "family/baba_name_ar.mp3"
       },
-      "confusable_with": ["uncle"]
+      "confusable_with": [
+        "uncle",
+        "uncle_maternal"
+      ]
     },
     {
       "item_key": "grandma",
-      "name": { "en": "Grandma", "ar": "تيتا" },
+      "name": {
+        "en": "Grandma",
+        "ar": "تيتا"
+      },
       "image": "family/grandma.svg",
       "name_audio": {
         "en": "family/grandma_name_en.mp3",
@@ -37,7 +55,10 @@
     },
     {
       "item_key": "grandpa",
-      "name": { "en": "Grandpa", "ar": "جدّو" },
+      "name": {
+        "en": "Grandpa",
+        "ar": "جدّو"
+      },
       "image": "family/grandpa.svg",
       "name_audio": {
         "en": "family/grandpa_name_en.mp3",
@@ -47,27 +68,41 @@
     },
     {
       "item_key": "brother",
-      "name": { "en": "Brother", "ar": "أخ" },
+      "name": {
+        "en": "Brother",
+        "ar": "أخ"
+      },
       "image": "family/brother.svg",
       "name_audio": {
         "en": "family/brother_name_en.mp3",
         "ar": "family/brother_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "cousin_boy",
+        "friend"
+      ]
     },
     {
       "item_key": "sister",
-      "name": { "en": "Sister", "ar": "أخت" },
+      "name": {
+        "en": "Sister",
+        "ar": "أخت"
+      },
       "image": "family/sister.svg",
       "name_audio": {
         "en": "family/sister_name_en.mp3",
         "ar": "family/sister_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "cousin_girl"
+      ]
     },
     {
       "item_key": "baby",
-      "name": { "en": "Baby", "ar": "بيبي" },
+      "name": {
+        "en": "Baby",
+        "ar": "بيبي"
+      },
       "image": "family/baby.svg",
       "name_audio": {
         "en": "family/baby_name_en.mp3",
@@ -77,23 +112,116 @@
     },
     {
       "item_key": "uncle",
-      "name": { "en": "Uncle", "ar": "عمّو" },
+      "name": {
+        "en": "Uncle",
+        "ar": "عمّو"
+      },
       "image": "family/uncle.svg",
       "name_audio": {
         "en": "family/uncle_name_en.mp3",
         "ar": "family/uncle_name_ar.mp3"
       },
-      "confusable_with": ["baba"]
+      "confusable_with": [
+        "baba",
+        "uncle_maternal"
+      ]
     },
     {
       "item_key": "aunt",
-      "name": { "en": "Aunt", "ar": "خالتو" },
+      "name": {
+        "en": "Aunt",
+        "ar": "خالتو"
+      },
       "image": "family/aunt.svg",
       "name_audio": {
         "en": "family/aunt_name_en.mp3",
         "ar": "family/aunt_name_ar.mp3"
       },
-      "confusable_with": ["mama"]
+      "confusable_with": [
+        "mama",
+        "aunt_paternal"
+      ]
+    },
+    {
+      "item_key": "aunt_paternal",
+      "name": {
+        "en": "Aunt",
+        "ar": "عمّتو"
+      },
+      "image": "family/aunt_paternal.svg",
+      "name_audio": {
+        "en": "family/aunt_paternal_name_en.mp3",
+        "ar": "family/aunt_paternal_name_ar.mp3"
+      },
+      "confusable_with": [
+        "aunt",
+        "mama"
+      ]
+    },
+    {
+      "item_key": "uncle_maternal",
+      "name": {
+        "en": "Uncle",
+        "ar": "خالو"
+      },
+      "image": "family/uncle_maternal.svg",
+      "name_audio": {
+        "en": "family/uncle_maternal_name_en.mp3",
+        "ar": "family/uncle_maternal_name_ar.mp3"
+      },
+      "confusable_with": [
+        "uncle",
+        "baba"
+      ]
+    },
+    {
+      "item_key": "cousin_boy",
+      "name": {
+        "en": "Cousin",
+        "ar": "ابن عمّي"
+      },
+      "image": "family/cousin_boy.svg",
+      "name_audio": {
+        "en": "family/cousin_boy_name_en.mp3",
+        "ar": "family/cousin_boy_name_ar.mp3"
+      },
+      "confusable_with": [
+        "brother",
+        "cousin_girl",
+        "friend"
+      ]
+    },
+    {
+      "item_key": "cousin_girl",
+      "name": {
+        "en": "Cousin",
+        "ar": "بنت عمّي"
+      },
+      "image": "family/cousin_girl.svg",
+      "name_audio": {
+        "en": "family/cousin_girl_name_en.mp3",
+        "ar": "family/cousin_girl_name_ar.mp3"
+      },
+      "confusable_with": [
+        "sister",
+        "cousin_boy"
+      ]
+    },
+    {
+      "item_key": "friend",
+      "name": {
+        "en": "Friend",
+        "ar": "صاحبي"
+      },
+      "image": "family/friend.svg",
+      "name_audio": {
+        "en": "family/friend_name_en.mp3",
+        "ar": "family/friend_name_ar.mp3"
+      },
+      "confusable_with": [
+        "brother",
+        "cousin_boy"
+      ]
     }
   ],
   "feedback_audio": {

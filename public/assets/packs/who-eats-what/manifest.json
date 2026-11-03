@@ -6,176 +6,484 @@
   "kind": "association",
   "association": {
     "prompt_pack": "animals",
-    "question_audio": { "en": "feedback/eat_question_en.mp3", "ar": "feedback/eat_question_ar.mp3" },
-    "question_audio_feminine": { "ar": "feedback/eat_question_ar_f.mp3" },
+    "question_audio": {
+      "en": "feedback/eat_question_en.mp3",
+      "ar": "feedback/eat_question_ar.mp3"
+    },
+    "question_audio_feminine": {
+      "ar": "feedback/eat_question_ar_f.mp3"
+    },
     "reward_audio": "feedback/yum.mp3"
   },
-  "name": { "en": "Who eats what?", "ar": "من يأكل ماذا؟" },
+  "name": {
+    "en": "Who eats what?",
+    "ar": "من يأكل ماذا؟"
+  },
   "items": [
     {
       "item_key": "carrot",
-      "name": { "en": "Carrot", "ar": "جزرة" },
-      "image": "food/carrot.svg",
+      "name": {
+        "en": "Carrot",
+        "ar": "جزرة"
+      },
+      "image": "food/carrot.jpg",
       "name_audio": {
         "en": "food/carrot_name_en.mp3",
         "ar": "food/carrot_name_ar.mp3"
       },
-      "prompts": ["rabbit", "donkey", "horse"],
+      "prompts": [
+        "rabbit",
+        "donkey",
+        "horse"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "banana",
-      "name": { "en": "Banana", "ar": "موزة" },
-      "image": "food/banana.svg",
+      "name": {
+        "en": "Banana",
+        "ar": "موزة"
+      },
+      "image": "food/banana.jpg",
       "name_audio": {
         "en": "food/banana_name_en.mp3",
         "ar": "food/banana_name_ar.mp3"
       },
-      "prompts": ["monkey", "gorilla"],
+      "prompts": [
+        "monkey",
+        "gorilla"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "cheese",
-      "name": { "en": "Cheese", "ar": "جبنة" },
-      "image": "food/cheese.svg",
+      "name": {
+        "en": "Cheese",
+        "ar": "جبنة"
+      },
+      "image": "food/cheese.jpg",
       "name_audio": {
         "en": "food/cheese_name_en.mp3",
         "ar": "food/cheese_name_ar.mp3"
       },
-      "prompts": ["mouse"],
+      "prompts": [
+        "mouse"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "milk",
-      "name": { "en": "Milk", "ar": "حليب" },
-      "image": "food/milk.svg",
+      "name": {
+        "en": "Milk",
+        "ar": "حليب"
+      },
+      "image": "food/milk.jpg",
       "name_audio": {
         "en": "food/milk_name_en.mp3",
         "ar": "food/milk_name_ar.mp3"
       },
-      "prompts": ["cat"],
+      "prompts": [
+        "cat"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "honey",
-      "name": { "en": "Honey", "ar": "عسل" },
-      "image": "food/honey.svg",
+      "name": {
+        "en": "Honey",
+        "ar": "عسل"
+      },
+      "image": "food/honey.jpg",
       "name_audio": {
         "en": "food/honey_name_en.mp3",
         "ar": "food/honey_name_ar.mp3"
       },
-      "prompts": ["bear"],
+      "prompts": [
+        "bear"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "apple",
-      "name": { "en": "Apple", "ar": "تفاحة" },
-      "image": "food/apple.svg",
+      "name": {
+        "en": "Apple",
+        "ar": "تفاحة"
+      },
+      "image": "food/apple.jpg",
       "name_audio": {
         "en": "food/apple_name_en.mp3",
         "ar": "food/apple_name_ar.mp3"
       },
-      "prompts": ["horse"],
+      "prompts": [
+        "horse"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "fish",
-      "name": { "en": "Fish", "ar": "سمكة" },
-      "image": "animals/fish.svg",
+      "name": {
+        "en": "Fish",
+        "ar": "سمكة"
+      },
+      "image": "animals/fish.jpg",
       "name_audio": {
         "en": "animals/fish_name_en.mp3",
         "ar": "animals/fish_name_ar.mp3"
       },
-      "prompts": ["penguin", "seal", "dolphin", "whale", "cat", "bear", "crocodile"],
+      "prompts": [
+        "penguin",
+        "seal",
+        "dolphin",
+        "whale",
+        "cat",
+        "bear",
+        "crocodile"
+      ],
       "confusable_with": []
     },
     {
       "item_key": "grass",
-      "name": { "en": "Grass", "ar": "عشب" },
-      "image": "who-eats-what/grass.svg",
+      "name": {
+        "en": "Grass",
+        "ar": "عشب"
+      },
+      "image": "weather/grass.jpg",
       "name_audio": {
         "en": "who-eats-what/grass_name_en.mp3",
         "ar": "who-eats-what/grass_name_ar.mp3"
       },
-      "prompts": ["cow", "sheep", "goat", "zebra", "deer", "camel", "hippo", "kangaroo", "horse", "donkey", "rabbit"],
-      "confusable_with": ["leaves", "lettuce"]
+      "prompts": [
+        "cow",
+        "sheep",
+        "goat",
+        "zebra",
+        "deer",
+        "camel",
+        "hippo",
+        "kangaroo",
+        "horse",
+        "donkey",
+        "rabbit"
+      ],
+      "confusable_with": [
+        "leaves",
+        "lettuce"
+      ]
     },
     {
       "item_key": "bone",
-      "name": { "en": "Bone", "ar": "عظمة" },
-      "image": "who-eats-what/bone.svg",
+      "name": {
+        "en": "Bone",
+        "ar": "عظمة"
+      },
+      "image": "who-eats-what/bone.jpg",
       "name_audio": {
         "en": "who-eats-what/bone_name_en.mp3",
         "ar": "who-eats-what/bone_name_ar.mp3"
       },
-      "prompts": ["dog"],
-      "confusable_with": ["meat"]
+      "prompts": [
+        "dog"
+      ],
+      "confusable_with": [
+        "meat"
+      ],
+      "drawing": "who-eats-what/bone.svg"
     },
     {
       "item_key": "seeds",
-      "name": { "en": "Seeds", "ar": "حبوب" },
-      "image": "who-eats-what/seeds.svg",
+      "name": {
+        "en": "Seeds",
+        "ar": "حبوب"
+      },
+      "image": "who-eats-what/seeds.jpg",
       "name_audio": {
         "en": "who-eats-what/seeds_name_en.mp3",
         "ar": "who-eats-what/seeds_name_ar.mp3"
       },
-      "prompts": ["hen", "chick", "bird", "pigeon", "rooster", "turkey"],
-      "confusable_with": []
+      "prompts": [
+        "hen",
+        "chick",
+        "bird",
+        "pigeon",
+        "rooster",
+        "turkey"
+      ],
+      "confusable_with": [],
+      "drawing": "who-eats-what/seeds.svg"
     },
     {
       "item_key": "bamboo",
-      "name": { "en": "Bamboo", "ar": "خيزران" },
-      "image": "who-eats-what/bamboo.svg",
+      "name": {
+        "en": "Bamboo",
+        "ar": "خيزران"
+      },
+      "image": "who-eats-what/bamboo.jpg",
       "name_audio": {
         "en": "who-eats-what/bamboo_name_en.mp3",
         "ar": "who-eats-what/bamboo_name_ar.mp3"
       },
-      "prompts": ["panda"],
-      "confusable_with": []
+      "prompts": [
+        "panda"
+      ],
+      "confusable_with": [],
+      "drawing": "who-eats-what/bamboo.svg"
     },
     {
       "item_key": "leaves",
-      "name": { "en": "Leaves", "ar": "أوراق الشجر" },
-      "image": "who-eats-what/leaves.svg",
+      "name": {
+        "en": "Leaves",
+        "ar": "أوراق الشجر"
+      },
+      "image": "who-eats-what/leaves.jpg",
       "name_audio": {
         "en": "who-eats-what/leaves_name_en.mp3",
         "ar": "who-eats-what/leaves_name_ar.mp3"
       },
-      "prompts": ["giraffe"],
-      "confusable_with": ["grass", "lettuce"]
+      "prompts": [
+        "giraffe"
+      ],
+      "confusable_with": [
+        "grass",
+        "lettuce"
+      ],
+      "drawing": "who-eats-what/leaves.svg"
     },
     {
       "item_key": "flower",
-      "name": { "en": "Flower", "ar": "زهرة" },
-      "image": "who-eats-what/flower.svg",
+      "name": {
+        "en": "Flower",
+        "ar": "زهرة"
+      },
+      "image": "weather/flower.jpg",
       "name_audio": {
         "en": "who-eats-what/flower_name_en.mp3",
         "ar": "who-eats-what/flower_name_ar.mp3"
       },
-      "prompts": ["bee", "butterfly"],
-      "confusable_with": []
+      "prompts": [
+        "bee",
+        "butterfly"
+      ],
+      "confusable_with": [],
+      "drawing": "who-eats-what/flower.svg"
     },
     {
       "item_key": "meat",
-      "name": { "en": "Meat", "ar": "لحم" },
-      "image": "who-eats-what/meat.svg",
+      "name": {
+        "en": "Meat",
+        "ar": "لحم"
+      },
+      "image": "who-eats-what/meat.jpg",
       "name_audio": {
         "en": "who-eats-what/meat_name_en.mp3",
         "ar": "who-eats-what/meat_name_ar.mp3"
       },
-      "prompts": ["lion", "tiger", "leopard", "wolf", "fox", "crocodile"],
-      "confusable_with": ["bone"]
+      "prompts": [
+        "lion",
+        "tiger",
+        "leopard",
+        "wolf",
+        "fox",
+        "crocodile"
+      ],
+      "confusable_with": [
+        "bone"
+      ],
+      "drawing": "who-eats-what/meat.svg"
     },
     {
       "item_key": "lettuce",
-      "name": { "en": "Lettuce", "ar": "خس" },
-      "image": "who-eats-what/lettuce.svg",
+      "name": {
+        "en": "Lettuce",
+        "ar": "خس"
+      },
+      "image": "who-eats-what/lettuce.jpg",
       "name_audio": {
         "en": "who-eats-what/lettuce_name_en.mp3",
         "ar": "who-eats-what/lettuce_name_ar.mp3"
       },
-      "prompts": ["turtle", "snail", "rabbit"],
-      "confusable_with": ["grass", "leaves"]
+      "prompts": [
+        "turtle",
+        "snail",
+        "rabbit"
+      ],
+      "confusable_with": [
+        "grass",
+        "leaves"
+      ],
+      "drawing": "who-eats-what/lettuce.svg"
+    },
+    {
+      "item_key": "hay",
+      "name": {
+        "en": "Hay",
+        "ar": "قش"
+      },
+      "image": "who-eats-what/hay.jpg",
+      "name_audio": {
+        "en": "who-eats-what/hay_name_en.mp3",
+        "ar": "who-eats-what/hay_name_ar.mp3"
+      },
+      "prompts": [
+        "horse",
+        "donkey",
+        "cow",
+        "sheep",
+        "goat"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "corn",
+      "name": {
+        "en": "Corn",
+        "ar": "ذرة"
+      },
+      "image": "who-eats-what/corn.jpg",
+      "name_audio": {
+        "en": "who-eats-what/corn_name_en.mp3",
+        "ar": "who-eats-what/corn_name_ar.mp3"
+      },
+      "prompts": [
+        "hen",
+        "rooster",
+        "turkey",
+        "goose"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "worm",
+      "name": {
+        "en": "Worm",
+        "ar": "دودة"
+      },
+      "image": "who-eats-what/worm.jpg",
+      "name_audio": {
+        "en": "who-eats-what/worm_name_en.mp3",
+        "ar": "who-eats-what/worm_name_ar.mp3"
+      },
+      "prompts": [
+        "bird",
+        "hen",
+        "duck"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "fly",
+      "name": {
+        "en": "Fly",
+        "ar": "ذبابة"
+      },
+      "image": "who-eats-what/fly.jpg",
+      "name_audio": {
+        "en": "who-eats-what/fly_name_en.mp3",
+        "ar": "who-eats-what/fly_name_ar.mp3"
+      },
+      "prompts": [
+        "frog"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "grapes",
+      "name": {
+        "en": "Grapes",
+        "ar": "عنب"
+      },
+      "image": "food/grapes.jpg",
+      "name_audio": {
+        "en": "food/grapes_name_en.mp3",
+        "ar": "food/grapes_name_ar.mp3"
+      },
+      "prompts": [
+        "fox"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "dates",
+      "name": {
+        "en": "Dates",
+        "ar": "تمر"
+      },
+      "image": "food/dates.jpg",
+      "name_audio": {
+        "en": "food/dates_name_en.mp3",
+        "ar": "food/dates_name_ar.mp3"
+      },
+      "prompts": [
+        "camel"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "peanuts",
+      "name": {
+        "en": "Peanuts",
+        "ar": "فستق عبيد"
+      },
+      "image": "who-eats-what/peanuts.jpg",
+      "name_audio": {
+        "en": "who-eats-what/peanuts_name_en.mp3",
+        "ar": "who-eats-what/peanuts_name_ar.mp3"
+      },
+      "prompts": [
+        "elephant"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "bread",
+      "name": {
+        "en": "Bread",
+        "ar": "خبز"
+      },
+      "image": "food/bread.jpg",
+      "name_audio": {
+        "en": "food/bread_name_en.mp3",
+        "ar": "food/bread_name_ar.mp3"
+      },
+      "prompts": [
+        "duck",
+        "pigeon"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "nuts",
+      "name": {
+        "en": "Nuts",
+        "ar": "جوز"
+      },
+      "image": "who-eats-what/nuts.jpg",
+      "name_audio": {
+        "en": "who-eats-what/nuts_name_en.mp3",
+        "ar": "who-eats-what/nuts_name_ar.mp3"
+      },
+      "prompts": [
+        "monkey",
+        "parrot"
+      ],
+      "confusable_with": []
+    },
+    {
+      "item_key": "cabbage",
+      "name": {
+        "en": "Cabbage",
+        "ar": "ملفوف"
+      },
+      "image": "who-eats-what/cabbage.jpg",
+      "name_audio": {
+        "en": "who-eats-what/cabbage_name_en.mp3",
+        "ar": "who-eats-what/cabbage_name_ar.mp3"
+      },
+      "prompts": [
+        "rabbit",
+        "turtle",
+        "goat"
+      ],
+      "confusable_with": []
     }
   ],
   "feedback_audio": {

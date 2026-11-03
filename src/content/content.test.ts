@@ -128,8 +128,9 @@ describe('loader', () => {
     expect(animals.items).toHaveLength(54);
     const cat = animals.items.find((i) => i.key === 'cat')!;
     expect(cat.sound).toEqual({ path: 'packs/animals/cat_sound.mp3', url: '/assets/packs/animals/cat_sound.mp3', real: true });
-    // Every picture and sound is real now; the voice is still a stand-in.
-    expect(cat.images).toEqual([{ path: 'packs/animals/cat.svg', url: '/assets/packs/animals/cat.svg', real: true }]);
+    // Every picture is a photo now (its old drawing kept for drawn scenes); the voice is still a stand-in.
+    expect(cat.images).toEqual([{ path: 'packs/animals/cat.jpg', url: '/assets/packs/animals/cat.jpg', real: true, photo: true }]);
+    expect(cat.drawings?.map((d) => d.path)).toEqual(['packs/animals/cat.svg']);
     expect(cat.nameAudio.ar.real).toBe(false);
     const cow = animals.items.find((i) => i.key === 'cow')!;
     expect(cow.images[0].real).toBe(true);
@@ -142,7 +143,7 @@ describe('loader', () => {
 
   it('drops an animal whose placeholder picture the device cannot draw', async () => {
     // Only matters while a picture is still a placeholder: take the donkey's drawing away.
-    const withoutDonkey = { ...index, files: index.files.filter((f) => f !== 'packs/animals/donkey.svg') };
+    const withoutDonkey = { ...index, files: index.files.filter((f) => f !== 'packs/animals/donkey.jpg') };
     const content = await loadContent({
       baseUrl: '/',
       allowPlaceholders: true,
@@ -207,7 +208,7 @@ describe('all packs', () => {
     ]);
     const whoEats = content.packs.find((p) => p.id === 'who-eats-what')!;
     expect(whoEats.kind).toBe('association');
-    expect(whoEats.items).toHaveLength(15);
+    expect(whoEats.items).toHaveLength(25);
     const carrot = whoEats.items.find((i) => i.key === 'carrot')!;
     expect(carrot.prompts!.map((p) => p.key)).toEqual(['rabbit', 'donkey', 'horse']);
     expect(carrot.nameAudio.ar.path).toBe('packs/food/carrot_name_ar.mp3'); // the same recording as in Food
@@ -220,7 +221,7 @@ describe('all packs', () => {
 
   it('leave out a food when none of its animals can be shown', async () => {
     const gone = ['rabbit', 'donkey', 'horse'];
-    const content = await load((key) => !gone.includes(key), gone.map((k) => `packs/animals/${k}.svg`));
+    const content = await load((key) => !gone.includes(key), gone.map((k) => `packs/animals/${k}.jpg`));
     const whoEats = content.packs.find((p) => p.id === 'who-eats-what')!;
     expect(whoEats.items.find((i) => i.key === 'carrot')).toBeUndefined();
     expect(whoEats.items.find((i) => i.key === 'apple')).toBeUndefined();
@@ -239,11 +240,14 @@ describe('all packs', () => {
     expect(mixed.items.find((i) => i.key === 'bell')!.confusableWith).toContain('doorbell');
 
     const settings = defaultSettings('ar');
-    // Sound modes: the 44 animals that make a sound, plus every home, vehicle, weather, instrument and feeling sound.
-    expect(enabledItemKeys(mixed, settings)).toHaveLength(44 + 21 + 14 + 5 + 11 + 6);
+    // Sound modes: only pictures with a sound. Every built-in pack's own count, so a change shows where.
+    const withSound = (id: string) => content.packs.find((p) => p.id === id)!.items.filter((i) => i.sound).length;
+    const parts = mixed.parts!.map((p) => p.id);
+    expect(enabledItemKeys(mixed, settings)).toHaveLength(parts.reduce((n, id) => n + withSound(id), 0));
+    expect([withSound('animals'), withSound('home'), withSound('vehicles'), withSound('instruments'), withSound('feelings')]).toEqual([44, 22, 25, 25, 10]);
     settings.mode = 'NAME_ONLY';
-    // ...and by name: clothes 9, toys 10, weather 13 and jobs 10 join in.
-    expect(enabledItemKeys(mixed, settings)).toHaveLength(54 + 14 + 21 + 9 + 10 + 14 + 13 + 11 + 25 + 13 + 9 + 10 + 6 + 6 + 6);
+    // ...and by name, everything: about 25 cards in each group of things (November 2026).
+    expect(enabledItemKeys(mixed, settings)).toHaveLength(54 + 25 + 25 + 25 + 25 + 25 + 25 + 25 + 25 + 25 + 14 + 25 + 12 + 12 + 12);
     settings.mixedExcluded = [
       'animals', 'first-words', 'home', 'clothes', 'toys', 'vehicles', 'weather', 'instruments', 'body', 'family', 'jobs',
       'colors', 'shapes', 'feelings',
@@ -277,13 +281,13 @@ describe('all packs', () => {
     expect(babies.items.find((i) => i.key === 'calf')!.name.ar).toBe('عِجل');
   });
 
-  it('make Do it with me: 18 actions said to a girl, to a boy and in English, kept to their own game', async () => {
+  it('make Do it with me: 25 actions said to a girl, to a boy and in English, kept to their own game', async () => {
     const content = await load();
     const actions = content.packs.find((p) => p.id === 'actions')!;
     expect(actions.ownGame).toBe(true);
     expect(actions.inMix).toBe(false);
-    expect(actions.items).toHaveLength(18);
-    expect(actions.groups.map((g) => g.items.length)).toEqual([6, 5, 3, 4]);
+    expect(actions.items).toHaveLength(25);
+    expect(actions.groups.map((g) => g.items.length)).toEqual([11, 5, 3, 4, 2]);
     for (const item of actions.items) expect(Object.keys(item.point ?? {}).sort(), item.key).toEqual(['ar_f', 'ar_m', 'en']);
     const clap = actions.items.find((i) => i.key === 'clap')!;
     expect([clap.point!.ar_f!.text, clap.point!.ar_m!.text, clap.point!.en!.text]).toEqual(['سقّفي!', 'سقّف!', 'Clap your hands!']);
@@ -337,11 +341,14 @@ describe('Peekaboo and "Where\'s your nose?" content', () => {
   const fetchJson = async (url: string) =>
     url.endsWith('packs/index.json') ? index : JSON.parse(fs.readFileSync(path.join(ASSETS, url.replace(/^\.?\/assets\//, '')), 'utf8'));
 
-  it('asks about 11 body parts, for a girl, a boy and in English', async () => {
+  it('asks about 23 body parts, for a girl, a boy and in English', async () => {
     const content = await loadContent({ baseUrl: '/', allowPlaceholders: true, fetchJson });
     const body = content.packs.find((p) => p.id === 'body')!;
     const asked = body.items.filter((i) => i.point);
-    expect(asked.map((i) => i.key)).toEqual(['eye', 'nose', 'mouth', 'ear', 'hand', 'finger', 'arm', 'foot', 'leg', 'teeth', 'tongue']);
+    expect(asked.map((i) => i.key)).toEqual([
+      'eye', 'nose', 'mouth', 'ear', 'hand', 'finger', 'arm', 'foot', 'leg', 'teeth', 'tongue',
+      'hair', 'eyebrows', 'cheek', 'chin', 'neck', 'shoulder', 'elbow', 'tummy', 'back', 'knee', 'toes', 'nails',
+    ]);
     const nose = body.items.find((i) => i.key === 'nose')!;
     expect(nose.point!.ar_f).toMatchObject({ text: 'أين أنفُكِ؟', audio: { path: 'packs/body/nose_point_ar_f.mp3', real: false } });
     expect(nose.point!.ar_m!.text).toBe('أين أنفُكَ؟');
@@ -355,7 +362,7 @@ describe('Peekaboo and "Where\'s your nose?" content', () => {
     for (const p of release.packs) for (const i of p.items) expect(i.point).toBeUndefined();
     const body = JSON.parse(fs.readFileSync(path.join(ASSETS, 'packs', 'body', 'manifest.json'), 'utf8')) as PackManifest;
     const { issues } = validatePack(body, (p) => realFiles.has(p) || !p.includes('_point_'));
-    expect(issues.filter((i) => i.message.includes("Where's your"))).toHaveLength(33);
+    expect(issues.filter((i) => i.message.includes("Where's your"))).toHaveLength(69);
     expect(issues.filter((i) => i.message.includes("Where's your")).every((i) => i.level === 'warning')).toBe(true);
   });
 });

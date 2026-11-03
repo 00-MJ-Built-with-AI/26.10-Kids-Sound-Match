@@ -3,128 +3,439 @@
   "pack_version": 1,
   "schema_version": 1,
   "order": 4,
-  "name": { "en": "Musical instruments", "ar": "الآلات الموسيقية" },
+  "name": {
+    "en": "Musical instruments",
+    "ar": "الآلات الموسيقية"
+  },
   "items": [
     {
       "item_key": "drum",
-      "name": { "en": "Drum", "ar": "طبل" },
-      "image": "instruments/drum.svg",
+      "name": {
+        "en": "Drum",
+        "ar": "طبل"
+      },
+      "image": "instruments/drum.jpg",
       "sound": "instruments/drum_sound.mp3",
       "name_audio": {
         "en": "instruments/drum_name_en.mp3",
         "ar": "instruments/drum_name_ar.mp3"
       },
-      "confusable_with": ["darbuka"]
+      "confusable_with": [
+        "darbuka",
+        "cymbals"
+      ],
+      "drawing": "instruments/drum.svg"
     },
     {
       "item_key": "darbuka",
-      "name": { "en": "Darbuka", "ar": "دربكة" },
-      "image": "instruments/darbuka.svg",
+      "name": {
+        "en": "Darbuka",
+        "ar": "دربكة"
+      },
+      "image": "instruments/darbuka.jpg",
       "sound": "instruments/darbuka_sound.mp3",
       "name_audio": {
         "en": "instruments/darbuka_name_en.mp3",
         "ar": "instruments/darbuka_name_ar.mp3"
       },
-      "confusable_with": ["drum"]
+      "confusable_with": [
+        "drum",
+        "tambourine"
+      ],
+      "drawing": "instruments/darbuka.svg"
     },
     {
       "item_key": "oud",
-      "name": { "en": "Oud", "ar": "عود" },
-      "image": "instruments/oud.svg",
+      "name": {
+        "en": "Oud",
+        "ar": "عود"
+      },
+      "image": "instruments/oud.jpg",
       "sound": "instruments/oud_sound.mp3",
       "name_audio": {
         "en": "instruments/oud_name_en.mp3",
         "ar": "instruments/oud_name_ar.mp3"
       },
-      "confusable_with": ["guitar"]
+      "confusable_with": [
+        "guitar",
+        "qanun"
+      ],
+      "drawing": "instruments/oud.svg"
     },
     {
       "item_key": "piano",
-      "name": { "en": "Piano", "ar": "بيانو" },
-      "image": "instruments/piano.svg",
+      "name": {
+        "en": "Piano",
+        "ar": "بيانو"
+      },
+      "image": "instruments/piano.jpg",
       "sound": "instruments/piano_sound.mp3",
       "name_audio": {
         "en": "instruments/piano_name_en.mp3",
         "ar": "instruments/piano_name_ar.mp3"
       },
-      "confusable_with": ["accordion"]
+      "confusable_with": [
+        "accordion",
+        "xylophone",
+        "keyboard"
+      ],
+      "drawing": "instruments/piano.svg"
     },
     {
       "item_key": "guitar",
-      "name": { "en": "Guitar", "ar": "غيتار" },
-      "image": "instruments/guitar.svg",
+      "name": {
+        "en": "Guitar",
+        "ar": "غيتار"
+      },
+      "image": "instruments/guitar.jpg",
       "sound": "instruments/guitar_sound.mp3",
       "name_audio": {
         "en": "instruments/guitar_name_en.mp3",
         "ar": "instruments/guitar_name_ar.mp3"
       },
-      "confusable_with": ["oud"]
+      "confusable_with": [
+        "oud",
+        "ukulele"
+      ],
+      "drawing": "instruments/guitar.svg"
     },
     {
       "item_key": "trumpet",
-      "name": { "en": "Trumpet", "ar": "بوق" },
-      "image": "instruments/trumpet.svg",
+      "name": {
+        "en": "Trumpet",
+        "ar": "بوق"
+      },
+      "image": "instruments/trumpet.jpg",
       "sound": "instruments/trumpet_sound.mp3",
       "name_audio": {
         "en": "instruments/trumpet_name_en.mp3",
         "ar": "instruments/trumpet_name_ar.mp3"
       },
-      "confusable_with": ["saxophone"]
+      "confusable_with": [
+        "saxophone",
+        "trombone"
+      ],
+      "drawing": "instruments/trumpet.svg"
     },
     {
       "item_key": "violin",
-      "name": { "en": "Violin", "ar": "كمان" },
-      "image": "instruments/violin.svg",
+      "name": {
+        "en": "Violin",
+        "ar": "كمان"
+      },
+      "image": "instruments/violin.jpg",
       "sound": "instruments/violin_sound.mp3",
       "name_audio": {
         "en": "instruments/violin_name_en.mp3",
         "ar": "instruments/violin_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "cello",
+        "ukulele"
+      ],
+      "drawing": "instruments/violin.svg"
     },
     {
       "item_key": "nay",
-      "name": { "en": "Nay flute", "ar": "ناي" },
-      "image": "instruments/nay.svg",
+      "name": {
+        "en": "Nay flute",
+        "ar": "ناي"
+      },
+      "image": "instruments/nay.jpg",
       "sound": "instruments/nay_sound.mp3",
       "name_audio": {
         "en": "instruments/nay_name_en.mp3",
         "ar": "instruments/nay_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "flute",
+        "clarinet"
+      ],
+      "drawing": "instruments/nay.svg"
     },
     {
       "item_key": "bell",
-      "name": { "en": "Bell", "ar": "جرس" },
-      "image": "instruments/bell.svg",
+      "name": {
+        "en": "Bell",
+        "ar": "جرس"
+      },
+      "image": "instruments/bell.jpg",
       "sound": "instruments/bell_sound.mp3",
       "name_audio": {
         "en": "instruments/bell_name_en.mp3",
         "ar": "instruments/bell_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "instruments/bell.svg"
     },
     {
       "item_key": "saxophone",
-      "name": { "en": "Saxophone", "ar": "ساكسفون" },
-      "image": "instruments/saxophone.svg",
+      "name": {
+        "en": "Saxophone",
+        "ar": "ساكسفون"
+      },
+      "image": "instruments/saxophone.jpg",
       "sound": "instruments/saxophone_sound.mp3",
       "name_audio": {
         "en": "instruments/saxophone_name_en.mp3",
         "ar": "instruments/saxophone_name_ar.mp3"
       },
-      "confusable_with": ["trumpet"]
+      "confusable_with": [
+        "trumpet",
+        "clarinet"
+      ],
+      "drawing": "instruments/saxophone.svg"
     },
     {
       "item_key": "accordion",
-      "name": { "en": "Accordion", "ar": "أكورديون" },
-      "image": "instruments/accordion.svg",
+      "name": {
+        "en": "Accordion",
+        "ar": "أكورديون"
+      },
+      "image": "instruments/accordion.jpg",
       "sound": "instruments/accordion_sound.mp3",
       "name_audio": {
         "en": "instruments/accordion_name_en.mp3",
         "ar": "instruments/accordion_name_ar.mp3"
       },
-      "confusable_with": ["piano"]
+      "confusable_with": [
+        "piano",
+        "harmonica"
+      ],
+      "drawing": "instruments/accordion.svg"
+    },
+    {
+      "item_key": "flute",
+      "name": {
+        "en": "Flute",
+        "ar": "فلوت"
+      },
+      "image": "instruments/flute.jpg",
+      "sound": "instruments/flute_sound.mp3",
+      "name_audio": {
+        "en": "instruments/flute_name_en.mp3",
+        "ar": "instruments/flute_name_ar.mp3"
+      },
+      "confusable_with": [
+        "nay",
+        "clarinet"
+      ]
+    },
+    {
+      "item_key": "xylophone",
+      "name": {
+        "en": "Xylophone",
+        "ar": "إكسيليفون"
+      },
+      "image": "instruments/xylophone.jpg",
+      "sound": "instruments/xylophone_sound.mp3",
+      "name_audio": {
+        "en": "instruments/xylophone_name_en.mp3",
+        "ar": "instruments/xylophone_name_ar.mp3"
+      },
+      "confusable_with": [
+        "piano"
+      ]
+    },
+    {
+      "item_key": "harp",
+      "name": {
+        "en": "Harp",
+        "ar": "هارب"
+      },
+      "image": "instruments/harp.jpg",
+      "sound": "instruments/harp_sound.mp3",
+      "name_audio": {
+        "en": "instruments/harp_name_en.mp3",
+        "ar": "instruments/harp_name_ar.mp3"
+      },
+      "confusable_with": [
+        "qanun"
+      ]
+    },
+    {
+      "item_key": "tambourine",
+      "name": {
+        "en": "Tambourine",
+        "ar": "دفّ"
+      },
+      "image": "instruments/tambourine.jpg",
+      "sound": "instruments/tambourine_sound.mp3",
+      "name_audio": {
+        "en": "instruments/tambourine_name_en.mp3",
+        "ar": "instruments/tambourine_name_ar.mp3"
+      },
+      "confusable_with": [
+        "maracas",
+        "darbuka"
+      ]
+    },
+    {
+      "item_key": "maracas",
+      "name": {
+        "en": "Maracas",
+        "ar": "ماراكاس"
+      },
+      "image": "instruments/maracas.jpg",
+      "sound": "instruments/maracas_sound.mp3",
+      "name_audio": {
+        "en": "instruments/maracas_name_en.mp3",
+        "ar": "instruments/maracas_name_ar.mp3"
+      },
+      "confusable_with": [
+        "tambourine"
+      ]
+    },
+    {
+      "item_key": "trombone",
+      "name": {
+        "en": "Trombone",
+        "ar": "ترومبون"
+      },
+      "image": "instruments/trombone.jpg",
+      "sound": "instruments/trombone_sound.mp3",
+      "name_audio": {
+        "en": "instruments/trombone_name_en.mp3",
+        "ar": "instruments/trombone_name_ar.mp3"
+      },
+      "confusable_with": [
+        "trumpet"
+      ]
+    },
+    {
+      "item_key": "cello",
+      "name": {
+        "en": "Cello",
+        "ar": "تشيلو"
+      },
+      "image": "instruments/cello.jpg",
+      "sound": "instruments/cello_sound.mp3",
+      "name_audio": {
+        "en": "instruments/cello_name_en.mp3",
+        "ar": "instruments/cello_name_ar.mp3"
+      },
+      "confusable_with": [
+        "violin",
+        "ukulele"
+      ]
+    },
+    {
+      "item_key": "harmonica",
+      "name": {
+        "en": "Harmonica",
+        "ar": "هارمونيكا"
+      },
+      "image": "instruments/harmonica.jpg",
+      "sound": "instruments/harmonica_sound.mp3",
+      "name_audio": {
+        "en": "instruments/harmonica_name_en.mp3",
+        "ar": "instruments/harmonica_name_ar.mp3"
+      },
+      "confusable_with": [
+        "accordion"
+      ]
+    },
+    {
+      "item_key": "qanun",
+      "name": {
+        "en": "Qanun",
+        "ar": "قانون"
+      },
+      "image": "instruments/qanun.jpg",
+      "sound": "instruments/qanun_sound.mp3",
+      "name_audio": {
+        "en": "instruments/qanun_name_en.mp3",
+        "ar": "instruments/qanun_name_ar.mp3"
+      },
+      "confusable_with": [
+        "harp",
+        "oud"
+      ]
+    },
+    {
+      "item_key": "cymbals",
+      "name": {
+        "en": "Cymbals",
+        "ar": "صنج"
+      },
+      "image": "instruments/cymbals.jpg",
+      "sound": "instruments/cymbals_sound.mp3",
+      "name_audio": {
+        "en": "instruments/cymbals_name_en.mp3",
+        "ar": "instruments/cymbals_name_ar.mp3"
+      },
+      "confusable_with": [
+        "drum"
+      ]
+    },
+    {
+      "item_key": "keyboard",
+      "name": {
+        "en": "Keyboard",
+        "ar": "أورغ"
+      },
+      "image": "instruments/keyboard.jpg",
+      "sound": "instruments/keyboard_sound.mp3",
+      "name_audio": {
+        "en": "instruments/keyboard_name_en.mp3",
+        "ar": "instruments/keyboard_name_ar.mp3"
+      },
+      "confusable_with": [
+        "piano"
+      ]
+    },
+    {
+      "item_key": "bagpipes",
+      "name": {
+        "en": "Bagpipes",
+        "ar": "قِربة"
+      },
+      "image": "instruments/bagpipes.jpg",
+      "sound": "instruments/bagpipes_sound.mp3",
+      "name_audio": {
+        "en": "instruments/bagpipes_name_en.mp3",
+        "ar": "instruments/bagpipes_name_ar.mp3"
+      },
+      "confusable_with": [
+        "clarinet"
+      ]
+    },
+    {
+      "item_key": "ukulele",
+      "name": {
+        "en": "Ukulele",
+        "ar": "يوكوليلي"
+      },
+      "image": "instruments/ukulele.jpg",
+      "sound": "instruments/ukulele_sound.mp3",
+      "name_audio": {
+        "en": "instruments/ukulele_name_en.mp3",
+        "ar": "instruments/ukulele_name_ar.mp3"
+      },
+      "confusable_with": [
+        "guitar",
+        "violin",
+        "cello"
+      ]
+    },
+    {
+      "item_key": "clarinet",
+      "name": {
+        "en": "Clarinet",
+        "ar": "كلارينيت"
+      },
+      "image": "instruments/clarinet.jpg",
+      "sound": "instruments/clarinet_sound.mp3",
+      "name_audio": {
+        "en": "instruments/clarinet_name_en.mp3",
+        "ar": "instruments/clarinet_name_ar.mp3"
+      },
+      "confusable_with": [
+        "saxophone",
+        "flute",
+        "nay",
+        "bagpipes"
+      ]
     }
   ],
   "feedback_audio": {

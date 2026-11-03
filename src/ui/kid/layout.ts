@@ -55,13 +55,18 @@ export function fitSquares(box: { w: number; h: number }, rows: readonly (readon
  * Photos or emoji, never both on one screen: a photo next to emoji stands out and becomes the
  * clue instead of the sound. Shows photos only when every animal shown has one.
  */
-export function choosePictures(items: readonly LoadedItem[], random: () => number = Math.random): Record<string, string> {
+export function choosePictures(
+  items: readonly LoadedItem[],
+  random: () => number = Math.random,
+  { drawingsFirst = false }: { drawingsFirst?: boolean } = {},
+): Record<string, string> {
   // One kind of picture per screen: photos if every item has one, else drawings if every item has
   // one, else the development placeholders. A parent's photo of Grandma next to drawings would
-  // become the clue instead of the word.
+  // become the clue instead of the word. The drawn scenes and the stickers prefer drawings.
   const photos = items.map((i) => i.images.filter((a) => a.photo));
   const drawings = items.map((i) => [...i.images.filter((a) => a.real && !a.photo), ...(i.drawings ?? [])]);
-  const tier = photos.every((p) => p.length) ? photos : drawings.every((d) => d.length) ? drawings : null;
+  const tiers = drawingsFirst ? [drawings, photos] : [photos, drawings];
+  const tier = tiers.find((t) => t.every((p) => p.length)) ?? null;
   const pickFrom = <T>(list: readonly T[]) => list[Math.floor(random() * list.length)];
   if (!tier) return Object.fromEntries(items.map((i) => [i.key, (i.placeholderImage ?? pickFrom(i.images)).url]));
   // Pictures drawn as a series (Counting: dots, apples, stars...) use the same one across the

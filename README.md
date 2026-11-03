@@ -23,9 +23,11 @@ matching one, in Arabic or English. No ads, no tracking; results stay on the dev
 `App v01.md` (the Android spec), adapted for the browser. See [docs/DECISIONS.md](docs/DECISIONS.md)
 for every change agreed since.
 
-Packs: Animals (54), First words, Things at home, Clothes, Toys and play, Vehicles, Weather and nature
+About 25 cards in each group of things, with clean real photos (one thing on a plain background) for
+animals, food, vehicles, toys, clothes, home, nature and instruments, and drawings for people, body
+parts, feelings, actions, colours and shapes. Packs: Animals (54), First words, Things at home, Clothes, Toys and play, Vehicles, Weather and nature
 (with real rain, thunder, wind, waves and fire sounds), Musical instruments, Food, Body parts, Family, Jobs and
-helpers, Colours, Shapes, Feelings, Counting 1 to 5, **Who eats what?** (see an animal, tap its food), **Where does it
+helpers, Colours, Shapes, Feelings, Counting 1 to 10, **Who eats what?** (see an animal, tap its food), **Where does it
 live?** (tap its home), a **Mixed** game, and the parent's own packs. Parents can also put their own
 voice and photos into the built-in packs. Brothers and sisters each get a profile (an animal on a
 colour) with their own settings and Report, and the Report can be shared as a picture.
@@ -69,9 +71,11 @@ your 4 pictures if you chose the picture lock there. The home screen itself has 
 Drop files into `public/assets/` using the names in the manifest; a real file always replaces its
 placeholder, no code changes needed.
 
-- Pictures: every built-in picture is a real drawing now: Microsoft Fluent Emoji (MIT licence, see
-  `public/assets/licenses/`), plus colours, shapes, counting, feelings, body parts, family, jobs, dates, beehive, vacuum
-  cleaner and oud drawn for this app. To change one, replace `public/assets/packs/animals/cat.svg` (any of
+- Pictures: photos from Pixabay (Pixabay Content License, each listed in
+  `public/assets/licenses/sources.csv`) for the groups of things; each photo card keeps its Microsoft
+  Fluent Emoji (MIT licence) as its drawing, shown in the drawn scenes, the stickers and wherever photos
+  would sit next to drawings. Colours, shapes, counting, feelings, body parts, family, jobs and actions
+  are drawn for the app; the drawing scripts are in `tools/art/`. To change one, replace `public/assets/packs/animals/cat.svg` (any of
   svg/webp/png/jpg works if the manifest says so)
 - Several pictures of one item: use `"images": ["counting/count_3_dots.svg", ...]` in the manifest;
   one is picked at random each time (all items in a question use the same one when they have the same

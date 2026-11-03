@@ -4,12 +4,24 @@
   "schema_version": 1,
   "order": 11,
   "in_mix": false,
-  "name": { "en": "Counting 1 to 5", "ar": "العدّ من 1 إلى 5" },
+  "name": {
+    "en": "Counting 1 to 10",
+    "ar": "العدّ من 1 إلى 10"
+  },
   "items": [
     {
       "item_key": "count_1",
-      "name": { "en": "One", "ar": "واحد" },
-      "images": ["counting/count_1_dots.svg", "counting/count_1_apples.svg", "counting/count_1_stars.svg", "counting/count_1_balloons.svg", "counting/count_1_fish.svg"],
+      "name": {
+        "en": "One",
+        "ar": "واحد"
+      },
+      "images": [
+        "counting/count_1_dots.svg",
+        "counting/count_1_apples.svg",
+        "counting/count_1_stars.svg",
+        "counting/count_1_balloons.svg",
+        "counting/count_1_fish.svg"
+      ],
       "name_audio": {
         "en": "counting/count_1_name_en.mp3",
         "ar": "counting/count_1_name_ar.mp3"
@@ -18,8 +30,17 @@
     },
     {
       "item_key": "count_2",
-      "name": { "en": "Two", "ar": "اثنان" },
-      "images": ["counting/count_2_dots.svg", "counting/count_2_apples.svg", "counting/count_2_stars.svg", "counting/count_2_balloons.svg", "counting/count_2_fish.svg"],
+      "name": {
+        "en": "Two",
+        "ar": "اثنان"
+      },
+      "images": [
+        "counting/count_2_dots.svg",
+        "counting/count_2_apples.svg",
+        "counting/count_2_stars.svg",
+        "counting/count_2_balloons.svg",
+        "counting/count_2_fish.svg"
+      ],
       "name_audio": {
         "en": "counting/count_2_name_en.mp3",
         "ar": "counting/count_2_name_ar.mp3"
@@ -28,8 +49,17 @@
     },
     {
       "item_key": "count_3",
-      "name": { "en": "Three", "ar": "ثلاثة" },
-      "images": ["counting/count_3_dots.svg", "counting/count_3_apples.svg", "counting/count_3_stars.svg", "counting/count_3_balloons.svg", "counting/count_3_fish.svg"],
+      "name": {
+        "en": "Three",
+        "ar": "ثلاثة"
+      },
+      "images": [
+        "counting/count_3_dots.svg",
+        "counting/count_3_apples.svg",
+        "counting/count_3_stars.svg",
+        "counting/count_3_balloons.svg",
+        "counting/count_3_fish.svg"
+      ],
       "name_audio": {
         "en": "counting/count_3_name_en.mp3",
         "ar": "counting/count_3_name_ar.mp3"
@@ -38,8 +68,17 @@
     },
     {
       "item_key": "count_4",
-      "name": { "en": "Four", "ar": "أربعة" },
-      "images": ["counting/count_4_dots.svg", "counting/count_4_apples.svg", "counting/count_4_stars.svg", "counting/count_4_balloons.svg", "counting/count_4_fish.svg"],
+      "name": {
+        "en": "Four",
+        "ar": "أربعة"
+      },
+      "images": [
+        "counting/count_4_dots.svg",
+        "counting/count_4_apples.svg",
+        "counting/count_4_stars.svg",
+        "counting/count_4_balloons.svg",
+        "counting/count_4_fish.svg"
+      ],
       "name_audio": {
         "en": "counting/count_4_name_en.mp3",
         "ar": "counting/count_4_name_ar.mp3"
@@ -48,11 +87,115 @@
     },
     {
       "item_key": "count_5",
-      "name": { "en": "Five", "ar": "خمسة" },
-      "images": ["counting/count_5_dots.svg", "counting/count_5_apples.svg", "counting/count_5_stars.svg", "counting/count_5_balloons.svg", "counting/count_5_fish.svg"],
+      "name": {
+        "en": "Five",
+        "ar": "خمسة"
+      },
+      "images": [
+        "counting/count_5_dots.svg",
+        "counting/count_5_apples.svg",
+        "counting/count_5_stars.svg",
+        "counting/count_5_balloons.svg",
+        "counting/count_5_fish.svg"
+      ],
       "name_audio": {
         "en": "counting/count_5_name_en.mp3",
         "ar": "counting/count_5_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "count_6",
+      "name": {
+        "en": "Six",
+        "ar": "ستة"
+      },
+      "images": [
+        "counting/count_6_dots.svg",
+        "counting/count_6_apples.svg",
+        "counting/count_6_stars.svg",
+        "counting/count_6_balloons.svg",
+        "counting/count_6_fish.svg"
+      ],
+      "name_audio": {
+        "en": "counting/count_6_name_en.mp3",
+        "ar": "counting/count_6_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "count_7",
+      "name": {
+        "en": "Seven",
+        "ar": "سبعة"
+      },
+      "images": [
+        "counting/count_7_dots.svg",
+        "counting/count_7_apples.svg",
+        "counting/count_7_stars.svg",
+        "counting/count_7_balloons.svg",
+        "counting/count_7_fish.svg"
+      ],
+      "name_audio": {
+        "en": "counting/count_7_name_en.mp3",
+        "ar": "counting/count_7_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "count_8",
+      "name": {
+        "en": "Eight",
+        "ar": "ثمانية"
+      },
+      "images": [
+        "counting/count_8_dots.svg",
+        "counting/count_8_apples.svg",
+        "counting/count_8_stars.svg",
+        "counting/count_8_balloons.svg",
+        "counting/count_8_fish.svg"
+      ],
+      "name_audio": {
+        "en": "counting/count_8_name_en.mp3",
+        "ar": "counting/count_8_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "count_9",
+      "name": {
+        "en": "Nine",
+        "ar": "تسعة"
+      },
+      "images": [
+        "counting/count_9_dots.svg",
+        "counting/count_9_apples.svg",
+        "counting/count_9_stars.svg",
+        "counting/count_9_balloons.svg",
+        "counting/count_9_fish.svg"
+      ],
+      "name_audio": {
+        "en": "counting/count_9_name_en.mp3",
+        "ar": "counting/count_9_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "count_10",
+      "name": {
+        "en": "Ten",
+        "ar": "عشرة"
+      },
+      "images": [
+        "counting/count_10_dots.svg",
+        "counting/count_10_apples.svg",
+        "counting/count_10_stars.svg",
+        "counting/count_10_balloons.svg",
+        "counting/count_10_fish.svg"
+      ],
+      "name_audio": {
+        "en": "counting/count_10_name_en.mp3",
+        "ar": "counting/count_10_name_ar.mp3"
       },
       "confusable_with": []
     }

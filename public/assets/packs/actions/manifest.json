@@ -22,7 +22,12 @@
         "wave",
         "dance",
         "spin",
-        "stamp"
+        "stamp",
+        "run",
+        "kick",
+        "throw",
+        "crawl",
+        "swim"
       ]
     },
     {
@@ -62,6 +67,17 @@
         "lie_down",
         "shh",
         "cover_eyes"
+      ]
+    },
+    {
+      "id": "fun",
+      "name": {
+        "en": "Fun",
+        "ar": "مرح"
+      },
+      "items": [
+        "sing",
+        "laugh"
       ]
     }
   ],
@@ -549,6 +565,195 @@
         "ar_m": {
           "text": "خبّي عيونَك!",
           "audio": "actions/cover_eyes_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "run",
+      "name": {
+        "en": "Run",
+        "ar": "اركض"
+      },
+      "image": "actions/run.svg",
+      "name_audio": {
+        "en": "actions/run_name_en.mp3",
+        "ar": "actions/run_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Run!",
+          "audio": "actions/run_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "اركضي!",
+          "audio": "actions/run_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "اركض!",
+          "audio": "actions/run_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "kick",
+      "name": {
+        "en": "Kick the ball",
+        "ar": "شوط الطابة"
+      },
+      "image": "actions/kick.svg",
+      "name_audio": {
+        "en": "actions/kick_name_en.mp3",
+        "ar": "actions/kick_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Kick the ball!",
+          "audio": "actions/kick_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "شوطي الطابة!",
+          "audio": "actions/kick_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "شوط الطابة!",
+          "audio": "actions/kick_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "throw",
+      "name": {
+        "en": "Throw the ball",
+        "ar": "ارمي الطابة"
+      },
+      "image": "actions/throw.svg",
+      "name_audio": {
+        "en": "actions/throw_name_en.mp3",
+        "ar": "actions/throw_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Throw the ball!",
+          "audio": "actions/throw_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "ارمي الطابة!",
+          "audio": "actions/throw_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "ارمِ الطابة!",
+          "audio": "actions/throw_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "crawl",
+      "name": {
+        "en": "Crawl",
+        "ar": "احبى"
+      },
+      "image": "actions/crawl.svg",
+      "name_audio": {
+        "en": "actions/crawl_name_en.mp3",
+        "ar": "actions/crawl_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Crawl!",
+          "audio": "actions/crawl_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "احبي!",
+          "audio": "actions/crawl_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "احبى!",
+          "audio": "actions/crawl_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "swim",
+      "name": {
+        "en": "Swim",
+        "ar": "اسبح"
+      },
+      "image": "actions/swim.svg",
+      "name_audio": {
+        "en": "actions/swim_name_en.mp3",
+        "ar": "actions/swim_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Swim!",
+          "audio": "actions/swim_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "اسبحي!",
+          "audio": "actions/swim_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "اسبح!",
+          "audio": "actions/swim_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "sing",
+      "name": {
+        "en": "Sing",
+        "ar": "غنّي"
+      },
+      "image": "actions/sing.svg",
+      "name_audio": {
+        "en": "actions/sing_name_en.mp3",
+        "ar": "actions/sing_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Sing!",
+          "audio": "actions/sing_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "غنّي!",
+          "audio": "actions/sing_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "غنّي!",
+          "audio": "actions/sing_do_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "laugh",
+      "name": {
+        "en": "Laugh",
+        "ar": "اضحك"
+      },
+      "image": "actions/laugh.svg",
+      "name_audio": {
+        "en": "actions/laugh_name_en.mp3",
+        "ar": "actions/laugh_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "point": {
+        "en": {
+          "text": "Laugh!",
+          "audio": "actions/laugh_do_en.mp3"
+        },
+        "ar_f": {
+          "text": "اضحكي!",
+          "audio": "actions/laugh_do_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "اضحك!",
+          "audio": "actions/laugh_do_ar_m.mp3"
         }
       }
     }

@@ -8,27 +8,371 @@
     "ar": "كلماتي الأولى"
   },
   "items": [
-    { "item_key": "ball", "name": { "en": "Ball", "ar": "كرة" }, "image": "first-words/ball.svg", "name_audio": { "en": "first-words/ball_name_en.mp3", "ar": "first-words/ball_name_ar.mp3" }, "confusable_with": ["balloon"] },
-    { "item_key": "teddy", "name": { "en": "Teddy", "ar": "دبدوب" }, "image": "first-words/teddy.svg", "name_audio": { "en": "first-words/teddy_name_en.mp3", "ar": "first-words/teddy_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "balloon", "name": { "en": "Balloon", "ar": "بالون" }, "image": "first-words/balloon.svg", "name_audio": { "en": "first-words/balloon_name_en.mp3", "ar": "first-words/balloon_name_ar.mp3" }, "confusable_with": ["ball"] },
-    { "item_key": "bubbles", "name": { "en": "Bubbles", "ar": "فقاعات" }, "image": "first-words/bubbles.svg", "name_audio": { "en": "first-words/bubbles_name_en.mp3", "ar": "first-words/bubbles_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "book", "name": { "en": "Book", "ar": "كتاب" }, "image": "first-words/book.svg", "name_audio": { "en": "first-words/book_name_en.mp3", "ar": "first-words/book_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "shoe", "name": { "en": "Shoe", "ar": "حذاء" }, "image": "first-words/shoe.svg", "name_audio": { "en": "first-words/shoe_name_en.mp3", "ar": "first-words/shoe_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "socks", "name": { "en": "Socks", "ar": "جوارب" }, "image": "first-words/socks.svg", "name_audio": { "en": "first-words/socks_name_en.mp3", "ar": "first-words/socks_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "hat", "name": { "en": "Hat", "ar": "قبعة" }, "image": "first-words/hat.svg", "name_audio": { "en": "first-words/hat_name_en.mp3", "ar": "first-words/hat_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "cup", "name": { "en": "Cup", "ar": "كوب" }, "image": "first-words/cup.svg", "name_audio": { "en": "first-words/cup_name_en.mp3", "ar": "first-words/cup_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "spoon", "name": { "en": "Spoon", "ar": "ملعقة" }, "image": "first-words/spoon.svg", "name_audio": { "en": "first-words/spoon_name_en.mp3", "ar": "first-words/spoon_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "bottle", "name": { "en": "Bottle", "ar": "رضّاعة" }, "image": "first-words/bottle.svg", "name_audio": { "en": "first-words/bottle_name_en.mp3", "ar": "first-words/bottle_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "bed", "name": { "en": "Bed", "ar": "سرير" }, "image": "first-words/bed.svg", "name_audio": { "en": "first-words/bed_name_en.mp3", "ar": "first-words/bed_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "chair", "name": { "en": "Chair", "ar": "كرسي" }, "image": "first-words/chair.svg", "name_audio": { "en": "first-words/chair_name_en.mp3", "ar": "first-words/chair_name_ar.mp3" }, "confusable_with": [] },
-    { "item_key": "bath", "name": { "en": "Bath", "ar": "حمّام" }, "image": "first-words/bath.svg", "name_audio": { "en": "first-words/bath_name_en.mp3", "ar": "first-words/bath_name_ar.mp3" }, "confusable_with": [] }
+    {
+      "item_key": "ball",
+      "name": {
+        "en": "Ball",
+        "ar": "كرة"
+      },
+      "image": "first-words/ball.jpg",
+      "name_audio": {
+        "en": "first-words/ball_name_en.mp3",
+        "ar": "first-words/ball_name_ar.mp3"
+      },
+      "confusable_with": [
+        "balloon"
+      ],
+      "drawing": "first-words/ball.svg"
+    },
+    {
+      "item_key": "teddy",
+      "name": {
+        "en": "Teddy",
+        "ar": "دبدوب"
+      },
+      "image": "first-words/teddy.jpg",
+      "name_audio": {
+        "en": "first-words/teddy_name_en.mp3",
+        "ar": "first-words/teddy_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/teddy.svg"
+    },
+    {
+      "item_key": "balloon",
+      "name": {
+        "en": "Balloon",
+        "ar": "بالون"
+      },
+      "image": "first-words/balloon.jpg",
+      "name_audio": {
+        "en": "first-words/balloon_name_en.mp3",
+        "ar": "first-words/balloon_name_ar.mp3"
+      },
+      "confusable_with": [
+        "ball"
+      ],
+      "drawing": "first-words/balloon.svg"
+    },
+    {
+      "item_key": "bubbles",
+      "name": {
+        "en": "Bubbles",
+        "ar": "فقاعات"
+      },
+      "image": "first-words/bubbles.jpg",
+      "name_audio": {
+        "en": "first-words/bubbles_name_en.mp3",
+        "ar": "first-words/bubbles_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/bubbles.svg"
+    },
+    {
+      "item_key": "book",
+      "name": {
+        "en": "Book",
+        "ar": "كتاب"
+      },
+      "image": "first-words/book.jpg",
+      "name_audio": {
+        "en": "first-words/book_name_en.mp3",
+        "ar": "first-words/book_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/book.svg"
+    },
+    {
+      "item_key": "shoe",
+      "name": {
+        "en": "Shoe",
+        "ar": "حذاء"
+      },
+      "image": "first-words/shoe.jpg",
+      "name_audio": {
+        "en": "first-words/shoe_name_en.mp3",
+        "ar": "first-words/shoe_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/shoe.svg"
+    },
+    {
+      "item_key": "socks",
+      "name": {
+        "en": "Socks",
+        "ar": "جوارب"
+      },
+      "image": "first-words/socks.jpg",
+      "name_audio": {
+        "en": "first-words/socks_name_en.mp3",
+        "ar": "first-words/socks_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/socks.svg"
+    },
+    {
+      "item_key": "hat",
+      "name": {
+        "en": "Hat",
+        "ar": "قبعة"
+      },
+      "image": "first-words/hat.jpg",
+      "name_audio": {
+        "en": "first-words/hat_name_en.mp3",
+        "ar": "first-words/hat_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/hat.svg"
+    },
+    {
+      "item_key": "cup",
+      "name": {
+        "en": "Cup",
+        "ar": "كوب"
+      },
+      "image": "first-words/cup.jpg",
+      "name_audio": {
+        "en": "first-words/cup_name_en.mp3",
+        "ar": "first-words/cup_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/cup.svg"
+    },
+    {
+      "item_key": "spoon",
+      "name": {
+        "en": "Spoon",
+        "ar": "ملعقة"
+      },
+      "image": "first-words/spoon.jpg",
+      "name_audio": {
+        "en": "first-words/spoon_name_en.mp3",
+        "ar": "first-words/spoon_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/spoon.svg"
+    },
+    {
+      "item_key": "bottle",
+      "name": {
+        "en": "Bottle",
+        "ar": "رضّاعة"
+      },
+      "image": "first-words/bottle.jpg",
+      "name_audio": {
+        "en": "first-words/bottle_name_en.mp3",
+        "ar": "first-words/bottle_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/bottle.svg"
+    },
+    {
+      "item_key": "bed",
+      "name": {
+        "en": "Bed",
+        "ar": "سرير"
+      },
+      "image": "first-words/bed.jpg",
+      "name_audio": {
+        "en": "first-words/bed_name_en.mp3",
+        "ar": "first-words/bed_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/bed.svg"
+    },
+    {
+      "item_key": "chair",
+      "name": {
+        "en": "Chair",
+        "ar": "كرسي"
+      },
+      "image": "first-words/chair.jpg",
+      "name_audio": {
+        "en": "first-words/chair_name_en.mp3",
+        "ar": "first-words/chair_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/chair.svg"
+    },
+    {
+      "item_key": "bath",
+      "name": {
+        "en": "Bath",
+        "ar": "حمّام"
+      },
+      "image": "first-words/bath.jpg",
+      "name_audio": {
+        "en": "first-words/bath_name_en.mp3",
+        "ar": "first-words/bath_name_ar.mp3"
+      },
+      "confusable_with": [],
+      "drawing": "first-words/bath.svg"
+    },
+    {
+      "item_key": "pacifier",
+      "name": {
+        "en": "Dummy",
+        "ar": "لهّاية"
+      },
+      "image": "first-words/pacifier.jpg",
+      "name_audio": {
+        "en": "first-words/pacifier_name_en.mp3",
+        "ar": "first-words/pacifier_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "nappy",
+      "name": {
+        "en": "Nappy",
+        "ar": "حفّاضة"
+      },
+      "image": "first-words/nappy.jpg",
+      "name_audio": {
+        "en": "first-words/nappy_name_en.mp3",
+        "ar": "first-words/nappy_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "blanket",
+      "name": {
+        "en": "Blanket",
+        "ar": "حرام"
+      },
+      "image": "first-words/blanket.jpg",
+      "name_audio": {
+        "en": "first-words/blanket_name_en.mp3",
+        "ar": "first-words/blanket_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "pillow",
+      "name": {
+        "en": "Pillow",
+        "ar": "مخدّة"
+      },
+      "image": "first-words/pillow.jpg",
+      "name_audio": {
+        "en": "first-words/pillow_name_en.mp3",
+        "ar": "first-words/pillow_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "soap",
+      "name": {
+        "en": "Soap",
+        "ar": "صابونة"
+      },
+      "image": "first-words/soap.jpg",
+      "name_audio": {
+        "en": "first-words/soap_name_en.mp3",
+        "ar": "first-words/soap_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "sofa",
+      "name": {
+        "en": "Sofa",
+        "ar": "كنباية"
+      },
+      "image": "first-words/sofa.jpg",
+      "name_audio": {
+        "en": "first-words/sofa_name_en.mp3",
+        "ar": "first-words/sofa_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "towel",
+      "name": {
+        "en": "Towel",
+        "ar": "منشفة"
+      },
+      "image": "first-words/towel.jpg",
+      "name_audio": {
+        "en": "first-words/towel_name_en.mp3",
+        "ar": "first-words/towel_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "table",
+      "name": {
+        "en": "Table",
+        "ar": "طاولة"
+      },
+      "image": "first-words/table.jpg",
+      "name_audio": {
+        "en": "first-words/table_name_en.mp3",
+        "ar": "first-words/table_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "window",
+      "name": {
+        "en": "Window",
+        "ar": "شبّاك"
+      },
+      "image": "first-words/window.jpg",
+      "name_audio": {
+        "en": "first-words/window_name_en.mp3",
+        "ar": "first-words/window_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "pushchair",
+      "name": {
+        "en": "Pushchair",
+        "ar": "عربايّة"
+      },
+      "image": "first-words/pushchair.jpg",
+      "name_audio": {
+        "en": "first-words/pushchair_name_en.mp3",
+        "ar": "first-words/pushchair_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "plate",
+      "name": {
+        "en": "Plate",
+        "ar": "صحن"
+      },
+      "image": "first-words/plate.jpg",
+      "name_audio": {
+        "en": "first-words/plate_name_en.mp3",
+        "ar": "first-words/plate_name_ar.mp3"
+      },
+      "confusable_with": []
+    }
   ],
   "feedback_audio": {
     "correct": {
-      "en": ["feedback/correct_en_1.mp3", "feedback/correct_en_2.mp3", "feedback/correct_en_3.mp3", "feedback/correct_en_4.mp3", "feedback/correct_en_5.mp3"],
-      "ar": ["feedback/correct_ar_1.mp3", "feedback/correct_ar_2.mp3", "feedback/correct_ar_3.mp3", "feedback/correct_ar_4.mp3", "feedback/correct_ar_5.mp3"]
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
     },
     "incorrect_tone": "feedback/incorrect_tone.mp3",
-    "session_end": { "en": "feedback/session_end_en.mp3", "ar": "feedback/session_end_ar.mp3" }
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
   }
 }

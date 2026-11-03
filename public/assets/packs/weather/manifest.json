@@ -14,12 +14,15 @@
         "en": "Sun",
         "ar": "شمس"
       },
-      "image": "weather/sun.svg",
+      "image": "weather/sun.jpg",
       "name_audio": {
         "en": "weather/sun_name_en.mp3",
         "ar": "weather/sun_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "sunflower"
+      ],
+      "drawing": "weather/sun.svg"
     },
     {
       "item_key": "moon",
@@ -27,12 +30,15 @@
         "en": "Moon",
         "ar": "قمر"
       },
-      "image": "weather/moon.svg",
+      "image": "weather/moon.jpg",
       "name_audio": {
         "en": "weather/moon_name_en.mp3",
         "ar": "weather/moon_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "earth"
+      ],
+      "drawing": "weather/moon.svg"
     },
     {
       "item_key": "star",
@@ -40,12 +46,13 @@
         "en": "Star",
         "ar": "نجمة"
       },
-      "image": "weather/star.svg",
+      "image": "weather/star.jpg",
       "name_audio": {
         "en": "weather/star_name_en.mp3",
         "ar": "weather/star_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "weather/star.svg"
     },
     {
       "item_key": "cloud",
@@ -53,7 +60,7 @@
         "en": "Cloud",
         "ar": "غيمة"
       },
-      "image": "weather/cloud.svg",
+      "image": "weather/cloud.jpg",
       "name_audio": {
         "en": "weather/cloud_name_en.mp3",
         "ar": "weather/cloud_name_ar.mp3"
@@ -61,7 +68,8 @@
       "confusable_with": [
         "rain",
         "thunder"
-      ]
+      ],
+      "drawing": "weather/cloud.svg"
     },
     {
       "item_key": "rain",
@@ -69,7 +77,7 @@
         "en": "Rain",
         "ar": "مطر"
       },
-      "image": "weather/rain.svg",
+      "image": "weather/rain.jpg",
       "sound": "weather/rain_sound.mp3",
       "name_audio": {
         "en": "weather/rain_name_en.mp3",
@@ -78,7 +86,8 @@
       "confusable_with": [
         "cloud",
         "thunder"
-      ]
+      ],
+      "drawing": "weather/rain.svg"
     },
     {
       "item_key": "thunder",
@@ -86,7 +95,7 @@
         "en": "Thunder",
         "ar": "رعد"
       },
-      "image": "weather/thunder.svg",
+      "image": "weather/thunder.jpg",
       "sound": "weather/thunder_sound.mp3",
       "name_audio": {
         "en": "weather/thunder_name_en.mp3",
@@ -95,7 +104,8 @@
       "confusable_with": [
         "cloud",
         "rain"
-      ]
+      ],
+      "drawing": "weather/thunder.svg"
     },
     {
       "item_key": "wind",
@@ -103,13 +113,14 @@
         "en": "Wind",
         "ar": "ريح"
       },
-      "image": "weather/wind.svg",
+      "image": "weather/wind.jpg",
       "sound": "weather/wind_sound.mp3",
       "name_audio": {
         "en": "weather/wind_name_en.mp3",
         "ar": "weather/wind_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "weather/wind.svg"
     },
     {
       "item_key": "snowflake",
@@ -117,12 +128,15 @@
         "en": "Snow",
         "ar": "ثلج"
       },
-      "image": "weather/snowflake.svg",
+      "image": "weather/snowflake.jpg",
       "name_audio": {
         "en": "weather/snowflake_name_en.mp3",
         "ar": "weather/snowflake_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "snowman"
+      ],
+      "drawing": "weather/snowflake.svg"
     },
     {
       "item_key": "rainbow",
@@ -130,12 +144,13 @@
         "en": "Rainbow",
         "ar": "قوس قزح"
       },
-      "image": "weather/rainbow.svg",
+      "image": "weather/rainbow.jpg",
       "name_audio": {
         "en": "weather/rainbow_name_en.mp3",
         "ar": "weather/rainbow_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "weather/rainbow.svg"
     },
     {
       "item_key": "waves",
@@ -143,13 +158,14 @@
         "en": "Waves",
         "ar": "أمواج"
       },
-      "image": "weather/waves.svg",
+      "image": "weather/waves.jpg",
       "sound": "weather/waves_sound.mp3",
       "name_audio": {
         "en": "weather/waves_name_en.mp3",
         "ar": "weather/waves_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [],
+      "drawing": "weather/waves.svg"
     },
     {
       "item_key": "fire",
@@ -157,13 +173,16 @@
         "en": "Fire",
         "ar": "نار"
       },
-      "image": "weather/fire.svg",
+      "image": "weather/fire.jpg",
       "sound": "weather/fire_sound.mp3",
       "name_audio": {
         "en": "weather/fire_name_en.mp3",
         "ar": "weather/fire_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "volcano"
+      ],
+      "drawing": "weather/fire.svg"
     },
     {
       "item_key": "tree",
@@ -171,12 +190,16 @@
         "en": "Tree",
         "ar": "شجرة"
       },
-      "image": "weather/tree.svg",
+      "image": "weather/tree.jpg",
       "name_audio": {
         "en": "weather/tree_name_en.mp3",
         "ar": "weather/tree_name_ar.mp3"
       },
-      "confusable_with": []
+      "confusable_with": [
+        "leaf",
+        "palm_tree"
+      ],
+      "drawing": "weather/tree.svg"
     },
     {
       "item_key": "flower",
@@ -184,12 +207,190 @@
         "en": "Flower",
         "ar": "وردة"
       },
-      "image": "weather/flower.svg",
+      "image": "weather/flower.jpg",
       "name_audio": {
         "en": "weather/flower_name_en.mp3",
         "ar": "weather/flower_name_ar.mp3"
       },
+      "confusable_with": [
+        "sunflower"
+      ],
+      "drawing": "weather/flower.svg"
+    },
+    {
+      "item_key": "snowman",
+      "name": {
+        "en": "Snowman",
+        "ar": "رجل التلج"
+      },
+      "image": "weather/snowman.jpg",
+      "name_audio": {
+        "en": "weather/snowman_name_en.mp3",
+        "ar": "weather/snowman_name_ar.mp3"
+      },
+      "confusable_with": [
+        "snowflake"
+      ]
+    },
+    {
+      "item_key": "mountain",
+      "name": {
+        "en": "Mountain",
+        "ar": "جبل"
+      },
+      "image": "weather/mountain.jpg",
+      "name_audio": {
+        "en": "weather/mountain_name_en.mp3",
+        "ar": "weather/mountain_name_ar.mp3"
+      },
+      "confusable_with": [
+        "volcano"
+      ]
+    },
+    {
+      "item_key": "leaf",
+      "name": {
+        "en": "Leaf",
+        "ar": "ورقة شجر"
+      },
+      "image": "weather/leaf.jpg",
+      "name_audio": {
+        "en": "weather/leaf_name_en.mp3",
+        "ar": "weather/leaf_name_ar.mp3"
+      },
+      "confusable_with": [
+        "tree",
+        "grass"
+      ]
+    },
+    {
+      "item_key": "stone",
+      "name": {
+        "en": "Stone",
+        "ar": "حجر"
+      },
+      "image": "weather/stone.jpg",
+      "name_audio": {
+        "en": "weather/stone_name_en.mp3",
+        "ar": "weather/stone_name_ar.mp3"
+      },
       "confusable_with": []
+    },
+    {
+      "item_key": "volcano",
+      "name": {
+        "en": "Volcano",
+        "ar": "بركان"
+      },
+      "image": "weather/volcano.jpg",
+      "name_audio": {
+        "en": "weather/volcano_name_en.mp3",
+        "ar": "weather/volcano_name_ar.mp3"
+      },
+      "confusable_with": [
+        "mountain",
+        "fire"
+      ]
+    },
+    {
+      "item_key": "mushroom",
+      "name": {
+        "en": "Mushroom",
+        "ar": "فطر"
+      },
+      "image": "weather/mushroom.jpg",
+      "name_audio": {
+        "en": "weather/mushroom_name_en.mp3",
+        "ar": "weather/mushroom_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "cactus",
+      "name": {
+        "en": "Cactus",
+        "ar": "صبّار"
+      },
+      "image": "weather/cactus.jpg",
+      "name_audio": {
+        "en": "weather/cactus_name_en.mp3",
+        "ar": "weather/cactus_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "palm_tree",
+      "name": {
+        "en": "Palm tree",
+        "ar": "نخلة"
+      },
+      "image": "weather/palm_tree.jpg",
+      "name_audio": {
+        "en": "weather/palm_tree_name_en.mp3",
+        "ar": "weather/palm_tree_name_ar.mp3"
+      },
+      "confusable_with": [
+        "tree"
+      ]
+    },
+    {
+      "item_key": "sunflower",
+      "name": {
+        "en": "Sunflower",
+        "ar": "عبّاد الشمس"
+      },
+      "image": "weather/sunflower.jpg",
+      "name_audio": {
+        "en": "weather/sunflower_name_en.mp3",
+        "ar": "weather/sunflower_name_ar.mp3"
+      },
+      "confusable_with": [
+        "flower",
+        "sun"
+      ]
+    },
+    {
+      "item_key": "earth",
+      "name": {
+        "en": "Earth",
+        "ar": "الأرض"
+      },
+      "image": "weather/earth.jpg",
+      "name_audio": {
+        "en": "weather/earth_name_en.mp3",
+        "ar": "weather/earth_name_ar.mp3"
+      },
+      "confusable_with": [
+        "moon"
+      ]
+    },
+    {
+      "item_key": "shell",
+      "name": {
+        "en": "Shell",
+        "ar": "صدفة"
+      },
+      "image": "weather/shell.jpg",
+      "name_audio": {
+        "en": "weather/shell_name_en.mp3",
+        "ar": "weather/shell_name_ar.mp3"
+      },
+      "confusable_with": []
+    },
+    {
+      "item_key": "grass",
+      "name": {
+        "en": "Grass",
+        "ar": "عشب"
+      },
+      "image": "weather/grass.jpg",
+      "name_audio": {
+        "en": "weather/grass_name_en.mp3",
+        "ar": "weather/grass_name_ar.mp3"
+      },
+      "confusable_with": [
+        "leaf"
+      ]
     }
   ],
   "feedback_audio": {

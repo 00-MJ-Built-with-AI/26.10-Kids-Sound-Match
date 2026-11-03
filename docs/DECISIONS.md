@@ -222,6 +222,19 @@ The old pictures are in `dev-assets/replaced`.
 
 - The names of the 165 new cards in Arabic and English, the 12 new body parts' "أين…؟" lines (girl and boy) and the 7 new actions' lines; the Recording session lists the names Arabic first
 
+## Added on 3 November 2026: Feelings and Body parts redrawn as one whole child
+
+Chosen from 10 sketched options: 1 (the part lit up), 2 (the whole child acts the feeling), 3 (a little scene that shows why) and 7 (movement).
+
+| Change | Decision |
+|---|---|
+| Why | The old feelings were coloured balls, one colour per feeling, so a child could learn "yellow = happy" without looking at the face; tired and sleepy looked alike. The old body parts were close-ups in a round window, so back read as hair, tummy as a head, and chin, cheek, neck, elbow, shoulder and knee as patches of skin |
+| Feelings (12) | A boy (the feeling words are masculine, سعيد) acting the feeling with his whole body, in a scene that shows why: happy jumps with a balloon; sad has dropped his ice cream; angry stands hands on hips by a knocked-over tower, steam above; scared holds his cheeks at a storm in the window; surprised opens a present; sleepy yawns in pyjamas and a nightcap with a teddy and the moon; hungry holds his tummy by an empty plate, thinking of food; thirsty holds an empty cup in the hot sun, thinking of water; tired sits slumped and sweaty after football; sick lies in bed with a thermometer and a cool cloth; shy peeks from behind a door, blushing; cold shivers in the snow in a hat and scarf. Each feeling has its own scene, so no two look alike (tired vs sleepy, scared vs surprised vs cold, happy vs shy, sad vs sick) |
+| Body parts (25) | One girl, seen whole, the same in every picture. Everything but the part fades back, the part glows, and a magnifier top right (top left when the part is on the right) shows it close up. Big parts (face, hair, arm, leg, back) have no magnifier. Some pictures change her to show the part: barefoot for foot, toes, leg and knee; sleeveless for shoulder, elbow and arm; arm held out for arm; waving with an open hand, a pointing finger or her nails showing; a big smile with teeth; tongue out; shirt lifted for tummy; seen from behind for back; head lifted for neck; a red heart on her chest |
+| Movement | Each picture moves a little: the glow pulses on every body part and the heart beats; tears roll, steam puffs, Zzz float up, the balloon sways, the cold boy shivers and the snow falls, the present's lid hops, the tummy rumbles, the sun turns, the tired boy breathes. The movement is inside each SVG (no app code), stops when the phone's own "reduce motion" setting is on, and the still picture is complete (the Report and printed cards draw it still) |
+| Shape | A rounded square tile instead of the circle the other drawn packs use, so the whole child and the scene fit |
+| Drawing script | `tools/art/draw-feelings-body.mjs` draws all 37; `draw-more.mjs` now draws only the actions |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

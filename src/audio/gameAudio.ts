@@ -134,6 +134,21 @@ export class GameAudio {
     }
   }
 
+  /** Asks a question (these clips) a couple of times with long quiet gaps, until stopped. */
+  async askLoop(clips: readonly (Clip | null)[]): Promise<void> {
+    const token = this.begin();
+    for (let i = 0; i < POINT_ASKS && !token.cancelled; i++) {
+      if (i > 0) await this.wait(POINT_REPEAT_MS, token);
+      for (const clip of clips) await this.play(clip, token);
+    }
+  }
+
+  /** Waits, unless something else starts playing first. */
+  async pause(ms: number): Promise<void> {
+    const token = this.begin();
+    await this.wait(ms, token);
+  }
+
   /** Says these clips in order, stopping anything else. Resolves when done or stopped. */
   async say(clips: readonly (Clip | null)[]): Promise<void> {
     const token = this.begin();

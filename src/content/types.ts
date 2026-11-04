@@ -71,7 +71,32 @@ export interface ManifestFeedback {
 }
 
 /** The shared lines a manifest's `feedback_audio.lines` may hold. */
-export const FEEDBACK_LINE_IDS = ['talk', 'goodnight', 'sleep_tight', 'then', 'your_turn', 'my_turn'] as const;
+export const FEEDBACK_LINE_IDS = [
+  'talk',
+  'goodnight',
+  'sleep_tight',
+  'then',
+  'your_turn',
+  'my_turn',
+  // Animal sounds: "What does it say?" (Arabic follows the animal: شو بيقول؟ / شو بتقول؟)
+  'says',
+  'says_f',
+  // Big and little
+  'where_little',
+  'where_little_f',
+  'where_big',
+  'where_big_f',
+  // Colour hunt: "Find something…" then the colour (to a girl / a boy in Arabic)
+  'find_f',
+  'find_m',
+  // What's missing?
+  'where_gone',
+  'where_gone_f',
+  'count',
+  'tidy',
+  // Pop the bubbles: the pop itself (a sound, not words)
+  'pop',
+] as const;
 export type FeedbackLineId = (typeof FEEDBACK_LINE_IDS)[number];
 
 /**

@@ -526,6 +526,18 @@ function buildGameLines(packs: readonly LoadedPack[], t: ReturnType<typeof useI1
       ['then', t('routineTitle')],
       ['your_turn', t('turnsGame')],
       ['my_turn', t('turnsGame')],
+      ['says', t('soundsGame')],
+      ['says_f', t('soundsGame')],
+      ['where_little', t('bigGame')],
+      ['where_little_f', t('bigGame')],
+      ['where_big', t('bigGame')],
+      ['where_big_f', t('bigGame')],
+      ['find_f', t('huntGame')],
+      ['find_m', t('huntGame')],
+      ['where_gone', t('missingGame')],
+      ['where_gone_f', t('missingGame')],
+      ['count', t('countGame')],
+      ['tidy', t('tidyGame')],
     ] as const) {
       const l = shared[id];
       if (!l) continue;

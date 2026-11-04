@@ -1079,6 +1079,58 @@
       "my_turn": {
         "en": "feedback/my_turn_en.mp3",
         "ar": "feedback/my_turn_ar.mp3"
+      },
+      "says": {
+        "en": "feedback/says_en.mp3",
+        "ar": "feedback/says_ar.mp3"
+      },
+      "says_f": {
+        "en": "feedback/says_f_en.mp3",
+        "ar": "feedback/says_f_ar.mp3"
+      },
+      "where_little": {
+        "en": "feedback/where_little_en.mp3",
+        "ar": "feedback/where_little_ar.mp3"
+      },
+      "where_little_f": {
+        "en": "feedback/where_little_f_en.mp3",
+        "ar": "feedback/where_little_f_ar.mp3"
+      },
+      "where_big": {
+        "en": "feedback/where_big_en.mp3",
+        "ar": "feedback/where_big_ar.mp3"
+      },
+      "where_big_f": {
+        "en": "feedback/where_big_f_en.mp3",
+        "ar": "feedback/where_big_f_ar.mp3"
+      },
+      "find_f": {
+        "en": "feedback/find_f_en.mp3",
+        "ar": "feedback/find_f_ar.mp3"
+      },
+      "find_m": {
+        "en": "feedback/find_m_en.mp3",
+        "ar": "feedback/find_m_ar.mp3"
+      },
+      "where_gone": {
+        "en": "feedback/where_gone_en.mp3",
+        "ar": "feedback/where_gone_ar.mp3"
+      },
+      "where_gone_f": {
+        "en": "feedback/where_gone_f_en.mp3",
+        "ar": "feedback/where_gone_f_ar.mp3"
+      },
+      "count": {
+        "en": "feedback/count_en.mp3",
+        "ar": "feedback/count_ar.mp3"
+      },
+      "tidy": {
+        "en": "feedback/tidy_en.mp3",
+        "ar": "feedback/tidy_ar.mp3"
+      },
+      "pop": {
+        "en": "feedback/pop.wav",
+        "ar": "feedback/pop.wav"
       }
     }
   }

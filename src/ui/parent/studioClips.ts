@@ -56,7 +56,10 @@ export function studioClips(packs: readonly LoadedPack[], { boys = false }: { bo
     if (fb.oddQuestion) for (const lang of ['ar', 'en'] as const) line(fb.oddQuestion[lang], lang);
     if (fb.peekaboo) for (const lang of ['ar', 'en'] as const) line(fb.peekaboo[lang], lang);
     if (fb.rest) for (const lang of ['ar', 'en'] as const) line(fb.rest[lang], lang);
-    for (const l of Object.values(fb.lines ?? {})) for (const lang of ['ar', 'en'] as const) line(l[lang], lang);
+    for (const [id, l] of Object.entries(fb.lines ?? {})) {
+      if (id === 'pop') continue; // a sound effect, not words
+      for (const lang of ['ar', 'en'] as const) line(l[lang], lang);
+    }
   }
   for (const p of packs) {
     const a = p.association;

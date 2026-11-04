@@ -60,6 +60,34 @@ export const FEEDBACK_SPEECH: Record<string, string> = {
   'feedback/your_turn_en.mp3': 'Your turn!',
   'feedback/my_turn_ar.mp3': 'دوري!',
   'feedback/my_turn_en.mp3': 'My turn!',
+  // Animal sounds, after the animal's name.
+  'feedback/says_ar.mp3': 'شو بيقول؟',
+  'feedback/says_f_ar.mp3': 'شو بتقول؟',
+  'feedback/says_en.mp3': 'What does it say?',
+  'feedback/says_f_en.mp3': 'What does it say?',
+  // Big and little, after the name.
+  'feedback/where_little_ar.mp3': 'وين الصغير؟',
+  'feedback/where_little_f_ar.mp3': 'وين الصغيرة؟',
+  'feedback/where_little_en.mp3': "Where's the little one?",
+  'feedback/where_little_f_en.mp3': "Where's the little one?",
+  'feedback/where_big_ar.mp3': 'وين الكبير؟',
+  'feedback/where_big_f_ar.mp3': 'وين الكبيرة؟',
+  'feedback/where_big_en.mp3': "Where's the big one?",
+  'feedback/where_big_f_en.mp3': "Where's the big one?",
+  // Colour hunt, before the colour.
+  'feedback/find_f_ar.mp3': 'دوّري على شي',
+  'feedback/find_m_ar.mp3': 'دوّر على شي',
+  'feedback/find_f_en.mp3': 'Find something',
+  'feedback/find_m_en.mp3': 'Find something',
+  // What's missing?, after the name.
+  'feedback/where_gone_ar.mp3': 'وين راح؟',
+  'feedback/where_gone_f_ar.mp3': 'وين راحت؟',
+  'feedback/where_gone_en.mp3': 'Where did it go?',
+  'feedback/where_gone_f_en.mp3': 'Where did it go?',
+  'feedback/count_ar.mp3': 'يلّا نعدّ!',
+  'feedback/count_en.mp3': "Let's count!",
+  'feedback/tidy_ar.mp3': 'يلّا نرتّب!',
+  'feedback/tidy_en.mp3': "Let's tidy up!",
 };
 
 /** A shared line in both languages (see FeedbackLineId). */
@@ -153,6 +181,12 @@ export class ClipResolver {
       const asset = line[lang];
       return asset ? [this.voiced(asset, FEEDBACK_SPEECH[asset.path], lang, 'feedback', `line:${asset.path}`)] : [];
     });
+  }
+
+  /** A "Where's your nose?"-style line (on body parts, actions, the baby's needs, songs) in one language. */
+  pointIn(item: LoadedItem, lang: Lang, gender: ArGender): Clip | null {
+    const line = lang === 'en' ? item.point?.en : item.point?.[gender === 'm' ? 'ar_m' : 'ar_f'];
+    return line ? this.voiced(line.audio, line.text, lang, 'feedback', `point:${item.key}:${lang}`) : null;
   }
 
   /** The name in one language. */

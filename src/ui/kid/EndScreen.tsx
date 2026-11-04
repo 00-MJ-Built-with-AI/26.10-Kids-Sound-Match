@@ -3,7 +3,28 @@ import type { LoadedPack } from '../../content/types';
 import { useI18n } from '../../i18n/I18n';
 import { activeGroup, groupPlayable, pickPatch } from '../../settings/quickPick';
 import type { Settings } from '../../settings/settings';
-import { ActionsIcon, BookIcon, CareIcon, ExploreIcon, MemoryIcon, OddIcon, PeekabooIcon, PlayIcon, PointIcon, SceneIcon, TalkIcon, TurnsIcon } from './icons';
+import {
+  ActionsIcon,
+  BigIcon,
+  BookIcon,
+  BubblesIcon,
+  CareIcon,
+  CountIcon,
+  ExploreIcon,
+  HuntIcon,
+  MemoryIcon,
+  MissingIcon,
+  OddIcon,
+  PeekabooIcon,
+  PlayIcon,
+  PointIcon,
+  SceneIcon,
+  SingIcon,
+  SoundsIcon,
+  TalkIcon,
+  TidyIcon,
+  TurnsIcon,
+} from './icons';
 import type { KidKind } from './kidSnapshot';
 import { choosePictures } from './layout';
 import { AlbumIcon } from './Stickers';
@@ -22,7 +43,7 @@ export interface PickerOptions {
 }
 
 /** Games that play the chosen pack; the others bring their own pictures. */
-const USES_PACK: readonly KidKind[] = ['game', 'turns', 'talk', 'book', 'peekaboo', 'explore', 'memory'];
+const USES_PACK: readonly KidKind[] = ['game', 'turns', 'talk', 'book', 'big', 'missing', 'bubbles', 'peekaboo', 'explore', 'memory'];
 
 /** Four squares: "choose". */
 function PickIcon() {
@@ -101,6 +122,14 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
     { id: 'care', label: t('careGame'), icon: <CareIcon /> },
     { id: 'turns', label: t('turnsGame'), icon: <TurnsIcon /> },
     { id: 'book', label: t('bookGame'), icon: <BookIcon /> },
+    { id: 'sounds', label: t('soundsGame'), icon: <SoundsIcon /> },
+    { id: 'hunt', label: t('huntGame'), icon: <HuntIcon /> },
+    { id: 'big', label: t('bigGame'), icon: <BigIcon /> },
+    { id: 'missing', label: t('missingGame'), icon: <MissingIcon /> },
+    { id: 'count', label: t('countGame'), icon: <CountIcon /> },
+    { id: 'bubbles', label: t('bubblesGame'), icon: <BubblesIcon /> },
+    { id: 'tidy', label: t('tidyGame'), icon: <TidyIcon /> },
+    { id: 'sing', label: t('singGame'), icon: <SingIcon /> },
     { id: 'memory', label: t('memoryGame'), icon: <MemoryIcon /> },
     { id: 'odd', label: t('oddOneOut'), icon: <OddIcon /> },
   ];

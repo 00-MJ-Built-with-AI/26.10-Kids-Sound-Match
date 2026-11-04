@@ -75,16 +75,29 @@ export function KidPoint({
   // Mixed game: which pack each picture came from (for Words I know).
   const sources = useMemo(() => sourcePacks(pack), [pack]);
   const talkLine = useMemo(() => findLine(packs, 'talk'), [packs]);
+  // Animal sounds ("بقرة… شو بتقول؟") and Colour hunt ("دوّري على شي… أحمر"): the same game.
+  const sounds = config.kind === 'sounds';
+  const hunt = config.kind === 'hunt';
+  const lines = useMemo(
+    () => ({
+      says: findLine(packs, 'says'),
+      saysF: findLine(packs, 'says_f'),
+      find: findLine(packs, gender === 'm' ? 'find_m' : 'find_f'),
+    }),
+    [packs, gender],
+  );
+  /** Said when the parent ticks or skips: the answer (the animal's sound, or the colour's name). */
+  const answer = (it: LoadedItem) => (sounds ? [audio.resolver.sound(it)] : audio.resolver.names(it));
   /** On an action's picture, what to do ("Clap your hands!", "سقّفي!") rather than its name. */
   const cardName = (item: LoadedItem) => {
-    if (!actions || talk) return item.name;
+    if (!actions || talk || sounds || hunt) return item.name;
     const en = item.point?.en?.text ?? item.name.en;
     const ar = item.point?.[gender === 'm' ? 'ar_m' : 'ar_f']?.text ?? item.name.ar;
     return { en, ar };
   };
   const items = useMemo(() => {
     const allowed = new Set(config.itemKeys);
-    if (talk) return pack.items.filter((i) => allowed.has(i.key));
+    if (talk || sounds || hunt) return pack.items.filter((i) => allowed.has(i.key));
     return pointItems(pack, spokenLanguages(config.language), gender).filter((i) => allowed.has(i.key));
   }, [pack, config, gender]);
   const pictures = useMemo(() => choosePictures(items), [items]);
@@ -134,7 +147,10 @@ export function KidPoint({
   const ask = () => {
     const it = item();
     if (!it || !canPlay()) return;
-    if (talk) void audio.talkAsk(it, audio.resolver.line(talkLine));
+    const r = audio.resolver;
+    if (sounds) void audio.askLoop(r.spoken.flatMap((l) => [r.nameIn(it, l), ...r.line(it.arFeminine ? lines.saysF : lines.says, l)]));
+    else if (hunt) void audio.askLoop(r.spoken.flatMap((l) => [...r.line(lines.find, l), r.nameIn(it, l)]));
+    else if (talk) void audio.talkAsk(it, r.line(talkLine));
     else void audio.pointAsk(it, gender);
   };
 
@@ -163,7 +179,7 @@ export function KidPoint({
           mode: config.mode,
           completed: true,
           profileId: config.profileId,
-          game: talk ? 'talk' : actions ? 'actions' : 'point',
+          game: sounds ? 'sounds' : hunt ? 'hunt' : talk ? 'talk' : actions ? 'actions' : 'point',
         },
         foundKeys.current.map((key) => ({ itemKey: key, packId: sources.get(key) ?? pack.id, firstTryCorrect: true, attempts: 1, choiceCount: 1 })),
       );
@@ -216,6 +232,10 @@ export function KidPoint({
     busy.current = true;
     setFound(true);
     foundKeys.current.push(it.key);
+    if (sounds || hunt) {
+      void Promise.all([sleep(CELEBRATION_MS), Promise.race([audio.say(answer(it)), sleep(NAME_MAX_MS + 1000)])]).then(next);
+      return;
+    }
     if (talk) {
       // She said it: mark it in Words I know (a mark stays; only the parent takes one away).
       const id = wordId(sources.get(it.key) ?? pack.id, it.key);
@@ -231,10 +251,10 @@ export function KidPoint({
   const onSkip = () => {
     if (stageRef.current !== 'playing' || gateRef.current || busy.current) return;
     const it = item();
-    if (talk && it) {
+    if ((talk || sounds || hunt) && it) {
       // Not this time: she still hears the word before the next picture.
       busy.current = true;
-      void Promise.race([audio.say(audio.resolver.names(it)), sleep(NAME_MAX_MS)]).then(next);
+      void Promise.race([audio.say(talk ? audio.resolver.names(it) : answer(it)), sleep(NAME_MAX_MS + 1000)]).then(next);
       return;
     }
     audio.stop();

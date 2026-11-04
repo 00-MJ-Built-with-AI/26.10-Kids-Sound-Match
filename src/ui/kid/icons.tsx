@@ -159,3 +159,84 @@ export function DayIcon() {
     </svg>
   );
 }
+
+export function SoundsIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 9c0-3 2-5 5-5s5 2 5 5v3c0 3-2 5-5 5s-5-2-5-5z" {...ICON} />
+      <circle cx="8.3" cy="9.5" r="1" fill="currentColor" />
+      <circle cx="11.7" cy="9.5" r="1" fill="currentColor" />
+      <path d="M8.5 13.5h3M17.5 8.5c1 1 1 3 0 4M20 6.5c2 2 2 6 0 8" {...ICON} />
+    </svg>
+  );
+}
+
+export function HuntIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3c-5 0-9 3.5-9 8s3.5 7 6.5 7c1.5 0 1.5-1.5 1-2.5s0-2.5 1.5-2.5H15c3.5 0 6-2 6-5 0-3-4-5-9-5z" {...ICON} />
+      <circle cx="7.5" cy="10" r="1.4" fill="currentColor" />
+      <circle cx="11" cy="7" r="1.4" fill="currentColor" />
+      <circle cx="15.5" cy="7.5" r="1.4" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function BigIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="8" cy="13" r="6" {...ICON} />
+      <circle cx="18.5" cy="16" r="3" {...ICON} />
+    </svg>
+  );
+}
+
+export function MissingIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="2.5" y="9" width="5" height="7" rx="1.5" {...ICON} />
+      <path d="M9.5 16.5c0-6 1.5-8 5-8s5 2 5 8z" fill="currentColor" />
+      <path d="M2 19.5h20" {...ICON} />
+    </svg>
+  );
+}
+
+export function CountIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="5" cy="12" r="2.6" fill="currentColor" />
+      <circle cx="12" cy="12" r="2.6" fill="currentColor" />
+      <circle cx="19" cy="12" r="2.6" fill="currentColor" />
+      <path d="M3.5 18.5h17" {...ICON} />
+    </svg>
+  );
+}
+
+export function BubblesIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="9" cy="14" r="6" {...ICON} />
+      <circle cx="17.5" cy="6.5" r="3.5" {...ICON} />
+      <path d="M6.5 11.5a3 3 0 0 1 2.5-1.5" {...ICON} />
+    </svg>
+  );
+}
+
+export function TidyIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3.5 11h17l-1.5 9.5h-14z" {...ICON} />
+      <path d="M3 8h18M9 8l1-4h4l1 4" {...ICON} />
+    </svg>
+  );
+}
+
+export function SingIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 18V5l11-2v13" {...ICON} />
+      <circle cx="6.5" cy="18" r="2.5" fill="currentColor" />
+      <circle cx="17.5" cy="16" r="2.5" fill="currentColor" />
+    </svg>
+  );
+}

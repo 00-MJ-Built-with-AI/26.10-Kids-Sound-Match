@@ -2,7 +2,7 @@
 export type BabyNeed = 'hungry' | 'thirsty' | 'dirty' | 'sleepy' | 'sad';
 export type BabyCare = 'food' | 'milk' | 'bath' | 'bed' | 'hug';
 
-const INK = '#4A2C12';
+const INK = '#5A3B2B';
 const SKIN = '#F6CBA5';
 const SUIT = '#8FD0FF';
 
@@ -58,8 +58,10 @@ export function Baby({ mood, doing, no }: { mood: BabyNeed | null; doing: BabyCa
         <ellipse cx="288" cy="160" rx="16" ry="20" fill={SKIN} {...out} />
         <circle cx="200" cy="152" r="88" fill={SKIN} {...out} />
         <path d="M196 66 q-10 -24 12 -30 q-6 14 6 26" fill="#7A4A30" stroke={INK} strokeWidth="4" strokeLinejoin="round" />
-        <ellipse cx="146" cy="186" rx="16" ry="10" fill="#F59A92" opacity="0.6" />
-        <ellipse cx="254" cy="186" rx="16" ry="10" fill="#F59A92" opacity="0.6" />
+        <ellipse cx="144" cy="188" rx="18" ry="12" fill="#FF8FA3" opacity="0.6" />
+        <ellipse cx="256" cy="188" rx="18" ry="12" fill="#FF8FA3" opacity="0.6" />
+        <circle cx="140" cy="184" r="3" fill="#fff" opacity="0.8" />
+        <circle cx="252" cy="184" r="3" fill="#fff" opacity="0.8" />
         {/* eyes */}
         {asleep || mood === 'sleepy' ? (
           <>
@@ -69,10 +71,14 @@ export function Baby({ mood, doing, no }: { mood: BabyNeed | null; doing: BabyCa
           <path d="M152 160 q14 -16 28 0 M220 160 q14 -16 28 0" {...line} />
         ) : (
           <>
-            <ellipse cx="166" cy="156" rx="10" ry="13" fill={INK} />
-            <ellipse cx="234" cy="156" rx="10" ry="13" fill={INK} />
-            <circle cx="169" cy="151" r="3.5" fill="#fff" />
-            <circle cx="237" cy="151" r="3.5" fill="#fff" />
+            {[166, 234].map((x) => (
+              <g key={x}>
+                <ellipse cx={x} cy="156" rx="14" ry="17" fill="#3A2418" />
+                <ellipse cx={x} cy="162" rx="10" ry="7" fill="#6B4A3A" opacity="0.6" />
+                <circle cx={x + 5} cy="149" r="6" fill="#fff" />
+                <circle cx={x - 5} cy="163" r="2.6" fill="#fff" />
+              </g>
+            ))}
             {(mood === 'sad' || mood === 'hungry' || mood === 'thirsty') && (
               <path d="M150 132 L178 124 M222 124 L250 132" {...line} />
             )}

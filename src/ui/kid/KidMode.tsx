@@ -7,7 +7,9 @@ import { KidGame } from './KidGame';
 import { KidMemory } from './KidMemory';
 import { KidPeekaboo } from './KidPeekaboo';
 import { KidPoint } from './KidPoint';
+import { KidBubbles, KidSing, KidTidy } from './KidPlay';
 import { KidScene } from './KidScene';
+import { KidBig, KidCount, KidMissing } from './KidSmall';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
 
 interface Props {
@@ -52,9 +54,23 @@ export function KidMode(props: Props) {
       return <KidBook packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'care':
       return <KidCare pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'big':
+      return <KidBig pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'missing':
+      return <KidMissing pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'count':
+      return <KidCount pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'bubbles':
+      return <KidBubbles pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'tidy':
+      return <KidTidy pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'sing':
+      return <KidSing pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'point':
     case 'actions':
     case 'talk':
+    case 'sounds':
+    case 'hunt':
       return <KidPoint pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     default:
       return <KidGame {...props} />;

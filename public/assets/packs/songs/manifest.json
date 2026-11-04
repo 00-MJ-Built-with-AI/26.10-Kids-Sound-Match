@@ -1,0 +1,314 @@
+{
+  "pack_id": "songs",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.8,
+  "name": {
+    "en": "Sing with me",
+    "ar": "غنّي معي"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "head",
+      "name": {
+        "en": "Head, shoulders, knees and toes",
+        "ar": "راس، كتاف، رُكَب، وأصابع"
+      },
+      "items": [
+        "song_head_1",
+        "song_head_2",
+        "song_head_1"
+      ]
+    },
+    {
+      "id": "happy",
+      "name": {
+        "en": "If you're happy and you know it",
+        "ar": "إذا كنت فرحان"
+      },
+      "items": [
+        "song_happy_1",
+        "song_happy_2",
+        "song_happy_3"
+      ]
+    },
+    {
+      "id": "farm",
+      "name": {
+        "en": "Who's on the farm?",
+        "ar": "مين بالمزرعة؟"
+      },
+      "items": [
+        "song_farm_1",
+        "song_farm_2",
+        "song_farm_3",
+        "song_farm_4"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "song_head_1",
+      "name": {
+        "en": "Head, shoulders, knees and toes, knees and…",
+        "ar": "راس، كتاف، رُكَب، وأصابع، رُكَب و…"
+      },
+      "image": "body/toes.svg",
+      "name_audio": {
+        "en": "songs/song_head_1_line_en.mp3",
+        "ar": "songs/song_head_1_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "toes!",
+          "audio": "songs/song_head_1_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "أصابع!",
+          "audio": "songs/song_head_1_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "أصابع!",
+          "audio": "songs/song_head_1_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_head_2",
+      "name": {
+        "en": "And eyes, and ears, and mouth, and…",
+        "ar": "وعيون، وأدان، وتمّ، و…"
+      },
+      "image": "body/nose.svg",
+      "name_audio": {
+        "en": "songs/song_head_2_line_en.mp3",
+        "ar": "songs/song_head_2_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "nose!",
+          "audio": "songs/song_head_2_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "أنف!",
+          "audio": "songs/song_head_2_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "أنف!",
+          "audio": "songs/song_head_2_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_happy_1",
+      "name": {
+        "en": "If you're happy and you know it, clap your…",
+        "ar": "إذا كنت فرحان وبتعرف، سقّف بـ…"
+      },
+      "image": "actions/clap.svg",
+      "name_audio": {
+        "en": "songs/song_happy_1_line_en.mp3",
+        "ar": "songs/song_happy_1_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "hands!",
+          "audio": "songs/song_happy_1_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "إيديك!",
+          "audio": "songs/song_happy_1_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "إيديك!",
+          "audio": "songs/song_happy_1_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_happy_2",
+      "name": {
+        "en": "If you're happy and you know it, stamp your…",
+        "ar": "إذا كنت فرحان وبتعرف، دبّك بـ…"
+      },
+      "image": "actions/stamp.svg",
+      "name_audio": {
+        "en": "songs/song_happy_2_line_en.mp3",
+        "ar": "songs/song_happy_2_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "feet!",
+          "audio": "songs/song_happy_2_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "إجريك!",
+          "audio": "songs/song_happy_2_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "إجريك!",
+          "audio": "songs/song_happy_2_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_happy_3",
+      "name": {
+        "en": "If you're happy and you know it, shout…",
+        "ar": "إذا كنت فرحان وبتعرف، قول…"
+      },
+      "image": "feelings/happy.svg",
+      "name_audio": {
+        "en": "songs/song_happy_3_line_en.mp3",
+        "ar": "songs/song_happy_3_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "hooray!",
+          "audio": "songs/song_happy_3_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "هيييه!",
+          "audio": "songs/song_happy_3_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "هيييه!",
+          "audio": "songs/song_happy_3_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_farm_1",
+      "name": {
+        "en": "Who's on the farm? It's a…",
+        "ar": "مين بالمزرعة؟ هاي…"
+      },
+      "image": "animals/cow.jpg",
+      "sound": "animals/cow_sound.mp3",
+      "name_audio": {
+        "en": "songs/song_farm_1_line_en.mp3",
+        "ar": "songs/song_farm_1_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "cow!",
+          "audio": "songs/song_farm_1_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "بقرة!",
+          "audio": "songs/song_farm_1_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "بقرة!",
+          "audio": "songs/song_farm_1_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_farm_2",
+      "name": {
+        "en": "Who's on the farm? It's a…",
+        "ar": "مين بالمزرعة؟ هاد…"
+      },
+      "image": "animals/sheep.jpg",
+      "sound": "animals/sheep_sound.mp3",
+      "name_audio": {
+        "en": "songs/song_farm_2_line_en.mp3",
+        "ar": "songs/song_farm_2_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "sheep!",
+          "audio": "songs/song_farm_2_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "خاروف!",
+          "audio": "songs/song_farm_2_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "خاروف!",
+          "audio": "songs/song_farm_2_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_farm_3",
+      "name": {
+        "en": "Who's on the farm? It's a…",
+        "ar": "مين بالمزرعة؟ هاي…"
+      },
+      "image": "animals/duck.jpg",
+      "sound": "animals/duck_sound.mp3",
+      "name_audio": {
+        "en": "songs/song_farm_3_line_en.mp3",
+        "ar": "songs/song_farm_3_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "duck!",
+          "audio": "songs/song_farm_3_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "بطة!",
+          "audio": "songs/song_farm_3_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "بطة!",
+          "audio": "songs/song_farm_3_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_farm_4",
+      "name": {
+        "en": "Who's on the farm? It's a…",
+        "ar": "مين بالمزرعة؟ هاي…"
+      },
+      "image": "animals/cat.jpg",
+      "sound": "animals/cat_sound.mp3",
+      "name_audio": {
+        "en": "songs/song_farm_4_line_en.mp3",
+        "ar": "songs/song_farm_4_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "cat!",
+          "audio": "songs/song_farm_4_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "قطة!",
+          "audio": "songs/song_farm_4_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "قطة!",
+          "audio": "songs/song_farm_4_word_ar.mp3"
+        }
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

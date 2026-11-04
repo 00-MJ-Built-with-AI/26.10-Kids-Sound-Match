@@ -5,9 +5,19 @@ import type { MemoryNext } from '../../report/levels';
 import type { NextLevel } from '../../report/practice';
 import type { ProfileState } from '../../settings/profiles';
 import { effectiveMode, enabledItemKeys, type Settings } from '../../settings/settings';
+import type { ReactNode } from 'react';
+import type { KidKind } from '../kid/kidSnapshot';
 import {
   ActionsIcon,
+  BigIcon,
   BookIcon,
+  BubblesIcon,
+  CountIcon,
+  HuntIcon,
+  MissingIcon,
+  SingIcon,
+  SoundsIcon,
+  TidyIcon,
   CareIcon,
   DayIcon,
   ExploreIcon,
@@ -54,6 +64,11 @@ export function Home({
   onCare,
   onTurns,
   onRoutine,
+  canSounds,
+  canHunt,
+  canSing,
+  canTidy,
+  onGame,
   onOpen,
   onNudgeAccept,
   onNudgeDismiss,
@@ -94,6 +109,12 @@ export function Home({
   onCare: () => void;
   onTurns: () => void;
   onRoutine: () => void;
+  canSounds: boolean;
+  canHunt: boolean;
+  canSing: boolean;
+  canTidy: boolean;
+  /** The newer games, by kind. */
+  onGame: (kind: KidKind) => void;
   onOpen: (link: HomeLink) => void;
   onNudgeAccept: (to: ChoiceCount) => void;
   onNudgeDismiss: (nudge: NextLevel) => void;
@@ -131,6 +152,32 @@ export function Home({
     { id: 'about', label: t('about'), icon: 'ℹ️' },
   ];
 
+  type Tile = { id: string; icon: ReactNode; label: string; sub: string; on: () => void; ok: boolean };
+  const together: Tile[] = [
+    { id: 'talk', icon: <TalkIcon />, label: t('talkGame'), sub: t('talkSub'), on: onTalk, ok: canExplore },
+    { id: 'sounds', icon: <SoundsIcon />, label: t('soundsGame'), sub: t('soundsSub'), on: () => onGame('sounds'), ok: canSounds },
+    { id: 'sing', icon: <SingIcon />, label: t('singGame'), sub: t('singSub'), on: () => onGame('sing'), ok: canSing },
+    { id: 'point', icon: <PointIcon />, label: t('pointGame'), sub: t('pointSub'), on: onPoint, ok: canPoint },
+    { id: 'actions', icon: <ActionsIcon />, label: t('actionsGame'), sub: t('actionsSub'), on: onActions, ok: canActions },
+    { id: 'hunt', icon: <HuntIcon />, label: t('huntGame'), sub: t('huntSub'), on: () => onGame('hunt'), ok: canHunt },
+    { id: 'book', icon: <BookIcon />, label: t('bookGame'), sub: t('bookSub'), on: onBook, ok: canExplore },
+    { id: 'turns', icon: <TurnsIcon />, label: t('turnsGame'), sub: t('turnsSub'), on: onTurns, ok: canStart },
+    { id: 'routine', icon: <DayIcon />, label: t('routineTitle'), sub: t('routineSub'), on: onRoutine, ok: canRoutine },
+  ];
+  const hers: Tile[] = [
+    { id: 'peekaboo', icon: <PeekabooIcon />, label: t('peekaboo'), sub: t('peekabooSub'), on: onPeekaboo, ok: canExplore },
+    { id: 'bubbles', icon: <BubblesIcon />, label: t('bubblesGame'), sub: t('bubblesSub'), on: () => onGame('bubbles'), ok: canExplore },
+    { id: 'care', icon: <CareIcon />, label: t('careGame'), sub: t('careSub'), on: onCare, ok: canCare },
+    { id: 'explore', icon: <ExploreIcon />, label: t('explore'), sub: t('exploreSub'), on: onExplore, ok: canExplore },
+    { id: 'big', icon: <BigIcon />, label: t('bigGame'), sub: t('bigSub'), on: () => onGame('big'), ok: canExplore },
+    { id: 'count', icon: <CountIcon />, label: t('countGame'), sub: t('countSub'), on: () => onGame('count'), ok: canSounds },
+    { id: 'missing', icon: <MissingIcon />, label: t('missingGame'), sub: t('missingSub'), on: () => onGame('missing'), ok: canStart },
+    { id: 'tidy', icon: <TidyIcon />, label: t('tidyGame'), sub: t('tidySub'), on: () => onGame('tidy'), ok: canTidy },
+    { id: 'scene', icon: <SceneIcon />, label: t('sceneGame'), sub: t('sceneSub'), on: onScene, ok: canScene },
+    { id: 'memory', icon: <MemoryIcon />, label: t('memoryGame'), sub: t('memorySub', { n: settings.memoryPairs }), on: onMemory, ok: canExplore },
+    { id: 'odd', icon: <OddIcon />, label: t('oddOneOut'), sub: t('oddSub'), on: onOdd, ok: canOdd },
+  ];
+
   return (
     <div className="parent home">
       <header className="home-header">
@@ -149,69 +196,27 @@ export function Home({
       <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
         {t('start')}
       </button>
-      {/* The youngest players' games first. */}
-      <div className="games-row">
-        <button type="button" className="game-tile" onClick={onPeekaboo} disabled={!canExplore}>
-          <PeekabooIcon />
-          <strong>{t('peekaboo')}</strong>
-          <small>{t('peekabooSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onExplore} disabled={!canExplore}>
-          <ExploreIcon />
-          <strong>{t('explore')}</strong>
-          <small>{t('exploreSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onCare} disabled={!canCare}>
-          <CareIcon />
-          <strong>{t('careGame')}</strong>
-          <small>{t('careSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onTalk} disabled={!canExplore}>
-          <TalkIcon />
-          <strong>{t('talkGame')}</strong>
-          <small>{t('talkSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onScene} disabled={!canScene}>
-          <SceneIcon />
-          <strong>{t('sceneGame')}</strong>
-          <small>{t('sceneSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onPoint} disabled={!canPoint}>
-          <PointIcon />
-          <strong>{t('pointGame')}</strong>
-          <small>{t('pointSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onActions} disabled={!canActions}>
-          <ActionsIcon />
-          <strong>{t('actionsGame')}</strong>
-          <small>{t('actionsSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onBook} disabled={!canExplore}>
-          <BookIcon />
-          <strong>{t('bookGame')}</strong>
-          <small>{t('bookSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onTurns} disabled={!canStart}>
-          <TurnsIcon />
-          <strong>{t('turnsGame')}</strong>
-          <small>{t('turnsSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onMemory} disabled={!canExplore}>
-          <MemoryIcon />
-          <strong>{t('memoryGame')}</strong>
-          <small>{t('memorySub', { n: settings.memoryPairs })}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onOdd} disabled={!canOdd}>
-          <OddIcon />
-          <strong>{t('oddOneOut')}</strong>
-          <small>{t('oddSub')}</small>
-        </button>
-        <button type="button" className="game-tile" onClick={onRoutine} disabled={!canRoutine}>
-          <DayIcon />
-          <strong>{t('routineTitle')}</strong>
-          <small>{t('routineSub')}</small>
-        </button>
-      </div>
+      {/* Games played together (the parent ticks), then the ones she plays herself. */}
+      {[
+        { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },
+        { title: t('homeHer'), sub: t('homeHerSub'), tiles: hers },
+      ].map((group) => (
+        <section key={group.title} className="games-group">
+          <h2 className="games-title">
+            {group.title}
+            <small>{group.sub}</small>
+          </h2>
+          <div className="games-row">
+            {group.tiles.map((g) => (
+              <button type="button" key={g.id} className={`game-tile tile-${g.id}`} onClick={g.on} disabled={!g.ok}>
+                {g.icon}
+                <strong>{g.label}</strong>
+                <small>{g.sub}</small>
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
       {!pack ? (
         <p className="note">{t('noPackReady')}</p>
       ) : (

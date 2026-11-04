@@ -204,7 +204,7 @@ describe('all packs', () => {
     expect(content.issues.filter((i) => i.level === 'error')).toEqual([]);
     expect(content.packs.map((p) => p.id)).toEqual([
       'animals', 'first-words', 'home', 'clothes', 'toys', 'vehicles', 'weather', 'instruments', 'food', 'body',
-      'actions', 'care', 'routine', 'family', 'jobs', 'colors', 'shapes', 'feelings', 'counting', 'who-eats-what', 'where-lives', 'animal-babies',
+      'actions', 'care', 'routine', 'songs', 'family', 'jobs', 'colors', 'shapes', 'feelings', 'counting', 'who-eats-what', 'where-lives', 'animal-babies',
     ]);
     const whoEats = content.packs.find((p) => p.id === 'who-eats-what')!;
     expect(whoEats.kind).toBe('association');

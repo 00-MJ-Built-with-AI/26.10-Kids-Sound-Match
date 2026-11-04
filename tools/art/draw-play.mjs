@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { C, E, INK, L, P, PACKS, POSES, R, SK, at, file, frames, heartPath, kid, pivot, sparkle, tile, zee } from './child-lib.mjs';
 
-const GIRL = { skin: 'light', hair: 'bob', hairColor: '#3A2418', band: '#F05A8C', shirt: '#F7A14A', shorts: '#7A4FD1', shoe: '#5B8DEF', expr: 'smile' };
+const GIRL = { lashes: true, skin: 'light', hair: 'bob', hairColor: '#3A2418', band: '#F05A8C', shirt: '#F7A14A', shorts: '#7A4FD1', shoe: '#5B8DEF', expr: 'smile' };
 const girl = (o = {}) => kid({ ...GIRL, ...o, hands: { ...(o.hands ?? {}) } });
 const SKIN = SK.light.skin;
 const place = (body, x = 0, y = 26, sc = 0.9) => at(x + 20, y, sc, body);

@@ -227,7 +227,7 @@ function Shell({
   const [startKind, setStartKind] = useState<KidKind>('game');
   // Where's your nose?: asking a parent once whether the child is a girl or a boy (Arabic grammar).
   // Where's your nose? and Do it with me ask once whether the child is a girl or a boy (Arabic grammar).
-  const [askGender, setAskGender] = useState<'point' | 'actions' | null>(null);
+  const [askGender, setAskGender] = useState<'point' | 'actions' | 'hunt' | null>(null);
   const pendingGender = useRef<ArGender | null>(null);
   const [nudge, setNudge] = useState<NextLevel | null>(null);
   const [memoryNudge, setMemoryNudge] = useState<MemoryNext | null>(null);
@@ -260,6 +260,22 @@ function Shell({
   const actionsPack = allPacks.find((p) => p.id === 'actions');
   const carePack = allPacks.find((p) => p.id === 'care');
   const routinePack = allPacks.find((p) => p.id === 'routine');
+  const animalsPack = allPacks.find((p) => p.id === 'animals');
+  const colorsPack = allPacks.find((p) => p.id === 'colors');
+  const songsPack = allPacks.find((p) => p.id === 'songs');
+  const toysPack = allPacks.find((p) => p.id === 'toys');
+  /** Animal sounds and Count with me: the animals with a sound (the ones chosen in Settings, if enough). */
+  const soundAnimals = (s: Settings): string[] => {
+    if (!animalsPack) return [];
+    const withSound = animalsPack.items.filter((i) => i.sound).map((i) => i.key);
+    const chosen = new Set(enabledItemKeys(animalsPack, s));
+    const mine = withSound.filter((k) => chosen.has(k));
+    return mine.length >= 4 ? mine : withSound;
+  };
+  const canSounds = soundAnimals(settings).length >= 4;
+  const canHunt = (colorsPack?.items.length ?? 0) >= 4;
+  const canSing = (songsPack?.groups.length ?? 0) > 0;
+  const canTidy = ['toys', 'food', 'clothes'].every((id) => (allPacks.find((p) => p.id === id)?.items.length ?? 0) >= 2);
   // Look after the baby needs every one of its needs (food, milk, bath, bed, hug).
   const canCare = pointItems(carePack, languages, profile?.arGender ?? 'f').length >= 5;
   const canActions = pointItems(actionsPack, languages, profile?.arGender ?? 'f').length >= MIN_POINT_ITEMS;
@@ -420,7 +436,15 @@ function Shell({
               ? actionsPack
               : kind === 'care'
                 ? carePack
-                : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
+                : kind === 'sounds' || kind === 'count'
+                  ? animalsPack
+                  : kind === 'hunt'
+                    ? colorsPack
+                    : kind === 'sing'
+                      ? songsPack
+                      : kind === 'tidy'
+                        ? toysPack
+                        : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
     if (!gamePack) return;
     // Toddler mode is for the matching game: the others have a right answer even for the youngest.
     const toddlerMode = s.toddlerMode && kind === 'game' && gamePack.kind !== 'association';
@@ -469,7 +493,11 @@ function Shell({
                 ? pointItems(gamePack, spoken, arGender).map((i) => i.key)
                 : kind === 'book'
                   ? bookIds
-                  : enabledItemKeys(gamePack, s),
+                  : kind === 'sounds' || kind === 'count'
+                    ? soundAnimals(s)
+                    : kind === 'hunt' || kind === 'sing' || kind === 'tidy'
+                      ? gamePack.items.map((i) => i.key)
+                      : enabledItemKeys(gamePack, s),
         // Odd one out shows 3 or 4: two or three alike and the different one.
         choiceCount: kind === 'odd' ? (Math.min(4, Math.max(3, s.choiceCount)) as ChoiceCount) : s.choiceCount,
         questionsPerSession: s.questionsPerSession,
@@ -479,9 +507,16 @@ function Shell({
         // Packs without sounds (Food, Colours...) are played by name whatever the setting says. A scene
         // mixes packs, so it keeps the setting (things without a sound are asked for by name).
         // The baby's needs always come with their sound (a rumbling tummy, a yawn).
-        mode: kind === 'scene' ? s.mode : kind === 'care' ? 'SOUND_AND_NAME' : effectiveMode(gamePack, s.mode),
+        mode:
+          kind === 'scene'
+            ? s.mode
+            : kind === 'care'
+              ? 'SOUND_AND_NAME'
+              : kind === 'sounds' || kind === 'hunt' || kind === 'big' || kind === 'missing' || kind === 'bubbles'
+                ? 'NAME_ONLY'
+                : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
-        ...(kind === 'point' || kind === 'actions' || kind === 'care' ? { arGender } : {}),
+        ...(kind === 'point' || kind === 'actions' || kind === 'care' || kind === 'hunt' || kind === 'sing' ? { arGender } : {}),
         ...((kind === 'turns' || kind === 'book') && profile ? { avatar: { animal: profile.animal, color: profile.color } } : {}),
         language: s.language,
         repeatIntervalSec: s.repeatIntervalSec,
@@ -517,6 +552,13 @@ function Shell({
     ...(canCare ? (['care'] as const) : []),
     'turns',
     'book',
+    ...(canSounds ? (['sounds', 'count'] as const) : []),
+    ...(canHunt && genderKnown ? (['hunt'] as const) : []),
+    'big',
+    'missing',
+    'bubbles',
+    ...(canTidy ? (['tidy'] as const) : []),
+    ...(canSing ? (['sing'] as const) : []),
     'memory',
     ...(oddPack ? (['odd'] as const) : []),
   ];
@@ -544,7 +586,7 @@ function Shell({
   };
 
   /** Arabic needs to know: "أين أنفُكِ؟" and "سقّفي!" for a girl, "أين أنفُكَ؟" and "سقّف!" for a boy. */
-  const beginWithGender = (kind: 'point' | 'actions') => {
+  const beginWithGender = (kind: 'point' | 'actions' | 'hunt') => {
     if (genderKnown) begin(kind);
     else setAskGender(kind);
   };
@@ -700,6 +742,11 @@ function Shell({
           onCare={() => begin('care')}
           onTurns={() => begin('turns')}
           onRoutine={() => setScreen('routine')}
+          canSounds={canSounds}
+          canHunt={canHunt}
+          canSing={canSing}
+          canTidy={canTidy}
+          onGame={(kind) => (kind === 'hunt' ? beginWithGender('hunt') : begin(kind))}
           memoryNudge={memoryNudge}
           onMemoryNudgeAccept={(to) => {
             update({ memoryPairs: to as MemoryPairs });

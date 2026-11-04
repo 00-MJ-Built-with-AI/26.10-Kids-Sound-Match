@@ -90,6 +90,8 @@ export function ReportScreen({
     if (g.game === 'peekaboo') return `${t('peekaboo')} · ${packName(g.packId)} · ${t('peekabooRow', { n: g.questionCount })}`;
     if (g.game === 'point') return `${t('pointGame')} · ${t('pointRow', { n: g.questionCount })}`;
     if (g.game === 'actions') return `${t('actionsGame')} · ${t('actionsRow', { n: g.questionCount })}`;
+    if (g.game === 'sounds') return `${t('soundsGame')} · ${t('soundsRow', { n: g.questionCount })}`;
+    if (g.game === 'hunt') return `${t('huntGame')} · ${t('huntRow', { n: g.questionCount })}`;
     if (g.game === 'talk') return `${t('talkGame')} · ${packName(g.packId)} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'scene') {
       const where = g.variant === 'house' ? t('sceneHouse') : t('sceneFarm');

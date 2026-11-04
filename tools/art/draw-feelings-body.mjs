@@ -9,7 +9,7 @@
 // Usage: node tools/art/draw-feelings-body.mjs   (writes public/assets/packs/{feelings,body}/*.svg)
 import fs from 'node:fs';
 import path from 'node:path';
-import { INK, BLUSH, C, E, KID, L, MOTION, P, PACKS, POSES, R, SK, TEAR, at, bow, cloud, drop, face, file, flake, hairBack, hairFront, hand, heartPath, kid, pts, r1, sa, sparkle, tile, tube, zee } from './child-lib.mjs';
+import { HEAD_SCALE, headPt, INK, BLUSH, C, E, KID, L, MOTION, P, PACKS, POSES, R, SK, TEAR, at, bow, cloud, drop, face, file, flake, hairBack, hairFront, hand, heartPath, kid, pts, r1, sa, sparkle, tile, tube, zee } from './child-lib.mjs';
 
 /* ------------------------------------------------------------ feelings */
 const BOY = { skin: 'medium', hair: 'short', shirt: '#4C9BE8', shorts: '#2F4E9B' };
@@ -167,7 +167,7 @@ const feelings = {
 };
 
 /* ------------------------------------------------------------ body parts */
-const GIRL = { skin: 'light', hair: 'bob', hairColor: '#3A2418', band: '#F05A8C', shirt: '#F7A14A', shorts: '#7A4FD1', shoe: '#5B8DEF', expr: 'smile' };
+const GIRL = { lashes: true, skin: 'light', hair: 'bob', hairColor: '#3A2418', band: '#F05A8C', shirt: '#F7A14A', shorts: '#7A4FD1', shoe: '#5B8DEF', expr: 'smile' };
 const BODY_CSS = `
     .ring { animation: ring 1.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
     @keyframes ring { 0% { transform: scale(1); opacity: .9 } 100% { transform: scale(1.6); opacity: 0 } }
@@ -180,8 +180,11 @@ const BODY_CSS = `
  * spot: [cx, cy, rx, ry, rotate] in the child's own coordinates; zoom: magnifier scale (0 = none).
  * The child stands a little left so the magnifier fits top right (or top left: `left`).
  */
-function bodyCard({ kid: k, spot, zoom = 1.8, left = false, dx = -26, dy = 6, bg = '#EAF4FF' }) {
-  const [sx0, sy0, rx, ry = rx, rot = 0] = spot;
+function bodyCard({ kid: k, spot, zoom = 1.8, left = false, dx = -26, dy = 6, bg = '#EAF4FF', head = false }) {
+  // A part of the face: where it is once the head is drawn bigger.
+  const [hx, hy] = head ? headPt(spot[0], spot[1]) : [spot[0], spot[1]];
+  const grow = head ? HEAD_SCALE : 1;
+  const [sx0, sy0, rx, ry, rot = 0] = [hx, hy, spot[2] * grow, (spot[3] ?? spot[2]) * grow, spot[4]];
   const kx = left ? -dx : dx;
   const sx = sx0 + kx, sy = sy0 + dy;
   const zx = left ? 84 : 316, zy = 86, zr = 70;
@@ -191,7 +194,7 @@ function bodyCard({ kid: k, spot, zoom = 1.8, left = false, dx = -26, dy = 6, bg
     <clipPath id="lens"><circle cx="${zx}" cy="${zy}" r="${zr}"/></clipPath>
     <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter></defs>`;
   s += tile(bg) + `<use href="#kid"/>`;
-  s += `<rect x="4" y="4" width="392" height="392" rx="60" fill="${bg}" opacity="0.62" mask="url(#hole)"/>`;
+  s += `<rect x="4" y="4" width="392" height="392" rx="60" fill="${bg}" opacity="0.5" mask="url(#hole)"/>`;
   s += `<g class="glow">${ell('none', ` stroke="#FFC531" stroke-width="16" filter="url(#soft)"`)}</g>`;
   s += `<g class="ring">${ell('none', ` stroke="#FFB300" stroke-width="5"`)}</g>`;
   s += ell('none', ` stroke="#FFB300" stroke-width="6"`);
@@ -208,23 +211,23 @@ function bodyCard({ kid: k, spot, zoom = 1.8, left = false, dx = -26, dy = 6, bg
 }
 
 const body = {
-  eye: bodyCard({ kid: {}, spot: [220, 118, 17], zoom: 2.4 }),
-  nose: bodyCard({ kid: {}, spot: [200, 128, 16], zoom: 2.4 }),
-  mouth: bodyCard({ kid: {}, spot: [200, 146, 26, 17], zoom: 2.2 }),
-  ear: bodyCard({ kid: {}, spot: [142, 122, 18, 22], zoom: 2.2 }),
+  eye: bodyCard({ kid: {}, spot: [220, 118, 17], zoom: 2.4, head: true }),
+  nose: bodyCard({ kid: {}, spot: [200, 128, 16], zoom: 2.4, head: true }),
+  mouth: bodyCard({ kid: {}, spot: [200, 146, 26, 17], zoom: 2.2, head: true }),
+  ear: bodyCard({ kid: {}, spot: [142, 122, 18, 22], zoom: 2.2, head: true }),
   hand: bodyCard({ kid: { pose: 'wave', hands: { r: 'open' } }, spot: [294, 162, 34], zoom: 1.7, left: true }),
   finger: bodyCard({ kid: { pose: 'wave', hands: { r: 'point' } }, spot: [292, 152, 12, 24, -10], zoom: 2, left: true }),
   arm: bodyCard({ kid: { pose: 'out', sleeveless: true }, spot: [294, 198, 64, 22, 3], zoom: 0, dx: -36 }),
   foot: bodyCard({ kid: { barefoot: true }, spot: [166, 384, 30, 18], zoom: 2 }),
   leg: bodyCard({ kid: { barefoot: true }, spot: [168, 352, 22, 46], zoom: 0, dx: 0 }),
-  teeth: bodyCard({ kid: { expr: 'teeth' }, spot: [200, 150, 30, 20], zoom: 2.3 }),
-  tongue: bodyCard({ kid: { expr: 'tongue' }, spot: [200, 158, 18, 22], zoom: 2.3 }),
-  face: bodyCard({ kid: {}, spot: [200, 120, 70, 66], zoom: 0, dx: 0 }),
+  teeth: bodyCard({ kid: { expr: 'teeth' }, spot: [200, 150, 30, 20], zoom: 2.3, head: true }),
+  tongue: bodyCard({ kid: { expr: 'tongue' }, spot: [200, 158, 18, 22], zoom: 2.3, head: true }),
+  face: bodyCard({ kid: {}, spot: [200, 120, 70, 66], zoom: 0, dx: 0, head: true }),
   heart: bodyCard({ kid: { heart: true, pose: 'heart' }, spot: [222, 214, 30], zoom: 1.8 }),
-  hair: bodyCard({ kid: { hair: 'bob' }, spot: [200, 92, 78, 50], zoom: 0, dx: 0 }),
-  eyebrows: bodyCard({ kid: { brows: 'bold' }, spot: [200, 96, 44, 14], zoom: 2.2 }),
-  cheek: bodyCard({ kid: { blush: 1.4 }, spot: [166, 138, 20], zoom: 2.3 }),
-  chin: bodyCard({ kid: {}, spot: [200, 166, 24, 13], zoom: 2.3 }),
+  hair: bodyCard({ kid: { hair: 'bob' }, spot: [200, 92, 78, 50], zoom: 0, dx: 0, head: true }),
+  eyebrows: bodyCard({ kid: { brows: 'bold' }, spot: [200, 96, 44, 14], zoom: 2.2, head: true }),
+  cheek: bodyCard({ kid: { blush: 1.4 }, spot: [166, 138, 20], zoom: 2.3, head: true }),
+  chin: bodyCard({ kid: {}, spot: [200, 166, 24, 13], zoom: 2.3, head: true }),
   neck: bodyCard({ kid: { headUp: 14 }, spot: [200, 172, 22, 16], zoom: 2.2 }),
   shoulder: bodyCard({ kid: { sleeveless: true }, spot: [156, 192, 22], zoom: 2 }),
   elbow: bodyCard({ kid: { pose: 'wave', sleeveless: true }, spot: [284, 226, 20], zoom: 2, left: true }),

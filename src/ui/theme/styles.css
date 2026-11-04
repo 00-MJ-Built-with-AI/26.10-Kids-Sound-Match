@@ -5124,3 +5124,57 @@ html[data-calm] .sing-card,
 html[data-calm] .sing-song {
   background: #f1ece4;
 }
+
+/* Look after the baby: the newer needs and the things that fix them. */
+.baby-snow { animation: baby-snow 3s linear infinite; }
+@keyframes baby-snow { from { transform: translateY(-14px); } to { transform: translateY(14px); } }
+.need-cold .baby-body, .need-cold .baby-head { animation: shiver 0.18s linear infinite; }
+@keyframes shiver { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+.baby-sun { animation: baby-sun 2.4s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+@keyframes baby-sun { from { transform: scale(0.92); } to { transform: scale(1.08); } }
+.baby-dots circle { animation: baby-dot 1.4s ease-in-out infinite; }
+.baby-dots circle:nth-child(2) { animation-delay: 0.2s; }
+.baby-dots circle:nth-child(3) { animation-delay: 0.4s; }
+@keyframes baby-dot { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+.baby-think { animation: float-think 2.4s ease-in-out infinite; }
+@keyframes float-think { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.baby-drips path { animation: baby-tear 1.8s ease-in infinite; }
+.give-hat { animation: give-drop 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) both; }
+.give-tissue, .give-plaster { animation: give-pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) both; transform-box: fill-box; transform-origin: center; }
+@keyframes give-drop { from { transform: translateY(-140px); } to { transform: none; } }
+@keyframes give-pop { from { transform: scale(0); } to { transform: scale(1); } }
+.give-fan { animation: spin-fan 0.6s linear infinite; transform-origin: 360px 190px; }
+@keyframes spin-fan { to { transform: rotate(360deg); } }
+.give-wind path { animation: wind 0.9s ease-in-out infinite; }
+.give-wind path:nth-child(2) { animation-delay: 0.3s; }
+@keyframes wind { 0% { transform: translateX(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateX(-50px); opacity: 0; } }
+.give-sparkles path { animation: twinkle 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.give-sparkles path:nth-child(2) { animation-delay: 0.3s; }
+.give-sparkles path:nth-child(3) { animation-delay: 0.6s; }
+@keyframes twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.4; } }
+.give-note { animation: note-up 1.8s ease-out infinite; }
+.give-note.b { animation-delay: 0.6s; }
+.give-note.c { animation-delay: 1.2s; }
+@keyframes note-up { 0% { transform: translateY(20px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-40px); opacity: 0; } }
+.doing-music .baby-head, .doing-pram .baby-head { animation: sway-baby 1.2s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 90%; }
+@keyframes sway-baby { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+.give-rattle { animation: rattle 0.25s ease-in-out infinite alternate; transform-origin: 272px 262px; }
+@keyframes rattle { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+.give-brush { animation: brush-hair 0.6s ease-in-out infinite alternate; }
+@keyframes brush-hair { from { transform: translateX(-60px); } to { transform: translateX(0); } }
+.give-toothbrush { animation: brush-teeth 0.3s ease-in-out infinite alternate; }
+@keyframes brush-teeth { from { transform: translateX(-8px); } to { transform: translateX(8px); } }
+.give-beat { animation: beat-heart 0.9s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes beat-heart { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.25); } 40% { transform: scale(1); } 60% { transform: scale(1.15); } }
+.doing-pram .give-pram, .doing-pram .baby-body { animation: pram-roll 1.4s ease-in-out infinite alternate; }
+@keyframes pram-roll { from { transform: translateX(-8px); } to { transform: translateX(8px); } }
+.pram-wheel { animation: wheel-spin 1.4s linear infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes wheel-spin { to { transform: rotate(360deg); } }
+.care-tools .care-tool {
+  width: min(26vw, 20vh, 150px);
+}
+@media (orientation: landscape) {
+  .care-tools .care-tool {
+    width: min(22vh, 20vw, 150px);
+  }
+}

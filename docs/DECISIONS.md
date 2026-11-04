@@ -272,6 +272,15 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | New lines | 12 more shared lines: شو بيقول؟ / شو بتقول؟، وين الصغير/ة؟، وين الكبير/ة؟، دوّري / دوّر على شي، وين راح/ت؟، يلّا نعدّ!، يلّا نرتّب! (and English), plus a pop sound (`feedback/pop.wav`, made for the app) |
 | Not in the Report | Big and little, What's missing?, Count with me, Pop the bubbles, Tidy up and Sing with me are play: they aren't saved in the Report |
 
+## Added on 4 November 2026: 18 ways to look after the baby
+
+| Change | Decision |
+|---|---|
+| Work on main | From now on every change goes straight to `main` (and so to the live app) without asking first, as asked. Noted in `CLAUDE.md` |
+| 18 activities | Look after the baby grew from 5 needs to 18. Each need is drawn on the baby itself, and each fix is animated: hungry → food (spoon); thirsty → milk (bottle); dirty → bath (bubbles wash the mud off); sleepy → bed (blanket, Zzz); sad → hug (arms up, hearts); cold (snowflakes, chattering teeth, shivers) → woolly hat; hot (sun, red cheeks, sweat) → fan (spinning, wind); wet nappy (drips) → nappy (sparkles); runny nose (a drip) → tissue; ouchie (a scratch, a tear) → plaster (and kiss-hearts); bored (looks away, "…") → rattle (shaken in its hand); wants a song (a note in a thought bubble) → song (notes float, it sways); messy hair (sticking up) → hairbrush; teeth (food bits) → toothbrush (brushing, bubbles); dirty hands → soap (bubbles); sick (green cheeks, thermometer) → doctor's kit (stethoscope, a beating heart); wants to go out (thinks of a tree and the sun) → pram (rolls along); no clothes (in a nappy) → clothes (arms up, sparkles) |
+| Three to choose from | With 18 things, all at once is too many at 20 months: each need shows the right thing and two others. A game is 6 needs, with ones not played last time first |
+| Lines | "البيبي بردان!"، "البيبي شوبان!"، "حفاضة البيبي مبلولة!"، "مناخير البيبي عم تسيل!"، "البيبي تعوّر!"، "البيبي بدّه يلعب!"، "البيبي بدّه غنّية!"، "شعر البيبي منكوش!"، "يلّا نفرّش سنان البيبي!"، "إيدين البيبي وسخين!"، "البيبي مريض!"، "البيبي بدّه يطلع مشوار!"، "البيبي بدّه أواعي!" (and English), with the Feelings sound where one fits (shivers, a cough, a sob). The 13 new names: طاقية، مروحة، حفاضة، محرمة، لزقة، خشخيشة، غنّية، فرشاية الشعر، فرشاية السنان، صابون، سمّاعة الدكتور، عربايّة، أواعي. The phone reads them until recorded |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

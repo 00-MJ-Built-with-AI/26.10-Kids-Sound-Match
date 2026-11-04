@@ -37,7 +37,7 @@ Games: the matching game, Peekaboo, Explore, Find it in the picture, Where's you
 me** (the app says "سقّفي!" or "Clap your hands!" and shows it; the parent ticks when the child does it),
 Memory and Odd one out. Made for playing together with the youngest: **Talk time** (a picture and
 "شو هاد؟"; you tick when she says it, and it goes into Words I know), **Her picture book** (a goodnight book
-of the words she knows), **Look after the baby** (feed it, bath it, put it to bed, hug it), **My turn,
+of the words she knows), **Look after the baby** (18 things the baby needs: food, a bath, a woolly hat, a plaster, a song…), **My turn,
 your turn** (the matching game, taking turns with a grown-up) and **Our day** (routine cards: now, and
 what comes next). Also **Animal sounds**, **Colour hunt**, **Sing with me** (three songs; she fills in the last word), **Big and
 little**, **What's missing?**, **Count with me**, **Pop the bubbles** and **Tidy up**. Home shows them in two

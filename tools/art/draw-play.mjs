@@ -296,6 +296,116 @@ function care() {
       M.zee,
     ),
     hug: card('#FDE9F0', teddy(200, 230, 1.9) + `<g class="beat">${P(heartPath(200, 290, 1.4), '#E8304A', 3.5)}</g>`, M.beat),
+    // A woolly hat with a pompom, and a scarf.
+    hat: card(
+      '#E2F0FB',
+      P('M96 236 C96 120 150 92 200 92 C250 92 304 120 304 236 Z', '#E8504A') + R(84, 222, 232, 46, 20, '#F7F2EE') + C(200, 82, 30, '#F7F2EE') +
+        L('M146 140 v72 M200 120 v92 M254 140 v72', INK, 4, ' opacity="0.3"') +
+        P('M90 300 Q200 330 310 300 L310 330 Q200 360 90 330 Z', '#5B8DEF') + P('M250 326 L282 326 L290 380 L258 384 Z', '#5B8DEF') +
+        L('M262 380 v12 M276 380 v12', '#5B8DEF', 6),
+      '',
+    ),
+    // A little fan, turning.
+    fan: card(
+      '#FFF4CC',
+      C(200, 170, 110, '#DDF1FF') +
+        `<g transform="translate(200 170)"><g class="spinFan">${[0, 120, 240].map((d) => E(0, -52, 30, 52, '#5B8DEF', 4.5, ` transform="rotate(${d})"`)).join('')}</g></g>` +
+        C(200, 170, 16, INK, 0) + L('M200 280 V350', INK, 18) + L('M200 280 V350', '#B0B6C0', 10) + R(130, 344, 140, 26, 13, '#B0B6C0'),
+      `.spinFan { animation: spinFan 1s linear infinite; }
+    @keyframes spinFan { to { transform: rotate(360deg) } }`,
+    ),
+    // A clean nappy, with sparkles.
+    nappy: card(
+      '#EAF6EC',
+      P('M80 140 L320 140 L320 180 Q300 300 200 310 Q100 300 80 180 Z', '#fff') + R(70, 132, 60, 34, 10, '#7ED0B5') + R(270, 132, 60, 34, 10, '#7ED0B5') +
+        L('M130 200 Q200 230 270 200', '#E2E8EE', 6) + sparkle(330, 92, 1.1) + sparkle(76, 260, 0.8, '#FF8FA3') + sparkle(330, 300, 0.7, '#7ED0B5'),
+      '',
+    ),
+    // A box of tissues, one popping out.
+    tissue: card(
+      '#FDE9F0',
+      R(90, 200, 220, 140, 20, '#7ED0B5') + R(90, 200, 220, 34, 16, '#9EE0C9') + E(200, 214, 50, 10, '#4F9C86', 0) +
+        P('M170 214 Q150 120 200 96 Q250 120 230 214 Z', '#fff') + L('M200 110 q-10 40 0 90', '#E2E8EE', 4) + P(heartPath(200, 286, 1.2), '#fff', 0, ' opacity="0.8"'),
+      '',
+    ),
+    // A plaster, and a kiss-heart.
+    plaster: card(
+      '#FFEFE2',
+      `<g transform="rotate(-30 200 210)">${R(70, 170, 260, 80, 40, '#F4C9A0') + R(160, 170, 80, 80, 0, '#E8B48A', 0) + R(70, 170, 260, 80, 40, 'none')}` +
+        [96, 120, 280, 304].flatMap((x) => [C(x, 196, 4, INK, 0, ' opacity="0.35"'), C(x, 224, 4, INK, 0, ' opacity="0.35"')]).join('') + '</g>' +
+        `<g class="beat">${P(heartPath(318, 90, 1.4), '#E8304A', 3.5)}</g>`,
+      M.beat,
+    ),
+    // A rattle, shaking.
+    rattle: card(
+      '#F6E8FF',
+      `<g transform="translate(200 300)"><g class="shake"><g transform="translate(-200 -300)">` +
+        L('M200 300 L200 200', INK, 30) + L('M200 300 L200 200', '#F7D046', 20) + C(200, 330, 30, '#F7D046') +
+        C(200, 140, 74, '#F05A8C') + C(170, 116, 12, '#fff', 0, ' opacity="0.7"') + C(222, 160, 10, '#FFE08A', 0) + C(180, 168, 8, '#7ED0B5', 0) + C(230, 120, 8, '#9CC9F2', 0) +
+        `</g></g></g>` + L('M300 110 q20 -10 26 -30 M314 150 q22 0 34 -12 M100 110 q-20 -10 -26 -30', '#F05A8C', 6),
+      M.shake,
+    ),
+    // A song: musical notes floating up.
+    music: card(
+      '#F3E9FF',
+      [[130, 260, '#B48CF0', ''], [230, 200, '#FF8FA3', ' b'], [300, 290, '#7ED0B5', '']]
+        .map(([x, y, c, b]) => `<g class="floatUp${b}">${E(x, y, 30, 22, c, 4.5, ` transform="rotate(-20 ${x} ${y})"`) + L(`M${x + 26} ${y - 8} V${y - 110} l40 16`, INK, 8)}</g>`)
+        .join('') + sparkle(80, 120, 0.9) + sparkle(340, 110, 0.7, '#FF8FA3'),
+      M.float,
+    ),
+    // A hairbrush.
+    brush: card(
+      '#FFF1E6',
+      `<g transform="rotate(-35 200 200)">${R(110, 90, 180, 120, 60, '#B48CF0') + R(130, 110, 140, 80, 40, '#E8D6FF', 0) +
+        [150, 175, 200, 225, 250].flatMap((x) => [C(x, 130, 5, '#8A6BC8', 0), C(x, 170, 5, '#8A6BC8', 0)]).join('') +
+        L('M200 210 V340', INK, 40) + L('M200 210 V340', '#B48CF0', 30)}</g>`,
+      '',
+    ),
+    // A toothbrush with a blob of toothpaste.
+    toothbrush: card(
+      '#E2F4FB',
+      `<g transform="rotate(-30 200 210)">${L('M90 230 H330', INK, 34) + L('M90 230 H330', '#5B8DEF', 24) + R(250, 180, 90, 40, 10, '#fff') +
+        [262, 280, 298, 316, 334].map((x) => L(`M${x} 180 V160`, '#9CC9F2', 9)).join('') +
+        P('M262 160 Q270 130 300 138 Q330 130 336 160 Z', '#fff') + L('M276 150 q24 -10 50 0', '#7ED0B5', 6)}</g>` +
+        `<g class="bub">${C(110, 110, 16, '#fff', 3.5)}</g><g class="bub b">${C(150, 80, 11, '#fff', 3.5)}</g>`,
+      M.bubbles,
+    ),
+    // A bar of soap with bubbles.
+    soap: card(
+      '#E6F3FA',
+      `<g transform="rotate(-12 200 250)">${R(110, 200, 180, 110, 40, '#FFB4C8') + R(130, 214, 140, 30, 15, '#FFD1DE', 0)}</g>` +
+        `<g class="bub">${C(140, 150, 30, '#fff', 3.5)}</g><g class="bub b">${C(214, 118, 38, '#fff', 3.5)}</g><g class="bub c">${C(288, 160, 26, '#fff', 3.5)}</g>` +
+        C(200, 110, 8, '#fff', 0, ' opacity="0.9"'),
+      M.bubbles,
+    ),
+    // A doctor's stethoscope, with a red cross.
+    doctor: card(
+      '#EAF4FF',
+      L('M130 90 Q110 230 200 250 Q290 230 270 90', INK, 18) + L('M130 90 Q110 230 200 250 Q290 230 270 90', '#7A8496', 10) +
+        C(130, 84, 12, '#B0B6C0') + C(270, 84, 12, '#B0B6C0') + L('M200 250 V300', INK, 14) + L('M200 250 V300', '#7A8496', 7) +
+        C(200, 322, 30, '#C9CED6') + C(200, 322, 16, '#E8EEF4', 0) +
+        R(296, 270, 64, 64, 14, '#fff') + R(320, 280, 16, 44, 3, '#E8304A', 0) + R(306, 294, 44, 16, 3, '#E8304A', 0),
+      '',
+    ),
+    // A pram, ready for a walk.
+    pram: card(
+      '#E6F3E2',
+      P('M90 220 Q90 110 200 100 L200 220 Z', '#F05A8C') + P('M80 220 H330 Q326 310 240 314 H160 Q84 310 80 220 Z', '#FF8FB1') +
+        L('M330 220 L362 170', INK, 14) + L('M330 220 L362 170', '#B0B6C0', 7) +
+        `<g class="wheel" style="transform-origin: 140px 336px">${C(140, 336, 30, '#fff') + L('M140 306 V366 M110 336 H170', INK, 4)}</g>` +
+        `<g class="wheel" style="transform-origin: 270px 336px">${C(270, 336, 30, '#fff') + L('M270 306 V366 M240 336 H300', INK, 4)}</g>` +
+        sparkle(330, 90, 0.9),
+      `.wheel { animation: wheel 2s linear infinite; }
+    @keyframes wheel { to { transform: rotate(360deg) } }`,
+    ),
+    // A baby's sleepsuit with stars.
+    clothes: card(
+      '#FFF4CC',
+      P('M120 110 L170 90 Q200 110 230 90 L280 110 L326 170 L296 196 L276 176 L276 330 L216 330 L200 296 L184 330 L124 330 L124 176 L104 196 L74 170 Z', '#7ED0B5') +
+        [[170, 170], [230, 200], [180, 250], [240, 270]].map(([x, y]) => sparkle(x, y, 0.8, '#fff')).join('') +
+        [168, 200, 232].map((x) => C(200, x - 60 + 110, 5, '#fff', 3)).join(''),
+      '',
+    ),
   };
 }
 

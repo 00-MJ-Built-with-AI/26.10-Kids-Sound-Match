@@ -143,6 +143,348 @@
           "audio": "care/baby_hug_need_ar.mp3"
         }
       }
+    },
+    {
+      "item_key": "baby_hat",
+      "name": {
+        "en": "Woolly hat",
+        "ar": "طاقية"
+      },
+      "image": "care/hat.svg",
+      "sound": "feelings/cold_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_hat_name_en.mp3",
+        "ar": "care/baby_hat_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is cold!",
+          "audio": "care/baby_hat_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي بردان!",
+          "audio": "care/baby_hat_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي بردان!",
+          "audio": "care/baby_hat_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_fan",
+      "name": {
+        "en": "Fan",
+        "ar": "مروحة"
+      },
+      "image": "care/fan.svg",
+      "name_audio": {
+        "en": "care/baby_fan_name_en.mp3",
+        "ar": "care/baby_fan_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby is hot!",
+          "audio": "care/baby_fan_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي شوبان!",
+          "audio": "care/baby_fan_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي شوبان!",
+          "audio": "care/baby_fan_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_nappy",
+      "name": {
+        "en": "Nappy",
+        "ar": "حفاضة"
+      },
+      "image": "care/nappy.svg",
+      "sound": "feelings/sad_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_nappy_name_en.mp3",
+        "ar": "care/baby_nappy_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby's nappy is wet!",
+          "audio": "care/baby_nappy_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "حفاضة البيبي مبلولة!",
+          "audio": "care/baby_nappy_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "حفاضة البيبي مبلولة!",
+          "audio": "care/baby_nappy_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_tissue",
+      "name": {
+        "en": "Tissue",
+        "ar": "محرمة"
+      },
+      "image": "care/tissue.svg",
+      "name_audio": {
+        "en": "care/baby_tissue_name_en.mp3",
+        "ar": "care/baby_tissue_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby's nose is runny!",
+          "audio": "care/baby_tissue_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "مناخير البيبي عم تسيل!",
+          "audio": "care/baby_tissue_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "مناخير البيبي عم تسيل!",
+          "audio": "care/baby_tissue_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_plaster",
+      "name": {
+        "en": "Plaster",
+        "ar": "لزقة"
+      },
+      "image": "care/plaster.svg",
+      "sound": "feelings/sad_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_plaster_name_en.mp3",
+        "ar": "care/baby_plaster_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby has an ouchie!",
+          "audio": "care/baby_plaster_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي تعوّر!",
+          "audio": "care/baby_plaster_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي تعوّر!",
+          "audio": "care/baby_plaster_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_rattle",
+      "name": {
+        "en": "Rattle",
+        "ar": "خشخيشة"
+      },
+      "image": "care/rattle.svg",
+      "name_audio": {
+        "en": "care/baby_rattle_name_en.mp3",
+        "ar": "care/baby_rattle_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby wants to play!",
+          "audio": "care/baby_rattle_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي بدّه يلعب!",
+          "audio": "care/baby_rattle_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي بدّه يلعب!",
+          "audio": "care/baby_rattle_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_music",
+      "name": {
+        "en": "Song",
+        "ar": "غنّية"
+      },
+      "image": "care/music.svg",
+      "name_audio": {
+        "en": "care/baby_music_name_en.mp3",
+        "ar": "care/baby_music_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby wants a song!",
+          "audio": "care/baby_music_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي بدّه غنّية!",
+          "audio": "care/baby_music_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي بدّه غنّية!",
+          "audio": "care/baby_music_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_brush",
+      "name": {
+        "en": "Hairbrush",
+        "ar": "فرشاية الشعر"
+      },
+      "image": "care/brush.svg",
+      "name_audio": {
+        "en": "care/baby_brush_name_en.mp3",
+        "ar": "care/baby_brush_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby's hair is messy!",
+          "audio": "care/baby_brush_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "شعر البيبي منكوش!",
+          "audio": "care/baby_brush_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "شعر البيبي منكوش!",
+          "audio": "care/baby_brush_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_toothbrush",
+      "name": {
+        "en": "Toothbrush",
+        "ar": "فرشاية السنان"
+      },
+      "image": "care/toothbrush.svg",
+      "name_audio": {
+        "en": "care/baby_toothbrush_name_en.mp3",
+        "ar": "care/baby_toothbrush_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Time to brush baby's teeth!",
+          "audio": "care/baby_toothbrush_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "يلّا نفرّش سنان البيبي!",
+          "audio": "care/baby_toothbrush_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "يلّا نفرّش سنان البيبي!",
+          "audio": "care/baby_toothbrush_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_soap",
+      "name": {
+        "en": "Soap",
+        "ar": "صابون"
+      },
+      "image": "care/soap.svg",
+      "name_audio": {
+        "en": "care/baby_soap_name_en.mp3",
+        "ar": "care/baby_soap_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby's hands are dirty!",
+          "audio": "care/baby_soap_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "إيدين البيبي وسخين!",
+          "audio": "care/baby_soap_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "إيدين البيبي وسخين!",
+          "audio": "care/baby_soap_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_doctor",
+      "name": {
+        "en": "Doctor's kit",
+        "ar": "سمّاعة الدكتور"
+      },
+      "image": "care/doctor.svg",
+      "sound": "feelings/sick_sound.mp3",
+      "name_audio": {
+        "en": "care/baby_doctor_name_en.mp3",
+        "ar": "care/baby_doctor_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby feels sick!",
+          "audio": "care/baby_doctor_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي مريض!",
+          "audio": "care/baby_doctor_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي مريض!",
+          "audio": "care/baby_doctor_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_pram",
+      "name": {
+        "en": "Pram",
+        "ar": "عربايّة"
+      },
+      "image": "care/pram.svg",
+      "name_audio": {
+        "en": "care/baby_pram_name_en.mp3",
+        "ar": "care/baby_pram_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby wants to go out!",
+          "audio": "care/baby_pram_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي بدّه يطلع مشوار!",
+          "audio": "care/baby_pram_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي بدّه يطلع مشوار!",
+          "audio": "care/baby_pram_need_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "baby_clothes",
+      "name": {
+        "en": "Clothes",
+        "ar": "أواعي"
+      },
+      "image": "care/clothes.svg",
+      "name_audio": {
+        "en": "care/baby_clothes_name_en.mp3",
+        "ar": "care/baby_clothes_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Baby needs clothes!",
+          "audio": "care/baby_clothes_need_en.mp3"
+        },
+        "ar_f": {
+          "text": "البيبي بدّه أواعي!",
+          "audio": "care/baby_clothes_need_ar.mp3"
+        },
+        "ar_m": {
+          "text": "البيبي بدّه أواعي!",
+          "audio": "care/baby_clothes_need_ar.mp3"
+        }
+      }
     }
   ],
   "feedback_audio": {

@@ -23,7 +23,25 @@ const CARE: Record<string, { care: BabyCare; need: BabyNeed }> = {
   baby_bath: { care: 'bath', need: 'dirty' },
   baby_bed: { care: 'bed', need: 'sleepy' },
   baby_hug: { care: 'hug', need: 'sad' },
+  baby_hat: { care: 'hat', need: 'cold' },
+  baby_fan: { care: 'fan', need: 'hot' },
+  baby_nappy: { care: 'nappy', need: 'wet' },
+  baby_tissue: { care: 'tissue', need: 'runny' },
+  baby_plaster: { care: 'plaster', need: 'ouch' },
+  baby_rattle: { care: 'rattle', need: 'bored' },
+  baby_music: { care: 'music', need: 'song' },
+  baby_brush: { care: 'brush', need: 'messy' },
+  baby_toothbrush: { care: 'toothbrush', need: 'teeth' },
+  baby_soap: { care: 'soap', need: 'hands' },
+  baby_doctor: { care: 'doctor', need: 'sick' },
+  baby_pram: { care: 'pram', need: 'out' },
+  baby_clothes: { care: 'clothes', need: 'undressed' },
 };
+/** Needs per game, and things to choose from each time (the right one and two others). */
+const NEEDS_PER_GAME = 6;
+const CHOICES = 3;
+/** Needs played last time, so the next game starts with others. */
+let lastPlayed: string[] = [];
 /** How long the baby is fed, bathed... before it laughs, and the laugh before the next need. */
 const DOING_MS = 2600;
 const HAPPY_MS = 1200;
@@ -45,10 +63,11 @@ function shuffle<T>(list: readonly T[]): T[] {
 
 /**
  * Look after the baby: pretend play for the youngest. The baby is hungry ("البيبي جوعان!", its
- * tummy rumbles), thirsty, dirty, sleepy or sad; she taps what it needs (the bowl, the bottle, the
- * bath, the bed, a hug) and the baby is fed, bathed, tucked in or hugged, then laughs. Anything
- * else she taps is named ("حليب") while the baby shakes its head, and it asks again. Every need
- * once, in a new order each time. Nothing is scored.
+ * tummy rumbles), thirsty, dirty, sleepy, sad, cold, hot, wet, has a runny nose or an ouchie, is
+ * bored, wants a song, has messy hair or dirty teeth or hands, feels sick, wants to go out or needs
+ * its clothes. She taps what it needs from three things (the bowl, the woolly hat, a plaster...) and
+ * the baby is cared for, then laughs. Anything else she taps is named ("حليب") while the baby shakes
+ * its head, and it asks again. Six needs a game, others than last time first. Nothing is scored.
  */
 export function KidCare({
   pack,
@@ -85,7 +104,19 @@ export function KidCare({
     return feelings && happy ? new ClipResolver(feelings, []).sound(happy) : null;
   }, [packs]);
 
-  const [order, setOrder] = useState(() => shuffle(tools.map((i) => i.key)));
+  /** A game's needs: ones not played last time first, in a new order. */
+  const dealNeeds = () => {
+    const fresh = shuffle(tools.filter((i) => !lastPlayed.includes(i.key)).map((i) => i.key));
+    const old = shuffle(tools.filter((i) => lastPlayed.includes(i.key)).map((i) => i.key));
+    const picked = [...fresh, ...old].slice(0, Math.min(NEEDS_PER_GAME, tools.length));
+    lastPlayed = picked;
+    return picked;
+  };
+  /** What she can choose from for a need: the right thing and two others, shuffled. */
+  const choicesFor = (key: string | undefined) =>
+    key ? shuffle([key, ...shuffle(tools.map((i) => i.key).filter((k) => k !== key)).slice(0, CHOICES - 1)]) : [];
+  const [order, setOrder] = useState(dealNeeds);
+  const [choices, setChoices] = useState<string[]>(() => choicesFor(order[0]));
   const [index, setIndex] = useState(0);
   const [doing, setDoing] = useState<BabyCare | null>(null);
   const [content, setContent] = useState(false);
@@ -115,6 +146,7 @@ export function KidCare({
 
   const present = () => {
     busy.current = false;
+    setChoices(choicesFor(orderRef.current[indexRef.current]));
     setDoing(null);
     setContent(false);
     setNo(null);
@@ -180,7 +212,7 @@ export function KidCare({
 
   const start = (fresh: boolean) => {
     if (fresh) {
-      const o = shuffle(tools.map((i) => i.key));
+      const o = dealNeeds();
       orderRef.current = o;
       setOrder(o);
     }
@@ -252,7 +284,7 @@ export function KidCare({
             {content && <Burst size={260} />}
           </button>
           <div className="care-tools">
-            {tools.map((tool) => (
+            {choices.map((k) => tools.find((t) => t.key === k)!).map((tool) => (
               <button
                 type="button"
                 key={tool.key}

@@ -17,7 +17,9 @@ import {
   toggleSays,
   type WordMarks,
 } from '../../settings/words';
+import { loadMilestones, updateCertificates } from '../../settings/milestones';
 import { choosePictures } from '../kid/layout';
+import { Certificates } from './Certificates';
 import { Overlay, Screen } from './components';
 import { Avatar, ProfileRow } from './ProfileRow';
 
@@ -177,6 +179,11 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
       .sort((a, b) => Math.max(b.since ?? 0, b.says ?? 0) - Math.max(a.since ?? 0, a.says ?? 0));
   }, [known, marks, lookup]);
 
+  // Her certificates: reached at 10, 25 and 50 words (once the games' results are read).
+  const earned = useMemo(
+    () => (data ? updateCertificates(child.id, words.length + marks.extra.length, loadMilestones(child.id)) : {}),
+    [data, child.id, words, marks],
+  );
   const understood = words.filter((w) => w.since !== undefined).length;
   const says = words.filter((w) => w.says !== undefined).length + marks.extra.length;
   const date = (at: number) =>
@@ -323,6 +330,8 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
           ))}
         </ul>
       )}
+
+      {data && <Certificates profile={child} earned={earned} />}
 
       <section className="card">
         <h2>{t('wordsExtraTitle')}</h2>

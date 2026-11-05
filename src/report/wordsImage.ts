@@ -190,7 +190,7 @@ export async function renderWordsImage(d: WordsImageData): Promise<Blob> {
 }
 
 /** The child's drawn character, for the header (null if it can't load in time). */
-function loadAvatar(url: string): Promise<HTMLImageElement | null> {
+export function loadAvatar(url: string): Promise<HTMLImageElement | null> {
   return new Promise((resolve) => {
     const img = new Image();
     const timer = window.setTimeout(() => resolve(null), 3000);

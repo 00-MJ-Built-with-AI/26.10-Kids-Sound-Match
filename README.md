@@ -134,6 +134,8 @@ and **Print flashcards** (any pack on A4 for play away from the screen).
 
 Parents can pick **her favourite games** (shown first on Home, the rest under "More games"); each game's
 ⓘ explains how to play it together and what it teaches; the Report shows **play time** this week.
+**Milestones** is a gentle 18–24-month checklist linked to the games, and she earns shareable
+**certificates** at 10, 25 and 50 words and for her first sentence.
 
 ## My packs (your own pictures and voice)
 

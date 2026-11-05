@@ -7,6 +7,7 @@ import type { ProfileState } from '../../settings/profiles';
 import { effectiveMode, enabledItemKeys, type Settings } from '../../settings/settings';
 import { useState, type ReactNode } from 'react';
 import type { KidKind } from '../kid/kidSnapshot';
+import type { Certificate } from '../../settings/milestones';
 import {
   ActionsIcon,
   BigIcon,
@@ -41,7 +42,7 @@ import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
 import { Avatar, ProfileRow } from './ProfileRow';
 
-export type HomeLink = 'report' | 'words' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
+export type HomeLink = 'report' | 'words' | 'milestones' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
 
 /** Spec 5.2: title, settings summary, a large START button, and the parent links. */
 export function Home({
@@ -81,6 +82,8 @@ export function Home({
   plan,
   favourites,
   onFavourites,
+  newCert,
+  onCertSeen,
   onOpen,
   onNudgeAccept,
   onNudgeDismiss,
@@ -132,6 +135,10 @@ export function Home({
   /** Her favourite games (tile ids), shown first; empty = not chosen yet. */
   favourites: readonly string[];
   onFavourites: (ids: string[]) => void;
+  /** A certificate she just earned, celebrated once. */
+  newCert: Certificate | null;
+  /** Seen: `open` goes to where her certificates are. */
+  onCertSeen: (open: boolean) => void;
   onOpen: (link: HomeLink) => void;
   onNudgeAccept: (to: ChoiceCount) => void;
   onNudgeDismiss: (nudge: NextLevel) => void;
@@ -161,6 +168,7 @@ export function Home({
   const links: { id: HomeLink; label: string; icon: string }[] = [
     { id: 'report', label: t('report'), icon: '📊' },
     { id: 'words', label: t('wordsTitle'), icon: '🗣️' },
+    { id: 'milestones', label: t('milestonesTitle'), icon: '🌱' },
     { id: 'settings', label: t('settings'), icon: '⚙️' },
     { id: 'myPacks', label: t('myPacks'), icon: '🎨' },
     { id: 'flashcards', label: t('flashcards'), icon: '🖨️' },
@@ -281,6 +289,22 @@ export function Home({
       <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
         {t('start')}
       </button>
+      {newCert && (
+        <section className="card cert-card" role="status">
+          <h2>
+            🎓 {t('certNew')} {newCert.emoji}
+          </h2>
+          <p>{newCert.words ? t('certWordsLine', { n: newCert.words }) : t('certSentenceLine')}</p>
+          <div className="nudge-actions">
+            <button type="button" className="btn primary" onClick={() => onCertSeen(true)}>
+              {t('certSee')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => onCertSeen(false)}>
+              {t('close')}
+            </button>
+          </div>
+        </section>
+      )}
       {/* Today's play: three games for today, ticked once played. */}
       {plan.length > 0 && (
         <section className="card plan-card">

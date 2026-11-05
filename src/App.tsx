@@ -35,6 +35,8 @@ import {
 import { countReplay, forgetReplays } from './settings/replays';
 import { forgetStickers } from './settings/stickers';
 import { voiceStore } from './settings/herVoice';
+import { forgetMilestones, loadMilestones, markCertificatesSeen, unseenCertificate, updateCertificates, type Certificate } from './settings/milestones';
+import { countWords } from './report/wordCount';
 import { forgetFavourites, loadFavourites, saveFavourites } from './settings/favourites';
 import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
 import { forgetPlayLog, logPlay } from './settings/playLog';
@@ -65,6 +67,7 @@ import { MyPacks } from './ui/parent/MyPacks';
 import { Personalize } from './ui/parent/Personalize';
 import { ReportScreen } from './ui/parent/ReportScreen';
 import { RoutineScreen } from './ui/parent/RoutineScreen';
+import { MilestonesScreen } from './ui/parent/MilestonesScreen';
 import { SettingsScreen } from './ui/parent/SettingsScreen';
 import { StartFlow, type StartStep } from './ui/parent/StartFlow';
 import { Overlay } from './ui/parent/components';
@@ -86,6 +89,7 @@ type Screen =
   | 'flashcards'
   | 'words'
   | 'routine'
+  | 'milestones'
   | 'start'
   | 'kid';
 
@@ -200,6 +204,7 @@ export function App() {
       forgetStickers(id);
       forgetWordMarks(id);
       forgetFavourites(id);
+      forgetMilestones(id);
       forgetPlayLog(id);
       void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
@@ -240,6 +245,7 @@ function Shell({
   const pendingGender = useRef<ArGender | null>(null);
   const [nudge, setNudge] = useState<NextLevel | null>(null);
   const [memoryNudge, setMemoryNudge] = useState<MemoryNext | null>(null);
+  const [newCert, setNewCert] = useState<Certificate | null>(null);
   const soundChecked = useRef(false);
 
   const { customViews, allPacks, oddPack } = useMemo(() => composePacks(builtin?.packs ?? [], custom), [builtin, custom]);
@@ -398,6 +404,9 @@ function Shell({
         const memorySnoozed =
           memory && memoryDismissed?.level === memory.from && memory.gamesAtLevel < memoryDismissed.games + NUDGE_AGAIN_AFTER_GAMES;
         setMemoryNudge(memory && !memorySnoozed ? memory : null);
+        // A new certificate (10, 25, 50 words or her first sentence): celebrated once on Home.
+        const total = countWords(allPacks, forProfile(sessions, profileId), questions, loadWordMarks(profileId));
+        setNewCert(unseenCertificate(profileId, updateCertificates(profileId, total, loadMilestones(profileId))));
       })
       .catch(() => {
         setNudge(null);
@@ -406,7 +415,7 @@ function Shell({
     return () => {
       cancelled = true;
     };
-  }, [screen, settings.choiceCount, settings.memoryPairs, profileId]);
+  }, [screen, settings.choiceCount, settings.memoryPairs, profileId, allPacks]);
 
   /**
    * Home opens the parent's screens without the PIN (the parent asked for it): a child only reaches
@@ -637,6 +646,9 @@ function Shell({
     else setAskGender(kind);
   };
 
+  /** A game from Home, a tip or the milestones (the ones with Arabic grammar ask first). */
+  const playGame = (kind: KidKind) => (kind === 'hunt' || kind === 'point' || kind === 'actions' ? beginWithGender(kind) : begin(kind));
+
   const onCustomChanged = async () => {
     await refreshCustom();
     cloud.scheduleSync();
@@ -704,6 +716,15 @@ function Shell({
     case 'routine':
       body = routinePack && profile && (
         <RoutineScreen pack={routinePack} packs={allPacks} profileId={profile.id} language={settings.language} onBack={home} />
+      );
+      break;
+    case 'milestones':
+      body = (
+        <MilestonesScreen
+          profiles={profiles.state}
+          onBack={home}
+          onGame={(id) => (id === 'routine' ? setScreen('routine') : playGame(id as KidKind))}
+        />
       );
       break;
     case 'words':
@@ -793,10 +814,14 @@ function Shell({
           canHunt={canHunt}
           canSing={canSing}
           canTidy={canTidy}
-          onGame={(kind) =>
-            kind === 'hunt' || kind === 'point' || kind === 'actions' ? beginWithGender(kind) : begin(kind)
-          }
+          onGame={playGame}
           plan={todayPlan}
+          newCert={newCert}
+          onCertSeen={(open) => {
+            if (newCert) markCertificatesSeen(profileId, [newCert.id]);
+            setNewCert(null);
+            if (open) setScreen(newCert?.milestone ? 'milestones' : 'words');
+          }}
           favourites={favourites}
           onFavourites={(ids) => {
             saveFavourites(profileId, ids);

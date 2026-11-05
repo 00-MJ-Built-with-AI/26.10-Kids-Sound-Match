@@ -49,7 +49,7 @@ import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
 import { Avatar, ProfileRow } from './ProfileRow';
 
-export type HomeLink = 'report' | 'words' | 'milestones' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
+export type HomeLink = 'report' | 'words' | 'milestones' | 'snap' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
 
 /** Spec 5.2: title, settings summary, a large START button, and the parent links. */
 export function Home({
@@ -200,6 +200,7 @@ export function Home({
     { id: 'report', label: t('report'), icon: '📊' },
     { id: 'words', label: t('wordsTitle'), icon: '🗣️' },
     { id: 'milestones', label: t('milestonesTitle'), icon: '🌱' },
+    { id: 'snap', label: t('snapTitle'), icon: '📷' },
     { id: 'settings', label: t('settings'), icon: '⚙️' },
     { id: 'myPacks', label: t('myPacks'), icon: '🎨' },
     { id: 'flashcards', label: t('flashcards'), icon: '🖨️' },

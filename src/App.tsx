@@ -70,6 +70,7 @@ import { Personalize } from './ui/parent/Personalize';
 import { ReportScreen } from './ui/parent/ReportScreen';
 import { RoutineScreen } from './ui/parent/RoutineScreen';
 import { MilestonesScreen } from './ui/parent/MilestonesScreen';
+import { SnapScreen } from './ui/parent/SnapScreen';
 import { SettingsScreen } from './ui/parent/SettingsScreen';
 import { StartFlow, type StartStep } from './ui/parent/StartFlow';
 import { Overlay } from './ui/parent/components';
@@ -92,6 +93,7 @@ type Screen =
   | 'words'
   | 'routine'
   | 'milestones'
+  | 'snap'
   | 'start'
   | 'kid';
 
@@ -771,6 +773,21 @@ function Shell({
     case 'routine':
       body = routinePack && profile && (
         <RoutineScreen pack={routinePack} packs={allPacks} profileId={profile.id} language={settings.language} onBack={home} />
+      );
+      break;
+    case 'snap':
+      body = (
+        <SnapScreen
+          views={customViews}
+          familyPack={allPacks.find((p) => p.id === 'family')}
+          overrides={custom.overrides}
+          onChanged={onCustomChanged}
+          onPlay={(kind, packId) => {
+            nextSettings.current = { ...settings, packId };
+            begin(kind);
+          }}
+          onBack={home}
+        />
       );
       break;
     case 'milestones':

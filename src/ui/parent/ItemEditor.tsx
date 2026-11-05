@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { audioEngine } from '../../audio/audioEngine';
 import { iconToBlob, loadImage, releaseImage } from '../../custom/imageTools';
 import { customOps } from '../../custom/ops';
@@ -20,11 +20,14 @@ export function ItemEditor({
   item,
   onDone,
   onCancel,
+  autoCamera,
 }: {
   pack: CustomPack;
   item: CustomItem | null;
   onDone: () => void;
   onCancel: () => void;
+  /** Snap a word: open the camera straight away. */
+  autoCamera?: boolean;
 }) {
   const { t } = useI18n();
   const [draft, setDraft] = useState<CustomItem>(() => item ?? ops.emptyItem(pack.id));
@@ -37,6 +40,10 @@ export function ItemEditor({
   const [saving, setSaving] = useState(false);
   const camera = useRef<HTMLInputElement>(null);
   const gallery = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    // Still within the tap that opened this screen, so the browser lets the camera open.
+    if (autoCamera && !item) camera.current?.click();
+  }, []);
 
   const setMedia = (patch: Partial<CustomItem>) => {
     setDraft((d) => ({ ...d, ...patch }));

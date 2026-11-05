@@ -55,7 +55,8 @@ export function KidBook({
     }
     return out;
   }, [packs, config]);
-  const pictures = useMemo(() => choosePictures(words.map((w) => w.item)), [words]);
+  // Each page on its own: a page whose word has a photo (Teta's) shows it.
+  const pictures = useMemo(() => Object.assign({}, ...words.map((w) => choosePictures([w.item]))) as Record<string, string>, [words]);
   const goodnight = useMemo(() => findLine(packs, 'goodnight'), [packs]);
   const sleepTight = useMemo(() => findLine(packs, 'sleep_tight'), [packs]);
   const resolvers = useMemo(() => new Map(packs.map((p) => [p.id, new ClipResolver(p, languages)])), [packs]);

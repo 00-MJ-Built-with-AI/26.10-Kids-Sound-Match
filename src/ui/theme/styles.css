@@ -7238,3 +7238,75 @@ html[data-calm][data-season] .kid::after {
   position: relative;
   z-index: 2;
 }
+
+/* ---------- Snap a word, family photos ---------- */
+.btn.small {
+  padding: 6px 10px;
+  min-height: 0;
+  font-size: 0.82rem;
+}
+.snap-card .btn.big {
+  margin: 10px 0 4px;
+}
+.snap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 6px 0 12px;
+}
+.snap-word {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  border: 0;
+  border-radius: 16px;
+  background: #faf7f2;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.snap-word img,
+.snap-empty {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.snap-empty {
+  display: grid;
+  place-items: center;
+  background: #eee;
+  font-size: 1.6rem;
+}
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.family-person {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border-radius: 18px;
+  background: #faf7f2;
+  text-align: center;
+}
+.family-person.photo {
+  background: #e9f6f1;
+}
+.family-person img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  box-shadow: 0 0 0 3px #fff, 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.family-person strong {
+  font-size: 0.85rem;
+}

@@ -45,7 +45,7 @@ export const STORIES: Record<string, Page[]> = {
     { line: 'story_bath_2', scene: 'care', things: [{ ref: 'care/baby_soap', x: 50, y: 40 }] },
     { line: 'story_bath_3', scene: 'care', things: [{ ref: 'toys/rubber_duck', x: 50, y: 42 }] },
     { line: 'story_bath_4', scene: 'care', things: [{ ref: 'care/baby_toothbrush', x: 50, y: 40 }] },
-    { line: 'story_bath_5', scene: 'care', things: [{ ref: 'care/baby_clothes', x: 32, y: 40 }, { ref: 'care/baby_hug', x: 68, y: 42 }] },
+    { line: 'story_bath_5', scene: 'care', things: [{ ref: 'care/baby_clothes', x: 32, y: 40 }, { ref: 'family/mama', x: 68, y: 42 }] },
   ],
   teta: [
     { line: 'story_teta_1', scene: 'vehicles', things: [{ ref: 'vehicles/car', x: 50, y: 44 }] },

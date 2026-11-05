@@ -1,6 +1,6 @@
 /**
  * Her voice book: recordings of the child saying her words, one per word, per child. Kept in this
- * browser's IndexedDB only (never backed up or sent), so a keepsake of how she said "قطة" at 20
+ * browser's IndexedDB (and in the backup only if the parent turns it on), so a keepsake of how she said "قطة" at 20
  * months stays on this phone. Falls back to memory where IndexedDB isn't available.
  */
 export interface VoiceClip {

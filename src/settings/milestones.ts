@@ -113,3 +113,11 @@ export function markCertificatesSeen(profileId: string, ids: readonly string[]):
 export function forgetMilestones(profileId: string): void {
   for (const k of [TICKS_KEY, CERTS_KEY, SEEN_KEY]) local.remove(profileKey(k, profileId));
 }
+
+export function saveMilestones(profileId: string, ticks: Record<string, number>): void {
+  local.setJson(profileKey(TICKS_KEY, profileId), ticks);
+}
+
+export function saveCertificates(profileId: string, earned: Record<string, number>): void {
+  local.setJson(profileKey(CERTS_KEY, profileId), earned);
+}

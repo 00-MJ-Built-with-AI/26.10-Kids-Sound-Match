@@ -1,7 +1,8 @@
 import { useState, useSyncExternalStore } from 'react';
+import { childBackupEnabled, setChildBackup } from '../../custom/childBackup';
 import { cloud, cloudConfigured } from '../../custom/cloud';
 import { formatDateTime, useI18n } from '../../i18n/I18n';
-import { Overlay } from './components';
+import { Overlay, Row, Toggle } from './components';
 
 /** Optional Google sign-in that backs up the parent's own packs to their private cloud space. */
 export function CloudBackup() {
@@ -10,6 +11,7 @@ export function CloudBackup() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [children, setChildren] = useState(childBackupEnabled);
 
   if (!cloudConfigured) {
     // Release builds without a cloud project simply don't have the feature.
@@ -69,6 +71,17 @@ export function CloudBackup() {
               {t('signOut')}
             </button>
           </div>
+          <Row label={t('childBackup')} hint={t('childBackupHint')}>
+            <Toggle
+              label={t('childBackup')}
+              checked={children}
+              onChange={(on) => {
+                setChildBackup(on);
+                setChildren(on);
+                if (on) void run(() => cloud.syncNow());
+              }}
+            />
+          </Row>
           <button type="button" className="btn danger-outline wide" disabled={busy} onClick={() => setConfirmDelete(true)}>
             {t('deleteCloud')}
           </button>

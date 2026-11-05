@@ -217,7 +217,7 @@ export const en = {
   deleteItem: 'Delete item',
   deleteItemTitle: 'Delete this item?',
   cloudTitle: 'Cloud backup',
-  cloudIntro: 'Sign in with Google to keep your packs safe and use them on your other devices. Only your account can see them. Your child\'s results always stay on this phone.',
+  cloudIntro: 'Sign in with Google to keep your packs safe and use them on your other devices. Only your account can see them. Your child\'s game results always stay on this phone; her words and voice too, unless you turn that on below.',
   cloudNotSetUp: 'Cloud backup is not set up in this version yet (see docs/CLOUD-SETUP.md).',
   signInGoogle: 'Sign in with Google',
   signInNeedsSecure: 'Signing in works on the online version or on this computer (localhost), not over home Wi-Fi.',
@@ -567,6 +567,8 @@ export const en = {
   seasonAuto: 'In season',
   seasonShowRamadan: 'Ramadan now',
   seasonShowEid: 'Eid now',
+  childBackup: 'Also back up her things',
+  childBackupHint: "Her voice recordings, Words I know, feelings, milestones, certificates and play time, in your private cloud space, so they survive a new phone. Each phone's are added together. Off unless you turn it on.",
 };
 
 export type StringKey = keyof typeof en;
@@ -782,7 +784,7 @@ export const ar: Record<StringKey, string> = {
   deleteItem: 'حذف العنصر',
   deleteItemTitle: 'حذف هذا العنصر؟',
   cloudTitle: 'النسخ الاحتياطي السحابي',
-  cloudIntro: 'سجّل الدخول باستخدام Google لحفظ مجموعاتك واستخدامها على أجهزتك الأخرى. لا يراها إلا حسابك، ونتائج طفلك تبقى دائماً على هذا الهاتف.',
+  cloudIntro: 'سجّل الدخول باستخدام Google لحفظ مجموعاتك واستخدامها على أجهزتك الأخرى. لا يراها إلا حسابك. نتائج ألعاب طفلك تبقى دائماً على هذا الهاتف، وكذلك كلماتها وصوتها ما لم تشغّلوا ذلك أدناه.',
   cloudNotSetUp: 'النسخ الاحتياطي السحابي غير مُعدّ في هذه النسخة بعد (راجع docs/CLOUD-SETUP.md).',
   signInGoogle: 'تسجيل الدخول باستخدام Google',
   signInNeedsSecure: 'يعمل تسجيل الدخول على النسخة المنشورة أو على هذا الحاسوب (localhost)، وليس عبر شبكة الواي فاي المنزلية.',
@@ -1131,4 +1133,6 @@ export const ar: Record<StringKey, string> = {
   seasonAuto: 'في موسمها',
   seasonShowRamadan: 'رمضان الآن',
   seasonShowEid: 'العيد الآن',
+  childBackup: 'احفظوا أشياءها أيضاً',
+  childBackupHint: 'تسجيلات صوتها، والكلمات التي تعرفها، ومشاعرها، ومراحل نموها، وشهاداتها، ووقت لعبها، في مساحتكم الخاصة في السحابة، لتبقى عند تغيير الهاتف. ما على كل هاتف يُجمع معاً. مطفأ ما لم تشغّلوه.',
 };

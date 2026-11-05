@@ -1,5 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { voiceStore } from '../settings/herVoice';
+import { loadProfiles } from '../settings/profiles';
 import { local, session } from '../settings/storage';
+import { childBackupEnabled, removeChild, syncChild, type ChildRemote } from './childBackup';
 import { customStore } from './store';
 import { forgetCloud, runSync, type Remote, type RemoteItem, type RemoteOverride, type RemotePack } from './sync';
 import type { MediaName } from './types';
@@ -108,6 +111,46 @@ function supabaseRemote(sb: SupabaseClient, uid: string): Remote {
   };
 }
 
+/** Her things (see childBackup), as files in the account's own folder. */
+function childRemote(sb: SupabaseClient, uid: string): ChildRemote {
+  const at = (p: string) => `${uid}/${p}`;
+  const check = <T>(r: { data: T; error: unknown }): T => {
+    if (r.error) throw r.error;
+    return r.data;
+  };
+  return {
+    async readJson(p) {
+      const blob = check(await sb.storage.from(BUCKET).download(at(p)));
+      if (!blob) throw new Error(`Missing ${p}`);
+      return JSON.parse(await blob.text());
+    },
+    async writeJson(p, value) {
+      const blob = new Blob([JSON.stringify(value)], { type: 'application/json' });
+      check(await sb.storage.from(BUCKET).upload(at(p), blob, { upsert: true, contentType: 'application/json' }));
+    },
+    async upload(p, blob) {
+      check(await sb.storage.from(BUCKET).upload(at(p), blob, { upsert: true, contentType: blob.type || undefined }));
+    },
+    async download(p) {
+      const blob = check(await sb.storage.from(BUCKET).download(at(p)));
+      if (!blob) throw new Error(`Missing ${p}`);
+      return blob;
+    },
+    async remove(paths) {
+      check(await sb.storage.from(BUCKET).remove(paths.map(at)));
+    },
+  };
+}
+
+/** Backs up (and brings in) each child's things, when the parent turned it on. */
+async function syncChildren(sb: SupabaseClient, uid: string): Promise<boolean> {
+  if (!childBackupEnabled()) return false;
+  const remote = childRemote(sb, uid);
+  let pulled = false;
+  for (const p of loadProfiles().profiles) if (await syncChild(remote, p.id, voiceStore)) pulled = true;
+  return pulled;
+}
+
 export type CloudStatus = 'unavailable' | 'signedOut' | 'syncing' | 'synced' | 'error';
 
 export interface CloudState {
@@ -199,9 +242,11 @@ export const cloud = {
     running = (async () => {
       set({ status: 'syncing' });
       try {
-        const result = await runSync(customStore, supabaseRemote(await supabase(), uid!), uid!);
+        const sb = await supabase();
+        const result = await runSync(customStore, supabaseRemote(sb, uid!), uid!);
+        const children = await syncChildren(sb, uid!);
         set({ status: 'synced', lastSyncedAt: Date.now() });
-        if (result.pulled) onPulled();
+        if (result.pulled || children) onPulled();
       } catch (e) {
         console.warn('[cloud] sync failed', e);
         set({ status: 'error' });
@@ -227,6 +272,7 @@ export const cloud = {
     if (!uid) return;
     const sb = await supabase();
     await supabaseRemote(sb, uid).deleteEverything();
+    for (const p of loadProfiles().profiles) await removeChild(childRemote(sb, uid), p.id);
     await forgetCloud(customStore);
     await cloud.signOut();
   },

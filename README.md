@@ -161,7 +161,9 @@ suggested.
 ### Optional cloud backup (Google sign-in)
 
 Packs stay on the phone unless a parent signs in with Google in My packs; then they're backed up to
-Supabase and appear on the parent's other devices. The child's results are never uploaded. Setup
+Supabase and appear on the parent's other devices. The game results are never uploaded. A second switch,
+"Also back up her things" (off by default), also copies each child's voice recordings, words, feelings,
+milestones, certificates and play time, merged across phones. Setup
 (once): [docs/CLOUD-SETUP.md](docs/CLOUD-SETUP.md) and [supabase/schema.sql](supabase/schema.sql).
 
 ## Online with Vercel

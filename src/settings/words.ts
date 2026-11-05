@@ -4,7 +4,7 @@ import { local } from './storage';
 
 /**
  * The words a parent marked as said ("she says it!"), and the words outside the app they added
- * ("bye-bye", "ماء"). Per child, kept on this phone only, never backed up.
+ * ("bye-bye", "ماء"). Per child, kept on this phone (and in the backup, if the parent turns it on).
  */
 export interface WordMarks {
   /** Word id (see report/words wordId) -> when it was marked. */

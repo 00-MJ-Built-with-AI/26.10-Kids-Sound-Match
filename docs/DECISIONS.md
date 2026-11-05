@@ -343,6 +343,12 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Stories | A new game on Home ("Stories"). She chooses one of three covers (no words): **Bunny goes to the farm**, **Bath time** and **Going to Teta's**. Her own drawn character (or animal) and the bunny stand on every page; each page says its line ("مين بيقول مووو؟ البقرة!") and shows one or two things to tap: each jumps, bursts into confetti, makes its sound and says its name, and the bunny cheers. Big arrows turn the pages (right to left in Arabic); tapping the bunny or the page says the line again. 5 pages a story, over the farm, playroom, road and kitchen scenes |
 | Its lines | The 15 lines are a new pack, "Stories" (its own game, not in the Mixed game), so they show up in the recording studio like any other word; the phone reads them until recorded. Arabic is gender-neutral. The page layouts are in `src/ui/kid/KidStory.tsx` |
 
+## Added on 5 November 2026: backing up her things
+
+| Change | Decision |
+|---|---|
+| Backing up her things | My packs → Cloud backup, once signed in: a new switch, "Also back up her things" (off by default). It copies each child's voice recordings, Words I know marks and added words, feelings check-ins, milestones, certificates, play time and favourite games to the parent's private cloud folder (the same storage and rules as the packs: `children/<child>/data.json` and `children/<child>/voice/<word>`; no new tables, so schema.sql doesn't change). Phones are merged, never overwritten: what either phone has is kept, the first date of a word or milestone wins, and the newer recording of a word wins. So un-marking a word on one phone can come back from the other. The first child has the same id on every phone, so one child just works across phones; other children are matched by their id on the phone that made them. "Delete my cloud data" removes these too. The game results in the Report still never leave the phone. The privacy page says all of this |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

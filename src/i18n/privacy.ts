@@ -34,8 +34,8 @@ const EN = [
   },
   {
     id: 'words',
-    heading: 'Words I know, and girl or boy',
-    body: 'The words you mark as said, the words you add yourself, and whether a child is a girl or a boy (used only so the Arabic “Where’s your nose?” is grammatical) are saved on this device only. They are never backed up or sent anywhere, and removing a child deletes them.',
+    heading: 'Words I know, her voice, and girl or boy',
+    body: 'The words you mark as said, the words you add yourself, her voice recordings, feelings check-ins, milestones, certificates and play time are saved on this device. They leave it only if you sign in to cloud backup and also turn on “Also back up her things”; then they are copied to your private cloud space, which only your account can read, and “Delete my cloud data” removes them. Whether a child is a girl or a boy (used only so the Arabic “Where’s your nose?” is grammatical) is never sent anywhere. Removing a child deletes their things from this device.',
   },
   {
     id: 'own',
@@ -92,8 +92,8 @@ const AR: typeof EN = [
   },
   {
     id: 'words',
-    heading: 'كلماتي، وبنت أم ولد',
-    body: 'الكلمات التي تحدّدها كمنطوقة، والكلمات التي تضيفها بنفسك، وهل الطفل بنت أم ولد (لتكون جملة «أين أنفك؟» صحيحة لغوياً فقط) تُحفظ على هذا الجهاز وحده. لا تُنسخ احتياطياً ولا تُرسل إلى أي مكان، وحذف الطفل يحذفها.',
+    heading: 'كلماتي، وصوتها، وبنت أم ولد',
+    body: 'الكلمات التي تحدّدها كمنطوقة، والكلمات التي تضيفها بنفسك، وتسجيلات صوتها، ومشاعرها، ومراحل نموها، وشهاداتها، ووقت لعبها تُحفظ على هذا الجهاز. لا تغادره إلا إذا سجّلت الدخول للنسخ الاحتياطي وشغّلت أيضاً «احفظوا أشياءها أيضاً»؛ عندها تُنسخ إلى مساحتك الخاصة في السحابة التي لا يقرؤها إلا حسابك، و«حذف بياناتي من السحابة» يحذفها. أما هل الطفل بنت أم ولد (لتكون جملة «أين أنفك؟» صحيحة لغوياً فقط) فلا يُرسل إلى أي مكان. حذف الطفل يحذف أشياءه من هذا الجهاز.',
   },
   {
     id: 'own',

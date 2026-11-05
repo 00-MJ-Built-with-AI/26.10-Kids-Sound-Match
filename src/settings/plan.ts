@@ -92,3 +92,7 @@ export function loadFeelings(profileId: string): FeelingCheck[] {
 export function addFeeling(profileId: string, feeling: string, now = Date.now()): void {
   local.setJson(profileKey(FEEL_KEY, profileId), [...loadFeelings(profileId), { feeling, at: now }].slice(-FEEL_KEEP));
 }
+
+export function saveFeelings(profileId: string, list: readonly FeelingCheck[]): void {
+  local.setJson(profileKey(FEEL_KEY, profileId), list.slice(-FEEL_KEEP));
+}

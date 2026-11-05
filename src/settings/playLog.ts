@@ -72,3 +72,7 @@ export function topGames(log: readonly PlayEntry[], since: number, n = 3): { kin
     .slice(0, n)
     .map(([kind, g]) => ({ kind, count: g.count, minutes: Math.ceil(g.ms / 60_000) }));
 }
+
+export function savePlayLog(profileId: string, log: readonly PlayEntry[]): void {
+  local.setJson(profileKey(KEY, profileId), log.slice(-KEEP));
+}

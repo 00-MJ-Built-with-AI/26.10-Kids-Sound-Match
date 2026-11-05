@@ -80,6 +80,7 @@ export function Home({
   canHunt,
   canSing,
   canTidy,
+  canStory,
   onGame,
   plan,
   favourites,
@@ -134,6 +135,8 @@ export function Home({
   canHunt: boolean;
   canSing: boolean;
   canTidy: boolean;
+  /** Stories: its pack is ready. */
+  canStory: boolean;
   /** The newer games, by kind. */
   onGame: (kind: KidKind) => void;
   /** Today's play: three games, and whether each was played today. */
@@ -202,6 +205,7 @@ export function Home({
     { id: 'hunt', icon: <HuntIcon />, label: t('huntGame'), sub: t('huntSub'), on: () => onGame('hunt'), ok: canHunt },
     { id: 'feel', icon: <FeelIcon />, label: t('feelGame'), sub: t('feelSub'), on: () => onGame('feel'), ok: true },
     { id: 'book', icon: <BookIcon />, label: t('bookGame'), sub: t('bookSub'), on: onBook, ok: canExplore },
+    { id: 'story', icon: <BookIcon />, label: t('storyGame'), sub: t('storySub'), on: () => onGame('story'), ok: canStory },
     { id: 'bedtime', icon: <MoonIcon />, label: t('bedtimeGame'), sub: t('bedtimeSub'), on: () => onGame('bedtime'), ok: canExplore },
     { id: 'turns', icon: <TurnsIcon />, label: t('turnsGame'), sub: t('turnsSub'), on: onTurns, ok: canStart },
     { id: 'routine', icon: <DayIcon />, label: t('routineTitle'), sub: t('routineSub'), on: onRoutine, ok: canRoutine },

@@ -336,6 +336,13 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Ramadan and Eid pack | 12 new drawings, in the cute style, gently moving: lantern (فانوس), crescent (هلال), dates (تمر), new clothes (أواعي العيد), Eid money (عيدية), ka'ak (كعك), ma'amoul (معمول), balloons, a present, a mosque (جامع), the drum (طبل) and qatayef (قطايف). A normal pack all year (Settings), not in the Mixed game; in season a card on Home starts the matching game or Explore with it, without changing the chosen pack. Names are read by the phone until recorded. `tools/art/draw-eid.mjs` |
 | Eid Mubarak! | On Eid, the first time Home opens each day: "عيد مبارك / Eid Mubarak!" with her character, the bunny cheering, confetti and the Eid sweets. A tap closes it |
 
+## Added on 5 November 2026: stories
+
+| Change | Decision |
+|---|---|
+| Stories | A new game on Home ("Stories"). She chooses one of three covers (no words): **Bunny goes to the farm**, **Bath time** and **Going to Teta's**. Her own drawn character (or animal) and the bunny stand on every page; each page says its line ("مين بيقول مووو؟ البقرة!") and shows one or two things to tap: each jumps, bursts into confetti, makes its sound and says its name, and the bunny cheers. Big arrows turn the pages (right to left in Arabic); tapping the bunny or the page says the line again. 5 pages a story, over the farm, playroom, road and kitchen scenes |
+| Its lines | The 15 lines are a new pack, "Stories" (its own game, not in the Mixed game), so they show up in the recording studio like any other word; the phone reads them until recorded. Arabic is gender-neutral. The page layouts are in `src/ui/kid/KidStory.tsx` |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

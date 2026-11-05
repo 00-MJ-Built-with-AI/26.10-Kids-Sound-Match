@@ -283,6 +283,8 @@ function Shell({
   const feelingsPack = allPacks.find((p) => p.id === 'feelings');
   const oppositesPack = allPacks.find((p) => p.id === 'opposites');
   const shapesPack = allPacks.find((p) => p.id === 'shapes');
+  const storiesPack = allPacks.find((p) => p.id === 'stories');
+  const canStory = (storiesPack?.groups.length ?? 0) > 0;
   /** Animal sounds and Count with me: the animals with a sound (the ones chosen in Settings, if enough). */
   const soundAnimals = (s: Settings): string[] => {
     if (!animalsPack) return [];
@@ -500,6 +502,8 @@ function Shell({
                           ? oppositesPack
                           : kind === 'shapes'
                             ? shapesPack
+                            : kind === 'story'
+                              ? storiesPack
                       : kind === 'tidy'
                         ? toysPack
                         : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
@@ -556,7 +560,7 @@ function Shell({
                   ? bookIds
                   : kind === 'sounds' || kind === 'count'
                     ? soundAnimals(s)
-                    : kind === 'hunt' || kind === 'sing' || kind === 'tidy' || kind === 'feel' || kind === 'opposites' || kind === 'shapes'
+                    : kind === 'hunt' || kind === 'sing' || kind === 'story' || kind === 'tidy' || kind === 'feel' || kind === 'opposites' || kind === 'shapes'
                       ? gamePack.items.map((i) => i.key)
                       : enabledItemKeys(gamePack, s),
         // Odd one out shows 3 or 4: two or three alike and the different one.
@@ -573,12 +577,12 @@ function Shell({
             ? s.mode
             : kind === 'care'
               ? 'SOUND_AND_NAME'
-              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle'].includes(kind)
+              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story'].includes(kind)
                 ? 'NAME_ONLY'
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
         ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
-        ...((kind === 'turns' || kind === 'book' || kind === 'bedtime') && profile ? { avatar: { animal: profile.animal, color: profile.color, picture: characterUrl(profile) } } : {}),
+        ...((kind === 'turns' || kind === 'book' || kind === 'bedtime' || kind === 'story') && profile ? { avatar: { animal: profile.animal, color: profile.color, picture: characterUrl(profile) } } : {}),
         language: s.language,
         repeatIntervalSec: s.repeatIntervalSec,
         hints: s.hints,
@@ -613,6 +617,7 @@ function Shell({
     ...(canCare ? (['care'] as const) : []),
     'turns',
     'book',
+    ...(canStory ? (['story'] as const) : []),
     'feel',
     'puzzle',
     'shapes',
@@ -847,6 +852,7 @@ function Shell({
           canHunt={canHunt}
           canSing={canSing}
           canTidy={canTidy}
+          canStory={canStory}
           onGame={playGame}
           plan={todayPlan}
           season={season}

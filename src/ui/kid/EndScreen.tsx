@@ -140,6 +140,7 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
     { id: 'shapes', label: t('shapesGame'), icon: <ShapesIcon /> },
     { id: 'opposites', label: t('oppositesGame'), icon: <OppositesIcon /> },
     { id: 'bedtime', label: t('bedtimeGame'), icon: <MoonIcon /> },
+    { id: 'story', label: t('storyGame'), icon: <BookIcon /> },
     { id: 'memory', label: t('memoryGame'), icon: <MemoryIcon /> },
     { id: 'odd', label: t('oddOneOut'), icon: <OddIcon /> },
   ];

@@ -104,10 +104,12 @@ type BurstKind = (typeof BURST_KINDS)[number];
 const STAR = 'M12 1.5l3 7 7.5.6-5.7 4.9 1.8 7.4L12 17.5 5.4 21.4l1.8-7.4L1.5 9.1 9 8.5z';
 const HEART = 'M12 21C3 15 1 9.5 4.2 6.2 6.6 3.8 10 4.6 12 7.4c2-2.8 5.4-3.6 7.8-1.2C23 9.5 21 15 12 21z';
 
-export function Burst({ size, kind }: { size: number; kind?: BurstKind }) {
+export function Burst({ size, kind, quiet }: { size: number; kind?: BurstKind; /** No bunny popping in (the game has its own). */ quiet?: boolean }) {
   const style = useMemo(() => kind ?? BURST_KINDS[Math.floor(Math.random() * BURST_KINDS.length)], [kind]);
   // The bunny pops in to cheer (Kid Mode's frame shows it).
-  useEffect(() => cheer(), []);
+  useEffect(() => {
+    if (!quiet) cheer();
+  }, []);
   const pieces = useMemo(
     () =>
       Array.from({ length: style === 'confetti' ? 16 : 10 }, (_, i) => {

@@ -1,0 +1,238 @@
+{
+  "pack_id": "stories",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.85,
+  "name": {
+    "en": "Stories",
+    "ar": "قصص"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "farm",
+      "name": {
+        "en": "Bunny goes to the farm",
+        "ar": "الأرنب بالمزرعة"
+      },
+      "items": [
+        "story_farm_1",
+        "story_farm_2",
+        "story_farm_3",
+        "story_farm_4",
+        "story_farm_5"
+      ]
+    },
+    {
+      "id": "bath",
+      "name": {
+        "en": "Bath time",
+        "ar": "وقت الحمّام"
+      },
+      "items": [
+        "story_bath_1",
+        "story_bath_2",
+        "story_bath_3",
+        "story_bath_4",
+        "story_bath_5"
+      ]
+    },
+    {
+      "id": "teta",
+      "name": {
+        "en": "Going to Teta's",
+        "ar": "رايحين لعند تيتا"
+      },
+      "items": [
+        "story_teta_1",
+        "story_teta_2",
+        "story_teta_3",
+        "story_teta_4",
+        "story_teta_5"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "story_farm_1",
+      "name": {
+        "en": "Let's go to the farm with Bunny!",
+        "ar": "يلّا نروح عالمزرعة مع الأرنب!"
+      },
+      "image": "animals/dog.jpg",
+      "name_audio": {
+        "en": "stories/story_farm_1_en.mp3",
+        "ar": "stories/story_farm_1_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_farm_2",
+      "name": {
+        "en": "Who says moo? The cow! And who says baa?",
+        "ar": "مين بيقول مووو؟ البقرة! ومين بيقول ماع؟"
+      },
+      "image": "animals/cow.jpg",
+      "name_audio": {
+        "en": "stories/story_farm_2_en.mp3",
+        "ar": "stories/story_farm_2_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_farm_3",
+      "name": {
+        "en": "Quack quack! Cluck cluck! Who is that?",
+        "ar": "واك واك! كاك كاك! مين هاد؟"
+      },
+      "image": "animals/duck.jpg",
+      "name_audio": {
+        "en": "stories/story_farm_3_en.mp3",
+        "ar": "stories/story_farm_3_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_farm_4",
+      "name": {
+        "en": "The horse is hungry. Let's give it a carrot!",
+        "ar": "الحصان جوعان. يلّا نعطيه جزرة!"
+      },
+      "image": "animals/horse.jpg",
+      "name_audio": {
+        "en": "stories/story_farm_4_en.mp3",
+        "ar": "stories/story_farm_4_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_farm_5",
+      "name": {
+        "en": "Bye bye, farm! See you soon.",
+        "ar": "باي باي يا مزرعة! منشوفكم قريب."
+      },
+      "image": "animals/sheep.jpg",
+      "name_audio": {
+        "en": "stories/story_farm_5_en.mp3",
+        "ar": "stories/story_farm_5_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_bath_1",
+      "name": {
+        "en": "It's bath time! Splash, splash!",
+        "ar": "وقت الحمّام! طش طش!"
+      },
+      "image": "care/bath.svg",
+      "name_audio": {
+        "en": "stories/story_bath_1_en.mp3",
+        "ar": "stories/story_bath_1_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_bath_2",
+      "name": {
+        "en": "First the soap. Bubbles everywhere!",
+        "ar": "أول إشي الصابون. فقاعات بكل مكان!"
+      },
+      "image": "care/soap.svg",
+      "name_audio": {
+        "en": "stories/story_bath_2_en.mp3",
+        "ar": "stories/story_bath_2_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_bath_3",
+      "name": {
+        "en": "Where's the little duck? Here it is! Squeak!",
+        "ar": "وين البطة الصغيرة؟ هيها! زيق!"
+      },
+      "image": "toys/rubber_duck.jpg",
+      "name_audio": {
+        "en": "stories/story_bath_3_en.mp3",
+        "ar": "stories/story_bath_3_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_bath_4",
+      "name": {
+        "en": "Now brush your teeth. Up and down!",
+        "ar": "هلّق نفرّش أسنانّا. فوق وتحت!"
+      },
+      "image": "care/toothbrush.svg",
+      "name_audio": {
+        "en": "stories/story_bath_4_en.mp3",
+        "ar": "stories/story_bath_4_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_bath_5",
+      "name": {
+        "en": "Pyjamas on, a big hug. Goodnight!",
+        "ar": "لبسنا البيجاما، وحضنة كبيرة. تصبحوا على خير!"
+      },
+      "image": "actions/sleep.svg",
+      "name_audio": {
+        "en": "stories/story_bath_5_en.mp3",
+        "ar": "stories/story_bath_5_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_teta_1",
+      "name": {
+        "en": "We're going to Teta's house! Into the car.",
+        "ar": "رايحين لبيت تيتا! يلّا عالسيارة."
+      },
+      "image": "vehicles/car.jpg",
+      "name_audio": {
+        "en": "stories/story_teta_1_en.mp3",
+        "ar": "stories/story_teta_1_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_teta_2",
+      "name": {
+        "en": "Beep beep! A bus and a bike go by.",
+        "ar": "بيب بيب! مرق باص وبسكليت."
+      },
+      "image": "vehicles/bus.jpg",
+      "name_audio": {
+        "en": "stories/story_teta_2_en.mp3",
+        "ar": "stories/story_teta_2_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_teta_3",
+      "name": {
+        "en": "Ding dong! Teta opens the door: a big hug!",
+        "ar": "دينغ دونغ! تيتا فتحت الباب: حضنة كبيرة!"
+      },
+      "image": "family/grandma.svg",
+      "name_audio": {
+        "en": "stories/story_teta_3_en.mp3",
+        "ar": "stories/story_teta_3_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_teta_4",
+      "name": {
+        "en": "Teta made something yummy. Mmm!",
+        "ar": "تيتا عملت إشي طيب. مممم!"
+      },
+      "image": "food/cookie.jpg",
+      "name_audio": {
+        "en": "stories/story_teta_4_en.mp3",
+        "ar": "stories/story_teta_4_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_teta_5",
+      "name": {
+        "en": "Teta's cat says meow. Bye bye, Teta!",
+        "ar": "بسّة تيتا بتقول مياو. باي باي يا تيتا!"
+      },
+      "image": "animals/cat.jpg",
+      "name_audio": {
+        "en": "stories/story_teta_5_en.mp3",
+        "ar": "stories/story_teta_5_ar.mp3"
+      }
+    }
+  ]
+}

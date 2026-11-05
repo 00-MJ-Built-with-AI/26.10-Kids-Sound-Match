@@ -11,7 +11,7 @@ export const PLAN_GROUPS: readonly (readonly KidKind[])[] = [
   // Talking together: she says or shows, you tick.
   ['talk', 'sounds', 'feel', 'point', 'actions', 'sing', 'hunt'],
   // Playing: she taps, the app answers.
-  ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count'],
+  ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count', 'story'],
   // Thinking: matching, opposites, memory.
   ['game', 'big', 'opposites', 'missing', 'memory', 'explore', 'scene'],
 ];

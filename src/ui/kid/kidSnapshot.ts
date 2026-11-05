@@ -34,7 +34,8 @@ export type KidKind =
   | 'opposites'
   | 'puzzle'
   | 'shapes'
-  | 'bedtime';
+  | 'bedtime'
+  | 'story';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {

@@ -132,6 +132,9 @@ Every finished game earns a sticker for the child's **sticker album**, opened fr
 For parents: **Words I know** (the words each child understands and says, shareable and printable),
 and **Print flashcards** (any pack on A4 for play away from the screen).
 
+**Stories** star her drawn character and the bunny (the farm, bath time, going to Teta's): she taps the
+things on each page.
+
 Parents can pick **her favourite games** (shown first on Home, the rest under "More games"); each game's
 ⓘ explains how to play it together and what it teaches; the Report shows **play time** this week.
 **Milestones** is a gentle 18–24-month checklist linked to the games, and she earns shareable

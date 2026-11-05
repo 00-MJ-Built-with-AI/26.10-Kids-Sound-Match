@@ -41,8 +41,8 @@ export function EidCelebration({ avatar, onClose }: { avatar?: React.ReactNode; 
     <div className="eid-celebration" role="dialog" aria-modal="true" aria-label={t('seasonEid')} onClick={onClose}>
       <div className="eid-garland" aria-hidden="true" />
       <div className="eid-burst" aria-hidden="true">
-        <Burst size={180} kind="confetti" />
-        <Burst size={140} kind="stars" />
+        <Burst size={180} kind="confetti" quiet />
+        <Burst size={140} kind="stars" quiet />
       </div>
       <div className="eid-card">
         <p className="eid-ar" lang="ar" dir="rtl">

@@ -349,6 +349,21 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 |---|---|
 | Backing up her things | My packs → Cloud backup, once signed in: a new switch, "Also back up her things" (off by default). It copies each child's voice recordings, Words I know marks and added words, feelings check-ins, milestones, certificates, play time and favourite games to the parent's private cloud folder (the same storage and rules as the packs: `children/<child>/data.json` and `children/<child>/voice/<word>`; no new tables, so schema.sql doesn't change). Phones are merged, never overwritten: what either phone has is kept, the first date of a word or milestone wins, and the newer recording of a word wins. So un-marking a word on one phone can come back from the other. The first child has the same id on every phone, so one child just works across phones; other children are matched by their id on the phone that made them. "Delete my cloud data" removes these too. The game results in the Report still never leave the phone. The privacy page says all of this |
 
+## Added on 5 November 2026: a phone check
+
+Every screen and game was opened in Chromium at 320×568 (the smallest phones), 375×667 (iPhone SE),
+360×740 (Android), 740×360 (sideways) and 820×1180 (tablet), in English and Arabic, with a script that
+flags anything wider than the screen, cut-off text or page errors. Not a real phone: worth one try on
+hers.
+
+| Change | Decision |
+|---|---|
+| Offline on the first visit | The app used to download everything for offline use at once, about 60 MB including the stand-in voices, before it could work offline: slow on an older phone or mobile data. Now the app itself (8 MB: code, drawings, scenes, pack lists) is cached first; the photos and sounds are cached when they're first shown or played, and the rest a few at a time in the background, 8 seconds after opening (not with Data Saver on). Photos and sounds sit in their own cache, kept across app updates unless one of them changed, so an update no longer downloads them all again |
+| Offline fix | Cached files are now matched whatever `Vary` header the server sent. A server that sends one (the local preview server does) made the cached app files never match, so the app opened blank offline. Not checked on Vercel (blocked from here), but the fix is harmless either way |
+| Small phones | On 320–360 px phones the Home header's title and line are smaller so they no longer run into her avatar and the Ramadan ribbon; the header's lanterns hang where a small phone still shows them |
+| Stories | The page arrows sit between the things and the two friends on any phone, higher when held sideways; the bunny no longer pops in twice when she taps |
+| Found fine | No screen wider than the phone, no cut-off text, no page errors, in either language or orientation. Arabic screens read right to left, including the new ones (favourites, tips, play time, milestones, certificates, Ramadan and Eid, stories). Left as is: on the very smallest phones (320 px) the matching game's picture cards come close to the screen's edges, and held sideways the names on them sit near the bottom edge |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

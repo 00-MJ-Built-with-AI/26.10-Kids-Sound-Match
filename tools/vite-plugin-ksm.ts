@@ -95,28 +95,69 @@ function copyDir(from: string, to: string): void {
   }
 }
 
-function serviceWorker(precache: string[], version: string): string {
+/** Photos and sounds: cached as they're used and, a little at a time, in the background. */
+const MEDIA = /\.(jpe?g|webp|png|wav|mp3|m4a|ogg)$/i;
+
+function serviceWorker(core: string[], media: string[], version: string, mediaVersion: string): string {
   return `// Generated at build time. Caches the whole app so it works offline (spec rule 10).
+// The app itself is cached at once; the photos and sounds (most of the size) as they're played and,
+// a few at a time, in the background, so an older phone isn't asked for everything on the first visit.
+// The media cache only changes when a photo or sound does, so an app update doesn't download them again.
 const CACHE = 'ksm-${version}';
-const PRECACHE = ${JSON.stringify(precache)};
+const MEDIA_CACHE = 'ksm-media-${mediaVersion}';
+const CORE = ${JSON.stringify(core)};
+const LATER = ${JSON.stringify(media)};
+const later = new Set(LATER.map((u) => new URL(u, self.registration.scope).href));
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(PRECACHE)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== MEDIA_CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
+});
+let warming = null;
+/** Fetches the photos and sounds not cached yet, three at a time. */
+function warm() {
+  warming ??= (async () => {
+    const cache = await caches.open(MEDIA_CACHE);
+    const todo = [];
+    for (const u of LATER) if (!(await cache.match(u, { ignoreSearch: true, ignoreVary: true }))) todo.push(u);
+    const next = async () => {
+      for (let u = todo.shift(); u; u = todo.shift()) {
+        try {
+          const res = await fetch(u);
+          if (res.ok) await cache.put(u, res);
+        } catch {
+          return; // offline: try again next visit
+        }
+      }
+    };
+    await Promise.all([next(), next(), next()]);
+  })().finally(() => (warming = null));
+  return warming;
+}
+self.addEventListener('message', (event) => {
+  if (event.data === 'warm') event.waitUntil(warm());
 });
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
   event.respondWith(
-    caches.match(request, { ignoreSearch: true }).then((hit) => {
+    caches.match(request, { ignoreSearch: true, ignoreVary: true }).then((hit) => {
       if (hit) return hit;
       if (request.mode === 'navigate') return caches.match('./index.html').then((page) => page || fetch(request));
-      return fetch(request);
+      return fetch(request).then((res) => {
+        const url = new URL(request.url);
+        url.search = '';
+        if (res.ok && later.has(url.href)) {
+          const copy = res.clone();
+          event.waitUntil(caches.open(MEDIA_CACHE).then((cache) => cache.put(url.href, copy)));
+        }
+        return res;
+      });
     }),
   );
 });
@@ -342,9 +383,18 @@ export function ksmPlugin(opts: Options): Plugin {
         (f) => f !== 'sw.js' && f !== 'build-info.json' && !f.split('/').pop()!.startsWith('_'),
       );
       const hash = createHash('sha256');
-      for (const f of precache) hash.update(f).update(fs.readFileSync(path.join(outDir, f)));
-      const urls = ['./', ...precache.map((f) => `./${f}`)];
-      fs.writeFileSync(path.join(outDir, 'sw.js'), serviceWorker(urls, hash.digest('hex').slice(0, 12)));
+      const mediaHash = createHash('sha256');
+      for (const f of precache) {
+        const bytes = fs.readFileSync(path.join(outDir, f));
+        hash.update(f).update(bytes);
+        if (MEDIA.test(f)) mediaHash.update(f).update(bytes);
+      }
+      const core = ['./', ...precache.filter((f) => !MEDIA.test(f) || f.startsWith('icon')).map((f) => `./${f}`)];
+      const media = precache.filter((f) => MEDIA.test(f) && !f.startsWith('icon')).map((f) => `./${f}`);
+      fs.writeFileSync(
+        path.join(outDir, 'sw.js'),
+        serviceWorker(core, media, hash.digest('hex').slice(0, 12), mediaHash.digest('hex').slice(0, 12)),
+      );
     },
   };
 }

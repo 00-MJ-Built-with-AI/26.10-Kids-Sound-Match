@@ -6767,3 +6767,23 @@ html[data-calm][data-season] .kid::after {
     top: 40%;
   }
 }
+
+/* Small phones (320–360 px): the header's words fit between the bunny and her avatar. */
+@media (max-width: 360px) {
+  .header-text {
+    top: 12px;
+    padding: 0 56px;
+  }
+  .header-text h1 {
+    font-size: 1.25rem;
+  }
+  .header-text .tagline {
+    font-size: 0.74rem;
+  }
+  .header-text .season-line {
+    font-size: 0.75rem;
+  }
+  .header-mascot {
+    width: 92px;
+  }
+}

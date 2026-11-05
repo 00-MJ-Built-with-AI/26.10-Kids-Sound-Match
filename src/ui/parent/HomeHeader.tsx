@@ -86,10 +86,10 @@ export function HomeHeader({
         <path d="M0 178 Q120 150 230 176 T400 168 V200 H0 Z" fill={night ? '#344066' : '#B4E0A6'} />
         {season && (
           <g className="hdr-lanterns">
+            {/* Inside what a 320 px phone still shows of the sky, clear of the moon and the title. */}
             {[
-              [26, 34, 0],
-              [370, 46, 1],
-              ...(night ? [] : [[300, 30, 2]]),
+              [78, 34, 0],
+              [290, 46, 1],
             ].map(([x, len, i]) => (
               <g key={i} className={`hdr-lantern l${i}`} style={{ transformOrigin: `${x}px 0px` }}>
                 <path d={`M${x} 0 V${len}`} stroke="#5A3B2B" strokeWidth="1.6" />

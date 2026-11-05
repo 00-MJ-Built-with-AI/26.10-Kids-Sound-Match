@@ -200,6 +200,29 @@ export function Home({
         <p className="tagline">{t('appTagline')}</p>
       </header>
 
+      {/* Which update is open: always shown, so the parent can check a new one has arrived. */}
+      <section className="build-stamp" aria-label={t('buildTitle')}>
+        <span className="build-dot" aria-hidden="true" />
+        <div>
+          <strong>
+            {t('buildUpdated', {
+              d: new Date(__BUILD_TIME__).toLocaleString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+            })}
+          </strong>
+          <small>
+            v{__APP_VERSION__}
+            {__BUILD_COMMIT__ ? ` · ${__BUILD_COMMIT__}` : ''}
+            {__BUILD_MESSAGE__ ? ` · ${__BUILD_MESSAGE__}` : ''}
+          </small>
+        </div>
+      </section>
+
       {profiles.profiles.length > 1 && (
         <div className="who-plays">
           <span className="muted">{t('whoIsPlaying')}</span>
@@ -302,6 +325,7 @@ export function Home({
       )}
 
       {__ALLOW_PLACEHOLDERS__ && <p className="note">{t('testBuildNote')}</p>}
+
 
       <nav className="links" aria-label={t('forParents')}>
         <h2>{t('forParents')}</h2>

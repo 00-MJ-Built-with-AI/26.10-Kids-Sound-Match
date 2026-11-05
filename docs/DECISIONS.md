@@ -296,6 +296,12 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Arabic letters | New pack `letters` (in the pack list, not in the Mixed game): the 28 letters, each a big coloured letter with a picture of a word that starts with it (أ أرنب 🐰، ب بطة 🦆 … ي يد ✋). Names "أ… أرنب" / "Alif, rabbit". The group "First letters" has 8 to start with. For later, around 2½ to 3 |
 | New lines | كيف حاسّة اليوم؟ / كيف حاسس اليوم؟ / How do you feel today?; the 10 opposites' names and questions; the 28 letter names; the lullaby's 3 lines and words. The phone reads them until recorded |
 
+## Added on 5 November 2026: which update is open
+
+| Change | Decision |
+|---|---|
+| Update stamp | Home always shows, under the title, when this version was built ("Updated 5 Nov 2026, 14:32", in the phone's time), the version, the commit and the commit's first line. Baked in at build time (`__BUILD_TIME__`, `__BUILD_COMMIT__`, `__BUILD_MESSAGE__` in `vite.config.ts`; Vercel's commit details, else git). If it still shows an older time after an update, close the app and open it again |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

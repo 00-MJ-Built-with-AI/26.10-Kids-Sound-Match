@@ -41,7 +41,9 @@ of the words she knows), **Look after the baby** (18 things the baby needs: food
 your turn** (the matching game, taking turns with a grown-up) and **Our day** (routine cards: now, and
 what comes next). Also **Animal sounds**, **Colour hunt**, **Sing with me** (three songs; she fills in the last word), **Big and
 little**, **What's missing?**, **Count with me**, **Pop the bubbles** and **Tidy up**. Home shows them in two
-groups: Play together, and Her games. Right answers come alive for a moment, and Settings → **Evening calm** makes the games
+groups: Play together, and Her games. Also **Puzzles**, a **Shape sorter**, **Opposites**, **How do you feel?**, **Bedtime** (her
+book, then a lullaby) and an **Arabic letters** pack; a **Today's play** card suggests three games a day; Words I
+know keeps **her voice** saying her words and can share **this week's** new words. Right answers come alive for a moment, and Settings → **Evening calm** makes the games
 dark and soft from 6, 7 or 8 pm. Settings → **Play time** ends a sitting after 5 to 30 minutes with a calm "time
 to rest" screen that only the lock closes. With both languages, Settings → **Which first** chooses
 Arabic or English first.

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>.twinkle { animation: twinkle 1.6s ease-in-out infinite; }
+    .twinkle.b { animation-delay: .8s; }
+    @keyframes twinkle { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs><clipPath id="tile"><rect x="4" y="4" width="392" height="392" rx="60"/></clipPath></defs>
+  <g transform="scale(1.28)"><g clip-path="url(#tile)"><rect x="4" y="4" width="392" height="392" rx="60" fill="#2E3560"/><circle cx="200" cy="150" r="190" fill="#fff" opacity="0.35"/><circle cx="40" cy="60" r="4" fill="#fff" opacity="0.8"/><circle cx="360" cy="52" r="3" fill="#fff" opacity="0.8"/><circle cx="34" cy="300" r="3" fill="#fff" opacity="0.8"/><circle cx="366" cy="320" r="4" fill="#fff" opacity="0.8"/><circle cx="70" cy="180" r="2.5" fill="#fff" opacity="0.8"/><circle cx="330" cy="196" r="2.5" fill="#fff" opacity="0.8"/><path d="M352 97.7 L353.8 102.2 L358.3 104 L353.8 105.8 L352 110.3 L350.2 105.8 L345.7 104 L350.2 102.2 Z" fill="#fff"/><path d="M52 115.1 L53.4 118.6 L56.9 120 L53.4 121.4 L52 124.9 L50.6 121.4 L47.1 120 L50.6 118.6 Z" fill="#fff"/><path d="M236 90 a90 90 0 1 0 54 160 a70 70 0 1 1 -54 -160 Z" fill="#FFE08A"/><g class="twinkle"><path d="M90 77.4 L93.6 86.4 L102.6 90 L93.6 93.6 L90 102.6 L86.4 93.6 L77.4 90 L86.4 86.4 Z" fill="#fff"/><path d="M320 290.2 L322.8 297.2 L329.8 300 L322.8 302.8 L320 309.8 L317.2 302.8 L310.2 300 L317.2 297.2 Z" fill="#fff"/></g><g class="twinkle b"><path d="M110 291.6 L112.4 297.6 L118.4 300 L112.4 302.4 L110 308.4 L107.6 302.4 L101.6 300 L107.6 297.6 Z" fill="#fff"/><path d="M330 73 L332 78 L337 80 L332 82 L330 87 L328 82 L323 80 L328 78 Z" fill="#fff"/></g></g></g>
+</svg>

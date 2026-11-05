@@ -33,6 +33,9 @@ import {
 } from './settings/profiles';
 import { countReplay, forgetReplays } from './settings/replays';
 import { forgetStickers } from './settings/stickers';
+import { voiceStore } from './settings/herVoice';
+import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
+import { today } from './settings/routine';
 import { forgetWordMarks, loadWordMarks } from './settings/words';
 import {
   calmNow,
@@ -193,6 +196,7 @@ export function App() {
       forgetReplays(id);
       forgetStickers(id);
       forgetWordMarks(id);
+      void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
       local.remove(profileKey(LAST_SCENE_KEY, id));
       change({ profiles: rest, activeId: profiles.activeId === id ? rest[0].id : profiles.activeId });
@@ -264,6 +268,9 @@ function Shell({
   const colorsPack = allPacks.find((p) => p.id === 'colors');
   const songsPack = allPacks.find((p) => p.id === 'songs');
   const toysPack = allPacks.find((p) => p.id === 'toys');
+  const feelingsPack = allPacks.find((p) => p.id === 'feelings');
+  const oppositesPack = allPacks.find((p) => p.id === 'opposites');
+  const shapesPack = allPacks.find((p) => p.id === 'shapes');
   /** Animal sounds and Count with me: the animals with a sound (the ones chosen in Settings, if enough). */
   const soundAnimals = (s: Settings): string[] => {
     if (!animalsPack) return [];
@@ -442,6 +449,12 @@ function Shell({
                     ? colorsPack
                     : kind === 'sing'
                       ? songsPack
+                      : kind === 'feel'
+                        ? feelingsPack
+                        : kind === 'opposites'
+                          ? oppositesPack
+                          : kind === 'shapes'
+                            ? shapesPack
                       : kind === 'tidy'
                         ? toysPack
                         : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
@@ -459,7 +472,7 @@ function Shell({
         weights = practiceWeights(sessions, await reportStore.questions(), packIds);
       }
       if (kind === 'odd') level = oddLevel(sessions, await reportStore.questions());
-      if (kind === 'book') {
+      if (kind === 'book' || kind === 'bedtime') {
         // Her picture book: the words she knows or says, newest first, topped up from this pack.
         const ids = new Set(sessions.map((x) => x.id));
         const questions = (await reportStore.questions()).filter((q) => ids.has(q.sessionId));
@@ -472,9 +485,10 @@ function Shell({
         bookIds = bookWords(known, loadWordMarks(profileId).says, fillWords(gamePack, s), usable);
       }
     } catch {
-      if (kind === 'book') bookIds = fillWords(gamePack, s);
+      if (kind === 'book' || kind === 'bedtime') bookIds = fillWords(gamePack, s);
       // No history available: every animal equally often, and an easy Odd one out.
     }
+    markPlayed(profileId, kind);
     // The first game from Home starts the sitting; play-agains and the end screen's picker continue it.
     if (sittingStart.current === null) sittingStart.current = Date.now();
     setKid({
@@ -491,11 +505,11 @@ function Shell({
               ? sceneKeys(scene, s)
               : kind === 'point' || kind === 'actions' || kind === 'care'
                 ? pointItems(gamePack, spoken, arGender).map((i) => i.key)
-                : kind === 'book'
+                : kind === 'book' || kind === 'bedtime'
                   ? bookIds
                   : kind === 'sounds' || kind === 'count'
                     ? soundAnimals(s)
-                    : kind === 'hunt' || kind === 'sing' || kind === 'tidy'
+                    : kind === 'hunt' || kind === 'sing' || kind === 'tidy' || kind === 'feel' || kind === 'opposites' || kind === 'shapes'
                       ? gamePack.items.map((i) => i.key)
                       : enabledItemKeys(gamePack, s),
         // Odd one out shows 3 or 4: two or three alike and the different one.
@@ -512,12 +526,12 @@ function Shell({
             ? s.mode
             : kind === 'care'
               ? 'SOUND_AND_NAME'
-              : kind === 'sounds' || kind === 'hunt' || kind === 'big' || kind === 'missing' || kind === 'bubbles'
+              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle'].includes(kind)
                 ? 'NAME_ONLY'
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
-        ...(kind === 'point' || kind === 'actions' || kind === 'care' || kind === 'hunt' || kind === 'sing' ? { arGender } : {}),
-        ...((kind === 'turns' || kind === 'book') && profile ? { avatar: { animal: profile.animal, color: profile.color } } : {}),
+        ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
+        ...((kind === 'turns' || kind === 'book' || kind === 'bedtime') && profile ? { avatar: { animal: profile.animal, color: profile.color } } : {}),
         language: s.language,
         repeatIntervalSec: s.repeatIntervalSec,
         hints: s.hints,
@@ -552,6 +566,11 @@ function Shell({
     ...(canCare ? (['care'] as const) : []),
     'turns',
     'book',
+    'feel',
+    'puzzle',
+    'shapes',
+    ...(oppositesPack ? (['opposites'] as const) : []),
+    'bedtime',
     ...(canSounds ? (['sounds', 'count'] as const) : []),
     ...(canHunt && genderKnown ? (['hunt'] as const) : []),
     'big',
@@ -562,6 +581,16 @@ function Shell({
     'memory',
     ...(oddPack ? (['odd'] as const) : []),
   ];
+  // Today's play: three games for today, from those that can be played (point, actions and hunt even
+  // before the grammar is known: starting one asks).
+  const planKinds: KidKind[] = [
+    ...pickerKinds,
+    ...(canPoint && !genderKnown ? (['point'] as const) : []),
+    ...(canActions && !genderKnown ? (['actions'] as const) : []),
+    ...(canHunt && !genderKnown ? (['hunt'] as const) : []),
+  ];
+  const played = loadPlayed(profileId);
+  const todayPlan = planFor(today(), planKinds, played).map((kind) => ({ kind, done: playedToday(played, kind) }));
 
   /** Runs inside a tap: fullscreen must be requested from a user gesture. */
   const launch = (kind: KidKind) => {
@@ -746,7 +775,10 @@ function Shell({
           canHunt={canHunt}
           canSing={canSing}
           canTidy={canTidy}
-          onGame={(kind) => (kind === 'hunt' ? beginWithGender('hunt') : begin(kind))}
+          onGame={(kind) =>
+            kind === 'hunt' || kind === 'point' || kind === 'actions' ? beginWithGender(kind) : begin(kind)
+          }
+          plan={todayPlan}
           memoryNudge={memoryNudge}
           onMemoryNudgeAccept={(to) => {
             update({ memoryPairs: to as MemoryPairs });

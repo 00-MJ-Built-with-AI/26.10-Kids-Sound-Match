@@ -1,0 +1,354 @@
+{
+  "pack_id": "opposites",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.9,
+  "name": {
+    "en": "Opposites",
+    "ar": "الأضداد"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "hot",
+      "name": {
+        "en": "Hot and cold",
+        "ar": "سخن وبارد"
+      },
+      "items": [
+        "opp_hot",
+        "opp_cold"
+      ]
+    },
+    {
+      "id": "open",
+      "name": {
+        "en": "Open and closed",
+        "ar": "مفتوح ومسكّر"
+      },
+      "items": [
+        "opp_open",
+        "opp_closed"
+      ]
+    },
+    {
+      "id": "up",
+      "name": {
+        "en": "Up and down",
+        "ar": "فوق وتحت"
+      },
+      "items": [
+        "opp_up",
+        "opp_down"
+      ]
+    },
+    {
+      "id": "full",
+      "name": {
+        "en": "Full and empty",
+        "ar": "مليان وفاضي"
+      },
+      "items": [
+        "opp_full",
+        "opp_empty"
+      ]
+    },
+    {
+      "id": "day",
+      "name": {
+        "en": "Day and night",
+        "ar": "نهار وليل"
+      },
+      "items": [
+        "opp_day",
+        "opp_night"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "opp_hot",
+      "name": {
+        "en": "Hot",
+        "ar": "سخن"
+      },
+      "image": "opposites/hot.svg",
+      "name_audio": {
+        "en": "opposites/opp_hot_name_en.mp3",
+        "ar": "opposites/opp_hot_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is hot?",
+          "audio": "opposites/opp_hot_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين السخن؟",
+          "audio": "opposites/opp_hot_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين السخن؟",
+          "audio": "opposites/opp_hot_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_cold",
+      "name": {
+        "en": "Cold",
+        "ar": "بارد"
+      },
+      "image": "opposites/cold.svg",
+      "name_audio": {
+        "en": "opposites/opp_cold_name_en.mp3",
+        "ar": "opposites/opp_cold_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is cold?",
+          "audio": "opposites/opp_cold_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين البارد؟",
+          "audio": "opposites/opp_cold_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين البارد؟",
+          "audio": "opposites/opp_cold_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_open",
+      "name": {
+        "en": "Open",
+        "ar": "مفتوح"
+      },
+      "image": "opposites/open.svg",
+      "name_audio": {
+        "en": "opposites/opp_open_name_en.mp3",
+        "ar": "opposites/opp_open_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is open?",
+          "audio": "opposites/opp_open_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين المفتوح؟",
+          "audio": "opposites/opp_open_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين المفتوح؟",
+          "audio": "opposites/opp_open_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_closed",
+      "name": {
+        "en": "Closed",
+        "ar": "مسكّر"
+      },
+      "image": "opposites/closed.svg",
+      "name_audio": {
+        "en": "opposites/opp_closed_name_en.mp3",
+        "ar": "opposites/opp_closed_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is closed?",
+          "audio": "opposites/opp_closed_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين المسكّر؟",
+          "audio": "opposites/opp_closed_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين المسكّر؟",
+          "audio": "opposites/opp_closed_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_up",
+      "name": {
+        "en": "Up",
+        "ar": "فوق"
+      },
+      "image": "opposites/up.svg",
+      "name_audio": {
+        "en": "opposites/opp_up_name_en.mp3",
+        "ar": "opposites/opp_up_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is up?",
+          "audio": "opposites/opp_up_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين فوق؟",
+          "audio": "opposites/opp_up_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين فوق؟",
+          "audio": "opposites/opp_up_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_down",
+      "name": {
+        "en": "Down",
+        "ar": "تحت"
+      },
+      "image": "opposites/down.svg",
+      "name_audio": {
+        "en": "opposites/opp_down_name_en.mp3",
+        "ar": "opposites/opp_down_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is down?",
+          "audio": "opposites/opp_down_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين تحت؟",
+          "audio": "opposites/opp_down_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين تحت؟",
+          "audio": "opposites/opp_down_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_full",
+      "name": {
+        "en": "Full",
+        "ar": "مليان"
+      },
+      "image": "opposites/full.svg",
+      "name_audio": {
+        "en": "opposites/opp_full_name_en.mp3",
+        "ar": "opposites/opp_full_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is full?",
+          "audio": "opposites/opp_full_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين المليان؟",
+          "audio": "opposites/opp_full_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين المليان؟",
+          "audio": "opposites/opp_full_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_empty",
+      "name": {
+        "en": "Empty",
+        "ar": "فاضي"
+      },
+      "image": "opposites/empty.svg",
+      "name_audio": {
+        "en": "opposites/opp_empty_name_en.mp3",
+        "ar": "opposites/opp_empty_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is empty?",
+          "audio": "opposites/opp_empty_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين الفاضي؟",
+          "audio": "opposites/opp_empty_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين الفاضي؟",
+          "audio": "opposites/opp_empty_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_day",
+      "name": {
+        "en": "Day",
+        "ar": "نهار"
+      },
+      "image": "opposites/day.svg",
+      "name_audio": {
+        "en": "opposites/opp_day_name_en.mp3",
+        "ar": "opposites/opp_day_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is day?",
+          "audio": "opposites/opp_day_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين النهار؟",
+          "audio": "opposites/opp_day_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين النهار؟",
+          "audio": "opposites/opp_day_q_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "opp_night",
+      "name": {
+        "en": "Night",
+        "ar": "ليل"
+      },
+      "image": "opposites/night.svg",
+      "name_audio": {
+        "en": "opposites/opp_night_name_en.mp3",
+        "ar": "opposites/opp_night_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Which one is night?",
+          "audio": "opposites/opp_night_q_en.mp3"
+        },
+        "ar_f": {
+          "text": "وين الليل؟",
+          "audio": "opposites/opp_night_q_ar.mp3"
+        },
+        "ar_m": {
+          "text": "وين الليل؟",
+          "audio": "opposites/opp_night_q_ar.mp3"
+        }
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

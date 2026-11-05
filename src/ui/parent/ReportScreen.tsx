@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { recentWords } from '../../settings/herVoice';
+import { loadFeelings } from '../../settings/plan';
+import { choosePictures } from '../kid/layout';
 import { MIXED_PACK_ID, MIXED_PACK_NAME } from '../../content/mixed';
 import { ODD_PACK_ID, ODD_PACK_NAME } from '../../content/odd';
 import type { LoadedPack } from '../../content/types';
@@ -39,6 +42,10 @@ export function ReportScreen({
   const [shared, setShared] = useState<{ blob: Blob; url: string } | null>(null);
   const [shareProblem, setShareProblem] = useState(false);
   const child = profiles.profiles.find((p) => p.id === childId) ?? profiles.profiles[0];
+  // How do you feel?: her last week of check-ins, newest first.
+  const feelPack = packs.find((p) => p.id === 'feelings');
+  const feelPictures = useMemo(() => (feelPack ? choosePictures(feelPack.items, () => 0) : {}), [feelPack]);
+  const feelings = useMemo(() => recentWords(loadFeelings(child.id), 7).reverse(), [child.id]);
   const several = profiles.profiles.length > 1;
 
   const load = useCallback(async () => {
@@ -184,6 +191,23 @@ export function ReportScreen({
         ]}
         onChange={setTab}
       />
+
+      {feelings.length > 0 && (
+        <section className="card feel-report">
+          <h2>{t('feelReport')}</h2>
+          <ul className="feel-list">
+            {feelings.map((f) => (
+              <li key={f.at}>
+                {feelPictures[f.feeling] && <img src={feelPictures[f.feeling]} alt="" />}
+                <span>{feelPack?.items.find((i) => i.key === f.feeling)?.name[lang] ?? f.feeling}</span>
+                <small className="hint">
+                  {new Date(f.at).toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
+                </small>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {empty && <p className="empty">{t('reportEmpty')}</p>}
 

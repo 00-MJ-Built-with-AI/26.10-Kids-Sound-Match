@@ -1,0 +1,391 @@
+{
+  "pack_id": "letters",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 30,
+  "name": {
+    "en": "Arabic letters",
+    "ar": "الحروف"
+  },
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "first",
+      "name": {
+        "en": "First letters",
+        "ar": "أول الحروف"
+      },
+      "items": [
+        "letter_alif",
+        "letter_ba",
+        "letter_ta",
+        "letter_jim",
+        "letter_dal",
+        "letter_sin",
+        "letter_fa",
+        "letter_mim"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "letter_alif",
+      "name": {
+        "en": "Alif, rabbit",
+        "ar": "أ… أرنب"
+      },
+      "image": "letters/letter_alif.svg",
+      "name_audio": {
+        "en": "letters/letter_alif_name_en.mp3",
+        "ar": "letters/letter_alif_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ba",
+      "name": {
+        "en": "Ba, duck",
+        "ar": "ب… بطة"
+      },
+      "image": "letters/letter_ba.svg",
+      "name_audio": {
+        "en": "letters/letter_ba_name_en.mp3",
+        "ar": "letters/letter_ba_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ta",
+      "name": {
+        "en": "Ta, apple",
+        "ar": "ت… تفاحة"
+      },
+      "image": "letters/letter_ta.svg",
+      "name_audio": {
+        "en": "letters/letter_ta_name_en.mp3",
+        "ar": "letters/letter_ta_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_tha",
+      "name": {
+        "en": "Tha, fox",
+        "ar": "ث… ثعلب"
+      },
+      "image": "letters/letter_tha.svg",
+      "name_audio": {
+        "en": "letters/letter_tha_name_en.mp3",
+        "ar": "letters/letter_tha_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_jim",
+      "name": {
+        "en": "Jim, camel",
+        "ar": "ج… جمل"
+      },
+      "image": "letters/letter_jim.svg",
+      "name_audio": {
+        "en": "letters/letter_jim_name_en.mp3",
+        "ar": "letters/letter_jim_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ha",
+      "name": {
+        "en": "Ha, horse",
+        "ar": "ح… حصان"
+      },
+      "image": "letters/letter_ha.svg",
+      "name_audio": {
+        "en": "letters/letter_ha_name_en.mp3",
+        "ar": "letters/letter_ha_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_kha",
+      "name": {
+        "en": "Kha, sheep",
+        "ar": "خ… خروف"
+      },
+      "image": "letters/letter_kha.svg",
+      "name_audio": {
+        "en": "letters/letter_kha_name_en.mp3",
+        "ar": "letters/letter_kha_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_dal",
+      "name": {
+        "en": "Dal, bear",
+        "ar": "د… دب"
+      },
+      "image": "letters/letter_dal.svg",
+      "name_audio": {
+        "en": "letters/letter_dal_name_en.mp3",
+        "ar": "letters/letter_dal_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_dhal",
+      "name": {
+        "en": "Dhal, corn",
+        "ar": "ذ… ذرة"
+      },
+      "image": "letters/letter_dhal.svg",
+      "name_audio": {
+        "en": "letters/letter_dhal_name_en.mp3",
+        "ar": "letters/letter_dhal_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ra",
+      "name": {
+        "en": "Ra, pomegranate",
+        "ar": "ر… رمان"
+      },
+      "image": "letters/letter_ra.svg",
+      "name_audio": {
+        "en": "letters/letter_ra_name_en.mp3",
+        "ar": "letters/letter_ra_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_zay",
+      "name": {
+        "en": "Zay, giraffe",
+        "ar": "ز… زرافة"
+      },
+      "image": "letters/letter_zay.svg",
+      "name_audio": {
+        "en": "letters/letter_zay_name_en.mp3",
+        "ar": "letters/letter_zay_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_sin",
+      "name": {
+        "en": "Sin, fish",
+        "ar": "س… سمكة"
+      },
+      "image": "letters/letter_sin.svg",
+      "name_audio": {
+        "en": "letters/letter_sin_name_en.mp3",
+        "ar": "letters/letter_sin_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_shin",
+      "name": {
+        "en": "Shin, sun",
+        "ar": "ش… شمس"
+      },
+      "image": "letters/letter_shin.svg",
+      "name_audio": {
+        "en": "letters/letter_shin_name_en.mp3",
+        "ar": "letters/letter_shin_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_sad",
+      "name": {
+        "en": "Sad, chick",
+        "ar": "ص… صوص"
+      },
+      "image": "letters/letter_sad.svg",
+      "name_audio": {
+        "en": "letters/letter_sad_name_en.mp3",
+        "ar": "letters/letter_sad_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_dad",
+      "name": {
+        "en": "Dad, frog",
+        "ar": "ض… ضفدع"
+      },
+      "image": "letters/letter_dad.svg",
+      "name_audio": {
+        "en": "letters/letter_dad_name_en.mp3",
+        "ar": "letters/letter_dad_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_taa",
+      "name": {
+        "en": "Taa, ball",
+        "ar": "ط… طابة"
+      },
+      "image": "letters/letter_taa.svg",
+      "name_audio": {
+        "en": "letters/letter_taa_name_en.mp3",
+        "ar": "letters/letter_taa_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_zaa",
+      "name": {
+        "en": "Zaa, envelope",
+        "ar": "ظ… ظرف"
+      },
+      "image": "letters/letter_zaa.svg",
+      "name_audio": {
+        "en": "letters/letter_zaa_name_en.mp3",
+        "ar": "letters/letter_zaa_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ain",
+      "name": {
+        "en": "Ain, bird",
+        "ar": "ع… عصفور"
+      },
+      "image": "letters/letter_ain.svg",
+      "name_audio": {
+        "en": "letters/letter_ain_name_en.mp3",
+        "ar": "letters/letter_ain_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ghain",
+      "name": {
+        "en": "Ghain, cloud",
+        "ar": "غ… غيمة"
+      },
+      "image": "letters/letter_ghain.svg",
+      "name_audio": {
+        "en": "letters/letter_ghain_name_en.mp3",
+        "ar": "letters/letter_ghain_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_fa",
+      "name": {
+        "en": "Fa, elephant",
+        "ar": "ف… فيل"
+      },
+      "image": "letters/letter_fa.svg",
+      "name_audio": {
+        "en": "letters/letter_fa_name_en.mp3",
+        "ar": "letters/letter_fa_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_qaf",
+      "name": {
+        "en": "Qaf, cat",
+        "ar": "ق… قطة"
+      },
+      "image": "letters/letter_qaf.svg",
+      "name_audio": {
+        "en": "letters/letter_qaf_name_en.mp3",
+        "ar": "letters/letter_qaf_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_kaf",
+      "name": {
+        "en": "Kaf, dog",
+        "ar": "ك… كلب"
+      },
+      "image": "letters/letter_kaf.svg",
+      "name_audio": {
+        "en": "letters/letter_kaf_name_en.mp3",
+        "ar": "letters/letter_kaf_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_lam",
+      "name": {
+        "en": "Lam, lemon",
+        "ar": "ل… ليمون"
+      },
+      "image": "letters/letter_lam.svg",
+      "name_audio": {
+        "en": "letters/letter_lam_name_en.mp3",
+        "ar": "letters/letter_lam_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_mim",
+      "name": {
+        "en": "Mim, banana",
+        "ar": "م… موز"
+      },
+      "image": "letters/letter_mim.svg",
+      "name_audio": {
+        "en": "letters/letter_mim_name_en.mp3",
+        "ar": "letters/letter_mim_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_nun",
+      "name": {
+        "en": "Nun, bee",
+        "ar": "ن… نحلة"
+      },
+      "image": "letters/letter_nun.svg",
+      "name_audio": {
+        "en": "letters/letter_nun_name_en.mp3",
+        "ar": "letters/letter_nun_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_haa",
+      "name": {
+        "en": "Haa, present",
+        "ar": "هـ… هدية"
+      },
+      "image": "letters/letter_haa.svg",
+      "name_audio": {
+        "en": "letters/letter_haa_name_en.mp3",
+        "ar": "letters/letter_haa_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_waw",
+      "name": {
+        "en": "Waw, rose",
+        "ar": "و… وردة"
+      },
+      "image": "letters/letter_waw.svg",
+      "name_audio": {
+        "en": "letters/letter_waw_name_en.mp3",
+        "ar": "letters/letter_waw_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "letter_ya",
+      "name": {
+        "en": "Ya, hand",
+        "ar": "ي… يد"
+      },
+      "image": "letters/letter_ya.svg",
+      "name_audio": {
+        "en": "letters/letter_ya_name_en.mp3",
+        "ar": "letters/letter_ya_name_ar.mp3"
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

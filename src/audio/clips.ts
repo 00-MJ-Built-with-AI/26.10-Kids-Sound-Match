@@ -88,6 +88,10 @@ export const FEEDBACK_SPEECH: Record<string, string> = {
   'feedback/count_en.mp3': "Let's count!",
   'feedback/tidy_ar.mp3': 'يلّا نرتّب!',
   'feedback/tidy_en.mp3': "Let's tidy up!",
+  'feedback/feel_f_ar.mp3': 'كيف حاسّة اليوم؟',
+  'feedback/feel_m_ar.mp3': 'كيف حاسس اليوم؟',
+  'feedback/feel_f_en.mp3': 'How do you feel today?',
+  'feedback/feel_m_en.mp3': 'How do you feel today?',
 };
 
 /** A shared line in both languages (see FeedbackLineId). */

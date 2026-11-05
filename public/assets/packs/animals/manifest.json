@@ -1131,6 +1131,14 @@
       "pop": {
         "en": "feedback/pop.wav",
         "ar": "feedback/pop.wav"
+      },
+      "feel_f": {
+        "en": "feedback/feel_f_en.mp3",
+        "ar": "feedback/feel_f_ar.mp3"
+      },
+      "feel_m": {
+        "en": "feedback/feel_m_en.mp3",
+        "ar": "feedback/feel_m_ar.mp3"
       }
     }
   }

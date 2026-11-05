@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs><clipPath id="tile"><rect x="4" y="4" width="392" height="392" rx="60"/></clipPath></defs>
+  <g transform="scale(1.28)"><g clip-path="url(#tile)"><rect x="4" y="4" width="392" height="392" rx="60" fill="#FFFDF8"/><circle cx="200" cy="150" r="190" fill="#fff" opacity="0.35"/><circle cx="40" cy="60" r="4" fill="#fff" opacity="0.8"/><circle cx="360" cy="52" r="3" fill="#fff" opacity="0.8"/><circle cx="34" cy="300" r="3" fill="#fff" opacity="0.8"/><circle cx="366" cy="320" r="4" fill="#fff" opacity="0.8"/><circle cx="70" cy="180" r="2.5" fill="#fff" opacity="0.8"/><circle cx="330" cy="196" r="2.5" fill="#fff" opacity="0.8"/><path d="M352 97.7 L353.8 102.2 L358.3 104 L353.8 105.8 L352 110.3 L350.2 105.8 L345.7 104 L350.2 102.2 Z" fill="#fff"/><path d="M52 115.1 L53.4 118.6 L56.9 120 L53.4 121.4 L52 124.9 L50.6 121.4 L47.1 120 L50.6 118.6 Z" fill="#fff"/><text x="200" y="250" text-anchor="middle" font-family="'Noto Naskh Arabic','Noto Sans Arabic','Geeza Pro',Tahoma,sans-serif" font-size="230" font-weight="700" fill="#E07A2E" stroke="#fff" stroke-width="10" paint-order="stroke">ظ</text><text x="320" y="360" text-anchor="middle" font-family="'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif" font-size="74">✉️</text></g></g>
+</svg>

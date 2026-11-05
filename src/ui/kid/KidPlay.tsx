@@ -254,7 +254,11 @@ export function KidTidy(props: GameProps) {
 
   const down = (t: Thing, e: ReactPointerEvent<HTMLButtonElement>) => {
     if (!shell.canPlay() || placed.includes(t.item.key)) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // No live pointer (a synthetic tap): the drag still works without capture.
+    }
     drag.current = { key: t.item.key, startX: e.clientX, startY: e.clientY, moved: false };
     setHeld({ key: t.item.key, dx: 0, dy: 0 });
   };

@@ -281,6 +281,21 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Three to choose from | With 18 things, all at once is too many at 20 months: each need shows the right thing and two others. A game is 6 needs, with ones not played last time first |
 | Lines | "البيبي بردان!"، "البيبي شوبان!"، "حفاضة البيبي مبلولة!"، "مناخير البيبي عم تسيل!"، "البيبي تعوّر!"، "البيبي بدّه يلعب!"، "البيبي بدّه غنّية!"، "شعر البيبي منكوش!"، "يلّا نفرّش سنان البيبي!"، "إيدين البيبي وسخين!"، "البيبي مريض!"، "البيبي بدّه يطلع مشوار!"، "البيبي بدّه أواعي!" (and English), with the Feelings sound where one fits (shivers, a cough, a sob). The 13 new names: طاقية، مروحة، حفاضة، محرمة، لزقة، خشخيشة، غنّية، فرشاية الشعر، فرشاية السنان، صابون، سمّاعة الدكتور، عربايّة، أواعي. The phone reads them until recorded |
 
+## Added on 5 November 2026: nine more things to learn and play
+
+| Change | Decision |
+|---|---|
+| Her voice book | Words I know: each word has 🎙️ to record her saying it (stops by itself after 4 s; tap again to stop sooner) and ▶ to hear it. "Play her voice book" plays every recording, oldest first. One recording per word and child, kept in this browser only (IndexedDB `ksm-her-voice`), never backed up or sent; deleted with the child's profile |
+| This week's card | Words I know → "Share this week's words": the same share picture, only with the words she understood, was marked as saying or was recorded saying in the last 7 days, and "N new this week" |
+| Today's play | A card at the top of Home: three games for today, one to talk together (Talk time, Animal sounds, How do you feel?, Where's your nose?, Do it with me, Sing, Colour hunt), one to play (Bubbles, the baby, Peekaboo, Puzzles, Shape sorter, Tidy up, Count), one to think (matching, Big and little, Opposites, What's missing?, Memory, Explore, Find it in the picture). Within each, the game not played for longest comes first, so the days rotate; the plan stays the same all day and ticks a game once played (per child, on this phone) |
+| How do you feel? | "كيف حاسّة اليوم؟" (حاسس to a boy) and six faces (happy, sad, angry, sleepy, scared, hungry). She taps one: it grows, says its name and sound. Each check-in is kept (the last 60, per child, on this phone); the Report shows a "How she felt" strip for the last 7 days |
+| Opposites | New pack `opposites` (own game), drawn for the app: hot/cold, open/closed, up/down, full/empty, day/night. The pair side by side: "وين السخن؟" / "Which one is hot?"; right: the name and a bounce; wrong: the soft tone and the question again. Up to 10 questions |
+| Puzzles | A picture from the chosen pack cut into 2 (side by side), then 3 (strips), then 4 (2 × 2). The board shows it faintly with dashed places; drag a piece onto its place (dropped near enough snaps in, with a pop) or tap a piece then its place. Finished: the picture comes alive and says its name |
+| Shape sorter | A box with holes and shapes beside it: circle, square, triangle, then circle, star, heart, then square, triangle, star, heart. Drag a shape into its hole, or tap it (it says its name and its hole glows) and tap the hole. A wrong hole shakes |
+| Bedtime | Her picture book with the Evening calm look whatever the time, then a lullaby with pictures (a star, the moon, sleeping): "نجمة صغيرة بتلمع فوق بالـ… سما!" / "Twinkle, twinkle, little… star!", then the sleepy moon. The lullaby is also a 4th song in Sing with me |
+| Arabic letters | New pack `letters` (in the pack list, not in the Mixed game): the 28 letters, each a big coloured letter with a picture of a word that starts with it (أ أرنب 🐰، ب بطة 🦆 … ي يد ✋). Names "أ… أرنب" / "Alif, rabbit". The group "First letters" has 8 to start with. For later, around 2½ to 3 |
+| New lines | كيف حاسّة اليوم؟ / كيف حاسس اليوم؟ / How do you feel today?; the 10 opposites' names and questions; the 28 letter names; the lullaby's 3 lines and words. The phone reads them until recorded |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

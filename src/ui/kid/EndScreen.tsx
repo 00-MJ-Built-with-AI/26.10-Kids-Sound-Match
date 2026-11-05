@@ -5,6 +5,11 @@ import { activeGroup, groupPlayable, pickPatch } from '../../settings/quickPick'
 import type { Settings } from '../../settings/settings';
 import {
   ActionsIcon,
+  FeelIcon,
+  MoonIcon,
+  OppositesIcon,
+  PuzzleIcon,
+  ShapesIcon,
   BigIcon,
   BookIcon,
   BubblesIcon,
@@ -43,7 +48,7 @@ export interface PickerOptions {
 }
 
 /** Games that play the chosen pack; the others bring their own pictures. */
-const USES_PACK: readonly KidKind[] = ['game', 'turns', 'talk', 'book', 'big', 'missing', 'bubbles', 'peekaboo', 'explore', 'memory'];
+const USES_PACK: readonly KidKind[] = ['game', 'turns', 'talk', 'book', 'bedtime', 'puzzle', 'big', 'missing', 'bubbles', 'peekaboo', 'explore', 'memory'];
 
 /** Four squares: "choose". */
 function PickIcon() {
@@ -130,6 +135,11 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
     { id: 'bubbles', label: t('bubblesGame'), icon: <BubblesIcon /> },
     { id: 'tidy', label: t('tidyGame'), icon: <TidyIcon /> },
     { id: 'sing', label: t('singGame'), icon: <SingIcon /> },
+    { id: 'feel', label: t('feelGame'), icon: <FeelIcon /> },
+    { id: 'puzzle', label: t('puzzleGame'), icon: <PuzzleIcon /> },
+    { id: 'shapes', label: t('shapesGame'), icon: <ShapesIcon /> },
+    { id: 'opposites', label: t('oppositesGame'), icon: <OppositesIcon /> },
+    { id: 'bedtime', label: t('bedtimeGame'), icon: <MoonIcon /> },
     { id: 'memory', label: t('memoryGame'), icon: <MemoryIcon /> },
     { id: 'odd', label: t('oddOneOut'), icon: <OddIcon /> },
   ];

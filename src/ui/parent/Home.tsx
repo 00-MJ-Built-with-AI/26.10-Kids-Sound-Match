@@ -18,6 +18,12 @@ import {
   SingIcon,
   SoundsIcon,
   TidyIcon,
+  FeelIcon,
+  PlayIcon,
+  MoonIcon,
+  PuzzleIcon,
+  ShapesIcon,
+  OppositesIcon,
   CareIcon,
   DayIcon,
   ExploreIcon,
@@ -69,6 +75,7 @@ export function Home({
   canSing,
   canTidy,
   onGame,
+  plan,
   onOpen,
   onNudgeAccept,
   onNudgeDismiss,
@@ -115,6 +122,8 @@ export function Home({
   canTidy: boolean;
   /** The newer games, by kind. */
   onGame: (kind: KidKind) => void;
+  /** Today's play: three games, and whether each was played today. */
+  plan: { kind: KidKind; done: boolean }[];
   onOpen: (link: HomeLink) => void;
   onNudgeAccept: (to: ChoiceCount) => void;
   onNudgeDismiss: (nudge: NextLevel) => void;
@@ -160,7 +169,9 @@ export function Home({
     { id: 'point', icon: <PointIcon />, label: t('pointGame'), sub: t('pointSub'), on: onPoint, ok: canPoint },
     { id: 'actions', icon: <ActionsIcon />, label: t('actionsGame'), sub: t('actionsSub'), on: onActions, ok: canActions },
     { id: 'hunt', icon: <HuntIcon />, label: t('huntGame'), sub: t('huntSub'), on: () => onGame('hunt'), ok: canHunt },
+    { id: 'feel', icon: <FeelIcon />, label: t('feelGame'), sub: t('feelSub'), on: () => onGame('feel'), ok: true },
     { id: 'book', icon: <BookIcon />, label: t('bookGame'), sub: t('bookSub'), on: onBook, ok: canExplore },
+    { id: 'bedtime', icon: <MoonIcon />, label: t('bedtimeGame'), sub: t('bedtimeSub'), on: () => onGame('bedtime'), ok: canExplore },
     { id: 'turns', icon: <TurnsIcon />, label: t('turnsGame'), sub: t('turnsSub'), on: onTurns, ok: canStart },
     { id: 'routine', icon: <DayIcon />, label: t('routineTitle'), sub: t('routineSub'), on: onRoutine, ok: canRoutine },
   ];
@@ -169,7 +180,10 @@ export function Home({
     { id: 'bubbles', icon: <BubblesIcon />, label: t('bubblesGame'), sub: t('bubblesSub'), on: () => onGame('bubbles'), ok: canExplore },
     { id: 'care', icon: <CareIcon />, label: t('careGame'), sub: t('careSub'), on: onCare, ok: canCare },
     { id: 'explore', icon: <ExploreIcon />, label: t('explore'), sub: t('exploreSub'), on: onExplore, ok: canExplore },
+    { id: 'puzzle', icon: <PuzzleIcon />, label: t('puzzleGame'), sub: t('puzzleSub'), on: () => onGame('puzzle'), ok: canExplore },
+    { id: 'shapes', icon: <ShapesIcon />, label: t('shapesGame'), sub: t('shapesSub'), on: () => onGame('shapes'), ok: true },
     { id: 'big', icon: <BigIcon />, label: t('bigGame'), sub: t('bigSub'), on: () => onGame('big'), ok: canExplore },
+    { id: 'opposites', icon: <OppositesIcon />, label: t('oppositesGame'), sub: t('oppositesSub'), on: () => onGame('opposites'), ok: true },
     { id: 'count', icon: <CountIcon />, label: t('countGame'), sub: t('countSub'), on: () => onGame('count'), ok: canSounds },
     { id: 'missing', icon: <MissingIcon />, label: t('missingGame'), sub: t('missingSub'), on: () => onGame('missing'), ok: canStart },
     { id: 'tidy', icon: <TidyIcon />, label: t('tidyGame'), sub: t('tidySub'), on: () => onGame('tidy'), ok: canTidy },
@@ -196,6 +210,30 @@ export function Home({
       <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
         {t('start')}
       </button>
+      {/* Today's play: three games for today, ticked once played. */}
+      {plan.length > 0 && (
+        <section className="card plan-card">
+          <h2>☀️ {t('planTitle')}</h2>
+          <p className="hint">{t('planHint')}</p>
+          <div className="plan-row">
+            {plan.map(({ kind, done }) => {
+              const tile = [
+                ...together,
+                ...hers,
+                { id: 'game', icon: <PlayIcon />, label: t('matchGame'), sub: '', on: onStart, ok: canStart },
+              ].find((x) => x.id === kind);
+              if (!tile) return null;
+              return (
+                <button type="button" key={kind} className={`plan-tile tile-${kind}${done ? ' done' : ''}`} onClick={tile.on} disabled={!tile.ok}>
+                  {tile.icon}
+                  <strong>{tile.label}</strong>
+                  {done && <span className="plan-done">✓ {t('planDone')}</span>}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
       {/* Games played together (the parent ticks), then the ones she plays herself. */}
       {[
         { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },

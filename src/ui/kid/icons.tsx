@@ -240,3 +240,49 @@ export function SingIcon() {
     </svg>
   );
 }
+
+export function FeelIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" {...ICON} />
+      <circle cx="9" cy="10" r="1.2" fill="currentColor" />
+      <circle cx="15" cy="10" r="1.2" fill="currentColor" />
+      <path d="M8.5 14.5c1 1.5 2 2 3.5 2s2.5-.5 3.5-2" {...ICON} />
+    </svg>
+  );
+}
+
+export function MoonIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" {...ICON} />
+      <path d="M17 4.5l.6 1.3 1.4.2-1 1 .2 1.4-1.2-.7-1.2.7.2-1.4-1-1 1.4-.2z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function PuzzleIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 4h6v2a2 2 0 1 0 4 0V4h6v6h-2a2 2 0 1 0 0 4h2v6h-6v-2a2 2 0 1 0-4 0v2H4z" {...ICON} />
+    </svg>
+  );
+}
+
+export function ShapesIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="7" cy="7" r="4" {...ICON} />
+      <rect x="13" y="3" width="8" height="8" rx="1" {...ICON} />
+      <path d="M12 13l5 8H7z" {...ICON} />
+    </svg>
+  );
+}
+
+export function OppositesIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 20V5M6 5l-3 3M6 5l3 3M18 4v15M18 19l-3-3M18 19l3-3" {...ICON} />
+    </svg>
+  );
+}

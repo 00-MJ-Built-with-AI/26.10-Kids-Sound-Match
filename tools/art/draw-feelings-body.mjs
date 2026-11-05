@@ -128,7 +128,7 @@ const feelings = {
       // an empty cup, upside down
       P('M210 252 L238 252 L234 284 L214 284 Z', '#fff', 3.5) +
       `<g class="sweat">${drop(118, 118, 0.8)}</g>`,
-    CSS.sun + CSS.sweat + CSS.rumble,
+    CSS.sun + CSS.rumble,
   ],
   tired: [
     tile('#E6F3E2') + R(4, 330, 392, 66, 0, '#BFE0A8', 0) +

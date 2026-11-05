@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { startRecording, type ActiveRecording } from '../../custom/recorder';
+import { recentWords, voiceId, voiceStore, type VoiceClip } from '../../settings/herVoice';
 import type { LoadedItem, LoadedPack } from '../../content/types';
 import { blobUrl } from '../../custom/toLoaded';
 import { useI18n } from '../../i18n/I18n';
@@ -72,6 +74,78 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
   }, []);
   useEffect(() => setMarks(loadWordMarks(child.id)), [child.id]);
 
+  // Her voice book: her own recordings of her words.
+  const [voices, setVoices] = useState<Map<string, VoiceClip>>(new Map());
+  const [recordingWord, setRecordingWord] = useState<string | null>(null);
+  const [playingWord, setPlayingWord] = useState<string | null>(null);
+  const [voiceProblem, setVoiceProblem] = useState(false);
+  const rec = useRef<{ word: string; active: ActiveRecording; timer: number } | null>(null);
+  const player = useRef<HTMLAudioElement | null>(null);
+  const stopBook = useRef(false);
+  const loadVoices = () => voiceStore.all(child.id).then((all) => setVoices(new Map(all.map((c) => [c.word, c]))));
+  useEffect(() => {
+    void loadVoices();
+    return () => {
+      rec.current?.active.cancel();
+      player.current?.pause();
+    };
+  }, [child.id]);
+
+  const play = (word: string) =>
+    new Promise<void>((resolve) => {
+      const clip = voices.get(word);
+      if (!clip) return resolve();
+      player.current?.pause();
+      const a = new Audio(URL.createObjectURL(clip.blob));
+      player.current = a;
+      setPlayingWord(word);
+      const done = () => {
+        URL.revokeObjectURL(a.src);
+        setPlayingWord((w) => (w === word ? null : w));
+        resolve();
+      };
+      a.onended = done;
+      a.onerror = done;
+      void a.play().catch(done);
+    });
+  /** Plays her whole voice book, oldest first. */
+  const playBook = async () => {
+    stopBook.current = false;
+    const list = [...voices.values()].sort((x, y) => x.at - y.at);
+    for (const c of list) {
+      if (stopBook.current) break;
+      await play(c.word);
+      await new Promise((r) => window.setTimeout(r, 400));
+    }
+  };
+  const finishRecording = async () => {
+    const r = rec.current;
+    if (!r) return;
+    rec.current = null;
+    window.clearTimeout(r.timer);
+    setRecordingWord(null);
+    const blob = await r.active.stop();
+    if (blob.size < 200) return;
+    await voiceStore.put({ id: voiceId(child.id, r.word), profileId: child.id, word: r.word, blob, at: Date.now() });
+    await loadVoices();
+  };
+  const record = async (word: string) => {
+    if (rec.current) {
+      await finishRecording();
+      return;
+    }
+    player.current?.pause();
+    try {
+      const active = await startRecording();
+      // A word is short: stop by itself after 4 seconds.
+      rec.current = { word, active, timer: window.setTimeout(() => void finishRecording(), 4000) };
+      setVoiceProblem(false);
+      setRecordingWord(word);
+    } catch {
+      setVoiceProblem(true);
+    }
+  };
+
   const change = (next: WordMarks) => {
     saveWordMarks(child.id, next);
     setMarks(next);
@@ -113,21 +187,33 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
     return q ? all.filter((w) => w.item.name.ar.includes(q) || w.item.name.en.toLocaleLowerCase().includes(q)) : all;
   }, [lookup, search]);
 
-  const prepareShare = async () => {
-    const tiles = words.slice(0, SHARE_TILES).map((w) => ({ picture: w.picture, name: w.item.name[lang], says: w.says !== undefined }));
+  /** This week's card: only the words she understood, said or recorded in the last 7 days. */
+  const thisWeek = useMemo(() => {
+    const at = (w: ShownWord) => Math.max(w.since ?? 0, w.says ?? 0, voices.get(w.id)?.at ?? 0);
+    return recentWords(words.map((w) => ({ w, at: at(w) })), 7).map((x) => x.w);
+  }, [words, voices]);
+  const prepareShare = async (week = false) => {
+    const list = week ? thisWeek : words;
+    const tiles = list.slice(0, SHARE_TILES).map((w) => ({ picture: w.picture, name: w.item.name[lang], says: w.says !== undefined }));
     const blob = await renderWordsImage({
       rtl: lang === 'ar',
-      title: t('wordsTitle'),
+      title: week ? t('weekTitle') : t('wordsTitle'),
       subtitle: new Date().toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
       avatar: { animal: child.animal, color: child.color },
-      stats: [
-        { value: String(understood), label: t('wordsUnderstands') },
-        { value: String(says), label: t('wordsSays') },
-      ],
+      stats: week
+        ? [
+            { value: String(thisWeek.length), label: t('weekNew') },
+            { value: String(understood), label: t('wordsUnderstands') },
+            { value: String(says), label: t('wordsSays') },
+          ]
+        : [
+            { value: String(understood), label: t('wordsUnderstands') },
+            { value: String(says), label: t('wordsSays') },
+          ],
       tiles,
-      more: words.length > SHARE_TILES ? t('wordsMore', { n: words.length - SHARE_TILES }) : null,
+      more: list.length > SHARE_TILES ? t('wordsMore', { n: list.length - SHARE_TILES }) : null,
       extraTitle: t('wordsExtraTitle'),
-      extra: marks.extra.map((e) => e.text),
+      extra: (week ? recentWords(marks.extra, 7) : marks.extra).map((e) => e.text),
       footer: t('shareFooter'),
     });
     setShareProblem(false);
@@ -191,6 +277,21 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
               >
                 🗣️ {w.says !== undefined ? t('wordsSaysOn', { d: date(w.says) }) : t('wordsSaysIt')}
               </button>
+              <span className="voice-row">
+                <button
+                  type="button"
+                  className={recordingWord === w.id ? 'voice-btn rec' : 'voice-btn'}
+                  aria-label={recordingWord === w.id ? t('voiceStop') : t('voiceRecord')}
+                  onClick={() => void record(w.id)}
+                >
+                  {recordingWord === w.id ? '⏹' : '🎙️'}
+                </button>
+                {voices.has(w.id) && (
+                  <button type="button" className={playingWord === w.id ? 'voice-btn on' : 'voice-btn'} aria-label={t('voicePlay')} onClick={() => void play(w.id)}>
+                    ▶
+                  </button>
+                )}
+              </span>
             </li>
           ))}
         </ul>
@@ -235,11 +336,41 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
         </form>
       </section>
 
+      <section className="card voice-book">
+        <h2>🎙️ {t('voiceTitle')}</h2>
+        <p className="hint">{t('voiceHint')}</p>
+        {voiceProblem && <p className="note">{t('voiceProblem')}</p>}
+        <p>
+          <strong>{t('voiceCount', { n: voices.size })}</strong>
+        </p>
+        {voices.size > 0 && (
+          <div className="stack">
+            <button type="button" className="btn primary wide" onClick={() => void playBook()}>
+              ▶ {t('voicePlayAll')}
+            </button>
+            <button
+              type="button"
+              className="btn ghost wide"
+              onClick={() => {
+                stopBook.current = true;
+                player.current?.pause();
+                setPlayingWord(null);
+              }}
+            >
+              ⏹ {t('voiceStopAll')}
+            </button>
+          </div>
+        )}
+      </section>
+
       <div className="stack">
+        <button type="button" className="btn primary wide" onClick={() => void prepareShare(true)} disabled={!thisWeek.length}>
+          📅 {t('weekShare', { n: thisWeek.length })}
+        </button>
         <button type="button" className="btn wide" onClick={() => setPicking(true)}>
           🗣️ {t('wordsMarkSaid')}
         </button>
-        <button type="button" className="btn primary wide" onClick={() => void prepareShare()} disabled={!words.length && !marks.extra.length}>
+        <button type="button" className="btn primary wide" onClick={() => void prepareShare(false)} disabled={!words.length && !marks.extra.length}>
           📤 {t('wordsShare')}
         </button>
         <button type="button" className="btn wide" onClick={() => window.print()} disabled={!words.length}>

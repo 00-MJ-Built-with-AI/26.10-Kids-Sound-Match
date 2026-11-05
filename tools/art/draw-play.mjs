@@ -494,9 +494,104 @@ Object.assign(POSES, {
   book: { l: [[156, 192], [140, 236], [150, 262]], r: [[244, 192], [260, 236], [250, 262]] },
 });
 
+/* ------------------------------------------------------------ Opposites */
+function opposites() {
+  const card = (bg, body, css = '') => file(tile(bg) + body, css);
+  const cup = (fill) =>
+    P('M120 140 L280 140 L262 330 Q258 350 238 350 L162 350 Q142 350 138 330 Z', '#fff') +
+    (fill ? P('M128 196 L272 196 L262 330 Q258 350 238 350 L162 350 Q142 350 138 330 Z', '#5DB7F5', 0) + E(200, 196, 72, 10, '#9CD8FF', 0) : '') +
+    P('M120 140 L280 140 L262 330 Q258 350 238 350 L162 350 Q142 350 138 330 Z', 'none') + L('M280 180 q50 10 30 70 q-10 30 -40 30', INK, 6);
+  const box = (open) =>
+    R(90, 200, 220, 150, 16, '#C98E5A') + R(90, 200, 220, 36, 10, '#B47A48', 0) + R(90, 200, 220, 150, 16, 'none') +
+    (open
+      ? P('M90 200 L60 110 L250 90 L310 200 Z', '#E2AE7A') + `<g class="pop">${sparkle(200, 150, 1.2) + C(160, 170, 14, '#F05A8C') + C(240, 166, 12, '#7ED0B5')}</g>`
+      : R(80, 176, 240, 34, 12, '#E2AE7A'));
+  return {
+    hot: card(
+      '#FFE9DC',
+      `<g class="steam">${L('M170 140 q-14 -18 0 -36 q14 -18 0 -36', '#E0906E', 7)}</g><g class="steam b">${L('M230 140 q-14 -18 0 -36 q14 -18 0 -36', '#E0906E', 7)}</g>` +
+        P('M110 170 L290 170 L272 320 Q268 350 238 350 L162 350 Q132 350 128 320 Z', '#F05A8C') + L('M290 210 q50 10 30 70 q-10 30 -40 30', INK, 6) + E(200, 170, 90, 14, '#8A4B2E'),
+      M.steam,
+    ),
+    cold: card(
+      '#E2F0FB',
+      P('M150 210 L250 210 L200 360 Z', '#E7B06C') + L('M168 240 L222 300 M176 270 L214 230', '#C98E48', 4) +
+        C(200, 176, 56, '#BFE6FF') + C(170, 150, 30, '#BFE6FF') + C(232, 150, 30, '#BFE6FF') + C(186, 140, 8, '#fff', 0, ' opacity="0.8"') +
+        [[70, 80], [330, 90], [60, 260], [340, 250]].map(([x, y]) => L(`M${x - 12} ${y} H${x + 12} M${x} ${y - 12} V${y + 12} M${x - 8} ${y - 8} L${x + 8} ${y + 8} M${x + 8} ${y - 8} L${x - 8} ${y + 8}`, '#9CC9F2', 4)).join(''),
+      '',
+    ),
+    open: card(
+      '#FFF4CC',
+      box(true),
+      `.pop { animation: popUp 1.4s ease-in-out infinite alternate; }
+    @keyframes popUp { from { transform: translateY(10px) } to { transform: translateY(-10px) } }`,
+    ),
+    closed: card('#EEF1F6', box(false) + R(180, 186, 40, 22, 6, '#F7D046'), ''),
+    up: card(
+      '#E3F2FF',
+      `<g class="floatUp">${E(200, 110, 56, 66, '#F05A8C') + P('M194 176 l6 12 l6 -12 Z', '#F05A8C', 3) + E(182, 90, 12, 20, '#fff', 0, ' opacity="0.6"') + L('M200 188 Q190 240 206 290', INK, 3)}</g>` +
+        L('M120 330 V250 M120 250 l-18 18 M120 250 l18 18', '#5B8DEF', 10),
+      `.floatUp { animation: floatUp 2.4s ease-in-out infinite alternate; }
+    @keyframes floatUp { from { transform: translateY(14px) } to { transform: translateY(-8px) } }`,
+    ),
+    down: card(
+      '#EAF6EC',
+      R(4, 330, 392, 66, 0, '#BFE0A8', 0) + `<g class="bounceDown">${C(200, 290, 44, '#fff') + P('M200 268 l18 13 l-7 21 h-22 l-7 -21 Z', INK, 0) + L('M200 246 V268 M162 286 L182 282 M238 286 L218 282', INK, 3)}</g>` +
+        L('M300 90 V170 M300 170 l-18 -18 M300 170 l18 -18', '#3E8E41', 10),
+      `.bounceDown { animation: bounceDown 1s ease-in infinite alternate; }
+    @keyframes bounceDown { from { transform: translateY(-16px) } to { transform: translateY(0) } }`,
+    ),
+    full: card('#E2F4FB', cup(true), ''),
+    empty: card('#F3F3F7', cup(false), ''),
+    day: card(
+      '#FFF4CC',
+      `<g class="sun">${C(200, 170, 70, '#FFC531', 0) + [0, 45, 90, 135, 180, 225, 270, 315].map((d) => { const a = (d * Math.PI) / 180; return L(`M${200 + 90 * Math.cos(a)} ${170 + 90 * Math.sin(a)} L${200 + 118 * Math.cos(a)} ${170 + 118 * Math.sin(a)}`, '#FFC531', 10); }).join('')}</g>` +
+        R(4, 320, 392, 76, 0, '#BFE0A8', 0),
+      `.sun { animation: spin 14s linear infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes spin { to { transform: rotate(360deg) } }`,
+    ),
+    night: card(
+      '#2E3560',
+      P('M236 90 a90 90 0 1 0 54 160 a70 70 0 1 1 -54 -160 Z', '#FFE08A', 0) +
+        `<g class="twinkle">${sparkle(90, 90, 0.9, '#fff') + sparkle(320, 300, 0.7, '#fff')}</g><g class="twinkle b">${sparkle(110, 300, 0.6, '#fff') + sparkle(330, 80, 0.5, '#fff')}</g>`,
+      `.twinkle { animation: twinkle 1.6s ease-in-out infinite; }
+    .twinkle.b { animation-delay: .8s; }
+    @keyframes twinkle { 0%,100% { opacity: 1 } 50% { opacity: .3 } }`,
+    ),
+  };
+}
+
+/* ------------------------------------------------------------ Arabic letters */
+export const LETTERS = [
+  ['alif', 'أ', 'أرنب', 'rabbit', '🐰'], ['ba', 'ب', 'بطة', 'duck', '🦆'], ['ta', 'ت', 'تفاحة', 'apple', '🍎'],
+  ['tha', 'ث', 'ثعلب', 'fox', '🦊'], ['jim', 'ج', 'جمل', 'camel', '🐫'], ['ha', 'ح', 'حصان', 'horse', '🐴'],
+  ['kha', 'خ', 'خروف', 'sheep', '🐑'], ['dal', 'د', 'دب', 'bear', '🐻'], ['dhal', 'ذ', 'ذرة', 'corn', '🌽'],
+  ['ra', 'ر', 'رمان', 'pomegranate', '🍎'], ['zay', 'ز', 'زرافة', 'giraffe', '🦒'], ['sin', 'س', 'سمكة', 'fish', '🐟'],
+  ['shin', 'ش', 'شمس', 'sun', '☀️'], ['sad', 'ص', 'صوص', 'chick', '🐥'], ['dad', 'ض', 'ضفدع', 'frog', '🐸'],
+  ['taa', 'ط', 'طابة', 'ball', '⚽'], ['zaa', 'ظ', 'ظرف', 'envelope', '✉️'], ['ain', 'ع', 'عصفور', 'bird', '🐦'],
+  ['ghain', 'غ', 'غيمة', 'cloud', '☁️'], ['fa', 'ف', 'فيل', 'elephant', '🐘'], ['qaf', 'ق', 'قطة', 'cat', '🐱'],
+  ['kaf', 'ك', 'كلب', 'dog', '🐶'], ['lam', 'ل', 'ليمون', 'lemon', '🍋'], ['mim', 'م', 'موز', 'banana', '🍌'],
+  ['nun', 'ن', 'نحلة', 'bee', '🐝'], ['haa', 'هـ', 'هدية', 'present', '🎁'], ['waw', 'و', 'وردة', 'rose', '🌹'],
+  ['ya', 'ي', 'يد', 'hand', '✋'],
+];
+const LETTER_COLOURS = ['#F05A8C', '#5B8DEF', '#E07A2E', '#3C9D4C', '#8A5CD6', '#138A9C', '#D0563B'];
+function letters() {
+  const out = {};
+  LETTERS.forEach(([key, letter, , , emoji], i) => {
+    const c = LETTER_COLOURS[i % LETTER_COLOURS.length];
+    out[`letter_${key}`] = file(
+      tile('#FFFDF8') +
+        `<text x="200" y="250" text-anchor="middle" font-family="'Noto Naskh Arabic','Noto Sans Arabic','Geeza Pro',Tahoma,sans-serif" font-size="230" font-weight="700" fill="${c}" stroke="#fff" stroke-width="10" paint-order="stroke">${letter}</text>` +
+        `<text x="320" y="360" text-anchor="middle" font-family="'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif" font-size="74">${emoji}</text>`,
+      '',
+    );
+  });
+  return out;
+}
+
 /* ------------------------------------------------------------ write */
 let n = 0;
-for (const [pack, set] of [['actions', actions()], ['care', care()], ['routine', routine()]]) {
+for (const [pack, set] of [['actions', actions()], ['care', care()], ['routine', routine()], ['opposites', opposites()], ['letters', letters()]]) {
   for (const [key, svg] of Object.entries(set)) {
     write(pack, key, svg);
     n++;

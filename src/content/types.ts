@@ -96,6 +96,9 @@ export const FEEDBACK_LINE_IDS = [
   'tidy',
   // Pop the bubbles: the pop itself (a sound, not words)
   'pop',
+  // How do you feel? (to a girl / a boy in Arabic)
+  'feel_f',
+  'feel_m',
 ] as const;
 export type FeedbackLineId = (typeof FEEDBACK_LINE_IDS)[number];
 

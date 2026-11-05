@@ -46,6 +46,18 @@
         "song_farm_3",
         "song_farm_4"
       ]
+    },
+    {
+      "id": "lullaby",
+      "name": {
+        "en": "Twinkle, twinkle (lullaby)",
+        "ar": "نجمة صغيرة (تهويدة)"
+      },
+      "items": [
+        "song_lullaby_1",
+        "song_lullaby_2",
+        "song_lullaby_3"
+      ]
     }
   ],
   "items": [
@@ -284,6 +296,84 @@
         "ar_m": {
           "text": "قطة!",
           "audio": "songs/song_farm_4_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_lullaby_1",
+      "name": {
+        "en": "Twinkle, twinkle, little…",
+        "ar": "نجمة صغيرة بتلمع فوق بالـ…"
+      },
+      "image": "shapes/shape_star.svg",
+      "name_audio": {
+        "en": "songs/song_lullaby_1_line_en.mp3",
+        "ar": "songs/song_lullaby_1_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "star!",
+          "audio": "songs/song_lullaby_1_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "سما!",
+          "audio": "songs/song_lullaby_1_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "سما!",
+          "audio": "songs/song_lullaby_1_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_lullaby_2",
+      "name": {
+        "en": "Up above the world so high, like a diamond in the…",
+        "ar": "والقمر الحلو بيضوي بالـ…"
+      },
+      "image": "shapes/shape_moon.svg",
+      "name_audio": {
+        "en": "songs/song_lullaby_2_line_en.mp3",
+        "ar": "songs/song_lullaby_2_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "sky!",
+          "audio": "songs/song_lullaby_2_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "ليل!",
+          "audio": "songs/song_lullaby_2_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "ليل!",
+          "audio": "songs/song_lullaby_2_word_ar.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "song_lullaby_3",
+      "name": {
+        "en": "Close your eyes and go to…",
+        "ar": "سكّري عيونك، ويلّا…"
+      },
+      "image": "actions/sleep.svg",
+      "name_audio": {
+        "en": "songs/song_lullaby_3_line_en.mp3",
+        "ar": "songs/song_lullaby_3_line_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "sleep!",
+          "audio": "songs/song_lullaby_3_word_en.mp3"
+        },
+        "ar_f": {
+          "text": "نامي!",
+          "audio": "songs/song_lullaby_3_word_ar.mp3"
+        },
+        "ar_m": {
+          "text": "نامي!",
+          "audio": "songs/song_lullaby_3_word_ar.mp3"
         }
       }
     }

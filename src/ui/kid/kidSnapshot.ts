@@ -29,7 +29,12 @@ export type KidKind =
   | 'count'
   | 'bubbles'
   | 'tidy'
-  | 'sing';
+  | 'sing'
+  | 'feel'
+  | 'opposites'
+  | 'puzzle'
+  | 'shapes'
+  | 'bedtime';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {

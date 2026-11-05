@@ -538,6 +538,8 @@ function buildGameLines(packs: readonly LoadedPack[], t: ReturnType<typeof useI1
       ['where_gone_f', t('missingGame')],
       ['count', t('countGame')],
       ['tidy', t('tidyGame')],
+      ['feel_f', t('feelGame')],
+      ['feel_m', t('feelGame')],
     ] as const) {
       const l = shared[id];
       if (!l) continue;

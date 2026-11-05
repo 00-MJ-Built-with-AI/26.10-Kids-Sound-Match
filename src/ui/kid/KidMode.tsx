@@ -8,6 +8,7 @@ import { KidMemory } from './KidMemory';
 import { KidPeekaboo } from './KidPeekaboo';
 import { KidPoint } from './KidPoint';
 import { KidBubbles, KidSing, KidTidy } from './KidPlay';
+import { KidFeel, KidOpposites, KidPuzzle, KidShapes } from './KidMore';
 import { KidScene } from './KidScene';
 import { KidBig, KidCount, KidMissing } from './KidSmall';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
@@ -50,7 +51,16 @@ export function KidMode(props: Props) {
       );
     case 'scene':
       return <KidScene pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'feel':
+      return <KidFeel pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'opposites':
+      return <KidOpposites pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'puzzle':
+      return <KidPuzzle pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'shapes':
+      return <KidShapes pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'book':
+    case 'bedtime':
       return <KidBook packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'care':
       return <KidCare pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;

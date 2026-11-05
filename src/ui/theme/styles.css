@@ -5178,3 +5178,352 @@ html[data-calm] .sing-song {
     width: min(22vh, 20vw, 150px);
   }
 }
+
+/* Her voice book */
+.voice-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.voice-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  font-size: 18px;
+  line-height: 1;
+}
+.voice-btn.rec {
+  border-color: #e8304a;
+  background: #fde3e6;
+  animation: rec-pulse 1s ease-in-out infinite;
+}
+.voice-btn.on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+@keyframes rec-pulse {
+  50% { box-shadow: 0 0 0 6px rgba(232, 48, 74, 0.2); }
+}
+
+/* ---------- Today's play ---------- */
+.plan-card {
+  background: linear-gradient(180deg, #fffaf0 0%, #fff1dc 100%);
+}
+.plan-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.plan-tile {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border-radius: 20px;
+  border: 2px solid color-mix(in srgb, var(--tile, #f2894a) 25%, transparent);
+  background: linear-gradient(180deg, #fff 0%, var(--tile-soft, #fde9d6) 100%);
+  color: var(--ink);
+  font: inherit;
+  text-align: center;
+}
+.plan-tile > svg {
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--tile, #e07a2e);
+  background: #fff;
+}
+.plan-tile strong {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+.plan-tile.done {
+  opacity: 0.75;
+}
+.plan-done {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.plan-tile.tile-game { --tile: #e07a2e; --tile-soft: #fde9d6; }
+.game-tile.tile-feel, .plan-tile.tile-feel { --tile: #e0527d; --tile-soft: #fde3ec; }
+.game-tile.tile-bedtime, .plan-tile.tile-bedtime { --tile: #4b5bc4; --tile-soft: #e3e6fa; }
+.game-tile.tile-puzzle, .plan-tile.tile-puzzle { --tile: #2f78d0; --tile-soft: #e0ecfb; }
+.game-tile.tile-shapes, .plan-tile.tile-shapes { --tile: #3c9d4c; --tile-soft: #e2f4e2; }
+.game-tile.tile-opposites, .plan-tile.tile-opposites { --tile: #d0563b; --tile-soft: #fbe4dd; }
+
+/* ---------- How do you feel? ---------- */
+.feel-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: center;
+  gap: 4vw;
+  padding: 0 16px 6vh;
+}
+@media (orientation: landscape) {
+  .feel-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+.feel-face {
+  position: relative;
+  aspect-ratio: 1;
+  border: 0;
+  padding: 0;
+  border-radius: 24%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 4px rgba(255, 196, 130, 0.45), 0 10px 22px rgba(150, 95, 30, 0.16);
+  animation: card-in 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.feel-face img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  border-radius: 18%;
+  pointer-events: none;
+}
+.feel-face.on {
+  transform: scale(1.25);
+  z-index: 2;
+  box-shadow: 0 0 0 7px #ffd54a, 0 0 46px 12px rgba(255, 213, 74, 0.6);
+}
+.feel-face.off {
+  opacity: 0.3;
+}
+.feel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+.feel-list li {
+  flex: none;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 78px;
+  text-align: center;
+  font-weight: 600;
+}
+.feel-list img {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+}
+
+/* ---------- Opposites ---------- */
+.opp-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+  padding: 0 16px 6vh;
+}
+.opp-card {
+  position: relative;
+  width: min(42vw, 42vh, 320px);
+  aspect-ratio: 1;
+  border: 0;
+  padding: 0;
+  border-radius: 22%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 4px rgba(255, 196, 130, 0.45), 0 14px 28px rgba(150, 95, 30, 0.18);
+  animation: card-in 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.opp-card img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.opp-card.celebrate {
+  box-shadow: 0 0 0 7px #ffd54a, 0 0 46px 12px rgba(255, 213, 74, 0.65);
+}
+.opp-card.celebrate img {
+  animation: alive-bounce 1s ease-out;
+}
+.opp-card.nope {
+  animation: nope 0.5s ease-in-out;
+}
+
+/* ---------- Puzzles ---------- */
+.puzzle {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vh;
+  padding: 0 12px 16px;
+}
+.puzzle-board {
+  position: relative;
+  width: min(78vw, 46vh, 420px);
+  aspect-ratio: 1;
+  display: grid;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 0 6px #fff, 0 14px 30px rgba(150, 95, 30, 0.22);
+}
+.puzzle-ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  filter: grayscale(0.4);
+  pointer-events: none;
+}
+.puzzle-slot {
+  position: relative;
+  border: 2px dashed rgba(150, 110, 80, 0.35);
+}
+.puzzle-slot.filled {
+  border-color: transparent;
+  animation: card-in 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.puzzle-board.done {
+  box-shadow: 0 0 0 8px #ffd54a, 0 0 46px 12px rgba(255, 213, 74, 0.6);
+}
+.puzzle-board.done .puzzle-slot {
+  border: 0;
+}
+.puzzle-tray {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 120px;
+}
+.puzzle-piece {
+  position: absolute;
+  top: 8%;
+  width: var(--pw);
+  height: var(--ph);
+  margin-left: calc(var(--pw) / -2);
+  border: 0;
+  padding: 0;
+  border-radius: 14px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  box-shadow: 0 10px 20px rgba(150, 95, 30, 0.25), 0 0 0 4px #fff;
+  touch-action: none;
+  transition: opacity 0.3s ease;
+  animation: card-in 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.puzzle-piece.cols2.rows1 { --pw: min(28vw, 14vh, 150px); --ph: calc(var(--pw) * 2); }
+.puzzle-piece.cols3.rows1 { --pw: min(20vw, 9vh, 100px); --ph: calc(var(--pw) * 3); }
+.puzzle-piece.cols2.rows2 { --pw: min(21vw, 16vh, 140px); --ph: var(--pw); }
+.puzzle-piece.held {
+  z-index: 5;
+  transition: none;
+  box-shadow: 0 22px 34px rgba(150, 95, 30, 0.35), 0 0 0 4px #fff;
+}
+.puzzle-piece.picked {
+  box-shadow: 0 0 0 6px #ffd54a, 0 14px 24px rgba(150, 95, 30, 0.3);
+}
+.puzzle-piece.gone {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Shape sorter ---------- */
+.sorter {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5vh;
+  padding: 0 12px 16px;
+}
+.sorter-box {
+  position: relative;
+  display: flex;
+  gap: 4vw;
+  padding: 20px 24px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #ffd9a8 0%, #f7b26a 100%);
+  box-shadow: inset 0 -10px 0 rgba(150, 80, 20, 0.2), 0 16px 30px rgba(150, 95, 30, 0.25);
+  border: 5px solid #5a3b2b;
+}
+.sorter-hole {
+  position: relative;
+  width: min(20vw, 15vh, 120px);
+  aspect-ratio: 1;
+}
+.sorter-hole svg,
+.sorter-piece svg,
+.sorter-in svg {
+  width: 100%;
+  height: 100%;
+}
+.sorter-hole.hint {
+  filter: drop-shadow(0 0 10px #ffd54a) drop-shadow(0 0 6px #ffd54a);
+}
+.sorter-hole.nope {
+  animation: nope 0.5s ease-in-out;
+}
+.sorter-in {
+  position: absolute;
+  inset: 0;
+  animation: drop-in 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+@keyframes drop-in {
+  from { transform: translateY(-60px) scale(1.2); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.sorter-tray {
+  display: flex;
+  gap: 5vw;
+  justify-content: center;
+}
+.sorter-piece {
+  width: min(22vw, 16vh, 130px);
+  aspect-ratio: 1;
+  border: 0;
+  padding: 0;
+  background: none;
+  touch-action: none;
+  filter: drop-shadow(0 8px 10px rgba(90, 60, 40, 0.25));
+  animation: card-in 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  transition: opacity 0.3s ease;
+}
+.sorter-piece.held {
+  z-index: 5;
+  transition: none;
+}
+.sorter-piece.picked {
+  filter: drop-shadow(0 0 10px #ffd54a) drop-shadow(0 8px 10px rgba(90, 60, 40, 0.25));
+  animation: said 0.6s ease-out;
+}
+.sorter-piece.gone {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Bedtime's lullaby ---------- */
+.book-page.lullaby {
+  animation: book-in-next 0.8s ease-out, lullaby-sway 3s ease-in-out 0.8s infinite alternate;
+}
+@keyframes lullaby-sway {
+  from { transform: rotate(-2deg); }
+  to { transform: rotate(2deg); }
+}

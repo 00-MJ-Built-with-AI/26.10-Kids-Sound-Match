@@ -16,7 +16,7 @@ import { IdleScene } from './scenes';
 import { questionDone } from './sitting';
 import { StickerAlbum } from './Stickers';
 
-type Stage = 'paused' | 'reading' | 'idle';
+type Stage = 'paused' | 'reading' | 'lullaby' | 'idle';
 
 interface Word {
   id: string;
@@ -98,8 +98,48 @@ export function KidBook({
     if (stageRef.current !== 'reading' || gateRef.current || document.visibilityState !== 'visible') return;
     void audio.say(pageClips(p));
   };
+  // Bedtime: after the book, a lullaby (the Sing with me lullaby), then the sleepy moon.
+  const bedtime = config.kind === 'bedtime';
+  const lullaby = useMemo(() => {
+    const songs = packs.find((p) => p.id === 'songs');
+    const g = songs?.groups.find((x) => x.id === 'lullaby');
+    return { pack: songs, lines: (g?.items ?? []).map((k) => songs!.items.find((i) => i.key === k)).filter((i): i is LoadedItem => !!i) };
+  }, [packs]);
+  const lullabyPictures = useMemo(() => Object.assign({}, ...lullaby.lines.map((i) => choosePictures([i]))) as Record<string, string>, [lullaby]);
+  const [lullabyLine, setLullabyLine] = useState(0);
+  useEffect(() => {
+    if (!bedtime) return;
+    document.documentElement.setAttribute('data-calm', '');
+    return () => {
+      // Back to whatever Settings says (App sets it again on its next check).
+      document.documentElement.removeAttribute('data-calm');
+    };
+  }, []);
+  const singLullaby = async () => {
+    setStage('lullaby');
+    const r = lullaby.pack ? new ClipResolver(lullaby.pack, languages) : null;
+    if (r) {
+      for (let i = 0; i < lullaby.lines.length; i++) {
+        if (stageRef.current !== 'lullaby') return;
+        setLullabyLine(i);
+        const item = lullaby.lines[i];
+        await audio.say([r.nameIn(item, languages[0]), r.pointIn(item, languages[0], config.arGender ?? 'f')]);
+        await new Promise((res) => window.setTimeout(res, 700));
+      }
+    }
+    if (stageRef.current !== 'lullaby') return;
+    persist('idle');
+    setCanReplay(replaysLeft(config.replaysPerDay, config.profileId) > 0);
+    setStage('idle');
+  };
   const go = (p: number) => {
     const next = Math.max(0, Math.min(last + 1, p));
+    if (next > last && bedtime && lullaby.lines.length) {
+      audio.stop();
+      questionDone();
+      void singLullaby();
+      return;
+    }
     if (next > last) {
       audio.stop();
       persist('idle');
@@ -156,7 +196,7 @@ export function KidBook({
 
   return (
     <KidFrame
-      stage={stage === 'reading' ? 'book' : stage}
+      stage={stage === 'reading' || stage === 'lullaby' ? 'book' : stage}
       onGateOpen={() => {
         gateRef.current = true;
         audio.stop();
@@ -226,6 +266,18 @@ export function KidBook({
         </div>
       )}
       {stage === 'paused' && <PausedScreen label={t('resumeGame')} onResume={start} />}
+      {stage === 'lullaby' && lullaby.lines[lullabyLine] && (
+        <div className="book" dir="ltr">
+          <div className="book-sky" aria-hidden="true">
+            <span className="book-moon" />
+          </div>
+          <div className="book-page lullaby" key={lullabyLine}>
+            <span className="book-picture">
+              <img src={lullabyPictures[lullaby.lines[lullabyLine].key]} alt="" draggable={false} />
+            </span>
+          </div>
+        </div>
+      )}
       {stage === 'idle' && <IdleScene />}
       {stage === 'idle' && <EndScreen canReplay={canReplay} onPlayAgain={readAgain} onAlbum={() => setAlbumOpen(true)} picker={picker} />}
       {stage === 'idle' && albumOpen && (

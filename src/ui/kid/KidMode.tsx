@@ -7,6 +7,7 @@ import { KidStory } from './KidStory';
 import { KidPaint } from './KidPaint';
 import { KidMusic } from './KidMusic';
 import { KidHide } from './KidHide';
+import { KidSleep } from './KidSleep';
 import { KidCare } from './KidCare';
 import { KidExplore } from './KidExplore';
 import { KidGame } from './KidGame';
@@ -92,6 +93,8 @@ export function KidMode(props: Props) {
       return <KidMusic pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'hide':
       return <KidHide pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'sleep':
+      return <KidSleep config={config} onExit={onExit} />;
     case 'story':
       return <KidStory pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'bubbles':

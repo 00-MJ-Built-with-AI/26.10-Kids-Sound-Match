@@ -24,6 +24,8 @@ export const GAMES: Record<string, GameInfo> = {
   music: { label: 'musicGame', sub: 'musicSub', picture: 'tiles/music.svg' },
   hide: { label: 'hideGame', sub: 'hideSub', picture: 'tiles/hide.svg' },
   story: { label: 'storyGame', sub: 'storySub', picture: 'animals/rabbit.svg' },
+  sleep: { label: 'sleepGame', sub: 'sleepSub', picture: 'tiles/sleep.svg' },
+  potty: { label: 'pottyTitle', sub: 'pottySub', picture: 'tiles/potty.svg' },
   bedtime: { label: 'bedtimeGame', sub: 'bedtimeSub', picture: 'feelings/sleepy.svg' },
   turns: { label: 'turnsGame', sub: 'turnsSub', picture: 'family/friend.svg' },
   routine: { label: 'routineTitle', sub: 'routineSub', picture: 'routine/wake_up.svg' },

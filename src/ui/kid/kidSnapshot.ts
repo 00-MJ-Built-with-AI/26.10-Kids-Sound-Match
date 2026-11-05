@@ -38,7 +38,8 @@ export type KidKind =
   | 'story'
   | 'paint'
   | 'music'
-  | 'hide';
+  | 'hide'
+  | 'sleep';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {
@@ -70,6 +71,8 @@ export interface KidConfig {
   cardNames?: boolean;
   /** Taking turns: the child's animal and colour, shown on her turns. */
   avatar?: { animal: string; color: string; picture?: string };
+  /** The sleep light (and Bedtime, when the light follows it): its sound and how long it stays on. */
+  sleep?: { sound: 'rain' | 'waves' | 'lullaby' | 'none'; minutes: number };
 }
 
 /**

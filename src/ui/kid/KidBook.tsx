@@ -15,8 +15,9 @@ import { choosePictures } from './layout';
 import { IdleScene } from './scenes';
 import { questionDone } from './sitting';
 import { StickerAlbum } from './Stickers';
+import { SleepScene } from './KidSleep';
 
-type Stage = 'paused' | 'reading' | 'lullaby' | 'idle';
+type Stage = 'paused' | 'reading' | 'lullaby' | 'idle' | 'sleepLight';
 
 interface Word {
   id: string;
@@ -130,7 +131,8 @@ export function KidBook({
     if (stageRef.current !== 'lullaby') return;
     persist('idle');
     setCanReplay(replaysLeft(config.replaysPerDay, config.profileId) > 0);
-    setStage('idle');
+    // The sleep light follows, when the parent chose it (Home → Sleep light → After Bedtime too).
+    setStage(config.sleep ? 'sleepLight' : 'idle');
   };
   const go = (p: number) => {
     const next = Math.max(0, Math.min(last + 1, p));
@@ -196,7 +198,7 @@ export function KidBook({
 
   return (
     <KidFrame
-      stage={stage === 'reading' || stage === 'lullaby' ? 'book' : stage}
+      stage={stage === 'reading' || stage === 'lullaby' ? 'book' : stage === 'sleepLight' ? 'sleep' : stage}
       onGateOpen={() => {
         gateRef.current = true;
         audio.stop();
@@ -282,6 +284,7 @@ export function KidBook({
           </div>
         </div>
       )}
+      {stage === 'sleepLight' && config.sleep && <SleepScene sound={config.sleep.sound} minutes={config.sleep.minutes} />}
       {stage === 'idle' && <IdleScene />}
       {stage === 'idle' && <EndScreen canReplay={canReplay} onPlayAgain={readAgain} onAlbum={() => setAlbumOpen(true)} picker={picker} />}
       {stage === 'idle' && albumOpen && (

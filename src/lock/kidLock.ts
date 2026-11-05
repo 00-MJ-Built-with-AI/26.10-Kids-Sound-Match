@@ -16,6 +16,7 @@ export function engageKidLock(): () => void {
 
   const wakeLock = new WakeLockKeeper();
   wakeLock.acquire();
+  current = wakeLock;
   document.documentElement.classList.add('kid-locked');
 
   return () => {
@@ -23,8 +24,16 @@ export function engageKidLock(): () => void {
     window.removeEventListener('popstate', onPopState);
     if ((history.state as { ksmKid?: boolean } | null)?.ksmKid) history.back();
     wakeLock.release();
+    if (current === wakeLock) current = null;
     document.documentElement.classList.remove('kid-locked');
   };
+}
+
+let current: WakeLockKeeper | null = null;
+
+/** The sleep light has finished: let the phone turn its screen off as usual. */
+export function letScreenSleep(): void {
+  current?.release();
 }
 
 /** Keeps the screen on during a session. Browsers drop the lock when the tab is hidden, so re-take it. */

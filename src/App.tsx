@@ -41,6 +41,7 @@ import { forgetFavourites, loadFavourites, saveFavourites } from './settings/fav
 import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
 import { forgetPlayLog, logPlay } from './settings/playLog';
 import { today } from './settings/routine';
+import { loadSleepPrefs, saveSleepPrefs, type SleepPrefs } from './settings/sleepLight';
 import { currentSeason, loadSeasonPref, markCelebrated, saveSeasonPref, shouldCelebrate, type SeasonPref } from './settings/season';
 import { forgetWordMarks, loadWordMarks } from './settings/words';
 import {
@@ -330,6 +331,7 @@ function Shell({
   const [celebrate, setCelebrate] = useState(() => season === 'eid' && shouldCelebrate(today()));
   /** A game started with other settings than the parent's (the Ramadan and Eid words on Home). */
   const nextSettings = useRef<Settings | null>(null);
+  const [sleepPrefs, setSleepPrefs] = useState<SleepPrefs>(loadSleepPrefs);
   const [favourites, setFavourites] = useState<string[]>(() => loadFavourites(profileId));
   useEffect(() => setFavourites(loadFavourites(profileId)), [profileId]);
 
@@ -511,6 +513,8 @@ function Shell({
                                 ? colorsPack
                                 : kind === 'hide'
                                   ? hidePack
+                                  : kind === 'sleep'
+                                    ? (songsPack ?? playablePacks[0])
                       : kind === 'tidy'
                         ? toysPack
                         : (playablePacks.find((p) => p.id === s.packId) ?? playablePacks[0]);
@@ -546,7 +550,8 @@ function Shell({
     }
     markPlayed(profileId, kind);
     endPlay();
-    playing.current = { kind, profileId, start: Date.now() };
+    // The sleep light isn't play time.
+    playing.current = kind === 'sleep' ? null : { kind, profileId, start: Date.now() };
     // The first game from Home starts the sitting; play-agains and the end screen's picker continue it.
     if (sittingStart.current === null) sittingStart.current = Date.now();
     setKid({
@@ -589,6 +594,9 @@ function Shell({
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
         ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
+        ...(kind === 'sleep' || (kind === 'bedtime' && sleepPrefs.afterBedtime)
+          ? { sleep: { sound: sleepPrefs.sound, minutes: sleepPrefs.minutes } }
+          : {}),
         ...((kind === 'turns' || kind === 'book' || kind === 'bedtime' || kind === 'story') && profile ? { avatar: { animal: profile.animal, color: profile.color, picture: characterUrl(profile) } } : {}),
         language: s.language,
         repeatIntervalSec: s.repeatIntervalSec,
@@ -806,7 +814,7 @@ function Shell({
           })
         : [];
       body = kid && (
-        <SittingContext.Provider value={{ restAt: restTime(sittingStart.current, settings.playMinutes), restClips, startedAt: sittingStart.current }}>
+        <SittingContext.Provider value={{ restAt: kid?.config.kind === 'sleep' ? null : restTime(sittingStart.current, settings.playMinutes), restClips, startedAt: sittingStart.current }}>
         <KidMode
           key={kid.run}
           pack={kid.pack}
@@ -866,6 +874,12 @@ function Shell({
           canHide={canHide}
           onGame={playGame}
           plan={todayPlan}
+          sleepPrefs={sleepPrefs}
+          onSleep={(prefs) => {
+            saveSleepPrefs(prefs);
+            setSleepPrefs(prefs);
+            begin('sleep');
+          }}
           season={season}
           onSeasonPlay={
             playablePacks.some((p) => p.id === 'eid')

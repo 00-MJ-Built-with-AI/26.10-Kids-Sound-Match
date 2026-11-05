@@ -7158,3 +7158,83 @@ html[data-calm][data-season] .kid::after {
 @media (prefers-reduced-motion: reduce) {
   .hide-ears, .xylo-bar.glow .xylo-face { animation: none; }
 }
+
+/* ---------- Sleep light ---------- */
+.kid.stage-sleep {
+  background: radial-gradient(circle at 50% 42%, #3a3f78 0%, #22264a 60%, #14162e 100%);
+}
+.kid.stage-sleep::before,
+.kid.stage-sleep::after {
+  display: none;
+}
+.sleep-light {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.sleep-star {
+  position: absolute;
+  color: #fff6c9;
+  opacity: 0.8;
+  animation: twinkle 4s ease-in-out infinite;
+}
+.sleep-moon {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(62vw, 46vh, 360px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+.sleep-glow {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 233, 168, 0.55) 0%, rgba(255, 233, 168, 0.18) 45%, transparent 70%);
+  animation: sleep-breathe 6s ease-in-out infinite;
+}
+@keyframes sleep-breathe {
+  0%, 100% { transform: scale(0.92); opacity: 0.75; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.sleep-moon-face svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 30px rgba(255, 233, 168, 0.6));
+}
+.sleep-bunny {
+  position: absolute;
+  right: -12%;
+  bottom: -18%;
+  width: 46%;
+}
+.sleep-bunny .mascot {
+  width: 100%;
+}
+.sleep-dim {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  transition: opacity 5s linear;
+  pointer-events: none;
+}
+.sleep-after {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0;
+}
+.sleep-after span {
+  display: grid;
+  gap: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sleep-glow, .sleep-star { animation: none; }
+}
+.kid.stage-sleep .kid-top {
+  position: relative;
+  z-index: 2;
+}

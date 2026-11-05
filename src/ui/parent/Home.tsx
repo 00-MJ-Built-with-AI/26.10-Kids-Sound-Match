@@ -10,6 +10,7 @@ import type { KidKind } from '../kid/kidSnapshot';
 import type { Certificate } from '../../settings/milestones';
 import type { Season } from '../../settings/season';
 import { EidCelebration, SeasonCard } from './Season';
+import { SLEEP_MINUTES, type SleepPrefs } from '../../settings/sleepLight';
 import {
   ActionsIcon,
   BigIcon,
@@ -27,6 +28,7 @@ import {
   PaintIcon,
   MusicIcon,
   HideIcon,
+  SleepIcon,
   PuzzleIcon,
   ShapesIcon,
   OppositesIcon,
@@ -41,7 +43,7 @@ import {
   TalkIcon,
   TurnsIcon,
 } from '../kid/icons';
-import { ChevronIcon, Overlay } from './components';
+import { ChevronIcon, Overlay, Segmented, Toggle } from './components';
 import { gamePicture } from './games';
 import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
@@ -94,6 +96,8 @@ export function Home({
   onCertSeen,
   season,
   onSeasonPlay,
+  sleepPrefs,
+  onSleep,
   celebrate,
   onCelebrated,
   onOpen,
@@ -156,6 +160,9 @@ export function Home({
   newCert: Certificate | null;
   /** Seen: `open` goes to where her certificates are. */
   onCertSeen: (open: boolean) => void;
+  /** The sleep light: its last settings, and turning it on with these. */
+  sleepPrefs: SleepPrefs;
+  onSleep: (prefs: SleepPrefs) => void;
   /** Ramadan or Eid (lanterns on the header, a card with the Ramadan and Eid words). */
   season: Season | null;
   onSeasonPlay?: (kind: 'game' | 'explore') => void;
@@ -171,6 +178,7 @@ export function Home({
   const { t, lang } = useI18n();
   const [tipFor, setTipFor] = useState<string | null>(null);
   const [picking, setPicking] = useState<string[] | null>(null);
+  const [sleeping, setSleeping] = useState<SleepPrefs | null>(null);
   const modeLabel = { SOUND_AND_NAME: t('modeSoundAndName'), SOUND_ONLY: t('modeSoundOnly'), NAME_ONLY: t('modeNameOnly') }[
     pack ? effectiveMode(pack, settings.mode) : settings.mode
   ];
@@ -214,6 +222,7 @@ export function Home({
     { id: 'feel', icon: <FeelIcon />, label: t('feelGame'), sub: t('feelSub'), on: () => onGame('feel'), ok: true },
     { id: 'book', icon: <BookIcon />, label: t('bookGame'), sub: t('bookSub'), on: onBook, ok: canExplore },
     { id: 'story', icon: <BookIcon />, label: t('storyGame'), sub: t('storySub'), on: () => onGame('story'), ok: canStory },
+    { id: 'sleep', icon: <SleepIcon />, label: t('sleepGame'), sub: t('sleepSub'), on: () => setSleeping({ ...sleepPrefs }), ok: true },
     { id: 'bedtime', icon: <MoonIcon />, label: t('bedtimeGame'), sub: t('bedtimeSub'), on: () => onGame('bedtime'), ok: canExplore },
     { id: 'turns', icon: <TurnsIcon />, label: t('turnsGame'), sub: t('turnsSub'), on: onTurns, ok: canStart },
     { id: 'routine', icon: <DayIcon />, label: t('routineTitle'), sub: t('routineSub'), on: onRoutine, ok: canRoutine },
@@ -473,6 +482,52 @@ export function Home({
             )}
             <button type="button" className="btn ghost" onClick={() => setTipFor(null)}>
               {t('close')}
+            </button>
+          </div>
+        </Overlay>
+      )}
+
+      {sleeping && (
+        <Overlay label={t('sleepTitle')} onDismiss={() => setSleeping(null)}>
+          <h2>🌙 {t('sleepTitle')}</h2>
+          <p className="hint">{t('sleepHint')}</p>
+          <h3 className="tip-label">{t('sleepSound')}</h3>
+          <Segmented
+            label={t('sleepSound')}
+            value={sleeping.sound}
+            options={[
+              { value: 'rain' as const, label: `🌧️ ${t('sleepRain')}` },
+              { value: 'waves' as const, label: `🌊 ${t('sleepWaves')}` },
+              { value: 'lullaby' as const, label: `🎵 ${t('sleepLullaby')}` },
+              { value: 'none' as const, label: t('sleepQuiet') },
+            ]}
+            onChange={(sound) => setSleeping({ ...sleeping, sound })}
+          />
+          <h3 className="tip-label">{t('sleepFor')}</h3>
+          <Segmented
+            label={t('sleepFor')}
+            value={sleeping.minutes}
+            options={SLEEP_MINUTES.map((m) => ({ value: m as number, label: t('minutesShort', { n: m }) }))}
+            onChange={(minutes) => setSleeping({ ...sleeping, minutes })}
+          />
+          <div className="sleep-after">
+            <span>
+              <strong>{t('sleepAfterBedtime')}</strong>
+              <small className="hint">{t('sleepAfterBedtimeHint')}</small>
+            </span>
+            <Toggle label={t('sleepAfterBedtime')} checked={sleeping.afterBedtime} onChange={(afterBedtime) => setSleeping({ ...sleeping, afterBedtime })} />
+          </div>
+          <div className="nudge-actions">
+            <button
+              type="button"
+              className="btn primary wide"
+              onClick={() => {
+                const prefs = sleeping;
+                setSleeping(null);
+                onSleep(prefs);
+              }}
+            >
+              🌙 {t('sleepStart')}
             </button>
           </div>
         </Overlay>

@@ -72,6 +72,8 @@ export interface KidConfig {
   /** Taking turns: the child's animal and colour, shown on her turns. */
   avatar?: { animal: string; color: string; picture?: string };
   /** The sleep light (and Bedtime, when the light follows it): its sound and how long it stays on. */
+  /** Stories: open this one straight away (the potty story from Potty time). */
+  storyId?: string;
   sleep?: { sound: 'rain' | 'waves' | 'lullaby' | 'none'; minutes: number };
 }
 

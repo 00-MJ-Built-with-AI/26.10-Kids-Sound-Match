@@ -42,7 +42,7 @@ const SHARE_TILES = 24;
 const GARDEN_MAX = 40;
 
 /** Every word in the app, by word id: the plain packs only (not the Mixed game or Who eats what?). */
-function wordLookup(packs: readonly LoadedPack[]): Map<string, WordInfo> {
+export function wordLookup(packs: readonly LoadedPack[]): Map<string, WordInfo> {
   const map = new Map<string, WordInfo>();
   for (const pack of packs) {
     if (pack.kind !== 'match' || pack.parts) continue;

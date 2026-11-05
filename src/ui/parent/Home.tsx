@@ -29,6 +29,7 @@ import {
   MusicIcon,
   HideIcon,
   SleepIcon,
+  PottyIcon,
   PuzzleIcon,
   ShapesIcon,
   OppositesIcon,
@@ -48,6 +49,10 @@ import { gamePicture } from './games';
 import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
 import { Avatar, ProfileRow } from './ProfileRow';
+
+import { local } from '../../settings/storage';
+
+const WEEK_CARD_KEY = 'ksm.weekCard.v1';
 
 export type HomeLink = 'report' | 'words' | 'milestones' | 'snap' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
 
@@ -98,6 +103,7 @@ export function Home({
   onSeasonPlay,
   sleepPrefs,
   onSleep,
+  onPotty,
   celebrate,
   onCelebrated,
   onOpen,
@@ -163,6 +169,7 @@ export function Home({
   /** The sleep light: its last settings, and turning it on with these. */
   sleepPrefs: SleepPrefs;
   onSleep: (prefs: SleepPrefs) => void;
+  onPotty: () => void;
   /** Ramadan or Eid (lanterns on the header, a card with the Ramadan and Eid words). */
   season: Season | null;
   onSeasonPlay?: (kind: 'game' | 'explore') => void;
@@ -179,6 +186,13 @@ export function Home({
   const [tipFor, setTipFor] = useState<string | null>(null);
   const [picking, setPicking] = useState<string[] | null>(null);
   const [sleeping, setSleeping] = useState<SleepPrefs | null>(null);
+  // Fridays: her week is ready to share with the family (until the parent opens or closes it).
+  const day = new Date().toDateString();
+  const [weekCard, setWeekCard] = useState(() => new Date().getDay() === 5 && local.get(WEEK_CARD_KEY) !== day);
+  const closeWeekCard = () => {
+    local.set(WEEK_CARD_KEY, day);
+    setWeekCard(false);
+  };
   const modeLabel = { SOUND_AND_NAME: t('modeSoundAndName'), SOUND_ONLY: t('modeSoundOnly'), NAME_ONLY: t('modeNameOnly') }[
     pack ? effectiveMode(pack, settings.mode) : settings.mode
   ];
@@ -224,6 +238,7 @@ export function Home({
     { id: 'book', icon: <BookIcon />, label: t('bookGame'), sub: t('bookSub'), on: onBook, ok: canExplore },
     { id: 'story', icon: <BookIcon />, label: t('storyGame'), sub: t('storySub'), on: () => onGame('story'), ok: canStory },
     { id: 'sleep', icon: <SleepIcon />, label: t('sleepGame'), sub: t('sleepSub'), on: () => setSleeping({ ...sleepPrefs }), ok: true },
+    { id: 'potty', icon: <PottyIcon />, label: t('pottyTitle'), sub: t('pottySub'), on: onPotty, ok: true },
     { id: 'bedtime', icon: <MoonIcon />, label: t('bedtimeGame'), sub: t('bedtimeSub'), on: () => onGame('bedtime'), ok: canExplore },
     { id: 'turns', icon: <TurnsIcon />, label: t('turnsGame'), sub: t('turnsSub'), on: onTurns, ok: canStart },
     { id: 'routine', icon: <DayIcon />, label: t('routineTitle'), sub: t('routineSub'), on: onRoutine, ok: canRoutine },
@@ -328,6 +343,26 @@ export function Home({
       <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
         {t('start')}
       </button>
+      {weekCard && (
+        <section className="card week-card">
+          <h2>💌 {t('weekShareCard')}</h2>
+          <div className="nudge-actions">
+            <button
+              type="button"
+              className="btn primary"
+              onClick={() => {
+                closeWeekCard();
+                onOpen('report');
+              }}
+            >
+              {t('weekShareMake')}
+            </button>
+            <button type="button" className="btn ghost" onClick={closeWeekCard}>
+              {t('close')}
+            </button>
+          </div>
+        </section>
+      )}
       {season && <SeasonCard season={season} onPlay={onSeasonPlay} />}
       {newCert && (
         <section className="card cert-card" role="status">

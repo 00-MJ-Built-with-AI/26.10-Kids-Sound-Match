@@ -71,6 +71,8 @@ import { ReportScreen } from './ui/parent/ReportScreen';
 import { RoutineScreen } from './ui/parent/RoutineScreen';
 import { MilestonesScreen } from './ui/parent/MilestonesScreen';
 import { SnapScreen } from './ui/parent/SnapScreen';
+import { PottyScreen } from './ui/parent/PottyScreen';
+import { forgetPotty } from './settings/potty';
 import { SettingsScreen } from './ui/parent/SettingsScreen';
 import { StartFlow, type StartStep } from './ui/parent/StartFlow';
 import { Overlay } from './ui/parent/components';
@@ -94,6 +96,7 @@ type Screen =
   | 'routine'
   | 'milestones'
   | 'snap'
+  | 'potty'
   | 'start'
   | 'kid';
 
@@ -209,6 +212,7 @@ export function App() {
       forgetWordMarks(id);
       forgetFavourites(id);
       forgetMilestones(id);
+      forgetPotty(id);
       forgetPlayLog(id);
       void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
@@ -333,6 +337,8 @@ function Shell({
   const [celebrate, setCelebrate] = useState(() => season === 'eid' && shouldCelebrate(today()));
   /** A game started with other settings than the parent's (the Ramadan and Eid words on Home). */
   const nextSettings = useRef<Settings | null>(null);
+  /** Stories: the one to open straight away (the potty story). */
+  const nextStory = useRef<string | null>(null);
   const [sleepPrefs, setSleepPrefs] = useState<SleepPrefs>(loadSleepPrefs);
   const [favourites, setFavourites] = useState<string[]>(() => loadFavourites(profileId));
   useEffect(() => setFavourites(loadFavourites(profileId)), [profileId]);
@@ -480,6 +486,8 @@ function Shell({
   const startKid = async (kind: KidKind, given?: Settings) => {
     const s = given ?? nextSettings.current ?? settings;
     nextSettings.current = null;
+    const storyId = kind === 'story' ? nextStory.current : null;
+    nextStory.current = null;
     const scene = kind === 'scene' ? pickScene() : undefined;
     const spoken = spokenLanguages(s.language);
     const arGender = pendingGender.current ?? profile?.arGender ?? 'f';
@@ -596,6 +604,7 @@ function Shell({
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
         ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
+        ...(storyId ? { storyId } : {}),
         ...(kind === 'sleep' || (kind === 'bedtime' && sleepPrefs.afterBedtime)
           ? { sleep: { sound: sleepPrefs.sound, minutes: sleepPrefs.minutes } }
           : {}),
@@ -775,6 +784,18 @@ function Shell({
         <RoutineScreen pack={routinePack} packs={allPacks} profileId={profile.id} language={settings.language} onBack={home} />
       );
       break;
+    case 'potty':
+      body = (
+        <PottyScreen
+          profiles={profiles.state}
+          onStory={() => {
+            nextStory.current = 'potty';
+            begin('story');
+          }}
+          onBack={home}
+        />
+      );
+      break;
     case 'snap':
       body = (
         <SnapScreen
@@ -795,7 +816,7 @@ function Shell({
         <MilestonesScreen
           profiles={profiles.state}
           onBack={home}
-          onGame={(id) => (id === 'routine' ? setScreen('routine') : playGame(id as KidKind))}
+          onGame={(id) => (id === 'routine' ? setScreen('routine') : id === 'potty' ? setScreen('potty') : playGame(id as KidKind))}
         />
       );
       break;
@@ -892,6 +913,7 @@ function Shell({
           onGame={playGame}
           plan={todayPlan}
           sleepPrefs={sleepPrefs}
+          onPotty={() => setScreen('potty')}
           onSleep={(prefs) => {
             saveSleepPrefs(prefs);
             setSleepPrefs(prefs);

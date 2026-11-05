@@ -27,7 +27,7 @@ function fakeRemote() {
   return { remote, files };
 }
 
-const empty = (): ChildData => ({ v: 1, words: { says: {}, extra: [] }, feelings: [], milestones: {}, certificates: {}, playLog: [], favourites: [], voice: {} });
+const empty = (): ChildData => ({ v: 1, words: { says: {}, extra: [] }, feelings: [], milestones: {}, certificates: {}, playLog: [], favourites: [], potty: [], voice: {} });
 
 describe('backing up her things', () => {
   beforeEach(() => {

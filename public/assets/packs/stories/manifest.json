@@ -51,6 +51,20 @@
         "story_teta_4",
         "story_teta_5"
       ]
+    },
+    {
+      "id": "potty",
+      "name": {
+        "en": "Bunny's potty",
+        "ar": "نونيّة الأرنب"
+      },
+      "items": [
+        "story_potty_1",
+        "story_potty_2",
+        "story_potty_3",
+        "story_potty_4",
+        "story_potty_5"
+      ]
     }
   ],
   "items": [
@@ -232,6 +246,66 @@
       "name_audio": {
         "en": "stories/story_teta_5_en.mp3",
         "ar": "stories/story_teta_5_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_potty_1",
+      "name": {
+        "en": "Bunny needs a wee! Quick, to the potty!",
+        "ar": "الأرنب بدّه يعمل بيبي! بسرعة عالنونيّة!"
+      },
+      "image": "potty/potty.svg",
+      "name_audio": {
+        "en": "stories/story_potty_1_en.mp3",
+        "ar": "stories/story_potty_1_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_potty_2",
+      "name": {
+        "en": "Pants down, and sit on the potty.",
+        "ar": "ننزّل الكلسون، ونقعد عالنونيّة."
+      },
+      "image": "potty/pants.svg",
+      "name_audio": {
+        "en": "stories/story_potty_2_en.mp3",
+        "ar": "stories/story_potty_2_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_potty_3",
+      "name": {
+        "en": "Psss... Bunny did it! Hooray!",
+        "ar": "بسسس... الأرنب عملها! برافو!"
+      },
+      "image": "potty/sticker.svg",
+      "name_audio": {
+        "en": "stories/story_potty_3_en.mp3",
+        "ar": "stories/story_potty_3_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_potty_4",
+      "name": {
+        "en": "Toilet paper, then flush! Whoosh!",
+        "ar": "ورق، وبعدين نشطف! ووووش!"
+      },
+      "image": "potty/flush.svg",
+      "name_audio": {
+        "en": "stories/story_potty_4_en.mp3",
+        "ar": "stories/story_potty_4_ar.mp3"
+      }
+    },
+    {
+      "item_key": "story_potty_5",
+      "name": {
+        "en": "Now wash our hands. Clean and happy!",
+        "ar": "هلّق نغسل إيدينا. نضاف ومبسوطين!"
+      },
+      "image": "actions/wash_hands.svg",
+      "name_audio": {
+        "en": "stories/story_potty_5_en.mp3",
+        "ar": "stories/story_potty_5_ar.mp3"
       }
     }
   ]

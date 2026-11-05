@@ -38,3 +38,18 @@ describe('play time', () => {
     expect(topGames(log, 5)[0]).toEqual({ kind: 'bubbles', count: 2, minutes: 2 });
   });
 });
+
+import { pottyWeek, type PottyEntry } from './potty';
+
+describe('potty chart', () => {
+  it('puts each sticker on its day of the last week', () => {
+    const list: PottyEntry[] = [
+      { at: new Date('2026-11-05T09:00:00').getTime(), kind: 'try' },
+      { at: new Date('2026-11-05T12:00:00').getTime(), kind: 'done' },
+      { at: new Date('2026-11-01T09:00:00').getTime(), kind: 'try' },
+      { at: new Date('2026-10-20T09:00:00').getTime(), kind: 'done' },
+    ];
+    const week = pottyWeek(list, new Date('2026-11-05T20:00:00'));
+    expect(week.map((d) => d.entries.length)).toEqual([0, 0, 1, 0, 0, 0, 2]);
+  });
+});

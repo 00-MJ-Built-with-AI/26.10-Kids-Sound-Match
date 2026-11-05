@@ -7310,3 +7310,140 @@ html[data-calm][data-season] .kid::after {
 .family-person strong {
   font-size: 0.85rem;
 }
+
+/* ---------- Potty time ---------- */
+.potty-intro {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.potty-intro img {
+  width: 110px;
+  height: 110px;
+  border-radius: 28px;
+}
+.potty-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.potty-btn {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border: 0;
+  border-radius: 24px;
+  font: inherit;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.potty-btn img {
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+}
+.potty-btn.try {
+  background: linear-gradient(180deg, #fff, #fde3ec);
+}
+.potty-btn.done {
+  background: linear-gradient(180deg, #fff, #fff1c2);
+}
+.potty-btn:active {
+  transform: scale(0.96);
+}
+.potty-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  margin: 6px 0;
+}
+.potty-day {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  gap: 4px;
+  min-height: 120px;
+  padding: 6px 2px;
+  border-radius: 14px;
+  background: #faf7f2;
+}
+.potty-day.today {
+  background: #fff4c2;
+  box-shadow: inset 0 0 0 2px #f2d27a;
+}
+.potty-day small {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.potty-stickers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 1px;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.potty-sticker {
+  animation: rise 0.3s ease;
+}
+.potty-sticker.done {
+  font-size: 1.45rem;
+}
+.potty-hooray {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+.potty-hooray img {
+  width: 150px;
+  height: 150px;
+  border-radius: 34px;
+  animation: hide-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.potty-hooray .mascot {
+  position: static;
+  animation: none;
+  width: 120px;
+  margin-top: -20px;
+}
+.potty-hooray-burst {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+}
+
+/* ---------- Her paintings, her week ---------- */
+.painting-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.painting {
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 0 2px #f3dccb;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+}
+.painting img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.week-share {
+  background: linear-gradient(180deg, #f6f0ff 0%, #fff 100%);
+}
+.week-card {
+  background: linear-gradient(180deg, #f6f0ff 0%, #fde3ec 100%);
+}

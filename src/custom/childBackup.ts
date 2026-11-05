@@ -4,6 +4,7 @@ import { voiceId } from '../settings/herVoice';
 import { loadCertificates, loadMilestones, saveCertificates, saveMilestones } from '../settings/milestones';
 import { loadFeelings, saveFeelings, type FeelingCheck } from '../settings/plan';
 import { loadPlayLog, savePlayLog, type PlayEntry } from '../settings/playLog';
+import { loadPotty, savePotty, type PottyEntry } from '../settings/potty';
 import { local } from '../settings/storage';
 import { loadWordMarks, saveWordMarks, type WordMarks } from '../settings/words';
 
@@ -24,6 +25,8 @@ export interface ChildData {
   certificates: Record<string, number>;
   playLog: PlayEntry[];
   favourites: string[];
+  /** Potty time's stickers. */
+  potty: PottyEntry[];
   /** Her recordings: word id -> when recorded (the files are stored separately). */
   voice: Record<string, number>;
 }
@@ -69,6 +72,7 @@ export function sanitizeChildData(raw: unknown): ChildData | null {
     certificates: nums(r.certificates),
     playLog: (Array.isArray(r.playLog) ? r.playLog : []).filter((e) => e && typeof e.kind === 'string' && typeof e.at === 'number' && typeof e.ms === 'number'),
     favourites: (Array.isArray(r.favourites) ? r.favourites : []).filter((x): x is string => typeof x === 'string'),
+    potty: (Array.isArray(r.potty) ? r.potty : []).filter((e) => e && typeof e.at === 'number' && (e.kind === 'try' || e.kind === 'done')),
     voice: nums(r.voice),
   };
 }
@@ -92,6 +96,7 @@ export function mergeChildData(a: ChildData, b: ChildData): ChildData {
     certificates: earliest(a.certificates, b.certificates),
     playLog: byAt([...a.playLog, ...b.playLog], (e) => `${e.at}|${e.kind}`).slice(-600),
     favourites: a.favourites.length ? a.favourites : b.favourites,
+    potty: byAt([...a.potty, ...b.potty], (e) => `${e.at}|${e.kind}`),
     voice,
   };
 }
@@ -109,6 +114,7 @@ export function readLocal(profileId: string, clips: readonly VoiceClip[]): Child
     certificates: loadCertificates(profileId),
     playLog: loadPlayLog(profileId),
     favourites: loadFavourites(profileId),
+    potty: loadPotty(profileId),
     voice: Object.fromEntries(clips.map((c) => [c.word, c.at])),
   };
 }
@@ -120,6 +126,7 @@ function writeLocal(profileId: string, d: ChildData): void {
   saveCertificates(profileId, d.certificates);
   savePlayLog(profileId, d.playLog);
   if (d.favourites.length) saveFavourites(profileId, d.favourites);
+  savePotty(profileId, d.potty);
 }
 
 /**

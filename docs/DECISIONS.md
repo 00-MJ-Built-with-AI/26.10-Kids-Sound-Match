@@ -364,7 +364,7 @@ hers.
 | Stories | The page arrows sit between the things and the two friends on any phone, higher when held sideways; the bunny no longer pops in twice when she taps |
 | Found fine | No screen wider than the phone, no cut-off text, no page errors, in either language or orientation. Arabic screens read right to left, including the new ones (favourites, tips, play time, milestones, certificates, Ramadan and Eid, stories). Left as is: on the very smallest phones (320 px) the matching game's picture cards come close to the screen's edges, and held sideways the names on them sit near the bottom edge |
 
-## Added on 5 November 2026: painting, music, hide and seek, the sleep light, snap a word
+## Added on 5 November 2026: painting, music, hide and seek, the sleep light, snap a word, potty time, her week
 
 | Change | Decision |
 |---|---|
@@ -374,6 +374,9 @@ hers.
 | Sleep light | A new tile in Play together. Choose rain, waves, the lullaby or quiet, and 10, 20, 30 or 45 minutes: a softly glowing moon with a sleeping face and the bunny asleep on it, twinkling stars, and the sound (made on the phone). Bright for the first two thirds, then the screen darkens slowly; at the end the sound fades out over 20 seconds, the screen goes black and the phone is allowed to turn it off. Locked like a game; no rest screen, and it doesn't count as play time. "After Bedtime too" makes it come on by itself when Bedtime's lullaby ends |
 | Snap a word | For parents → Snap a word: "Take a photo" opens the camera straight away; name it (and record it if you like) and it becomes a card in a pack called "Her world" (one of My packs, so it is backed up with them), playable at once from that screen (Explore, or the matching game once it has enough cards) and counted in Words I know like any other pack |
 | Her family in a photo | The same screen lists the family (Mama, Baba, Teta, Jiddo, brother, sister...): a photo of each replaces the drawing everywhere, as "Your voice and photos" already could, now in one place. The stories use them (Going to Teta's shows the real Teta; Bath time ends with Mama's hug), and her picture book now picks each page's picture on its own, so a page with a family photo shows it |
+| Potty time | A tile in Play together opens Potty time: a gentle note (many children show they're ready between 20 and 30 months; no pressure), "Read the potty story" (a fourth story, Bunny's potty: a wee, pants down, did it!, paper and flush, wash hands; new Potty pack drawings), and a sticker chart for the week: a star for every try, a big star when she does it, with a celebration to show her, and an undo. Per child; included in "Also back up her things". A new milestone, "Shows interest in the potty", links to it |
+| Her week, for the family | The Report has "Her week, for the family": one picture with her character and the dates, her new words this week with their pictures, how she felt, her latest painting, and a few happy lines (minutes of play, new words, potty stars, a certificate earned this week), ready for WhatsApp. On Fridays a card on Home reminds you (until opened or closed that day) |
+| Her paintings | The Report shows her paintings (the newest 12; 40 are kept); tapping one opens it to save or share |
 
 ## Fixes applied by default
 

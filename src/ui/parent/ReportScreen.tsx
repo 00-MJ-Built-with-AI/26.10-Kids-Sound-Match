@@ -3,6 +3,13 @@ import { recentWords } from '../../settings/herVoice';
 import { loadFeelings } from '../../settings/plan';
 import { loadPlayLog, topGames, weekMinutes } from '../../settings/playLog';
 import { GAMES, gamePicture } from './games';
+import { wordLookup } from './WordsScreen';
+import { knownWords, wordEvidence } from '../../report/words';
+import { loadWordMarks } from '../../settings/words';
+import { paintingStore } from '../../settings/paintings';
+import { loadPotty, pottyWeek } from '../../settings/potty';
+import { CERTIFICATES, loadCertificates } from '../../settings/milestones';
+import { renderWeekImage } from '../../report/weekImage';
 import { choosePictures } from '../kid/layout';
 import { MIXED_PACK_ID, MIXED_PACK_NAME } from '../../content/mixed';
 import { ODD_PACK_ID, ODD_PACK_NAME } from '../../content/odd';
@@ -41,7 +48,7 @@ export function ReportScreen({
   const [tab, setTab] = useState<'items' | 'games'>('items');
   const [detail, setDetail] = useState<SessionEntity | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
-  const [shared, setShared] = useState<{ blob: Blob; url: string } | null>(null);
+  const [shared, setShared] = useState<{ blob: Blob; url: string; name?: string; title?: string } | null>(null);
   const [shareProblem, setShareProblem] = useState(false);
   const child = profiles.profiles.find((p) => p.id === childId) ?? profiles.profiles[0];
   // How do you feel?: her last week of check-ins, newest first.
@@ -133,6 +140,51 @@ export function ReportScreen({
   const empty = mine !== null && mine.sessions.length === 0;
   const arrow = lang === 'ar' ? '←' : '→';
 
+  // Her paintings (Finger painting), newest first.
+  const [paintings, setPaintings] = useState<{ id: string; url: string; at: number; blob: Blob }[]>([]);
+  useEffect(() => {
+    void paintingStore.all(child.id).then((list) => setPaintings(list.map((p) => ({ id: p.id, url: blobUrl(p.blob), at: p.at, blob: p.blob }))));
+  }, [child.id]);
+
+  /** Her week, for the family: new words, feelings, a painting and a few happy numbers. */
+  const prepareWeek = async () => {
+    const since = Date.now() - 7 * 86_400_000;
+    const lookup = wordLookup(packs);
+    const marks = loadWordMarks(child.id);
+    const known = mine ? knownWords(wordEvidence(mine.sessions, mine.questions, (id) => [...lookup.values()].some((w) => w.pack.id === id))) : new Map<string, number>();
+    const fresh = [...new Set([...known.keys(), ...Object.keys(marks.says)])]
+      .map((id) => ({ id, at: Math.max(known.get(id) ?? 0, marks.says[id] ?? 0) }))
+      .filter((w) => w.at >= since && lookup.has(w.id))
+      .sort((a, b) => b.at - a.at)
+      .map((w) => lookup.get(w.id)!);
+    const potty = pottyWeek(loadPotty(child.id)).reduce((n, d) => n + d.entries.length, 0);
+    const earned = loadCertificates(child.id);
+    const newCerts = CERTIFICATES.filter((c) => (earned[c.id] ?? 0) >= since);
+    const from = new Date(since + 86_400_000).toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'short' });
+    const to = new Date().toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'short' });
+    const blob = await renderWeekImage({
+      rtl: lang === 'ar',
+      title: t('weekImgTitle'),
+      subtitle: `${from} – ${to}`,
+      avatar: { animal: child.animal, color: child.color, picture: characterUrl(child) },
+      wordsTitle: t('weekImgWords'),
+      words: fresh.map((w) => ({ picture: w.picture, name: w.item.name[lang] })),
+      feelingsTitle: t('weekImgFeelings'),
+      feelings: feelings.map((f) => ({ picture: feelPictures[f.feeling] ?? '', name: feelPack?.items.find((i) => i.key === f.feeling)?.name[lang] ?? f.feeling })),
+      paintingTitle: t('weekImgPainting'),
+      painting: paintings.find((p) => p.at >= since)?.url ?? null,
+      chips: [
+        ...(weekTotal ? [`⏱️ ${t('weekImgPlay', { n: weekTotal })}`] : []),
+        ...(fresh.length ? [`🌱 ${fresh.length} ${t('weekImgWords')}`] : []),
+        ...(potty ? [`⭐ ${t('weekImgPotty', { n: potty })}`] : []),
+        ...newCerts.map((c) => `🎓 ${c.words ? t('certWordsLine', { n: c.words }) : t('certSentenceLine')}`),
+      ],
+      footer: t('appName'),
+    });
+    setShareProblem(false);
+    setShared({ blob, url: blobUrl(blob), name: 'her-week.png', title: t('weekShareTitle') });
+  };
+
   /** Draws the picture first, so the share sheet opens straight from the next tap. */
   const prepareShare = async () => {
     if (!mine) return;
@@ -165,7 +217,7 @@ export function ReportScreen({
     setShared({ blob, url: blobUrl(blob) });
   };
 
-  const file = () => new File([shared!.blob], 'kids-sound-match-report.png', { type: 'image/png' });
+  const file = () => new File([shared!.blob], shared!.name ?? 'kids-sound-match-report.png', { type: shared!.blob.type || 'image/png' });
   const canShareFiles = () => {
     try {
       return Boolean(shared && navigator.canShare?.({ files: [file()] }));
@@ -183,7 +235,7 @@ export function ReportScreen({
   const save = () => {
     const a = document.createElement('a');
     a.href = shared!.url;
-    a.download = 'kids-sound-match-report.png';
+    a.download = shared!.name ?? 'kids-sound-match-report.png';
     a.click();
   };
 
@@ -235,6 +287,28 @@ export function ReportScreen({
           </>
         )}
       </section>
+
+      <section className="card week-share">
+        <h2>💌 {t('weekShareTitle')}</h2>
+        <p className="hint">{t('weekShareHint')}</p>
+        <button type="button" className="btn primary wide" onClick={() => void prepareWeek()}>
+          {t('weekShareMake')}
+        </button>
+      </section>
+
+      {paintings.length > 0 && (
+        <section className="card paintings">
+          <h2>🎨 {t('paintingsTitle')}</h2>
+          <p className="hint">{t('paintingsHint')}</p>
+          <div className="painting-grid">
+            {paintings.slice(0, 12).map((p) => (
+              <button type="button" key={p.id} className="painting" onClick={() => setShared({ blob: p.blob, url: p.url, name: 'her-painting.jpg', title: t('paintingsTitle') })}>
+                <img src={p.url} alt="" />
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
       {feelings.length > 0 && (
         <section className="card feel-report">
@@ -332,8 +406,8 @@ export function ReportScreen({
       )}
 
       {shared && (
-        <Overlay label={t('shareReport')} onDismiss={() => setShared(null)}>
-          <h2>{t('shareReport')}</h2>
+        <Overlay label={shared.title ?? t('shareReport')} onDismiss={() => setShared(null)}>
+          <h2>{shared.title ?? t('shareReport')}</h2>
           <img className="share-preview" src={shared.url} alt={t('report')} />
           <p className="hint">{t('shareHint')}</p>
           {shareProblem && (

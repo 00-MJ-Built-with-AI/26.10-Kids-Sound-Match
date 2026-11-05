@@ -31,6 +31,7 @@ export const MILESTONES: readonly Milestone[] = [
   { id: 'play_copy', area: 'play', text: { en: 'Copies what you do: sweeping, clapping, waving', ar: 'تقلّد ما تفعلونه: الكنس والتصفيق والتلويح' }, games: ['actions', 'turns'] },
   { id: 'play_help', area: 'play', text: { en: 'Helps a little: puts toys away, brings her shoes', ar: 'تساعد قليلاً: ترتّب ألعابها، تجيب حذاءها' }, games: ['tidy', 'routine'] },
   { id: 'play_feel', area: 'play', text: { en: 'Notices when someone is hurt or sad, and comes to them', ar: 'تلاحظ حين يتألم أحد أو يحزن، وتقترب منه' }, games: ['feel'] },
+  { id: 'play_potty', area: 'play', text: { en: 'Shows interest in the potty, or tells you her nappy is wet', ar: 'تهتم بالنونيّة، أو تخبركم أن حفاضها مبلول' }, games: ['potty', 'story'] },
   { id: 'play_sing', area: 'play', text: { en: 'Joins in songs: the actions, or the last word', ar: 'تشارك في الأغاني: بالحركات أو بالكلمة الأخيرة' }, games: ['sing'] },
 ];
 

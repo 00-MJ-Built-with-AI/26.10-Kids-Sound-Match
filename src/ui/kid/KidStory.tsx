@@ -47,6 +47,13 @@ export const STORIES: Record<string, Page[]> = {
     { line: 'story_bath_4', scene: 'care', things: [{ ref: 'care/baby_toothbrush', x: 50, y: 40 }] },
     { line: 'story_bath_5', scene: 'care', things: [{ ref: 'care/baby_clothes', x: 32, y: 40 }, { ref: 'family/mama', x: 68, y: 42 }] },
   ],
+  potty: [
+    { line: 'story_potty_1', scene: 'home', things: [{ ref: 'potty/potty_potty', x: 50, y: 42 }] },
+    { line: 'story_potty_2', scene: 'home', things: [{ ref: 'potty/potty_pants', x: 32, y: 40 }, { ref: 'potty/potty_potty', x: 68, y: 44 }] },
+    { line: 'story_potty_3', scene: 'home', things: [{ ref: 'potty/potty_sticker', x: 50, y: 40 }] },
+    { line: 'story_potty_4', scene: 'home', things: [{ ref: 'potty/potty_paper', x: 32, y: 42 }, { ref: 'potty/potty_flush', x: 68, y: 40 }] },
+    { line: 'story_potty_5', scene: 'home', things: [{ ref: 'actions/wash_hands', x: 34, y: 42 }, { ref: 'potty/potty_sticker', x: 68, y: 40 }] },
+  ],
   teta: [
     { line: 'story_teta_1', scene: 'vehicles', things: [{ ref: 'vehicles/car', x: 50, y: 44 }] },
     { line: 'story_teta_2', scene: 'vehicles', things: [{ ref: 'vehicles/bus', x: 30, y: 40 }, { ref: 'vehicles/bicycle', x: 70, y: 46 }] },
@@ -103,8 +110,12 @@ export function KidStory(props: {
   const shell = useKidShell({
     ...props,
     onStart: () => {
-      setStory(null);
-      setPage(0);
+      // Started for one story (Potty time → Read the potty story): straight to it.
+      if (config.storyId && STORIES[config.storyId]) open(config.storyId);
+      else {
+        setStory(null);
+        setPage(0);
+      }
     },
     onResume: () => {
       if (story) narrate(story, page);

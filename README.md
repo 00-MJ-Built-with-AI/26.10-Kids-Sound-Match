@@ -135,7 +135,8 @@ and **Print flashcards** (any pack on A4 for play away from the screen).
 **Finger painting**, **Make music** (xylophone, animal drums, play-along) and **Hide and seek** (where is Bunny?
 under the bed?) are for her to play; the **Sleep light** (a glowing moon with rain, waves or a lullaby) dims and
 turns itself off. **Snap a word** turns a photo of something from her world into a card, and family photos
-replace the drawings in her stories and book. **Stories** star her drawn character and the bunny (the farm, bath time, going to Teta's): she taps the
+replace the drawings in her stories and book. **Potty time** has a potty story and a sticker chart, and the
+Report makes **her week** into one picture for the grandparents. **Stories** star her drawn character and the bunny (the farm, bath time, going to Teta's): she taps the
 things on each page.
 
 Parents can pick **her favourite games** (shown first on Home, the rest under "More games"); each game's

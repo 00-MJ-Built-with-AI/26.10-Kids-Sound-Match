@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+  <style>
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .drift { animation: drift 60s linear infinite; }
+  .drift.b { animation-duration: 90s; animation-direction: reverse; }
+  @keyframes drift { from { transform: translateX(-80px) } 50% { transform: translateX(80px) } to { transform: translateX(-80px) } }
+  .twinkle { animation: twinkle 3s ease-in-out infinite; }
+  .twinkle.b { animation-delay: 1.5s; }
+  @keyframes twinkle { 0%,100% { opacity: .9 } 50% { opacity: .3 } }
+  .sway { animation: sway 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+  @keyframes sway { from { transform: rotate(-2deg) } to { transform: rotate(2deg) } }
+  .bob { animation: bob 4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  </style>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF4E6"/><stop offset="1" stop-color="#FFEAD6"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  
+    <g fill="none" stroke="#FFE2C8" stroke-width="4"><path d="M0 0 V760"/><path d="M100 0 V760"/><path d="M200 0 V760"/><path d="M300 0 V760"/><path d="M400 0 V760"/><path d="M500 0 V760"/><path d="M600 0 V760"/><path d="M700 0 V760"/><path d="M800 0 V760"/><path d="M900 0 V760"/><path d="M1000 0 V760"/><path d="M1100 0 V760"/><path d="M1200 0 V760"/><path d="M1300 0 V760"/><path d="M1400 0 V760"/><path d="M1500 0 V760"/><path d="M0 0 H1600"/><path d="M0 100 H1600"/><path d="M0 200 H1600"/><path d="M0 300 H1600"/><path d="M0 400 H1600"/><path d="M0 500 H1600"/><path d="M0 600 H1600"/><path d="M0 700 H1600"/></g>
+    <rect x="1180" y="90" width="300" height="240" rx="24" fill="#DDF1FF" stroke="#fff" stroke-width="14"/><g transform="translate(1300 190) scale(0.6)" opacity="0.9"><ellipse cx="0" cy="0" rx="90" ry="44" fill="#fff"/><ellipse cx="-60" cy="14" rx="60" ry="34" fill="#fff"/><ellipse cx="66" cy="16" rx="66" ry="32" fill="#fff"/></g>
+    <rect x="80" y="300" width="380" height="20" rx="10" fill="#E2B88A"/>
+    <g><rect x="110" y="220" width="70" height="80" rx="16" fill="#FFB3C6"/><rect x="200" y="200" width="80" height="100" rx="18" fill="#C9E7B4"/><rect x="300" y="230" width="60" height="70" rx="14" fill="#FFE08A"/></g>
+    <rect y="760" width="1600" height="240" fill="#F6D9BC"/><rect y="760" width="1600" height="26" fill="#EFC9A2"/>
+</svg>

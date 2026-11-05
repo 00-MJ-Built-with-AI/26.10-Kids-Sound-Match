@@ -1,4 +1,5 @@
 import { useMemo, type CSSProperties } from 'react';
+import { Mascot } from './Mascot';
 
 const CONFETTI_COLORS = ['#FFB703', '#FB8500', '#8ECAE6', '#219EBC', '#90BE6D', '#F28482', '#CDB4DB'];
 
@@ -33,6 +34,9 @@ export function SessionEndScene() {
           }
         />
       ))}
+      <div className="end-mascot">
+        <Mascot mood="cheer" />
+      </div>
       <div className="balloons">
         {balloons.map((b, i) => (
           <span key={i} className="balloon" style={{ animationDelay: `${i * 0.18}s` }}>
@@ -49,6 +53,9 @@ export function IdleScene() {
   return (
     <div className="scene idle" aria-hidden="true">
       <span className="moon">🌙</span>
+      <div className="idle-mascot">
+        <Mascot mood="sleep" />
+      </div>
       <span className="twinkle t1">✨</span>
       <span className="twinkle t2">⭐</span>
       <span className="twinkle t3">✨</span>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+  <style>
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .drift { animation: drift 60s linear infinite; }
+  .drift.b { animation-duration: 90s; animation-direction: reverse; }
+  @keyframes drift { from { transform: translateX(-80px) } 50% { transform: translateX(80px) } to { transform: translateX(-80px) } }
+  .twinkle { animation: twinkle 3s ease-in-out infinite; }
+  .twinkle.b { animation-delay: 1.5s; }
+  @keyframes twinkle { 0%,100% { opacity: .9 } 50% { opacity: .3 } }
+  .sway { animation: sway 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+  @keyframes sway { from { transform: rotate(-2deg) } to { transform: rotate(2deg) } }
+  .bob { animation: bob 4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  </style>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9E4FF"/><stop offset="1" stop-color="#FDF0FF"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  
+    <circle cx="1350" cy="220" r="110" fill="#FFD6E2"/><ellipse cx="1350" cy="220" rx="180" ry="34" fill="none" stroke="#C9B8FF" stroke-width="16" transform="rotate(-18 1350 220)"/>
+    <circle cx="230" cy="760" r="150" fill="#D6F0FF"/><circle cx="190" cy="720" r="26" fill="#BFE6FF"/><circle cx="270" cy="800" r="18" fill="#BFE6FF"/>
+    <g class="bob"><circle cx="1180" cy="760" r="70" fill="#FFF1C2"/></g>
+    <path class="twinkle" d="M20 18 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle b" d="M291 155 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle" d="M562 292 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle b" d="M833 429 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle" d="M1104 566 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle b" d="M1375 63 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle" d="M86 200 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle b" d="M357 337 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle" d="M628 474 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle b" d="M899 611 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle" d="M1170 108 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle b" d="M1441 245 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle" d="M152 382 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle b" d="M423 519 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle" d="M694 656 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle b" d="M965 153 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle" d="M1236 290 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle b" d="M1507 427 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle" d="M218 564 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/><path class="twinkle b" d="M489 61 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#fff"/><path class="twinkle" d="M760 198 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFB3C6"/><path class="twinkle b" d="M1031 335 l4 8 l9 4 l-9 4 l-4 8 l-4 -8 l-9 -4 l9 -4 Z" fill="#FFE08A"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+  <style>
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .drift { animation: drift 60s linear infinite; }
+  .drift.b { animation-duration: 90s; animation-direction: reverse; }
+  @keyframes drift { from { transform: translateX(-80px) } 50% { transform: translateX(80px) } to { transform: translateX(-80px) } }
+  .twinkle { animation: twinkle 3s ease-in-out infinite; }
+  .twinkle.b { animation-delay: 1.5s; }
+  @keyframes twinkle { 0%,100% { opacity: .9 } 50% { opacity: .3 } }
+  .sway { animation: sway 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+  @keyframes sway { from { transform: rotate(-2deg) } to { transform: rotate(2deg) } }
+  .bob { animation: bob 4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  </style>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E8FF"/><stop offset="1" stop-color="#FFF0F6"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  
+    <path d="M0 0 H260 Q220 400 260 1000 H0 Z" fill="#F4B8CC"/><path d="M1600 0 H1340 Q1380 400 1340 1000 H1600 Z" fill="#F4B8CC"/>
+    <path d="M0 0 H1600 V90 Q1200 150 800 100 Q400 150 0 90 Z" fill="#EDA0BA"/>
+    <path d="M560 0 L380 900 H1220 L1040 0 Z" fill="#fff" opacity="0.25"/>
+    <rect y="860" width="1600" height="140" fill="#E8C9A8"/><rect y="850" width="1600" height="18" fill="#D6B08A"/>
+    <text class="twinkle" x="300" y="240" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle b" x="440" y="330" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle" x="580" y="420" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle b" x="720" y="240" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle" x="860" y="330" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle b" x="1000" y="420" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle" x="1140" y="240" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text><text class="twinkle b" x="1280" y="330" font-size="60" fill="#C9B8FF" font-family="sans-serif">♪</text>
+</svg>

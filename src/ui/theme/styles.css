@@ -5559,3 +5559,140 @@ html[data-calm] .sing-song {
   background: #3c9d4c;
   box-shadow: 0 0 0 4px #dff3e2;
 }
+
+/* ---------- Bunny, the mascot ---------- */
+.mascot {
+  overflow: visible;
+}
+.mascot-wave {
+  transform-box: view-box;
+  transform-origin: 134px 140px;
+  animation: mascot-wave 1s ease-in-out infinite alternate;
+}
+@keyframes mascot-wave {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(14deg); }
+}
+.mascot-wave-wrap .mascot-body,
+.mascot.mascot-wave .mascot-body {
+  animation: mascot-bob 2.4s ease-in-out infinite;
+}
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.mascot-cheer .mascot-body,
+.mascot.mascot-cheer .mascot-body {
+  animation: mascot-jump 0.5s ease-in-out infinite alternate;
+}
+@keyframes mascot-jump {
+  from { transform: translateY(0); }
+  to { transform: translateY(-14px); }
+}
+.mascot.mascot-sleep .mascot-body {
+  animation: mascot-breathe 3s ease-in-out infinite;
+  transform-box: view-box;
+  transform-origin: 100px 200px;
+}
+@keyframes mascot-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.02, 0.98); }
+}
+.mascot-zzz path {
+  animation: zee 3s ease-out infinite;
+}
+.mascot-zzz path + path {
+  animation-delay: 1.5s;
+}
+@keyframes zee {
+  0% { transform: translate(0, 10px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(14px, -26px); opacity: 0; }
+}
+.mascot-eyes {
+  animation: blink 4s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+/* Peeking in from a bottom corner to cheer for a moment. */
+.mascot-cheer {
+  position: absolute;
+  bottom: calc(-10px + env(safe-area-inset-bottom, 0px));
+  z-index: 4;
+  width: min(30vw, 20vh, 150px);
+  pointer-events: none;
+  animation: mascot-peek 1.6s ease-in-out forwards;
+}
+.mascot-cheer.right { right: 8px; }
+.mascot-cheer.left { left: 8px; }
+.mascot-cheer svg { width: 100%; height: auto; }
+@keyframes mascot-peek {
+  0% { transform: translateY(110%); }
+  20%, 75% { transform: translateY(0); }
+  100% { transform: translateY(110%); }
+}
+.end-mascot {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  width: min(46vw, 34vh, 240px);
+  margin-left: calc(min(46vw, 34vh, 240px) / -2);
+  animation: card-in 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.idle-mascot {
+  position: absolute;
+  left: 6%;
+  bottom: 4%;
+  width: min(30vw, 22vh, 150px);
+  opacity: 0.95;
+}
+.end-mascot svg, .idle-mascot svg { width: 100%; height: auto; }
+
+/* ---------- Varied celebrations ---------- */
+.burst .shape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  animation: burst-shape 1s ease-out forwards;
+}
+.burst .bub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff 0 20%, rgba(156, 201, 242, 0.5) 60%, rgba(180, 140, 240, 0.6));
+  border: 2px solid rgba(156, 201, 242, 0.9);
+  animation: burst-shape 1.1s ease-out forwards;
+}
+@keyframes burst-shape {
+  from { transform: translate(0, 0) scale(0.4) rotate(0); opacity: 1; }
+  70% { opacity: 1; }
+  to { transform: translate(var(--dx), var(--dy)) scale(var(--s)) rotate(var(--rot)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot-cheer { display: none; }
+}
+
+/* ---------- The game's scene (farm, road, kitchen...) behind the cards ---------- */
+html[data-scene] .kid::before {
+  background: var(--scene) center bottom / cover no-repeat;
+  opacity: 0.95;
+}
+html[data-scene] .kid.stage-idle::before,
+html[data-scene] .kid.stage-book::before {
+  display: none;
+}
+html[data-calm][data-scene] .kid::before {
+  opacity: 0.22;
+  filter: brightness(0.55) saturate(0.7);
+}

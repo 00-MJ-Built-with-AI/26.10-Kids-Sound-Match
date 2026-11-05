@@ -302,6 +302,17 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 |---|---|
 | Update stamp | Home always shows, under the title, when this version was built ("Updated 5 Nov 2026, 14:32", in the phone's time), the version, the commit and the commit's first line. Baked in at build time (`__BUILD_TIME__`, `__BUILD_COMMIT__`, `__BUILD_MESSAGE__` in `vite.config.ts`; Vercel's commit details, else git). If it still shows an older time after an update, close the app and open it again |
 
+## Added on 5 November 2026: a more polished look
+
+| Change | Decision |
+|---|---|
+| Photos as stickers | The 287 photos are now cut out (rembg's `isnet-general-use` model, on this PC) and put on a soft pastel circle with a white sticker outline and a soft shadow, so they match the drawings. Whole scenes (Weather and nature, Where does it live?) and 32 photos that didn't cut out cleanly (the bus, the rocket, the whale, socks, the sofa...) keep the whole photo, framed in the circle. Same files, same names. Scripts: `tools/art/cutout.py` then `tools/art/compose.py` (its keep list says which stay whole) |
+| Scenes behind the games | Each picture set has a soft illustrated background: a farm (animals), a road (vehicles), a kitchen (food), a playroom (home, toys, clothes, the baby), a garden (weather, Mixed), a park (people, body, feelings, jobs), space (shapes, colours, counting, letters, opposites), a stage (instruments, songs) and the sea (Where does it live?). Pale, detail at the edges, clouds and stars drifting. Darker and dimmer in Evening calm. Drawn by `tools/art/draw-scenes.mjs` into `public/backgrounds/` |
+| Bunny | A bunny drawn for the app: it peeks in from a bottom corner and cheers on a right answer (at most every 1.5 s), cheers at the end of a game, and sleeps in a nightcap on the end screen. Hidden when the phone asks for less motion |
+| Celebrations | A right answer bursts into confetti, stars, hearts or bubbles, at random |
+| Family and Jobs redrawn | The last old drawings, now in the cute style: grown-ups have a slightly smaller head, trousers or a dress; Grandma a grey bun and glasses, Grandpa a grey beard and a stick, Baba a beard, the uncles a moustache or glasses; each job its uniform, hat and tool. Everyone sways gently. `tools/art/draw-people.mjs` (the older scripts that drew them are removed) |
+| Letters | Each letter card shows a cut-out photo of its word (the rabbit, the duck, the apple...) where the app has one; the 5 without a photo keep their emoji |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

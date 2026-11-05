@@ -6,6 +6,7 @@ import { GateButton } from '../../lock/GateButton';
 import { engageKidLock } from '../../lock/kidLock';
 import { loadLockPrefs } from '../../lock/lockPrefs';
 import { ParentGate } from '../../lock/ParentGate';
+import { MascotCheer } from './Mascot';
 import { PictureGate } from '../../lock/PicturePad';
 import { PlayIcon } from './icons';
 import { onQuestionDone, pinNeeded, REST_GRACE_MS, useSitting } from './sitting';
@@ -128,6 +129,7 @@ export function KidFrame({
         />
       </div>
       {children}
+      <MascotCheer />
       {resting && (
         <div className="rest-screen" role="img" aria-label={t('restTitle')} onPointerDown={sayRest}>
           <RestArt />

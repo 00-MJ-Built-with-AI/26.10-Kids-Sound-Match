@@ -15,6 +15,7 @@ export const PACKS = path.join(process.cwd(), 'public', 'assets', 'packs');
 export const SK = {
   light: { skin: '#F6CBA5', shade: '#E2A57C' },
   medium: { skin: '#DDA373', shade: '#C2845A' },
+  brown: { skin: '#A86F48', shade: '#8C5636' },
 };
 export const BLUSH = '#FF8FA3';
 export const TEAR = '#5DB7F5';
@@ -114,6 +115,7 @@ export function frames(list, sec, name = 'fr') {
 export function hairBack(o) {
   const c = o.hairColor;
   if (o.hair === 'pigtails') return E(132, 120, 22, 34, c) + E(268, 120, 22, 34, c) + bow(140, 84, o.bow) + bow(260, 84, o.bow);
+  if (o.hair === 'long') return P('M134 118 C128 60 170 46 200 46 C232 46 274 60 266 118 L276 250 Q252 266 232 246 L168 246 Q148 266 124 250 Z', c);
   if (o.hair === 'bob') return P('M134 118 C128 60 170 46 200 46 C232 46 274 60 266 118 L270 176 Q252 190 236 174 L164 174 Q148 190 130 176 Z', c);
   return '';
 }
@@ -133,6 +135,20 @@ export function hairFront(o) {
       return P('M144 112 C140 70 170 54 200 54 C232 54 262 70 256 112 C240 88 220 80 200 84 C180 80 160 88 144 112 Z', c);
     case 'bob':
       return P('M146 106 C150 68 176 58 200 58 C226 58 252 68 256 106 C230 92 170 92 146 106 Z', c) + (o.band ? L('M150 92 Q200 56 252 92', o.band, 9) : '');
+    case 'long':
+      return P('M146 106 C150 68 176 58 200 58 C226 58 252 68 256 106 C230 92 170 92 146 106 Z', c) + (o.band ? L('M150 92 Q200 56 252 92', o.band, 9) : '');
+    case 'bun':
+      return C(200, 52, 24, c) + P('M144 112 C140 70 170 56 200 56 C232 56 262 70 256 112 C236 90 164 90 144 112 Z', c);
+    case 'curly': {
+      let t = P('M144 112 C140 66 170 52 200 52 C232 52 262 66 256 112 C236 90 164 90 144 112 Z', c);
+      for (let d = 190; d <= 350; d += 20) {
+        const a = (d * Math.PI) / 180;
+        t += C(200 + 56 * Math.cos(a), 114 + 56 * Math.sin(a), 15, c);
+      }
+      return t;
+    }
+    case 'bald':
+      return P('M142 120 C140 100 146 90 156 86 C152 100 152 112 154 124 Z', c) + P('M258 120 C260 100 254 90 244 86 C248 100 248 112 246 124 Z', c);
     case 'beanie':
       return P('M140 112 C138 60 170 46 200 46 C232 46 262 60 260 112 Z', '#E8504A') + R(136, 102, 128, 20, 8, '#F7F2EE') + C(200, 42, 13, '#F7F2EE');
     case 'nightcap':
@@ -251,6 +267,39 @@ export function face(o) {
   return s;
 }
 
+/** Glasses, a beard or a moustache (grown-ups). Drawn in the head's own frame. */
+export function faceExtras(o) {
+  let s = '';
+  if (o.beard) s += P('M146 132 C150 176 176 190 200 190 C224 190 250 176 254 132 C246 150 232 160 220 162 C210 156 190 156 180 162 C168 160 154 150 146 132 Z', o.beard);
+  if (o.moustache) s += P('M182 146 Q191 136 200 142 Q209 136 218 146 Q209 152 200 147 Q191 152 182 146 Z', o.moustache);
+  if (o.glasses) s += C(180, 118, 16, 'none', 4) + C(220, 118, 16, 'none', 4) + L('M196 118 h8 M164 116 l-16 -4 M236 116 l16 -4', INK, 4);
+  return s;
+}
+
+/** Hats for jobs: drawn on the head. */
+export function hat(o) {
+  const c = o.hatColor ?? '#5B8DEF';
+  switch (o.hat) {
+    case 'cap':
+      return P('M144 92 C146 56 172 46 200 46 C228 46 254 56 256 92 Z', c) + P('M196 86 Q240 80 284 96 Q246 104 196 98 Z', c) + (o.hatBadge ? C(200, 70, 9, '#FFD54A', 3) : '');
+    case 'chef':
+      return R(150, 66, 100, 34, 8, '#fff') + C(162, 50, 24, '#fff') + C(200, 38, 30, '#fff') + C(238, 50, 24, '#fff');
+    case 'helmet':
+      return P('M138 104 C136 50 170 34 200 34 C230 34 264 50 262 104 Z', c) + P('M126 104 H274 Q270 116 260 116 H140 Q130 116 126 104 Z', c) + C(200, 64, 12, '#FFD54A', 3);
+    case 'hardhat':
+      return P('M140 100 C140 56 170 40 200 40 C230 40 260 56 260 100 Z', '#FFC531') + R(126, 96, 148, 16, 8, '#FFC531') + L('M200 42 V96', '#E0A400', 6);
+    case 'straw':
+      return E(200, 92, 96, 18, '#F2D58A') + P('M150 92 C150 56 172 44 200 44 C228 44 250 56 250 92 Z', '#F2D58A') + L('M152 84 H248', '#E8504A', 8);
+    case 'nurse':
+      return P('M150 80 L164 54 H236 L250 80 Z', '#fff') + R(192, 58, 16, 16, 2, '#E8304A', 0) + R(186, 64, 28, 4, 1, '#E8304A', 0);
+    case 'mirror':
+      return L('M146 84 Q200 64 254 84', INK, 6) + C(200, 70, 16, '#E8EEF4') + C(200, 70, 6, '#fff', 0);
+    case 'space':
+      return C(200, 116, 92, 'none', 6) + C(200, 116, 92, '#BFE6FF', 0, ' opacity="0.35"') + P('M140 60 Q170 40 196 40', 'none', 0) + L('M150 70 Q170 50 196 46', '#fff', 7, ' opacity="0.8"');
+  }
+  return '';
+}
+
 /** The whole child, front view (or from behind with `back`). */
 export function kid(opt = {}) {
   const o = { ...KID, ...opt, hands: { ...KID.hands, ...(opt.hands ?? {}) } };
@@ -278,7 +327,8 @@ export function kid(opt = {}) {
     s += tube([[172, 322], [134, 352], [104, 368]], skin, 28) + tube([[228, 322], [266, 352], [296, 368]], skin, 28);
     s += P('M78 380 Q74 356 98 352 Q116 352 120 372 Z', o.shoe) + P('M322 380 Q326 356 302 352 Q284 352 280 372 Z', o.shoe);
   } else {
-    s += tube([[170, 320], [168, 354], [166, 380]], skin, 28) + tube([[230, 320], [232, 354], [234, 380]], skin, 28);
+    const legC = o.trousers ?? skin;
+    s += tube([[170, 320], [168, 354], [166, 380]], legC, o.trousers ? 32 : 28) + tube([[230, 320], [232, 354], [234, 380]], legC, o.trousers ? 32 : 28);
     if (o.knees) s += L('M158 356 q10 6 20 0 M222 356 q10 6 20 0', shade, 3.5);
     if (o.barefoot) {
       for (const [fx, dir] of [[166, -1], [234, 1]]) {
@@ -289,7 +339,9 @@ export function kid(opt = {}) {
       s += P('M140 392 Q140 370 166 370 Q186 370 188 392 Z', o.shoe) + P('M212 392 Q214 370 234 370 Q260 370 260 392 Z', o.shoe);
     }
   }
-  s += P('M142 286 L258 286 L262 326 L210 326 L200 306 L190 326 L138 326 Z', o.shorts);
+  if (o.skirt) s += P('M146 270 L254 270 L282 344 Q200 360 118 344 Z', o.skirt);
+  else if (o.trousers) s += P('M142 286 L258 286 L262 330 L138 330 Z', o.trousers);
+  else s += P('M142 286 L258 286 L262 326 L210 326 L200 306 L190 326 L138 326 Z', o.shorts);
   // neck, body
   s += R(188, 160 - o.headUp, 24, 30 + o.headUp, 0, skin, 0) + L(`M188 ${160 - o.headUp} V190 M212 ${160 - o.headUp} V190`, INK, 4.5);
   if (o.shirtUp) {
@@ -302,18 +354,21 @@ export function kid(opt = {}) {
   }
   if (o.sleeveless) s += C(156, 194, 14, skin) + C(244, 194, 14, skin);
   if (o.stripe) s += L('M148 222 H252 M146 252 H254', o.stripe, 9);
+  if (o.coat) s += P('M146 196 Q148 180 172 178 L190 178 L196 300 L196 344 L128 344 L140 236 Z', o.coat) + P('M254 196 Q252 180 228 178 L210 178 L204 300 L204 344 L272 344 L260 236 Z', o.coat);
+  if (o.badge) s += P('M226 210 l8 -6 l8 6 v10 q-8 8 -16 0 Z', '#FFD54A', 3);
+  if (o.apron) s += P('M164 210 H236 V300 Q200 312 164 300 Z', o.apron) + L('M164 214 L150 196 M236 214 L250 196', o.apron, 6);
   if (o.heart) s += `<g class="beat">${P(heartPath(222, 214, 1.15), '#E8304A', 3.5)}</g>`;
   if (o.scarf) s += P('M160 180 Q200 200 240 180 L240 196 Q200 214 160 196 Z', '#E8504A') + P('M214 196 L230 196 L234 244 L216 246 Z', '#E8504A');
   const arms = arm(pose.l, 'l') + arm(pose.r, 'r');
   if (!o.armsOver) s += arms;
   // head
-  s += `<g class="head" transform="translate(0 ${-o.headUp}) rotate(${o.tilt} 200 170)"><g transform="translate(${HEAD_PIVOT[0]} ${HEAD_PIVOT[1]}) scale(${HEAD_SCALE}) translate(${-HEAD_PIVOT[0]} ${-HEAD_PIVOT[1]})">`;
+  s += `<g class="head" transform="translate(0 ${-o.headUp}) rotate(${o.tilt} 200 170)"><g transform="translate(${HEAD_PIVOT[0]} ${HEAD_PIVOT[1]}) scale(${o.headScale ?? HEAD_SCALE}) translate(${-HEAD_PIVOT[0]} ${-HEAD_PIVOT[1]})">`;
   s += hairBack(o);
   s += E(142, 122, 11, 15, skin) + E(258, 122, 11, 15, skin) + C(200, 116, 58, skin);
   if (o.back) {
     s += P('M142 128 C134 66 168 52 200 52 C234 52 268 66 258 128 C246 150 154 150 142 128 Z', o.hairColor) + L('M186 80 q14 10 28 0', '#5A3A28', 4);
   } else {
-    s += face(o) + hairFront(o) + hairShine(o);
+    s += face(o) + hairFront(o) + hairShine(o) + faceExtras(o) + hat(o);
   }
   s += '</g></g>';
   if (o.armsOver) s += arms;

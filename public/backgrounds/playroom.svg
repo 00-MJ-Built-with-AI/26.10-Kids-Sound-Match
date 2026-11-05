@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+  <style>
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .drift { animation: drift 60s linear infinite; }
+  .drift.b { animation-duration: 90s; animation-direction: reverse; }
+  @keyframes drift { from { transform: translateX(-80px) } 50% { transform: translateX(80px) } to { transform: translateX(-80px) } }
+  .twinkle { animation: twinkle 3s ease-in-out infinite; }
+  .twinkle.b { animation-delay: 1.5s; }
+  @keyframes twinkle { 0%,100% { opacity: .9 } 50% { opacity: .3 } }
+  .sway { animation: sway 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+  @keyframes sway { from { transform: rotate(-2deg) } to { transform: rotate(2deg) } }
+  .bob { animation: bob 4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  </style>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF0F6"/><stop offset="1" stop-color="#FFF7EC"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  
+    <path d="M0 80 Q400 180 800 90 T1600 90" fill="none" stroke="#E8C9D8" stroke-width="5"/>
+    <path d="M40 92 l40 0 l-20 46 Z" fill="#FFB3C6"/><path d="M155 112.36649965031457 l40 0 l-20 46 Z" fill="#BFE6FF"/><path d="M270 117.32003840283308 l40 0 l-20 46 Z" fill="#FFE08A"/><path d="M385 103.11187688607957 l40 0 l-20 46 Z" fill="#C9E7B4"/><path d="M500 80.49446847433384 l40 0 l-20 46 Z" fill="#FFB3C6"/><path d="M615 66.58421694070748 l40 0 l-20 46 Z" fill="#BFE6FF"/><path d="M730 71.90812332354433 l40 0 l-20 46 Z" fill="#FFE08A"/><path d="M845 92.4371614125931 l40 0 l-20 46 Z" fill="#C9E7B4"/><path d="M960 112.63536446007798 l40 0 l-20 46 Z" fill="#FFB3C6"/><path d="M1075 117.21713508197224 l40 0 l-20 46 Z" fill="#BFE6FF"/><path d="M1190 102.71508061628568 l40 0 l-20 46 Z" fill="#FFE08A"/><path d="M1305 80.10406676184164 l40 0 l-20 46 Z" fill="#C9E7B4"/><path d="M1420 66.49565801827121 l40 0 l-20 46 Z" fill="#FFB3C6"/><path d="M1535 72.18842681810517 l40 0 l-20 46 Z" fill="#BFE6FF"/>
+    <rect x="1240" y="300" width="260" height="20" rx="10" fill="#E2B88A"/><circle cx="1290" cy="276" r="26" fill="#F7A14A"/><rect x="1340" y="246" width="50" height="54" rx="10" fill="#9CC9F2"/><path d="M1420 300 l30 -60 l30 60 Z" fill="#C9B8FF"/>
+    <rect y="780" width="1600" height="220" fill="#F3E3D3"/><ellipse cx="800" cy="900" rx="560" ry="70" fill="#FFD6E2" opacity="0.8"/><ellipse cx="800" cy="900" rx="440" ry="50" fill="none" stroke="#fff" stroke-width="8" stroke-dasharray="20 18"/>
+</svg>

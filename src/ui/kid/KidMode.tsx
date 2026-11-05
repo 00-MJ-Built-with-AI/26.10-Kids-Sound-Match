@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import type { LoadedPack } from '../../content/types';
 import type { PickerOptions } from './EndScreen';
 import { KidBook } from './KidBook';
@@ -29,8 +30,49 @@ interface Props {
  * Kid Mode: the question game (also Odd one out, and taking turns), Explore, Memory, Peekaboo, a
  * scene, Where's your nose?, Do it with me, Talk time, her picture book or Look after the baby.
  */
+/** The illustrated background behind a game, by its picture set (see tools/art/draw-scenes.mjs). */
+const SCENE_OF: Record<string, string> = {
+  animals: 'farm',
+  'animal-babies': 'farm',
+  'who-eats-what': 'farm',
+  'where-lives': 'sea',
+  vehicles: 'road',
+  food: 'kitchen',
+  home: 'playroom',
+  'first-words': 'playroom',
+  toys: 'playroom',
+  clothes: 'playroom',
+  care: 'playroom',
+  weather: 'garden',
+  instruments: 'stage',
+  songs: 'stage',
+  body: 'park',
+  feelings: 'park',
+  actions: 'park',
+  family: 'park',
+  jobs: 'park',
+  shapes: 'space',
+  colors: 'space',
+  counting: 'space',
+  letters: 'space',
+  opposites: 'space',
+};
+export function sceneFor(packId: string): string {
+  return SCENE_OF[packId] ?? 'garden';
+}
+
 export function KidMode(props: Props) {
   const { pack, packs, config, snapshot, picker, onExit } = props;
+  // The game's scene, as a CSS variable the frame's background uses.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--scene', `url("${import.meta.env.BASE_URL}backgrounds/${sceneFor(config.packId)}.svg")`);
+    root.setAttribute('data-scene', sceneFor(config.packId));
+    return () => {
+      root.style.removeProperty('--scene');
+      root.removeAttribute('data-scene');
+    };
+  }, [config.packId]);
   switch (config.kind) {
     case 'explore':
       return <KidExplore pack={pack} config={config} snapshot={snapshot} onExit={onExit} />;

@@ -574,6 +574,8 @@ export const LETTERS = [
   ['nun', 'ن', 'نحلة', 'bee', '🐝'], ['haa', 'هـ', 'هدية', 'present', '🎁'], ['waw', 'و', 'وردة', 'rose', '🌹'],
   ['ya', 'ي', 'يد', 'hand', '✋'],
 ];
+/** Cut-out photos of the example words (made from the app's own photos; see tools/art/cutout.py). */
+const LETTER_PICTURES = JSON.parse(fs.readFileSync(new URL('./letter-pictures.json', import.meta.url), 'utf8'));
 const LETTER_COLOURS = ['#F05A8C', '#5B8DEF', '#E07A2E', '#3C9D4C', '#8A5CD6', '#138A9C', '#D0563B'];
 function letters() {
   const out = {};
@@ -581,8 +583,10 @@ function letters() {
     const c = LETTER_COLOURS[i % LETTER_COLOURS.length];
     out[`letter_${key}`] = file(
       tile('#FFFDF8') +
-        `<text x="200" y="250" text-anchor="middle" font-family="'Noto Naskh Arabic','Noto Sans Arabic','Geeza Pro',Tahoma,sans-serif" font-size="230" font-weight="700" fill="${c}" stroke="#fff" stroke-width="10" paint-order="stroke">${letter}</text>` +
-        `<text x="320" y="360" text-anchor="middle" font-family="'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif" font-size="74">${emoji}</text>`,
+        `<text x="150" y="230" text-anchor="middle" font-family="'Noto Naskh Arabic','Noto Sans Arabic','Geeza Pro',Tahoma,sans-serif" font-size="210" font-weight="700" fill="${c}" stroke="#fff" stroke-width="10" paint-order="stroke">${letter}</text>` +
+        (LETTER_PICTURES[key]
+          ? `<circle cx="292" cy="292" r="92" fill="#fff"/><image href="${LETTER_PICTURES[key]}" x="212" y="212" width="160" height="160" preserveAspectRatio="xMidYMid meet"/>`
+          : `<text x="320" y="360" text-anchor="middle" font-family="'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif" font-size="74">${emoji}</text>`),
       '',
     );
   });

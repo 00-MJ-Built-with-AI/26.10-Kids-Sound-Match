@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+  <style>
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .drift { animation: drift 60s linear infinite; }
+  .drift.b { animation-duration: 90s; animation-direction: reverse; }
+  @keyframes drift { from { transform: translateX(-80px) } 50% { transform: translateX(80px) } to { transform: translateX(-80px) } }
+  .twinkle { animation: twinkle 3s ease-in-out infinite; }
+  .twinkle.b { animation-delay: 1.5s; }
+  @keyframes twinkle { 0%,100% { opacity: .9 } 50% { opacity: .3 } }
+  .sway { animation: sway 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+  @keyframes sway { from { transform: rotate(-2deg) } to { transform: rotate(2deg) } }
+  .bob { animation: bob 4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  </style>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDF1FF"/><stop offset="1" stop-color="#F6F2FF"/></linearGradient></defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="260" cy="160" r="70" fill="#FFE08A"/><circle cx="260" cy="160" r="110" fill="#FFE08A" opacity="0.25"/><g class="drift"><g transform="translate(220 140) scale(1)" opacity="0.9"><ellipse cx="0" cy="0" rx="90" ry="44" fill="#fff"/><ellipse cx="-60" cy="14" rx="60" ry="34" fill="#fff"/><ellipse cx="66" cy="16" rx="66" ry="32" fill="#fff"/></g><g transform="translate(1240 110) scale(1.2)" opacity="0.9"><ellipse cx="0" cy="0" rx="90" ry="44" fill="#fff"/><ellipse cx="-60" cy="14" rx="60" ry="34" fill="#fff"/><ellipse cx="66" cy="16" rx="66" ry="32" fill="#fff"/></g></g><g class="drift b"><g transform="translate(760 200) scale(0.8)" opacity="0.7"><ellipse cx="0" cy="0" rx="90" ry="44" fill="#fff"/><ellipse cx="-60" cy="14" rx="60" ry="34" fill="#fff"/><ellipse cx="66" cy="16" rx="66" ry="32" fill="#fff"/></g><g transform="translate(1500 260) scale(0.7)" opacity="0.6"><ellipse cx="0" cy="0" rx="90" ry="44" fill="#fff"/><ellipse cx="-60" cy="14" rx="60" ry="34" fill="#fff"/><ellipse cx="66" cy="16" rx="66" ry="32" fill="#fff"/></g></g>
+    <g fill="#E6E0F5"><rect x="80" y="520" width="140" height="300" rx="14"/><rect x="240" y="460" width="120" height="360" rx="14"/><rect x="380" y="560" width="160" height="260" rx="14"/><rect x="1100" y="500" width="130" height="320" rx="14"/><rect x="1250" y="440" width="150" height="380" rx="14"/><rect x="1420" y="540" width="140" height="280" rx="14"/></g>
+    <g fill="#fff" opacity="0.8"><rect x="100" y="560" width="14" height="20" rx="3"/><rect x="126" y="560" width="14" height="20" rx="3"/><rect x="152" y="560" width="14" height="20" rx="3"/><rect x="178" y="560" width="14" height="20" rx="3"/><rect x="204" y="560" width="14" height="20" rx="3"/><rect x="230" y="560" width="14" height="20" rx="3"/><rect x="260" y="620" width="14" height="20" rx="3"/><rect x="286" y="620" width="14" height="20" rx="3"/><rect x="312" y="620" width="14" height="20" rx="3"/><rect x="338" y="620" width="14" height="20" rx="3"/><rect x="364" y="620" width="14" height="20" rx="3"/><rect x="390" y="620" width="14" height="20" rx="3"/><rect x="1140" y="560" width="14" height="20" rx="3"/><rect x="1166" y="560" width="14" height="20" rx="3"/><rect x="1192" y="560" width="14" height="20" rx="3"/><rect x="1218" y="560" width="14" height="20" rx="3"/><rect x="1244" y="560" width="14" height="20" rx="3"/><rect x="1270" y="560" width="14" height="20" rx="3"/></g>
+    <rect y="820" width="1600" height="180" fill="#C9CCD8"/><rect y="800" width="1600" height="24" fill="#B9E2A8"/>
+    <g fill="#fff"><rect x="40" y="900" width="90" height="14" rx="7"/><rect x="210" y="900" width="90" height="14" rx="7"/><rect x="380" y="900" width="90" height="14" rx="7"/><rect x="550" y="900" width="90" height="14" rx="7"/><rect x="720" y="900" width="90" height="14" rx="7"/><rect x="890" y="900" width="90" height="14" rx="7"/><rect x="1060" y="900" width="90" height="14" rx="7"/><rect x="1230" y="900" width="90" height="14" rx="7"/><rect x="1400" y="900" width="90" height="14" rx="7"/><rect x="1570" y="900" width="90" height="14" rx="7"/></g>
+</svg>

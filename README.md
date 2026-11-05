@@ -132,6 +132,9 @@ Every finished game earns a sticker for the child's **sticker album**, opened fr
 For parents: **Words I know** (the words each child understands and says, shareable and printable),
 and **Print flashcards** (any pack on A4 for play away from the screen).
 
+Parents can pick **her favourite games** (shown first on Home, the rest under "More games"); each game's
+ⓘ explains how to play it together and what it teaches; the Report shows **play time** this week.
+
 ## My packs (your own pictures and voice)
 
 Home → **My packs**: create packs like "Family" or "Toys". Each item has a picture

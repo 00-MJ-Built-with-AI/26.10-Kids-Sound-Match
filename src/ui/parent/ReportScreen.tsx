@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { recentWords } from '../../settings/herVoice';
 import { loadFeelings } from '../../settings/plan';
+import { loadPlayLog, topGames, weekMinutes } from '../../settings/playLog';
+import { GAMES, gamePicture } from './games';
 import { choosePictures } from '../kid/layout';
 import { MIXED_PACK_ID, MIXED_PACK_NAME } from '../../content/mixed';
 import { ODD_PACK_ID, ODD_PACK_NAME } from '../../content/odd';
@@ -47,6 +49,12 @@ export function ReportScreen({
   const feelPictures = useMemo(() => (feelPack ? choosePictures(feelPack.items, () => 0) : {}), [feelPack]);
   const feelings = useMemo(() => recentWords(loadFeelings(child.id), 7).reverse(), [child.id]);
   const several = profiles.profiles.length > 1;
+  // Play time: minutes per day this week, and her most-chosen games.
+  const playLog = useMemo(() => loadPlayLog(child.id), [child.id]);
+  const week = useMemo(() => weekMinutes(playLog), [playLog]);
+  const weekTotal = week.reduce((n, d) => n + d.minutes, 0);
+  const weekMax = Math.max(1, ...week.map((d) => d.minutes));
+  const favouriteGames = useMemo(() => topGames(playLog, new Date(`${week[0].day}T00:00:00`).getTime()), [playLog, week]);
 
   const load = useCallback(async () => {
     const [sessions, questions] = await Promise.all([reportStore.sessions(), reportStore.questions()]);
@@ -191,6 +199,42 @@ export function ReportScreen({
         ]}
         onChange={setTab}
       />
+
+      <section className="card play-time">
+        <h2>⏱️ {t('playTimeTitle')}</h2>
+        {weekTotal === 0 ? (
+          <p className="hint">{t('playTimeNone')}</p>
+        ) : (
+          <>
+            <p className="hint">{t('playTimeTotal', { n: weekTotal })}</p>
+            <div className="week-bars" role="img" aria-label={week.map((d) => `${d.day}: ${d.minutes}`).join(', ')}>
+              {week.map((d, i) => (
+                <div key={d.day} className={`week-bar${i === 6 ? ' today' : ''}`}>
+                  <span className="week-min">{d.minutes > 0 ? d.minutes : ''}</span>
+                  <i style={{ height: `${Math.max(d.minutes ? 6 : 2, (d.minutes / weekMax) * 100)}%` }} />
+                  <small>
+                    {new Date(`${d.day}T12:00:00`).toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { weekday: 'short' })}
+                  </small>
+                </div>
+              ))}
+            </div>
+            {favouriteGames.length > 0 && (
+              <>
+                <h3 className="play-top-title">{t('playTimeTop')}</h3>
+                <ul className="play-top">
+                  {favouriteGames.map((g) => (
+                    <li key={g.kind}>
+                      {gamePicture(g.kind) && <img src={gamePicture(g.kind)} alt="" />}
+                      <span>{GAMES[g.kind] ? t(GAMES[g.kind].label) : g.kind}</span>
+                      <small className="hint">{t('playTimeTimes', { n: g.count, m: g.minutes })}</small>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </>
+        )}
+      </section>
 
       {feelings.length > 0 && (
         <section className="card feel-report">

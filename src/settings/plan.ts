@@ -27,21 +27,34 @@ function hash(s: string): number {
  * @param day the local date (YYYY-MM-DD)
  * @param available the games that can be played now
  * @param lastPlayed when each game was last played (ms); missing = never
+ * @param favourites her favourite games: when chosen, the plan comes from them (one per group where
+ *   it can, then her other favourites, then the usual picks if she has fewer than three)
  */
-export function planFor(day: string, available: readonly KidKind[], lastPlayed: Partial<Record<KidKind, number>>): KidKind[] {
-  const can = new Set(available);
+export function planFor(
+  day: string,
+  available: readonly KidKind[],
+  lastPlayed: Partial<Record<KidKind, number>>,
+  favourites: readonly string[] = [],
+): KidKind[] {
   // A game played today stays in today's plan (shown as played), so judge "last played" before today.
   const startOfDay = new Date(`${day}T00:00:00`).getTime();
   const before = (k: KidKind) => {
     const at = lastPlayed[k] ?? 0;
     return at >= startOfDay ? 0 : at;
   };
-  return PLAN_GROUPS.flatMap((group) => {
-    const options = group.filter((k) => can.has(k));
-    if (!options.length) return [];
-    const best = [...options].sort((a, b) => before(a) - before(b) || hash(day + a) - hash(day + b))[0];
-    return [best];
-  });
+  const order = (a: KidKind, b: KidKind) => before(a) - before(b) || hash(day + a) - hash(day + b);
+  const fromGroups = (can: ReadonlySet<KidKind>) =>
+    PLAN_GROUPS.flatMap((group) => {
+      const options = group.filter((k) => can.has(k));
+      return options.length ? [[...options].sort(order)[0]] : [];
+    });
+  const usual = fromGroups(new Set(available));
+  const fav = available.filter((k) => favourites.includes(k));
+  if (!fav.length) return usual;
+  const plan = fromGroups(new Set(fav));
+  for (const k of [...fav].sort(order)) if (plan.length < 3 && !plan.includes(k)) plan.push(k);
+  for (const k of usual) if (plan.length < 3 && !plan.includes(k)) plan.push(k);
+  return plan;
 }
 
 const PLAYED_KEY = 'ksm.played.v1';

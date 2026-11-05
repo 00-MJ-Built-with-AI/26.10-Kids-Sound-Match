@@ -35,7 +35,9 @@ import {
 import { countReplay, forgetReplays } from './settings/replays';
 import { forgetStickers } from './settings/stickers';
 import { voiceStore } from './settings/herVoice';
+import { forgetFavourites, loadFavourites, saveFavourites } from './settings/favourites';
 import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
+import { forgetPlayLog, logPlay } from './settings/playLog';
 import { today } from './settings/routine';
 import { forgetWordMarks, loadWordMarks } from './settings/words';
 import {
@@ -197,6 +199,8 @@ export function App() {
       forgetReplays(id);
       forgetStickers(id);
       forgetWordMarks(id);
+      forgetFavourites(id);
+      forgetPlayLog(id);
       void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
       local.remove(profileKey(LAST_SCENE_KEY, id));
@@ -289,6 +293,15 @@ function Shell({
   const canActions = pointItems(actionsPack, languages, profile?.arGender ?? 'f').length >= MIN_POINT_ITEMS;
   /** The play-time timer: when this sitting began (the first game played from Home), null at Home. */
   const sittingStart = useRef<number | null>(null);
+  /** Play time: the game on screen and when it began (logged when it ends). */
+  const playing = useRef<{ kind: KidKind; profileId: string; start: number } | null>(null);
+  const endPlay = () => {
+    const p = playing.current;
+    if (p) logPlay(p.profileId, p.kind, p.start);
+    playing.current = null;
+  };
+  const [favourites, setFavourites] = useState<string[]>(() => loadFavourites(profileId));
+  useEffect(() => setFavourites(loadFavourites(profileId)), [profileId]);
 
   const refreshCustom = useCallback(async () => {
     try {
@@ -309,6 +322,7 @@ function Shell({
     if (snap && snapPack) {
       setKid({ config: snap.config, snapshot: snap, pack: snapPack, run: ++runs.current });
       sittingStart.current = Date.now();
+      playing.current = { kind: snap.config.kind, profileId: snap.config.profileId, start: Date.now() };
       setScreen('kid');
       return;
     }
@@ -490,6 +504,8 @@ function Shell({
       // No history available: every animal equally often, and an easy Odd one out.
     }
     markPlayed(profileId, kind);
+    endPlay();
+    playing.current = { kind, profileId, start: Date.now() };
     // The first game from Home starts the sitting; play-agains and the end screen's picker continue it.
     if (sittingStart.current === null) sittingStart.current = Date.now();
     setKid({
@@ -591,7 +607,7 @@ function Shell({
     ...(canHunt && !genderKnown ? (['hunt'] as const) : []),
   ];
   const played = loadPlayed(profileId);
-  const todayPlan = planFor(today(), planKinds, played).map((kind) => ({ kind, done: playedToday(played, kind) }));
+  const todayPlan = planFor(today(), planKinds, played, favourites).map((kind) => ({ kind, done: playedToday(played, kind) }));
 
   /** Runs inside a tap: fullscreen must be requested from a user gesture. */
   const launch = (kind: KidKind) => {
@@ -732,6 +748,7 @@ function Shell({
           telemetryEnabled={settings.telemetryEnabled}
           picker={{ packs: playablePacks, settings, kind: kid.config.kind, available: pickerKinds, onPlay: restartKid }}
           onExit={() => {
+            endPlay();
             setKid(null);
             sittingStart.current = null;
             setScreen('home');
@@ -780,6 +797,11 @@ function Shell({
             kind === 'hunt' || kind === 'point' || kind === 'actions' ? beginWithGender(kind) : begin(kind)
           }
           plan={todayPlan}
+          favourites={favourites}
+          onFavourites={(ids) => {
+            saveFavourites(profileId, ids);
+            setFavourites(ids);
+          }}
           memoryNudge={memoryNudge}
           onMemoryNudgeAccept={(to) => {
             update({ memoryPairs: to as MemoryPairs });

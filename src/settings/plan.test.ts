@@ -28,3 +28,22 @@ describe("today's play", () => {
     expect(planFor('2026-11-05', ['talk', 'bubbles'], {})).toEqual(['talk', 'bubbles']);
   });
 });
+
+describe("today's play from her favourites", () => {
+  it('suggests only favourites when there are three or more', () => {
+    const fav = ['bubbles', 'book', 'talk', 'puzzle'];
+    const plan = planFor('2026-11-05', [...ALL, 'book'], {}, fav);
+    expect(plan).toHaveLength(3);
+    plan.forEach((k) => expect(fav).toContain(k));
+  });
+
+  it('tops up from the usual picks when she has fewer than three favourites', () => {
+    const plan = planFor('2026-11-05', ALL, {}, ['bubbles']);
+    expect(plan).toHaveLength(3);
+    expect(plan).toContain('bubbles');
+  });
+
+  it('ignores favourites that cannot be played', () => {
+    expect(planFor('2026-11-05', ALL, {}, ['routine'])).toEqual(planFor('2026-11-05', ALL, {}));
+  });
+});

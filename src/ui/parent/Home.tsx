@@ -5,7 +5,7 @@ import type { MemoryNext } from '../../report/levels';
 import type { NextLevel } from '../../report/practice';
 import type { ProfileState } from '../../settings/profiles';
 import { effectiveMode, enabledItemKeys, type Settings } from '../../settings/settings';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { KidKind } from '../kid/kidSnapshot';
 import {
   ActionsIcon,
@@ -35,7 +35,9 @@ import {
   TalkIcon,
   TurnsIcon,
 } from '../kid/icons';
-import { ChevronIcon } from './components';
+import { ChevronIcon, Overlay } from './components';
+import { gamePicture } from './games';
+import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
 import { Avatar, ProfileRow } from './ProfileRow';
 
@@ -77,6 +79,8 @@ export function Home({
   canTidy,
   onGame,
   plan,
+  favourites,
+  onFavourites,
   onOpen,
   onNudgeAccept,
   onNudgeDismiss,
@@ -125,6 +129,9 @@ export function Home({
   onGame: (kind: KidKind) => void;
   /** Today's play: three games, and whether each was played today. */
   plan: { kind: KidKind; done: boolean }[];
+  /** Her favourite games (tile ids), shown first; empty = not chosen yet. */
+  favourites: readonly string[];
+  onFavourites: (ids: string[]) => void;
   onOpen: (link: HomeLink) => void;
   onNudgeAccept: (to: ChoiceCount) => void;
   onNudgeDismiss: (nudge: NextLevel) => void;
@@ -132,6 +139,8 @@ export function Home({
   onMemoryNudgeDismiss: (nudge: MemoryNext) => void;
 }) {
   const { t, lang } = useI18n();
+  const [tipFor, setTipFor] = useState<string | null>(null);
+  const [picking, setPicking] = useState<string[] | null>(null);
   const modeLabel = { SOUND_AND_NAME: t('modeSoundAndName'), SOUND_ONLY: t('modeSoundOnly'), NAME_ONLY: t('modeNameOnly') }[
     pack ? effectiveMode(pack, settings.mode) : settings.mode
   ];
@@ -193,6 +202,43 @@ export function Home({
     { id: 'memory', icon: <MemoryIcon />, label: t('memoryGame'), sub: t('memorySub', { n: settings.memoryPairs }), on: onMemory, ok: canExplore },
     { id: 'odd', icon: <OddIcon />, label: t('oddOneOut'), sub: t('oddSub'), on: onOdd, ok: canOdd },
   ];
+
+  const allTiles = [...together, ...hers];
+  const favTiles = favourites.map((id) => allTiles.find((x) => x.id === id)).filter((x): x is Tile => x !== undefined);
+  const renderTile = (g: Tile) => (
+    <div key={g.id} className="tile-wrap">
+      <button type="button" className={`game-tile tile-${g.id}`} onClick={g.on} disabled={!g.ok}>
+        <TilePicture id={g.id} icon={g.icon} />
+        <strong>{g.label}</strong>
+        <small>{g.sub}</small>
+      </button>
+      {TIPS[g.id] && (
+        <button type="button" className="tile-info" aria-label={t('tipFor', { game: g.label })} onClick={() => setTipFor(g.id)}>
+          i
+        </button>
+      )}
+    </div>
+  );
+  const groups = (skipFavourites: boolean) =>
+    [
+      { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },
+      { title: t('homeHer'), sub: t('homeHerSub'), tiles: hers },
+    ].map((group) => {
+      const tiles = skipFavourites ? group.tiles.filter((g) => !favourites.includes(g.id)) : group.tiles;
+      return (
+        tiles.length > 0 && (
+          <section key={group.title} className="games-group">
+            <h2 className="games-title">
+              {group.title}
+              <small>{group.sub}</small>
+            </h2>
+            <div className="games-row">{tiles.map(renderTile)}</div>
+          </section>
+        )
+      );
+    });
+  const tipTile = tipFor ? allTiles.find((x) => x.id === tipFor) : undefined;
+  const tip = tipFor ? TIPS[tipFor]?.[lang] : undefined;
 
   return (
     <div className="parent home">
@@ -259,27 +305,33 @@ export function Home({
           </div>
         </section>
       )}
-      {/* Games played together (the parent ticks), then the ones she plays herself. */}
-      {[
-        { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },
-        { title: t('homeHer'), sub: t('homeHerSub'), tiles: hers },
-      ].map((group) => (
-        <section key={group.title} className="games-group">
-          <h2 className="games-title">
-            {group.title}
-            <small>{group.sub}</small>
-          </h2>
-          <div className="games-row">
-            {group.tiles.map((g) => (
-              <button type="button" key={g.id} className={`game-tile tile-${g.id}`} onClick={g.on} disabled={!g.ok}>
-                <TilePicture id={g.id} icon={g.icon} />
-                <strong>{g.label}</strong>
-                <small>{g.sub}</small>
+      {/* Her favourites first (when chosen), then the games played together (the parent ticks) and
+          the ones she plays herself; with favourites, those two are folded under "More games". */}
+      {favTiles.length > 0 ? (
+        <>
+          <section className="games-group fav-group">
+            <h2 className="games-title">
+              ⭐ {t('favTitle')}
+              <small>{t('favSub')}</small>
+              <button type="button" className="fav-edit" onClick={() => setPicking([...favourites])}>
+                {t('favEdit')}
               </button>
-            ))}
-          </div>
-        </section>
-      ))}
+            </h2>
+            <div className="games-row">{favTiles.map(renderTile)}</div>
+          </section>
+          <details className="more-games">
+            <summary>{t('moreGames', { n: together.length + hers.length - favTiles.length })}</summary>
+            {groups(true)}
+          </details>
+        </>
+      ) : (
+        <>
+          <button type="button" className="fav-choose" onClick={() => setPicking([])}>
+            <span aria-hidden="true">⭐</span> {t('favChoose')}
+          </button>
+          {groups(false)}
+        </>
+      )}
       {!pack ? (
         <p className="note">{t('noPackReady')}</p>
       ) : (
@@ -341,46 +393,88 @@ export function Home({
           </button>
         ))}
       </nav>
+
+      {tip && tipTile && (
+        <Overlay label={t('tipFor', { game: tipTile.label })} onDismiss={() => setTipFor(null)}>
+          <div className={`tip-head tile-${tipTile.id}`}>
+            <TilePicture id={tipTile.id} icon={tipTile.icon} />
+            <h2>{tipTile.label}</h2>
+          </div>
+          <h3 className="tip-label">🤝 {t('tipHow')}</h3>
+          <p>{tip.how}</p>
+          <h3 className="tip-label">🌱 {t('tipLearns')}</h3>
+          <p>{tip.learns}</p>
+          <div className="nudge-actions">
+            {tipTile.ok && (
+              <button
+                type="button"
+                className="btn primary"
+                onClick={() => {
+                  setTipFor(null);
+                  tipTile.on();
+                }}
+              >
+                {t('playNow')}
+              </button>
+            )}
+            <button type="button" className="btn ghost" onClick={() => setTipFor(null)}>
+              {t('close')}
+            </button>
+          </div>
+        </Overlay>
+      )}
+
+      {picking && (
+        <Overlay label={t('favPickerTitle')} onDismiss={() => setPicking(null)}>
+          <h2>⭐ {t('favPickerTitle')}</h2>
+          <p className="hint">{t('favPickerHint')}</p>
+          <div className="fav-picker">
+            {allTiles.map((g) => {
+              const on = picking.includes(g.id);
+              return (
+                <button
+                  type="button"
+                  key={g.id}
+                  className={`fav-option tile-${g.id}${on ? ' on' : ''}`}
+                  aria-pressed={on}
+                  onClick={() => setPicking(on ? picking.filter((x) => x !== g.id) : [...picking, g.id])}
+                >
+                  <TilePicture id={g.id} icon={g.icon} />
+                  <span>{g.label}</span>
+                  {on && <b className="fav-star" aria-hidden="true">★</b>}
+                </button>
+              );
+            })}
+          </div>
+          <p className="hint fav-count">{t('favCount', { n: picking.length })}</p>
+          <div className="nudge-actions">
+            <button
+              type="button"
+              className="btn primary"
+              onClick={() => {
+                onFavourites(picking);
+                setPicking(null);
+              }}
+            >
+              {t('save')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => setPicking(null)}>
+              {t('cancel')}
+            </button>
+          </div>
+        </Overlay>
+      )}
     </div>
   );
 }
 
 /** A little picture for each game tile (a drawing from the game's own pictures). */
-const TILE_PICTURES: Record<string, string> = {
-  talk: 'actions/laugh.svg',
-  sounds: 'animals/cow.svg',
-  sing: 'care/music.svg',
-  point: 'body/nose.svg',
-  actions: 'actions/clap.svg',
-  hunt: 'colors/color_red.svg',
-  feel: 'feelings/happy.svg',
-  book: 'routine/story.svg',
-  bedtime: 'feelings/sleepy.svg',
-  turns: 'family/friend.svg',
-  routine: 'routine/wake_up.svg',
-  peekaboo: 'animals/cat.svg',
-  bubbles: 'animals/fish.svg',
-  care: 'family/baby.svg',
-  explore: 'animals/dog.svg',
-  puzzle: 'animals/lion.svg',
-  shapes: 'shapes/shape_star.svg',
-  big: 'animals/elephant.svg',
-  opposites: 'opposites/hot.svg',
-  count: 'animals/duck.svg',
-  missing: 'care/hat.svg',
-  tidy: 'care/clothes.svg',
-  scene: 'animals/horse.svg',
-  memory: 'animals/rabbit.svg',
-  odd: 'shapes/shape_heart.svg',
-  game: 'animals/lion.svg',
-};
-
 function TilePicture({ id, icon }: { id: string; icon: ReactNode }) {
-  const path = TILE_PICTURES[id];
-  if (!path) return <>{icon}</>;
+  const src = gamePicture(id);
+  if (!src) return <>{icon}</>;
   return (
     <span className={`tile-pic${id === 'bubbles' ? ' in-bubble' : ''}`} aria-hidden="true">
-      <img src={`${import.meta.env.BASE_URL}assets/packs/${path}`} alt="" loading="lazy" />
+      <img src={src} alt="" loading="lazy" />
     </span>
   );
 }

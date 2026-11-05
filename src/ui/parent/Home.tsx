@@ -8,6 +8,8 @@ import { effectiveMode, enabledItemKeys, type Settings } from '../../settings/se
 import { useState, type ReactNode } from 'react';
 import type { KidKind } from '../kid/kidSnapshot';
 import type { Certificate } from '../../settings/milestones';
+import type { Season } from '../../settings/season';
+import { EidCelebration, SeasonCard } from './Season';
 import {
   ActionsIcon,
   BigIcon,
@@ -84,6 +86,10 @@ export function Home({
   onFavourites,
   newCert,
   onCertSeen,
+  season,
+  onSeasonPlay,
+  celebrate,
+  onCelebrated,
   onOpen,
   onNudgeAccept,
   onNudgeDismiss,
@@ -139,6 +145,12 @@ export function Home({
   newCert: Certificate | null;
   /** Seen: `open` goes to where her certificates are. */
   onCertSeen: (open: boolean) => void;
+  /** Ramadan or Eid (lanterns on the header, a card with the Ramadan and Eid words). */
+  season: Season | null;
+  onSeasonPlay?: (kind: 'game' | 'explore') => void;
+  /** Eid Mubarak!: the once-a-day celebration. */
+  celebrate: boolean;
+  onCelebrated: () => void;
   onOpen: (link: HomeLink) => void;
   onNudgeAccept: (to: ChoiceCount) => void;
   onNudgeDismiss: (nudge: NextLevel) => void;
@@ -254,6 +266,8 @@ export function Home({
         title={t('appName')}
         tagline={t('appTagline')}
         avatar={activeProfile ? <Avatar profile={activeProfile} size={54} /> : undefined}
+        season={season}
+        seasonLine={season === 'ramadan' ? `🌙 ${t('seasonRamadan')}` : season === 'eid' ? `🎉 ${t('seasonEid')}` : undefined}
       />
 
       {/* Which update is open: always shown, so the parent can check a new one has arrived. */}
@@ -289,6 +303,7 @@ export function Home({
       <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
         {t('start')}
       </button>
+      {season && <SeasonCard season={season} onPlay={onSeasonPlay} />}
       {newCert && (
         <section className="card cert-card" role="status">
           <h2>
@@ -446,6 +461,10 @@ export function Home({
             </button>
           </div>
         </Overlay>
+      )}
+
+      {celebrate && (
+        <EidCelebration avatar={activeProfile ? <Avatar profile={activeProfile} size={96} /> : undefined} onClose={onCelebrated} />
       )}
 
       {picking && (

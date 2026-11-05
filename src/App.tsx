@@ -41,6 +41,7 @@ import { forgetFavourites, loadFavourites, saveFavourites } from './settings/fav
 import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
 import { forgetPlayLog, logPlay } from './settings/playLog';
 import { today } from './settings/routine';
+import { currentSeason, loadSeasonPref, markCelebrated, saveSeasonPref, shouldCelebrate, type SeasonPref } from './settings/season';
 import { forgetWordMarks, loadWordMarks } from './settings/words';
 import {
   calmNow,
@@ -306,6 +307,24 @@ function Shell({
     if (p) logPlay(p.profileId, p.kind, p.start);
     playing.current = null;
   };
+  // Ramadan and Eid: lanterns over Home and the games in season (or whenever the parent chooses).
+  const [seasonPref, setSeasonPref] = useState<SeasonPref>(loadSeasonPref);
+  const season = currentSeason(seasonPref);
+  useEffect(() => {
+    const root = document.documentElement;
+    const url = (name: string) => `url("${import.meta.env.BASE_URL}backgrounds/season-${name}.svg")`;
+    root.style.setProperty('--season-eid', url('eid'));
+    if (season) {
+      root.setAttribute('data-season', season);
+      root.style.setProperty('--season', url(season));
+    } else {
+      root.removeAttribute('data-season');
+      root.style.removeProperty('--season');
+    }
+  }, [season]);
+  const [celebrate, setCelebrate] = useState(() => season === 'eid' && shouldCelebrate(today()));
+  /** A game started with other settings than the parent's (the Ramadan and Eid words on Home). */
+  const nextSettings = useRef<Settings | null>(null);
   const [favourites, setFavourites] = useState<string[]>(() => loadFavourites(profileId));
   useEffect(() => setFavourites(loadFavourites(profileId)), [profileId]);
 
@@ -449,7 +468,9 @@ function Shell({
   };
 
   /** Starts a game. `s` is the settings to use: the quick picker passes the ones it just saved. */
-  const startKid = async (kind: KidKind, s: Settings = settings) => {
+  const startKid = async (kind: KidKind, given?: Settings) => {
+    const s = given ?? nextSettings.current ?? settings;
+    nextSettings.current = null;
     const scene = kind === 'scene' ? pickScene() : undefined;
     const spoken = spokenLanguages(s.language);
     const arGender = pendingGender.current ?? profile?.arGender ?? 'f';
@@ -675,7 +696,19 @@ function Shell({
       break;
     case 'settings':
       body = pack ? (
-        <SettingsScreen content={content} pack={pack} settings={settings} update={update} profiles={profiles} onBack={home} />
+        <SettingsScreen
+          content={content}
+          pack={pack}
+          settings={settings}
+          update={update}
+          profiles={profiles}
+          onBack={home}
+          seasonPref={seasonPref}
+          onSeasonPref={(pref) => {
+            saveSeasonPref(pref);
+            setSeasonPref(pref);
+          }}
+        />
       ) : null;
       break;
     case 'report':
@@ -816,6 +849,20 @@ function Shell({
           canTidy={canTidy}
           onGame={playGame}
           plan={todayPlan}
+          season={season}
+          onSeasonPlay={
+            playablePacks.some((p) => p.id === 'eid')
+              ? (kind) => {
+                  nextSettings.current = { ...settings, packId: 'eid' };
+                  begin(kind);
+                }
+              : undefined
+          }
+          celebrate={celebrate && season === 'eid'}
+          onCelebrated={() => {
+            markCelebrated(today());
+            setCelebrate(false);
+          }}
           newCert={newCert}
           onCertSeen={(open) => {
             if (newCert) markCertificatesSeen(profileId, [newCert.id]);

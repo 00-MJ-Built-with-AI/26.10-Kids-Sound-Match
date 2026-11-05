@@ -1,0 +1,157 @@
+{
+  "pack_id": "eid",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 15,
+  "name": {
+    "en": "Ramadan and Eid",
+    "ar": "رمضان والعيد"
+  },
+  "in_mix": false,
+  "items": [
+    {
+      "item_key": "eid_lantern",
+      "name": {
+        "en": "Lantern",
+        "ar": "فانوس"
+      },
+      "image": "eid/lantern.svg",
+      "name_audio": {
+        "en": "eid/eid_lantern_name_en.mp3",
+        "ar": "eid/eid_lantern_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_crescent",
+      "name": {
+        "en": "Crescent moon",
+        "ar": "هلال"
+      },
+      "image": "eid/crescent.svg",
+      "name_audio": {
+        "en": "eid/eid_crescent_name_en.mp3",
+        "ar": "eid/eid_crescent_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_dates",
+      "name": {
+        "en": "Dates",
+        "ar": "تمر"
+      },
+      "image": "eid/dates.svg",
+      "name_audio": {
+        "en": "eid/eid_dates_name_en.mp3",
+        "ar": "eid/eid_dates_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_clothes",
+      "name": {
+        "en": "New clothes",
+        "ar": "أواعي العيد"
+      },
+      "image": "eid/clothes.svg",
+      "name_audio": {
+        "en": "eid/eid_clothes_name_en.mp3",
+        "ar": "eid/eid_clothes_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_eidiyye",
+      "name": {
+        "en": "Eid money",
+        "ar": "عيدية"
+      },
+      "image": "eid/eidiyye.svg",
+      "name_audio": {
+        "en": "eid/eid_eidiyye_name_en.mp3",
+        "ar": "eid/eid_eidiyye_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_kaak",
+      "name": {
+        "en": "Ka'ak",
+        "ar": "كعك"
+      },
+      "image": "eid/kaak.svg",
+      "name_audio": {
+        "en": "eid/eid_kaak_name_en.mp3",
+        "ar": "eid/eid_kaak_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_maamoul",
+      "name": {
+        "en": "Ma'amoul",
+        "ar": "معمول"
+      },
+      "image": "eid/maamoul.svg",
+      "name_audio": {
+        "en": "eid/eid_maamoul_name_en.mp3",
+        "ar": "eid/eid_maamoul_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_balloons",
+      "name": {
+        "en": "Balloons",
+        "ar": "بالونات"
+      },
+      "image": "eid/balloons.svg",
+      "name_audio": {
+        "en": "eid/eid_balloons_name_en.mp3",
+        "ar": "eid/eid_balloons_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_gift",
+      "name": {
+        "en": "Present",
+        "ar": "هدية"
+      },
+      "image": "eid/gift.svg",
+      "name_audio": {
+        "en": "eid/eid_gift_name_en.mp3",
+        "ar": "eid/eid_gift_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_mosque",
+      "name": {
+        "en": "Mosque",
+        "ar": "جامع"
+      },
+      "image": "eid/mosque.svg",
+      "name_audio": {
+        "en": "eid/eid_mosque_name_en.mp3",
+        "ar": "eid/eid_mosque_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_drum",
+      "name": {
+        "en": "Drum",
+        "ar": "طبل"
+      },
+      "image": "eid/drum.svg",
+      "name_audio": {
+        "en": "eid/eid_drum_name_en.mp3",
+        "ar": "eid/eid_drum_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "eid_qatayef",
+      "name": {
+        "en": "Qatayef",
+        "ar": "قطايف"
+      },
+      "image": "eid/qatayef.svg",
+      "name_audio": {
+        "en": "eid/eid_qatayef_name_en.mp3",
+        "ar": "eid/eid_qatayef_name_ar.mp3"
+      }
+    }
+  ]
+}

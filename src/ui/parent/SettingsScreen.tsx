@@ -29,6 +29,7 @@ import { choosePictures, layoutRows } from '../kid/layout';
 import { Overlay, Row, Screen, Segmented, Toggle } from './components';
 import { Avatar, ProfileRow } from './ProfileRow';
 import { VoicesCard } from './VoicesCard';
+import type { SeasonPref } from '../../settings/season';
 
 export function SettingsScreen({
   content,
@@ -37,6 +38,8 @@ export function SettingsScreen({
   update,
   profiles,
   onBack,
+  seasonPref,
+  onSeasonPref,
 }: {
   content: LoadedContent;
   pack: LoadedPack;
@@ -44,6 +47,8 @@ export function SettingsScreen({
   update: (patch: Partial<Settings>) => void;
   profiles: ProfileControls;
   onBack: () => void;
+  seasonPref: SeasonPref;
+  onSeasonPref: (pref: SeasonPref) => void;
 }) {
   const { t, lang } = useI18n();
   const [pinStep, setPinStep] = useState<'verify' | 'new' | null>(null);
@@ -203,6 +208,19 @@ export function SettingsScreen({
             value={settings.eveningCalm}
             options={EVENING_CALM.map((h) => ({ value: h as number, label: h === 0 ? t('off') : t('calmFrom', { h: h > 12 ? h - 12 : h }) }))}
             onChange={(eveningCalm) => update({ eveningCalm: eveningCalm as Settings['eveningCalm'] })}
+          />
+        </Row>
+        <Row label={t('settingsSeason')} hint={t('settingsSeasonHint')}>
+          <Segmented
+            label={t('settingsSeason')}
+            value={seasonPref}
+            options={[
+              { value: 'auto' as SeasonPref, label: t('seasonAuto') },
+              { value: 'ramadan' as SeasonPref, label: t('seasonShowRamadan') },
+              { value: 'eid' as SeasonPref, label: t('seasonShowEid') },
+              { value: 'off' as SeasonPref, label: t('off') },
+            ]}
+            onChange={onSeasonPref}
           />
         </Row>
         <Row label={t('settingsRepeat')}>

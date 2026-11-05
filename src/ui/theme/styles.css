@@ -6413,3 +6413,170 @@ html[data-calm][data-scene] .kid::before {
   background: linear-gradient(180deg, #fffaf0 0%, #fff3d6 100%);
   box-shadow: inset 0 0 0 2px #f2d27a, var(--shadow);
 }
+
+/* ---------- Ramadan and Eid ---------- */
+.hdr-lantern {
+  transform-box: view-box;
+  animation: hdr-swing 3s ease-in-out infinite;
+}
+.hdr-lantern.l1 { animation-delay: 1s; }
+.hdr-lantern.l2 { animation-delay: 2s; }
+@keyframes hdr-swing {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.hdr-glow {
+  animation: twinkle 1.6s ease-in-out infinite;
+}
+.header-text .season-line {
+  display: inline-block;
+  margin: 6px 0 0;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: rgba(255, 244, 194, 0.92);
+  color: #8a5a00;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+html[data-season] .kid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: min(16vh, 130px);
+  background: var(--season) top center / auto 100% repeat-x;
+  pointer-events: none;
+}
+html[data-season] .kid.stage-idle::after {
+  display: none;
+}
+html[data-calm][data-season] .kid::after {
+  opacity: 0.45;
+}
+.season-card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.season-card.ramadan {
+  background: linear-gradient(180deg, #2e3560 0%, #4a4f86 100%);
+  color: #fff;
+}
+.season-card.ramadan p {
+  color: #e8e6ff;
+}
+.season-card.eid {
+  background: linear-gradient(180deg, #fff1f6 0%, #fff6dc 100%);
+}
+.season-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 70px;
+  background: var(--season) top center / auto 100% repeat-x;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.season-card h2 {
+  position: relative;
+  margin-top: 48px;
+  font-size: 1.35rem;
+}
+.season-pics {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.season-pics img {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.season-card .nudge-actions {
+  justify-content: center;
+}
+.eid-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: radial-gradient(circle at 50% 40%, #fff6dc 0%, #ffd6e6 100%);
+  animation: fade-in 0.3s ease;
+}
+.eid-garland {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: var(--season-eid) top center / auto 100% repeat-x;
+}
+.eid-burst {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+}
+.eid-card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  animation: rise 0.5s ease;
+}
+.eid-ar {
+  margin: 0;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #c2185b;
+  text-shadow: 0 3px 0 #fff;
+}
+.eid-en {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #8a5a00;
+}
+.eid-friends {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+.eid-friends .mascot {
+  width: 120px;
+}
+.eid-avatar {
+  display: block;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px #fff, 0 8px 18px rgba(0, 0, 0, 0.15);
+  animation: mascot-bob 2s ease-in-out infinite;
+}
+.eid-sweets {
+  display: flex;
+  gap: 6px;
+}
+.eid-sweets img {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  animation: mascot-bob 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hdr-lantern, .hdr-glow, .eid-avatar, .eid-sweets img { animation: none; }
+}
+.season-card.ramadan .btn:not(.primary) {
+  color: var(--ink);
+}
+.eid-friends .mascot {
+  position: static;
+  width: 120px;
+  animation: none;
+}

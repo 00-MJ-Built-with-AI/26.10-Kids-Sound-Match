@@ -327,6 +327,15 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Tips | Every game tile has a small ⓘ: how to play it together and what it helps her learn, in English and Arabic, with a "Play now" button. Texts in `src/ui/parent/tips.ts` |
 | Play time | Each game played is logged on this phone (which game, when, how long; a game left open counts at most 30 minutes, a peek under 3 seconds not at all). The Report opens with "Play time this week": minutes per day for the last 7 days (today in green) and her three most-chosen games |
 
+## Added on 5 November 2026: Ramadan and Eid
+
+| Change | Decision |
+|---|---|
+| When | Read from the phone's own Islamic (Umm al-Qura) calendar, so it moves with the moon each year: Ramadan is the 9th month; Eid is 1 to 3 Shawwal (Eid al-Fitr) and 10 to 13 Dhu al-Hijja (Eid al-Adha). Phones without that calendar simply don't show it. Settings → Ramadan and Eid: in season (default), Ramadan now, Eid now, or off |
+| The look | Lanterns swing from the top of Home's sky with a "Ramadan Kareem" / "Eid Mubarak" ribbon (Eid adds little flags); a garland of lanterns, crescents and stars (Ramadan) or lanterns and flags (Eid) hangs over every game. Paler in Evening calm |
+| Ramadan and Eid pack | 12 new drawings, in the cute style, gently moving: lantern (فانوس), crescent (هلال), dates (تمر), new clothes (أواعي العيد), Eid money (عيدية), ka'ak (كعك), ma'amoul (معمول), balloons, a present, a mosque (جامع), the drum (طبل) and qatayef (قطايف). A normal pack all year (Settings), not in the Mixed game; in season a card on Home starts the matching game or Explore with it, without changing the chosen pack. Names are read by the phone until recorded. `tools/art/draw-eid.mjs` |
+| Eid Mubarak! | On Eid, the first time Home opens each day: "عيد مبارك / Eid Mubarak!" with her character, the bunny cheering, confetti and the Eid sweets. A tap closes it |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

@@ -557,6 +557,16 @@ export const en = {
   certMake: 'Make the picture',
   certNew: 'A new certificate!',
   certSee: 'See it',
+  seasonRamadan: 'Ramadan Kareem',
+  seasonEid: 'Eid Mubarak',
+  seasonCardRamadan: 'Lanterns, the crescent, dates and qatayef: play the Ramadan words together.',
+  seasonCardEid: "Ka'ak, eidiyye, balloons and new clothes: play the Eid words together.",
+  seasonTapToPlay: "Let's play!",
+  settingsSeason: 'Ramadan and Eid',
+  settingsSeasonHint: "Lanterns over Home and the games, and the Ramadan and Eid words, by themselves in season (from the phone's Islamic calendar). Or show them now.",
+  seasonAuto: 'In season',
+  seasonShowRamadan: 'Ramadan now',
+  seasonShowEid: 'Eid now',
 };
 
 export type StringKey = keyof typeof en;
@@ -1111,4 +1121,14 @@ export const ar: Record<StringKey, string> = {
   certMake: 'اصنعوا الصورة',
   certNew: 'شهادة جديدة!',
   certSee: 'شوفوها',
+  seasonRamadan: 'رمضان كريم',
+  seasonEid: 'عيد مبارك',
+  seasonCardRamadan: 'الفانوس والهلال والتمر والقطايف: العبوا بكلمات رمضان معاً.',
+  seasonCardEid: 'الكعك والعيدية والبالونات وأواعي العيد: العبوا بكلمات العيد معاً.',
+  seasonTapToPlay: 'يلا نلعب!',
+  settingsSeason: 'رمضان والعيد',
+  settingsSeasonHint: 'فوانيس فوق الصفحة الرئيسية والألعاب، وكلمات رمضان والعيد، وحدها في موسمها (من التقويم الهجري في الهاتف). أو اعرضوها الآن.',
+  seasonAuto: 'في موسمها',
+  seasonShowRamadan: 'رمضان الآن',
+  seasonShowEid: 'العيد الآن',
 };

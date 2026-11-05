@@ -24,6 +24,7 @@ const SCENE_OF: Record<string, string> = {
   counting: 'space',
   letters: 'space',
   opposites: 'space',
+  eid: 'stage',
 };
 export function sceneFor(packId: string): string {
   return SCENE_OF[packId] ?? 'garden';

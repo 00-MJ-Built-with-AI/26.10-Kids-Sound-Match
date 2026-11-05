@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { Profile } from '../../settings/profiles';
+import { characterUrl, type Profile } from '../../settings/profiles';
 
 /** A child's avatar: their animal on their colour. Never a name or photo. */
 export function Avatar({ profile, size = 48 }: { profile: Profile; size?: number }) {
@@ -9,7 +9,7 @@ export function Avatar({ profile, size = 48 }: { profile: Profile; size?: number
       aria-hidden="true"
       style={{ '--avatar': profile.color, width: size, height: size, fontSize: size * 0.56 } as CSSProperties}
     >
-      {profile.animal}
+      {characterUrl(profile) ? <img className="avatar-character" src={characterUrl(profile)} alt="" /> : profile.animal}
     </span>
   );
 }

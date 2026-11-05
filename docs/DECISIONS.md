@@ -312,6 +312,10 @@ For playing with a 20-month-old: five new things on Home, and three visual chang
 | Celebrations | A right answer bursts into confetti, stars, hearts or bubbles, at random |
 | Family and Jobs redrawn | The last old drawings, now in the cute style: grown-ups have a slightly smaller head, trousers or a dress; Grandma a grey bun and glasses, Grandpa a grey beard and a stick, Baba a beard, the uncles a moustache or glasses; each job its uniform, hat and tool. Everyone sways gently. `tools/art/draw-people.mjs` (the older scripts that drew them are removed) |
 | Letters | Each letter card shows a cut-out photo of its word (the rabbit, the duck, the apple...) where the app has one; the 5 without a photo keep their emoji |
+| Home | The header is a little scene that follows the time of day (a rising sun in the morning, a sunset in the evening, the moon and stars at night) with the bunny waving (asleep at night) and the child's avatar. Every game tile shows a small drawing from its own game (the cow for Animal sounds, the baby for Look after the baby...) instead of a line icon. Tiles rise in one after another; screens fade in (parent screens rise a little) |
+| Her drawn character | Settings → Children → Edit: besides the animals, 12 drawn children (6 girls, 6 boys, different hair and skin) to choose from, on the child's colour. Shown wherever the animal was: Home, the header, her turns, her book's cover, and the shared Report and Words pictures. A drawing, never a photo. `tools/art/draw-avatars.mjs` into `public/avatars/` |
+| Her word garden | Words I know opens with a garden: a flower for each word she knows (its picture in the middle, the newest 40), a butterfly when she says it, a ♪ when her voice is recorded; tapping a flower plays her voice |
+| Sticker book | The sticker album is now a book: each page is its picture set's scene with her stickers on it, gently wobbling. She can drag them anywhere (remembered per child); a tap plays the sound and name. The stickers still to find wait faintly under the page |
 
 ## Fixes applied by default
 

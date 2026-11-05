@@ -224,7 +224,11 @@ export function KidBook({
           >
             {page === 0 && (
               <span className="book-cover" style={avatar ? { background: avatar.color } : undefined}>
-                <span className="book-cover-face">{avatar?.animal ?? '🌙'}</span>
+                {avatar?.picture ? (
+                  <img className="book-cover-pic" src={avatar.picture} alt="" draggable={false} />
+                ) : (
+                  <span className="book-cover-face">{avatar?.animal ?? '🌙'}</span>
+                )}
               </span>
             )}
             {word && (

@@ -14,7 +14,7 @@ export interface WordsImageData {
   rtl: boolean;
   title: string;
   subtitle: string;
-  avatar: { animal: string; color: string } | null;
+  avatar: { animal: string; color: string; picture?: string } | null;
   stats: { value: string; label: string }[];
   tiles: WordsImageTile[];
   /** Shown under the grid: "+12 more". */
@@ -112,10 +112,20 @@ export async function renderWordsImage(d: WordsImageData): Promise<Blob> {
     ctx.beginPath();
     ctx.arc(x(cx), M + 115, 70, 0, Math.PI * 2);
     ctx.fill();
-    ctx.font = `76px ${EMOJI}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(d.avatar.animal, x(cx), M + 120);
+    const pic = d.avatar.picture ? await loadAvatar(d.avatar.picture) : null;
+    if (pic) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x(cx), M + 115, 70, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(pic, x(cx) - 70, M + 45, 140, 140);
+      ctx.restore();
+    } else {
+      ctx.font = `76px ${EMOJI}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(d.avatar.animal, x(cx), M + 120);
+    }
     textStart = cx + 70 + 36;
   }
   text(d.title, textStart, M + 92, 54, '#fff', { bold: true, max: W - M - textStart - 40 });
@@ -177,4 +187,21 @@ export async function renderWordsImage(d: WordsImageData): Promise<Blob> {
   return new Promise((resolve, reject) =>
     canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('Could not draw the words'))), 'image/png'),
   );
+}
+
+/** The child's drawn character, for the header (null if it can't load in time). */
+function loadAvatar(url: string): Promise<HTMLImageElement | null> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const timer = window.setTimeout(() => resolve(null), 3000);
+    img.onload = () => {
+      window.clearTimeout(timer);
+      resolve(img);
+    };
+    img.onerror = () => {
+      window.clearTimeout(timer);
+      resolve(null);
+    };
+    img.src = url;
+  });
 }

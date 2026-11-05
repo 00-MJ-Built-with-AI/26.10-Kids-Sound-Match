@@ -9,7 +9,7 @@ import { HOLD_SECONDS, loadLockPrefs, loadPictureCode, saveLockPrefs, type LockP
 import { ParentGate } from '../../lock/ParentGate';
 import { PictureSetup } from '../../lock/PicturePad';
 import { PinSetup } from '../../lock/PinSetup';
-import { MAX_PROFILES, PROFILE_ANIMALS, PROFILE_COLORS, type Profile } from '../../settings/profiles';
+import { MAX_PROFILES, PROFILE_ANIMALS, PROFILE_CHARACTERS, PROFILE_COLORS, type Profile } from '../../settings/profiles';
 import {
   CHOICE_COUNTS,
   effectiveMode,
@@ -412,15 +412,32 @@ function ChildEditor({
       <div className="child-preview">
         <Avatar profile={draft} size={84} />
       </div>
+      <p className="hint">{t('childCharacter')}</p>
+      <div className="character-picker" role="radiogroup" aria-label={t('childCharacter')}>
+        {PROFILE_CHARACTERS.map((c) => (
+          <button
+            type="button"
+            key={c}
+            role="radio"
+            aria-checked={draft.character === c}
+            className={draft.character === c ? 'pick on' : 'pick'}
+            style={{ '--avatar': draft.color } as CSSProperties}
+            onClick={() => setDraft({ ...draft, character: c })}
+          >
+            <img src={`${import.meta.env.BASE_URL}avatars/${c}.svg`} alt="" />
+          </button>
+        ))}
+      </div>
+      <p className="hint">{t('childOrAnimal')}</p>
       <div className="animal-picker" role="radiogroup" aria-label={t('childAnimal')}>
         {PROFILE_ANIMALS.map((a) => (
           <button
             type="button"
             key={a}
             role="radio"
-            aria-checked={draft.animal === a}
-            className={draft.animal === a ? 'pick on' : 'pick'}
-            onClick={() => setDraft({ ...draft, animal: a })}
+            aria-checked={!draft.character && draft.animal === a}
+            className={!draft.character && draft.animal === a ? 'pick on' : 'pick'}
+            onClick={() => setDraft({ ...draft, animal: a, character: undefined })}
           >
             {a}
           </button>

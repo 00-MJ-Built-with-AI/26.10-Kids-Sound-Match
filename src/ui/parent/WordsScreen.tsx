@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { startRecording, type ActiveRecording } from '../../custom/recorder';
 import { recentWords, voiceId, voiceStore, type VoiceClip } from '../../settings/herVoice';
 import type { LoadedItem, LoadedPack } from '../../content/types';
@@ -8,7 +8,7 @@ import { reportStore } from '../../report/db';
 import type { QuestionResultEntity, SessionEntity } from '../../report/types';
 import { knownWords, wordEvidence, wordId } from '../../report/words';
 import { renderWordsImage } from '../../report/wordsImage';
-import { forProfile, type ProfileState } from '../../settings/profiles';
+import { characterUrl, forProfile, type ProfileState } from '../../settings/profiles';
 import {
   addExtraWord,
   loadWordMarks,
@@ -36,6 +36,8 @@ interface ShownWord extends WordInfo {
 }
 
 const SHARE_TILES = 24;
+/** Flowers in the word garden (the newest words). */
+const GARDEN_MAX = 40;
 
 /** Every word in the app, by word id: the plain packs only (not the Mixed game or Who eats what?). */
 function wordLookup(packs: readonly LoadedPack[]): Map<string, WordInfo> {
@@ -199,7 +201,7 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
       rtl: lang === 'ar',
       title: week ? t('weekTitle') : t('wordsTitle'),
       subtitle: new Date().toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-      avatar: { animal: child.animal, color: child.color },
+      avatar: { animal: child.animal, color: child.color, picture: characterUrl(child) },
       stats: week
         ? [
             { value: String(thisWeek.length), label: t('weekNew') },
@@ -261,6 +263,31 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
       <p className="hint">{t('wordsHow')}</p>
 
       {data && words.length === 0 && marks.extra.length === 0 && <p className="empty">{t('wordsEmpty')}</p>}
+      {words.length > 0 && (
+        <section className="word-garden" aria-label={t('gardenTitle')}>
+          <h2>🌷 {t('gardenTitle')}</h2>
+          <p className="hint">{t('gardenHint')}</p>
+          <div className="garden-bed">
+            {[...words].reverse().slice(-GARDEN_MAX).map((w, i) => (
+              <button
+                type="button"
+                key={w.id}
+                className={`flower f${i % 5}`}
+                style={{ '--h': `${46 + ((i * 37) % 30)}px`, animationDelay: `${(i % 12) * 0.05}s` } as CSSProperties}
+                title={w.item.name[lang]}
+                onClick={() => void play(w.id)}
+              >
+                <span className="petals">
+                  <img src={w.picture} alt="" />
+                </span>
+                <span className="stem" />
+                {w.says !== undefined && <span className="butterfly">🦋</span>}
+                {voices.has(w.id) && <span className="flower-note">♪</span>}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
       {words.length > 0 && (
         <ul className="words-grid">
           {words.map((w) => (

@@ -417,7 +417,11 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
           style={childTurn && config.avatar ? { background: config.avatar.color } : undefined}
           aria-hidden="true"
         >
-          <span>{childTurn ? (config.avatar?.animal ?? '🧒') : '🧑'}</span>
+          {childTurn && config.avatar?.picture ? (
+            <img className="turn-pic" src={config.avatar.picture} alt="" />
+          ) : (
+            <span>{childTurn ? (config.avatar?.animal ?? '🧒') : '🧑'}</span>
+          )}
         </div>
       )}
       {grid && view.question.promptKey !== undefined && promptPicture ? (

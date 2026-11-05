@@ -1,8 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { GameAudio } from '../../audio/gameAudio';
 import type { LoadedItem, LoadedPack } from '../../content/types';
 import { loadStickers, pickSticker, saveStickers, type StickerChoice } from '../../settings/stickers';
 import { choosePictures } from './layout';
+import { sceneUrl } from './sceneMap';
+import { local } from '../../settings/storage';
+import { profileKey } from '../../settings/profiles';
 
 /** A picture's sticker image: its drawing (or the parent's photo), the same one every time. */
 export function stickerPicture(item: LoadedItem): string {
@@ -42,8 +45,9 @@ export function AlbumIcon() {
 }
 
 /**
- * The album: a page per pack, with the stickers found so far in colour and the rest as faint
- * shapes to look forward to. Tapping a sticker plays its sound and name. No text.
+ * The album, like a sticker book: a page per pack, its scene (the farm, the sea...) with her stickers
+ * on it. She can drag them anywhere on the scene (remembered), and tapping one plays its sound and
+ * name. The ones still to find wait as faint shapes under the page. No text.
  */
 export function StickerAlbum({
   profileId,
@@ -61,6 +65,11 @@ export function StickerAlbum({
   const pages = useMemo(() => packs.filter((p) => p.items.some((i) => owned.has(`${p.id}|${i.key}`))), [packs, owned]);
   const [pageId, setPageId] = useState(pages[0]?.id ?? '');
   const page = pages.find((p) => p.id === pageId) ?? pages[0];
+  // Where she put each sticker on its scene (dragged), else a spot of its own.
+  const [places, setPlaces] = useState(() => loadStickerPlaces(profileId));
+  const [dragging, setDragging] = useState<string | null>(null);
+  const drag = useRef<{ id: string; x: number; y: number; moved: boolean } | null>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="album" onPointerDown={(e) => e.stopPropagation()}>
@@ -85,26 +94,86 @@ export function StickerAlbum({
         </button>
       </div>
       {page && (
-        <div className="album-page">
-          {page.items.map((item) => {
-            const has = owned.has(`${page.id}|${item.key}`);
-            return (
-              <button
-                type="button"
-                key={item.key}
-                className={has ? 'sticker' : 'sticker missing'}
-                tabIndex={-1}
-                aria-hidden="true"
-                onClick={() => {
-                  if (has) void audio.explore(item);
-                }}
-              >
-                <img src={stickerPicture(item)} alt="" draggable={false} />
-              </button>
-            );
-          })}
+        <div className="album-book" key={page.id}>
+          <div className="album-scene" ref={sceneRef} style={{ backgroundImage: `url("${sceneUrl(page.id)}")` }}>
+            {page.items
+              .filter((item) => owned.has(`${page.id}|${item.key}`))
+              .map((item) => {
+                const id = `${page.id}|${item.key}`;
+                const at = places[id] ?? homeSpot(id);
+                return (
+                  <button
+                    type="button"
+                    key={item.key}
+                    className={dragging === id ? 'sticker on-scene held' : 'sticker on-scene'}
+                    style={{ left: `${at.x}%`, top: `${at.y}%` }}
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    onPointerDown={(e) => {
+                      try {
+                        e.currentTarget.setPointerCapture(e.pointerId);
+                      } catch {
+                        // A synthetic tap: no capture needed.
+                      }
+                      drag.current = { id, x: e.clientX, y: e.clientY, moved: false };
+                      setDragging(id);
+                    }}
+                    onPointerMove={(e) => {
+                      const d = drag.current;
+                      const box = sceneRef.current?.getBoundingClientRect();
+                      if (!d || !box) return;
+                      if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > 10) d.moved = true;
+                      if (!d.moved) return;
+                      const x = Math.min(92, Math.max(0, ((e.clientX - box.left) / box.width) * 100 - 8));
+                      const y = Math.min(84, Math.max(0, ((e.clientY - box.top) / box.height) * 100 - 8));
+                      setPlaces((p) => ({ ...p, [id]: { x, y } }));
+                    }}
+                    onPointerUp={() => {
+                      const d = drag.current;
+                      drag.current = null;
+                      setDragging(null);
+                      if (d && !d.moved) void audio.explore(item);
+                      else setPlaces((p) => {
+                        saveStickerPlaces(profileId, p);
+                        return p;
+                      });
+                    }}
+                  >
+                    <img src={stickerPicture(item)} alt="" draggable={false} />
+                  </button>
+                );
+              })}
+          </div>
+          <div className="album-todo">
+            {page.items
+              .filter((item) => !owned.has(`${page.id}|${item.key}`))
+              .map((item) => (
+                <span key={item.key} className="sticker missing small" aria-hidden="true">
+                  <img src={stickerPicture(item)} alt="" draggable={false} />
+                </span>
+              ))}
+          </div>
         </div>
       )}
     </div>
   );
+}
+
+const PLACES_KEY = 'ksm.stickerPlaces.v1';
+type Places = Record<string, { x: number; y: number }>;
+
+function loadStickerPlaces(profileId: string): Places {
+  const r = local.getJson<Places>(profileKey(PLACES_KEY, profileId));
+  return r && typeof r === 'object' ? r : {};
+}
+function saveStickerPlaces(profileId: string, places: Places): void {
+  local.setJson(profileKey(PLACES_KEY, profileId), places);
+}
+
+/** A sticker's own spot on its page before she moves it: spread out, the same every time. */
+function homeSpot(id: string): { x: number; y: number } {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  h >>>= 0;
+  return { x: 4 + (h % 1000) / 1000 * 80, y: 8 + ((h >>> 10) % 1000) / 1000 * 70 };
 }

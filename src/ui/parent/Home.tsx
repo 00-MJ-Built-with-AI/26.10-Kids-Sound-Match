@@ -36,7 +36,8 @@ import {
   TurnsIcon,
 } from '../kid/icons';
 import { ChevronIcon } from './components';
-import { ProfileRow } from './ProfileRow';
+import { HomeHeader } from './HomeHeader';
+import { Avatar, ProfileRow } from './ProfileRow';
 
 export type HomeLink = 'report' | 'words' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
 
@@ -162,6 +163,7 @@ export function Home({
   ];
 
   type Tile = { id: string; icon: ReactNode; label: string; sub: string; on: () => void; ok: boolean };
+  const activeProfile = profiles.profiles.find((p) => p.id === profiles.activeId);
   const together: Tile[] = [
     { id: 'talk', icon: <TalkIcon />, label: t('talkGame'), sub: t('talkSub'), on: onTalk, ok: canExplore },
     { id: 'sounds', icon: <SoundsIcon />, label: t('soundsGame'), sub: t('soundsSub'), on: () => onGame('sounds'), ok: canSounds },
@@ -194,11 +196,11 @@ export function Home({
 
   return (
     <div className="parent home">
-      <header className="home-header">
-        <img src="icon.svg" alt="" className="home-logo" />
-        <h1>{t('appName')}</h1>
-        <p className="tagline">{t('appTagline')}</p>
-      </header>
+      <HomeHeader
+        title={t('appName')}
+        tagline={t('appTagline')}
+        avatar={activeProfile ? <Avatar profile={activeProfile} size={54} /> : undefined}
+      />
 
       {/* Which update is open: always shown, so the parent can check a new one has arrived. */}
       <section className="build-stamp" aria-label={t('buildTitle')}>
@@ -248,7 +250,7 @@ export function Home({
               if (!tile) return null;
               return (
                 <button type="button" key={kind} className={`plan-tile tile-${kind}${done ? ' done' : ''}`} onClick={tile.on} disabled={!tile.ok}>
-                  {tile.icon}
+                  <TilePicture id={kind} icon={tile.icon} />
                   <strong>{tile.label}</strong>
                   {done && <span className="plan-done">✓ {t('planDone')}</span>}
                 </button>
@@ -270,7 +272,7 @@ export function Home({
           <div className="games-row">
             {group.tiles.map((g) => (
               <button type="button" key={g.id} className={`game-tile tile-${g.id}`} onClick={g.on} disabled={!g.ok}>
-                {g.icon}
+                <TilePicture id={g.id} icon={g.icon} />
                 <strong>{g.label}</strong>
                 <small>{g.sub}</small>
               </button>
@@ -340,5 +342,45 @@ export function Home({
         ))}
       </nav>
     </div>
+  );
+}
+
+/** A little picture for each game tile (a drawing from the game's own pictures). */
+const TILE_PICTURES: Record<string, string> = {
+  talk: 'actions/laugh.svg',
+  sounds: 'animals/cow.svg',
+  sing: 'care/music.svg',
+  point: 'body/nose.svg',
+  actions: 'actions/clap.svg',
+  hunt: 'colors/color_red.svg',
+  feel: 'feelings/happy.svg',
+  book: 'routine/story.svg',
+  bedtime: 'feelings/sleepy.svg',
+  turns: 'family/friend.svg',
+  routine: 'routine/wake_up.svg',
+  peekaboo: 'animals/cat.svg',
+  bubbles: 'animals/fish.svg',
+  care: 'family/baby.svg',
+  explore: 'animals/dog.svg',
+  puzzle: 'animals/lion.svg',
+  shapes: 'shapes/shape_star.svg',
+  big: 'animals/elephant.svg',
+  opposites: 'opposites/hot.svg',
+  count: 'animals/duck.svg',
+  missing: 'care/hat.svg',
+  tidy: 'care/clothes.svg',
+  scene: 'animals/horse.svg',
+  memory: 'animals/rabbit.svg',
+  odd: 'shapes/shape_heart.svg',
+  game: 'animals/lion.svg',
+};
+
+function TilePicture({ id, icon }: { id: string; icon: ReactNode }) {
+  const path = TILE_PICTURES[id];
+  if (!path) return <>{icon}</>;
+  return (
+    <span className={`tile-pic${id === 'bubbles' ? ' in-bubble' : ''}`} aria-hidden="true">
+      <img src={`${import.meta.env.BASE_URL}assets/packs/${path}`} alt="" loading="lazy" />
+    </span>
   );
 }

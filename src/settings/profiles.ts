@@ -13,6 +13,8 @@ export interface Profile {
   color: string;
   /** Girl or boy, only for Arabic grammar ("Where's your nose?": أنفُكِ / أنفُكَ). Unset until a parent says. */
   arGender?: ArGender;
+  /** A drawn character (public/avatars/<id>.svg) shown instead of the animal. Never a photo. */
+  character?: string;
 }
 
 export interface ProfileState {
@@ -24,6 +26,12 @@ export interface ProfileState {
 export const FIRST_PROFILE_ID = 'first';
 export const MAX_PROFILES = 4;
 export const PROFILE_ANIMALS = ['🦁', '🐰', '🐻', '🐱', '🐶', '🐼', '🦊', '🐸', '🐵', '🐧'] as const;
+/** The drawn characters a child can be (tools/art/draw-avatars.mjs draws them). */
+export const PROFILE_CHARACTERS = ['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6'] as const;
+/** The picture of a child's drawn character, if they have one. */
+export function characterUrl(p: Pick<Profile, 'character'>): string | undefined {
+  return p.character && (PROFILE_CHARACTERS as readonly string[]).includes(p.character) ? `${import.meta.env.BASE_URL}avatars/${p.character}.svg` : undefined;
+}
 export const PROFILE_COLORS = ['#e76f51', '#f4a261', '#e9c46a', '#2a9d8f', '#4d96ff', '#9b5de5'] as const;
 
 const KEY = 'ksm.profiles.v1';
@@ -49,6 +57,7 @@ export function sanitizeProfiles(raw: unknown): ProfileState {
       animal: p.animal,
       color: p.color,
       ...(p.arGender === 'f' || p.arGender === 'm' ? { arGender: p.arGender } : {}),
+      ...(typeof p.character === 'string' && (PROFILE_CHARACTERS as readonly string[]).includes(p.character) ? { character: p.character } : {}),
     }));
   if (!profiles.length) return defaultProfiles();
   const activeId = profiles.some((p) => p.id === r.activeId) ? (r.activeId as string) : profiles[0].id;

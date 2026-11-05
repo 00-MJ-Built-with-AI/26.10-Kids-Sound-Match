@@ -5696,3 +5696,341 @@ html[data-calm][data-scene] .kid::before {
   opacity: 0.22;
   filter: brightness(0.55) saturate(0.7);
 }
+
+/* ---------- Home: the header scene ---------- */
+.home-header.scene-header {
+  position: relative;
+  height: 210px;
+  margin: 0 -4px;
+  border-radius: 28px;
+  overflow: hidden;
+  display: block;
+  padding: 0;
+  box-shadow: 0 10px 26px rgba(80, 70, 120, 0.14);
+}
+.header-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.header-text {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 70px;
+}
+.header-text h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #3a2c5c;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.7);
+}
+.header-text .tagline {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #5b4f7a;
+}
+.scene-header.night .header-text h1,
+.scene-header.night .header-text .tagline {
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.header-mascot {
+  position: absolute;
+  right: 6px;
+  bottom: -6px;
+  width: 110px;
+}
+.header-mascot svg,
+.header-avatar svg {
+  width: 100%;
+  height: auto;
+}
+.header-avatar {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #fff, 0 6px 14px rgba(0, 0, 0, 0.15);
+  animation: mascot-bob 3s ease-in-out infinite;
+}
+.hdr-clouds {
+  animation: hdr-drift 30s ease-in-out infinite alternate;
+}
+@keyframes hdr-drift {
+  from { transform: translateX(-20px); }
+  to { transform: translateX(30px); }
+}
+.hdr-star {
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.hdr-star.s1 { animation-delay: 0.8s; }
+.hdr-star.s2 { animation-delay: 1.6s; }
+.hdr-sun {
+  animation: hdr-glow 4s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes hdr-glow {
+  from { transform: scale(0.96); }
+  to { transform: scale(1.04); }
+}
+
+/* ---------- Home: picture tiles ---------- */
+.tile-pic {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tile, #f2894a) 30%, transparent), 0 4px 0 color-mix(in srgb, var(--tile, #f2894a) 25%, transparent);
+  transition: transform 0.2s ease;
+}
+.tile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+}
+.tile-pic.in-bubble {
+  background: radial-gradient(circle at 30% 26%, #fff 0 12%, rgba(191, 230, 255, 0.6) 60%, rgba(201, 184, 255, 0.7));
+}
+.tile-pic.in-bubble img {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  transform: none;
+}
+.game-tile:not(:disabled):hover .tile-pic,
+.plan-tile:not(:disabled):hover .tile-pic {
+  transform: scale(1.06) rotate(-3deg);
+}
+.plan-tile .tile-pic {
+  width: 56px;
+  height: 56px;
+}
+
+/* ---------- Smooth transitions between screens ---------- */
+.screen-in {
+  animation: screen-in 0.32s ease-out both;
+}
+.screen-in.parent-screen {
+  animation-name: screen-in-up;
+}
+@keyframes screen-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes screen-in-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.games-row .game-tile {
+  animation: tile-in 0.45s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+.games-row .game-tile:nth-child(2) { animation-delay: 0.03s; }
+.games-row .game-tile:nth-child(3) { animation-delay: 0.06s; }
+.games-row .game-tile:nth-child(4) { animation-delay: 0.09s; }
+.games-row .game-tile:nth-child(5) { animation-delay: 0.12s; }
+.games-row .game-tile:nth-child(6) { animation-delay: 0.15s; }
+.games-row .game-tile:nth-child(n + 7) { animation-delay: 0.18s; }
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Her word garden ---------- */
+.word-garden {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #e8f6ff 0%, #f6fff0 70%);
+  box-shadow: var(--shadow);
+}
+.word-garden h2 {
+  margin: 0;
+}
+.garden-bed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px 6px;
+  padding: 10px 6px 0;
+  border-bottom: 18px solid #b4e0a6;
+  border-radius: 0 0 16px 16px;
+}
+.flower {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  border: 0;
+  padding: 0;
+  background: none;
+  animation: grow 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  transform-origin: 50% 100%;
+}
+@keyframes grow {
+  from { transform: scaleY(0.2); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.flower .petals {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  box-shadow: 0 0 0 7px var(--petal, #ffb3c6);
+  overflow: hidden;
+  z-index: 1;
+}
+.flower .petals img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.flower.f0 { --petal: #ffb3c6; }
+.flower.f1 { --petal: #ffe08a; }
+.flower.f2 { --petal: #c9b8ff; }
+.flower.f3 { --petal: #9cd8ff; }
+.flower.f4 { --petal: #ffc2a8; }
+.flower .stem {
+  width: 6px;
+  height: var(--h, 50px);
+  margin-top: 4px;
+  border-radius: 3px;
+  background: #6fb85f;
+}
+.flower .stem::after {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 9px;
+  margin: 18px 0 0 4px;
+  border-radius: 0 10px 0 10px;
+  background: #8fcf7a;
+}
+.flower .butterfly {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  font-family: var(--emoji);
+  font-size: 22px;
+  z-index: 2;
+  animation: flutter 1.6s ease-in-out infinite alternate;
+}
+@keyframes flutter {
+  from { transform: rotate(-12deg) translateY(0); }
+  to { transform: rotate(10deg) translateY(-5px); }
+}
+.flower .flower-note {
+  position: absolute;
+  top: -10px;
+  left: -6px;
+  z-index: 2;
+  font-weight: 900;
+  color: #8a6bc8;
+}
+
+/* ---------- Drawn characters ---------- */
+.avatar .avatar-character {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.character-picker {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+.character-picker .pick {
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: var(--avatar, #f4a261);
+  overflow: hidden;
+}
+.character-picker .pick img {
+  width: 100%;
+  height: 100%;
+}
+.character-picker .pick.on {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+.turn-badge .turn-pic,
+.book-cover-pic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ---------- Sticker book ---------- */
+.album-book {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 12px 12px;
+  animation: book-in-next 0.5s ease-out;
+}
+.album-scene {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 26px;
+  background-size: cover;
+  background-position: center bottom;
+  box-shadow: 0 0 0 8px #fff, 0 16px 30px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+.sticker.on-scene {
+  position: absolute;
+  width: min(18vw, 14vh, 110px);
+  height: min(18vw, 14vh, 110px);
+  touch-action: none;
+  animation: sticker-wobble 3s ease-in-out infinite;
+}
+.sticker.on-scene:nth-child(2n) { animation-delay: -1.2s; }
+.sticker.on-scene.held {
+  z-index: 5;
+  animation: none;
+  transform: scale(1.15) rotate(-4deg);
+}
+@keyframes sticker-wobble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.album-todo {
+  flex: none;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px;
+}
+.sticker.missing.small {
+  flex: none;
+  width: 44px;
+  height: 44px;
+}
+/* Sticker book: the picture fills its sticker (a grid would shrink it to nothing). */
+.sticker.on-scene,
+.sticker.missing.small {
+  display: block;
+  padding: 6px;
+}
+.sticker.on-scene img,
+.sticker.missing.small img {
+  display: block;
+}

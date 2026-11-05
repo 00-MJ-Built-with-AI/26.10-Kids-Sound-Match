@@ -13,7 +13,7 @@ import { renderReportImage, type ReportImageRow } from '../../report/reportImage
 import { shareSummary } from '../../report/share';
 import { firstTryPercent, itemSummary, type ItemSummaryRow } from '../../report/summary';
 import { resultPack, type QuestionResultEntity, type SessionEntity } from '../../report/types';
-import { forProfile, type ProfileState } from '../../settings/profiles';
+import { characterUrl, forProfile, type ProfileState } from '../../settings/profiles';
 import { Overlay, Screen, Segmented } from './components';
 import { ProfileRow } from './ProfileRow';
 
@@ -135,7 +135,7 @@ export function ReportScreen({
       rtl: lang === 'ar',
       title: t('appName'),
       subtitle: `${t('report')} · ${new Date().toLocaleDateString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`,
-      avatar: child ? { animal: child.animal, color: child.color } : null,
+      avatar: child ? { animal: child.animal, color: child.color, picture: characterUrl(child) } : null,
       stats: [
         { value: String(s.games), label: t('shareGames') },
         { value: String(s.answers), label: t('shareAnswers') },

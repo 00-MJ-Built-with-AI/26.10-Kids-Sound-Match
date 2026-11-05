@@ -23,6 +23,7 @@ import { memoryReady, oddLevel, type MemoryNext, type OddLevel } from './report/
 import { practiceWeights, readyForMore, type NextLevel } from './report/practice';
 import { knownWords, wordEvidence, wordId } from './report/words';
 import {
+  characterUrl,
   forProfile,
   loadProfiles,
   newProfile,
@@ -531,7 +532,7 @@ function Shell({
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
         ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
-        ...((kind === 'turns' || kind === 'book' || kind === 'bedtime') && profile ? { avatar: { animal: profile.animal, color: profile.color } } : {}),
+        ...((kind === 'turns' || kind === 'book' || kind === 'bedtime') && profile ? { avatar: { animal: profile.animal, color: profile.color, picture: characterUrl(profile) } } : {}),
         language: s.language,
         repeatIntervalSec: s.repeatIntervalSec,
         hints: s.hints,
@@ -803,7 +804,11 @@ function Shell({
 
   return (
     <>
-      {body}
+      {/* A soft fade between screens (parent screens also rise a little; Kid Mode only fades, so its
+          fixed layout is never moved). */}
+      <div key={screen} className={screen === 'kid' ? 'screen-in' : 'screen-in parent-screen'}>
+        {body}
+      </div>
       {askGender && profile && (
         <Overlay label={t('genderTitle')} onDismiss={() => setAskGender(null)}>
           <h2>{t('genderTitle')}</h2>

@@ -65,7 +65,7 @@ export interface KidConfig {
   /** Names on the pictures (English top left, Arabic bottom right). Missing in older snapshots: off. */
   cardNames?: boolean;
   /** Taking turns: the child's animal and colour, shown on her turns. */
-  avatar?: { animal: string; color: string };
+  avatar?: { animal: string; color: string; picture?: string };
 }
 
 /**

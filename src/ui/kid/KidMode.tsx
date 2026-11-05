@@ -4,6 +4,9 @@ import type { PickerOptions } from './EndScreen';
 import { sceneFor } from './sceneMap';
 import { KidBook } from './KidBook';
 import { KidStory } from './KidStory';
+import { KidPaint } from './KidPaint';
+import { KidMusic } from './KidMusic';
+import { KidHide } from './KidHide';
 import { KidCare } from './KidCare';
 import { KidExplore } from './KidExplore';
 import { KidGame } from './KidGame';
@@ -83,6 +86,12 @@ export function KidMode(props: Props) {
       return <KidMissing pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'count':
       return <KidCount pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'paint':
+      return <KidPaint pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'music':
+      return <KidMusic pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'hide':
+      return <KidHide pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'story':
       return <KidStory pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'bubbles':

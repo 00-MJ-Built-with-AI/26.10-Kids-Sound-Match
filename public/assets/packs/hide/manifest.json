@@ -1,0 +1,86 @@
+{
+  "pack_id": "hide",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.87,
+  "name": {
+    "en": "Hide and seek",
+    "ar": "الغمّيضة"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "items": [
+    {
+      "item_key": "hide_bed",
+      "name": {
+        "en": "Under the bed",
+        "ar": "تحت التخت"
+      },
+      "image": "hide/bed.svg",
+      "name_audio": {
+        "en": "hide/hide_bed_name_en.mp3",
+        "ar": "hide/hide_bed_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "hide_curtain",
+      "name": {
+        "en": "Behind the curtain",
+        "ar": "ورا البرداية"
+      },
+      "image": "hide/curtain.svg",
+      "name_audio": {
+        "en": "hide/hide_curtain_name_en.mp3",
+        "ar": "hide/hide_curtain_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "hide_door",
+      "name": {
+        "en": "Behind the door",
+        "ar": "ورا الباب"
+      },
+      "image": "hide/door.svg",
+      "name_audio": {
+        "en": "hide/hide_door_name_en.mp3",
+        "ar": "hide/hide_door_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "hide_sofa",
+      "name": {
+        "en": "Behind the sofa",
+        "ar": "ورا الكنباية"
+      },
+      "image": "hide/sofa.svg",
+      "name_audio": {
+        "en": "hide/hide_sofa_name_en.mp3",
+        "ar": "hide/hide_sofa_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "hide_box",
+      "name": {
+        "en": "In the box",
+        "ar": "جوّا الصندوق"
+      },
+      "image": "hide/box.svg",
+      "name_audio": {
+        "en": "hide/hide_box_name_en.mp3",
+        "ar": "hide/hide_box_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "hide_table",
+      "name": {
+        "en": "Under the table",
+        "ar": "تحت الطاولة"
+      },
+      "image": "hide/table.svg",
+      "name_audio": {
+        "en": "hide/hide_table_name_en.mp3",
+        "ar": "hide/hide_table_name_ar.mp3"
+      }
+    }
+  ]
+}

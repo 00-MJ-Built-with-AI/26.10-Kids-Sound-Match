@@ -7,7 +7,7 @@ import type { StringKey } from '../../i18n/strings';
 export interface GameInfo {
   label: StringKey;
   sub: StringKey;
-  /** 'pack/file.svg' under assets/packs. */
+  /** 'pack/file.svg' under assets/packs, or 'tiles/x.svg' under assets (drawn for the tile). */
   picture: string;
 }
 
@@ -20,6 +20,9 @@ export const GAMES: Record<string, GameInfo> = {
   hunt: { label: 'huntGame', sub: 'huntSub', picture: 'colors/color_red.svg' },
   feel: { label: 'feelGame', sub: 'feelSub', picture: 'feelings/happy.svg' },
   book: { label: 'bookGame', sub: 'bookSub', picture: 'routine/story.svg' },
+  paint: { label: 'paintGame', sub: 'paintSub', picture: 'tiles/paint.svg' },
+  music: { label: 'musicGame', sub: 'musicSub', picture: 'tiles/music.svg' },
+  hide: { label: 'hideGame', sub: 'hideSub', picture: 'tiles/hide.svg' },
   story: { label: 'storyGame', sub: 'storySub', picture: 'animals/rabbit.svg' },
   bedtime: { label: 'bedtimeGame', sub: 'bedtimeSub', picture: 'feelings/sleepy.svg' },
   turns: { label: 'turnsGame', sub: 'turnsSub', picture: 'family/friend.svg' },
@@ -41,5 +44,9 @@ export const GAMES: Record<string, GameInfo> = {
   game: { label: 'matchGame', sub: 'matchSub', picture: 'animals/lion.svg' },
 };
 
-export const gamePicture = (id: string): string | undefined =>
-  GAMES[id] ? `${import.meta.env.BASE_URL}assets/packs/${GAMES[id].picture}` : undefined;
+/** A pack's picture ('animals/cow.svg'), or one drawn for its tile ('tiles/paint.svg'). */
+export const gamePicture = (id: string): string | undefined => {
+  const pic = GAMES[id]?.picture;
+  if (!pic) return undefined;
+  return `${import.meta.env.BASE_URL}assets/${pic.startsWith('tiles/') ? '' : 'packs/'}${pic}`;
+};

@@ -92,6 +92,16 @@ export const FEEDBACK_SPEECH: Record<string, string> = {
   'feedback/feel_m_ar.mp3': 'كيف حاسس اليوم؟',
   'feedback/feel_f_en.mp3': 'How do you feel today?',
   'feedback/feel_m_en.mp3': 'How do you feel today?',
+  'feedback/where_bunny_ar.mp3': 'وين الأرنب؟',
+  'feedback/where_bunny_en.mp3': "Where's Bunny?",
+  'feedback/not_here_ar.mp3': 'مش هون!',
+  'feedback/not_here_en.mp3': 'Not there!',
+  'feedback/found_it_ar.mp3': 'هيّاه! لقيناه!',
+  'feedback/found_it_en.mp3': 'There he is!',
+  'feedback/paint_ar.mp3': 'يلّا نرسم!',
+  'feedback/paint_en.mp3': "Let's paint!",
+  'feedback/music_ar.mp3': 'يلّا نعزف!',
+  'feedback/music_en.mp3': "Let's make music!",
 };
 
 /** A shared line in both languages (see FeedbackLineId). */

@@ -132,7 +132,8 @@ Every finished game earns a sticker for the child's **sticker album**, opened fr
 For parents: **Words I know** (the words each child understands and says, shareable and printable),
 and **Print flashcards** (any pack on A4 for play away from the screen).
 
-**Stories** star her drawn character and the bunny (the farm, bath time, going to Teta's): she taps the
+**Finger painting**, **Make music** (xylophone, animal drums, play-along) and **Hide and seek** (where is Bunny?
+under the bed?) are for her to play. **Stories** star her drawn character and the bunny (the farm, bath time, going to Teta's): she taps the
 things on each page.
 
 Parents can pick **her favourite games** (shown first on Home, the rest under "More games"); each game's

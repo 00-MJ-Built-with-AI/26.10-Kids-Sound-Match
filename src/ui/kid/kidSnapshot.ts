@@ -35,7 +35,10 @@ export type KidKind =
   | 'puzzle'
   | 'shapes'
   | 'bedtime'
-  | 'story';
+  | 'story'
+  | 'paint'
+  | 'music'
+  | 'hide';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {

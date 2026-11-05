@@ -100,6 +100,56 @@ export const TIPS: Record<string, Record<Lang, GameTip>> = {
       learns: 'متابعة قصة صغيرة، وكلمات جديدة في مشهد.',
     },
   },
+  paint: {
+    en: {
+      how: 'Sit with her and name each colour as she picks it: "Blue! Like the sky." Let her paint with her whole hand. The star saves her painting; you can find it in the Report.',
+      learns: 'Colour words, and the hand control that comes before holding a crayon (scribbling is an 18–24-month milestone).',
+    },
+    ar: {
+      how: 'اجلسوا معها وسمّوا كل لون تختاره: «أزرق! مثل السما.» دعوها ترسم بيدها كلها. النجمة تحفظ رسمتها؛ تجدونها في التقرير.',
+      learns: 'كلمات الألوان، والتحكم باليد الذي يسبق مسك الألوان (الخربشة من مراحل 18–24 شهراً).',
+    },
+  },
+  music: {
+    en: {
+      how: 'Bang the drums together: loud, then quiet; fast, then slow. In play-along (🎵), any tap plays the next note: sing Twinkle, twinkle with her as she "plays" it.',
+      learns: 'Rhythm, loud and quiet, cause and effect, and joining in a song.',
+    },
+    ar: {
+      how: 'اطبلوا معاً: عالي ثم واطي، سريع ثم بطيء. في العزف مع الأغنية (🎵) أي لمسة تعزف النغمة التالية: غنّوا «نجمة صغيرة» معها وهي «تعزفها».',
+      learns: 'الإيقاع، والعالي والواطي، والسبب والنتيجة، والمشاركة في الأغنية.',
+    },
+  },
+  hide: {
+    en: {
+      how: 'Ask with her: "Is he under the bed? Behind the door?" Point under, behind and in with your hand. Then play real hide and seek with a teddy at home.',
+      learns: 'Place words (under, behind, in), and that hidden things are still there.',
+    },
+    ar: {
+      how: 'اسألوا معها: «تحت التخت؟ ورا الباب؟» أشيروا بيدكم تحت وورا وجوّا. ثم العبوا غمّيضة حقيقية مع دبدوب في البيت.',
+      learns: 'كلمات المكان (تحت، ورا، جوّا)، وأن الأشياء المخبّأة ما زالت موجودة.',
+    },
+  },
+  sleep: {
+    en: {
+      how: 'Turn it on as you say goodnight, then let the moon and the sounds do the rest. Choose rain or waves if she sleeps better with steady sound.',
+      learns: 'A calm signal that it is time to sleep, the same way every night.',
+    },
+    ar: {
+      how: 'شغّلوه وأنتم تقولون تصبحين على خير، ثم دعوا القمر والأصوات يكملون. اختاروا المطر أو الأمواج إن كانت تنام أفضل مع صوت ثابت.',
+      learns: 'إشارة هادئة أن وقت النوم جاء، بنفس الطريقة كل ليلة.',
+    },
+  },
+  potty: {
+    en: {
+      how: 'Read the potty story together a few times before trying. Then sit her on the potty after meals and naps, and add a sticker for every try, not just for success.',
+      learns: 'What the potty is for, and pride in trying; the first step of potty training.',
+    },
+    ar: {
+      how: 'اقرؤوا قصة النونيّة معاً بضع مرات قبل المحاولة. ثم أجلسوها على النونيّة بعد الأكل والقيلولة، وأضيفوا نجمة لكل محاولة، لا للنجاح فقط.',
+      learns: 'لماذا النونيّة، والفخر بالمحاولة؛ أول خطوة لتعلّم النونيّة.',
+    },
+  },
   bedtime: {
     en: {
       how: 'Dim the lights, hold her close and say goodnight to each picture together. The lullaby ends with the sleepy moon.',

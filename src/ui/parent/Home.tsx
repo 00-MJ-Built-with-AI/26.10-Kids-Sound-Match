@@ -24,6 +24,9 @@ import {
   FeelIcon,
   PlayIcon,
   MoonIcon,
+  PaintIcon,
+  MusicIcon,
+  HideIcon,
   PuzzleIcon,
   ShapesIcon,
   OppositesIcon,
@@ -81,6 +84,8 @@ export function Home({
   canSing,
   canTidy,
   canStory,
+  canPaint,
+  canHide,
   onGame,
   plan,
   favourites,
@@ -137,6 +142,9 @@ export function Home({
   canTidy: boolean;
   /** Stories: its pack is ready. */
   canStory: boolean;
+  /** Finger painting and Make music: the Colours pack is ready. */
+  canPaint: boolean;
+  canHide: boolean;
   /** The newer games, by kind. */
   onGame: (kind: KidKind) => void;
   /** Today's play: three games, and whether each was played today. */
@@ -212,6 +220,9 @@ export function Home({
   ];
   const hers: Tile[] = [
     { id: 'peekaboo', icon: <PeekabooIcon />, label: t('peekaboo'), sub: t('peekabooSub'), on: onPeekaboo, ok: canExplore },
+    { id: 'paint', icon: <PaintIcon />, label: t('paintGame'), sub: t('paintSub'), on: () => onGame('paint'), ok: canPaint },
+    { id: 'music', icon: <MusicIcon />, label: t('musicGame'), sub: t('musicSub'), on: () => onGame('music'), ok: canPaint },
+    { id: 'hide', icon: <HideIcon />, label: t('hideGame'), sub: t('hideSub'), on: () => onGame('hide'), ok: canHide },
     { id: 'bubbles', icon: <BubblesIcon />, label: t('bubblesGame'), sub: t('bubblesSub'), on: () => onGame('bubbles'), ok: canExplore },
     { id: 'care', icon: <CareIcon />, label: t('careGame'), sub: t('careSub'), on: onCare, ok: canCare },
     { id: 'explore', icon: <ExploreIcon />, label: t('explore'), sub: t('exploreSub'), on: onExplore, ok: canExplore },

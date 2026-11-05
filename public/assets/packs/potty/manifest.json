@@ -1,0 +1,74 @@
+{
+  "pack_id": "potty",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.88,
+  "name": {
+    "en": "Potty time",
+    "ar": "وقت النونيّة"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "items": [
+    {
+      "item_key": "potty_potty",
+      "name": {
+        "en": "Potty",
+        "ar": "نونيّة"
+      },
+      "image": "potty/potty.svg",
+      "name_audio": {
+        "en": "potty/potty_potty_name_en.mp3",
+        "ar": "potty/potty_potty_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "potty_pants",
+      "name": {
+        "en": "Big girl pants",
+        "ar": "كلسون"
+      },
+      "image": "potty/pants.svg",
+      "name_audio": {
+        "en": "potty/potty_pants_name_en.mp3",
+        "ar": "potty/potty_pants_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "potty_paper",
+      "name": {
+        "en": "Toilet paper",
+        "ar": "ورق تواليت"
+      },
+      "image": "potty/paper.svg",
+      "name_audio": {
+        "en": "potty/potty_paper_name_en.mp3",
+        "ar": "potty/potty_paper_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "potty_flush",
+      "name": {
+        "en": "Flush",
+        "ar": "شطف"
+      },
+      "image": "potty/flush.svg",
+      "name_audio": {
+        "en": "potty/potty_flush_name_en.mp3",
+        "ar": "potty/potty_flush_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "potty_sticker",
+      "name": {
+        "en": "Star sticker",
+        "ar": "نجمة"
+      },
+      "image": "potty/sticker.svg",
+      "name_audio": {
+        "en": "potty/potty_sticker_name_en.mp3",
+        "ar": "potty/potty_sticker_name_ar.mp3"
+      }
+    }
+  ]
+}

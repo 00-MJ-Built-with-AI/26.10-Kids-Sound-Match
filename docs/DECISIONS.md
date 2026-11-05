@@ -364,6 +364,14 @@ hers.
 | Stories | The page arrows sit between the things and the two friends on any phone, higher when held sideways; the bunny no longer pops in twice when she taps |
 | Found fine | No screen wider than the phone, no cut-off text, no page errors, in either language or orientation. Arabic screens read right to left, including the new ones (favourites, tips, play time, milestones, certificates, Ramadan and Eid, stories). Left as is: on the very smallest phones (320 px) the matching game's picture cards come close to the screen's edges, and held sideways the names on them sit near the bottom edge |
 
+## Added on 5 November 2026: painting, music, hide and seek
+
+| Change | Decision |
+|---|---|
+| Finger painting | She paints with her finger (several fingers at once) on a big white page, in thick soft strokes that sparkle as she goes. 8 colours from the Colours pack, each saying its name when picked (and again when she starts painting, at most every 6 seconds), and a magic rainbow paint. The page icon (top corner) starts a new page; the star saves and ends with stars. Each page she painted on is kept on this phone as a picture (the newest 40 per child), shown in the Report under "Her paintings" and in the week's picture. A game ends after 4 pages |
+| Make music | Three ways to play, switched at the top: a xylophone of 8 coloured bars (a colour's name now and then), 6 animal drums (a drum beat and the animal's sound) and play-along, where any tap plays the next note of Twinkle, twinkle or Happy birthday while the next bar glows, so she always makes the song. The notes are made on the phone (no recordings needed). Ends after 120 taps |
+| Hide and seek | Bunny hides in a drawn room: under the bed, behind the curtain, behind the door, behind the sofa, in the box, under the table. Each place she taps says itself ("تحت التخت؟"), then "مش هون!" or "هيّاه! لقيناه!" as he pops out with confetti. After two wrong places his ears peek out. Five hides a game. The places are a new Hide pack (recordable); three new shared lines (Where's Bunny?, Not there!, There he is!). `tools/art/draw-home-play.mjs` draws the room, the places, and the new games' tile pictures |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

@@ -286,3 +286,51 @@ export function OppositesIcon() {
     </svg>
   );
 }
+
+export function PaintIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-1.3-1.3-1.5-1.3-2.8 0-1 .8-1.6 1.8-1.6H17a4 4 0 0 0 4-4C21 6.3 17 3 12 3z" {...ICON} />
+      <circle cx="7.5" cy="11" r="1.3" fill="currentColor" />
+      <circle cx="10" cy="7" r="1.3" fill="currentColor" />
+      <circle cx="15" cy="7" r="1.3" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function MusicIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 18V5l11-2v13" {...ICON} />
+      <circle cx="6.5" cy="18" r="2.5" {...ICON} />
+      <circle cx="17.5" cy="16" r="2.5" {...ICON} />
+    </svg>
+  );
+}
+
+export function HideIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8.5 11C7 8 7 4 8.5 3.5S11 7 11 10M15.5 11C17 8 17 4 15.5 3.5S13 7 13 10" {...ICON} />
+      <path d="M3 13h18v6H3z" {...ICON} />
+    </svg>
+  );
+}
+
+export function SleepIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" {...ICON} />
+      <path d="M15 4h3l-3 3h3" {...ICON} />
+    </svg>
+  );
+}
+
+export function PottyIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 10h16c0 5-3 8-8 8s-8-3-8-8zM9 18v2h6v-2" {...ICON} />
+      <path d="M12 3l1.2 2.6 2.8.3-2.1 1.9.6 2.7-2.5-1.4-2.5 1.4.6-2.7L8 5.9l2.8-.3z" {...ICON} />
+    </svg>
+  );
+}

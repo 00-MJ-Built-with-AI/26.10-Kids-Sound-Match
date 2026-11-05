@@ -47,6 +47,11 @@ export class AudioEngine {
     unlockSpeech();
   }
 
+  /** The shared Web Audio context, for sounds made on the phone (Make music, the sleep light). */
+  get audioContext(): AudioContext {
+    return this.context();
+  }
+
   get running(): boolean {
     return this.ctx?.state === 'running';
   }

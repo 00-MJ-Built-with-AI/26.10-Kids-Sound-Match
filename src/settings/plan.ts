@@ -11,9 +11,9 @@ export const PLAN_GROUPS: readonly (readonly KidKind[])[] = [
   // Talking together: she says or shows, you tick.
   ['talk', 'sounds', 'feel', 'point', 'actions', 'sing', 'hunt'],
   // Playing: she taps, the app answers.
-  ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count', 'story'],
+  ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count', 'story', 'paint', 'music'],
   // Thinking: matching, opposites, memory.
-  ['game', 'big', 'opposites', 'missing', 'memory', 'explore', 'scene'],
+  ['game', 'big', 'opposites', 'missing', 'memory', 'explore', 'scene', 'hide'],
 ];
 
 /** A small stable number for a string, so the same day gives the same plan. */

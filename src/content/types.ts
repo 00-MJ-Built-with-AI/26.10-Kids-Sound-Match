@@ -99,6 +99,13 @@ export const FEEDBACK_LINE_IDS = [
   // How do you feel? (to a girl / a boy in Arabic)
   'feel_f',
   'feel_m',
+  // Hide and seek: "Where's Bunny?", "Not there!", "There it is!"
+  'where_bunny',
+  'not_here',
+  'found_it',
+  // Finger painting and Make music, as they open
+  'paint',
+  'music',
 ] as const;
 export type FeedbackLineId = (typeof FEEDBACK_LINE_IDS)[number];
 

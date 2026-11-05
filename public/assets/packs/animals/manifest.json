@@ -1139,6 +1139,26 @@
       "feel_m": {
         "en": "feedback/feel_m_en.mp3",
         "ar": "feedback/feel_m_ar.mp3"
+      },
+      "where_bunny": {
+        "en": "feedback/where_bunny_en.mp3",
+        "ar": "feedback/where_bunny_ar.mp3"
+      },
+      "not_here": {
+        "en": "feedback/not_here_en.mp3",
+        "ar": "feedback/not_here_ar.mp3"
+      },
+      "found_it": {
+        "en": "feedback/found_it_en.mp3",
+        "ar": "feedback/found_it_ar.mp3"
+      },
+      "paint": {
+        "en": "feedback/paint_en.mp3",
+        "ar": "feedback/paint_ar.mp3"
+      },
+      "music": {
+        "en": "feedback/music_en.mp3",
+        "ar": "feedback/music_ar.mp3"
       }
     }
   }

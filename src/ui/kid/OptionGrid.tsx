@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, type CSSProperties } from 'react';
 import { cheer } from './Mascot';
 import type { LocalizedText } from '../../content/types';
 import { CardNames } from './CardNames';
-import { lookNow } from '../theme/looks';
+import { lookBox, lookNow } from '../theme/looks';
 import { fitSquares, layoutRows, useBoxSize } from './layout';
 
 interface Props {
@@ -62,7 +62,7 @@ export function OptionGrid({ options, pictures, faded, celebratedKey, hint, name
   const bars = lookNow() === 'puffy' && options.length <= 4 && box.w <= box.h;
   const rows = bars ? options.map((_, i) => [i]) : layoutRows(options.length, box.w > box.h ? 'landscape' : 'portrait');
   // The new looks keep clear of the screen's edge; the original look stays exactly as it was.
-  const { size, gap } = fitSquares(lookNow() === 'now' ? box : { w: box.w - 32, h: box.h - 28 }, rows);
+  const { size, gap } = fitSquares(lookBox(box), rows);
   const barHeight = Math.min(Math.floor((box.h - 28 - gap * (rows.length - 1)) / rows.length), Math.round(box.w * 0.42));
 
   return (

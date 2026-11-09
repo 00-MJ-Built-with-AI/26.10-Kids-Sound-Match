@@ -12,13 +12,17 @@ const builtInPhoto = (a: ResolvedAsset) => Boolean(a.photo) && !a.url.startsWith
 function itemFor(item: LoadedItem, look: Look): LoadedItem {
   const next = (() => {
     if (look === 'sticker') {
-      return { ...item, images: item.images.map((a) => (a.art?.sticker ? { ...a, url: a.art.sticker } : a)) };
+      return { ...item, images: item.images.map((a) => (a.art?.sticker ? { ...a, url: a.art.sticker, square: a.url } : a)) };
     }
-    if (look === 'puffy' && item.images.some((a) => a.art?.puffy)) {
-      const { drawings: _old, ...rest } = item;
-      return { ...rest, images: item.images.map((a) => (a.art?.puffy ? { ...a, url: a.art.puffy, photo: false } : a)) };
+    // A screen only shows pictures of one kind (see choosePictures), so everything a look uses counts as
+    // that look's kind: a card with no 3D picture keeps its drawing without emptying the screen.
+    if (look === 'puffy' && item.images.some(builtInPhoto)) {
+      const three = item.images.filter((a) => a.art?.puffy).map((a) => ({ ...a, url: a.art!.puffy! }));
+      if (three.length) return { ...item, images: three, drawings: three.map((a) => ({ ...a, photo: false })) };
+      if (item.drawings?.length) return { ...item, images: item.drawings.map((a) => ({ ...a, photo: true })) };
     }
-    if (look === 'storybook' && item.drawings?.length && item.images.some(builtInPhoto)) {
+    if (look === 'storybook' && item.images.some(builtInPhoto)) {
+      if (!item.drawings?.length) return { ...item, images: item.images.map((a) => ({ ...a, photo: false })) };
       const { drawings, ...rest } = item;
       return { ...rest, images: drawings };
     }

@@ -212,9 +212,10 @@ export function KidPuzzle(props: GameProps) {
     const { cols, rows } = LAYOUTS[n % LAYOUTS.length];
     const count = cols * rows;
     const xs = shuffle(Array.from({ length: count }, (_, i) => i));
+    const chosen = choosePictures([item])[item.key];
     setRound({
       item,
-      picture: choosePictures([item])[item.key],
+      picture: item.images.find((a) => a.url === chosen)?.square ?? chosen,
       n,
       pieces: xs.map((slot, i) => ({ slot, x: (100 / count) * i + 50 / count })),
     });

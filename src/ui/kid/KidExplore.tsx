@@ -9,6 +9,7 @@ import { CardNames } from './CardNames';
 import { ArrowIcon } from './icons';
 import { KidFrame, PausedScreen } from './KidFrame';
 import { clearKidSnapshot, saveKidSnapshot, type KidConfig, type KidSnapshot } from './kidSnapshot';
+import { lookBox } from '../theme/looks';
 import { choosePictures, exploreRows, fitSquares, useBoxSize } from './layout';
 
 const PAGE_SIZE = 6;
@@ -166,7 +167,7 @@ function ExploreGrid({
   const ref = useRef<HTMLDivElement>(null);
   const box = useBoxSize(ref);
   const rows = exploreRows(items.length, box.w > box.h ? 'landscape' : 'portrait');
-  const { size, gap } = fitSquares(box, rows);
+  const { size, gap } = fitSquares(lookBox(box), rows);
   return (
     <div className="kid-grid" ref={ref} style={{ gap }}>
       {size > 0 &&

@@ -1,10 +1,7 @@
 import type { LoadedItem, LocalizedText } from './types';
 
-/**
- * The words the looks add on screen. Off until the parent has checked the list (docs/DECISIONS.md):
- * Animal sounds' sound words, and Bunny's questions in Bunny's show.
- */
-export const LOOK_WORDS_APPROVED = false;
+/** The words the looks add on screen: Animal sounds' sound words, and Bunny's questions in Bunny's show. */
+export const LOOK_WORDS_APPROVED = true;
 
 /** What each animal says, as a child would say it. */
 export const SOUND_WORDS: Readonly<Record<string, LocalizedText>> = {

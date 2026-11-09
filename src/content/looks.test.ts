@@ -26,13 +26,26 @@ describe('the looks', () => {
     expect(urls(applyLook(pack(cat), 'storybook'))).toEqual([drawing.url]);
     const puffy = applyLook(pack(cat), 'puffy')[0].items[0];
     expect(puffy.images.map((a) => a.url)).toEqual([photo.art!.puffy]);
-    expect(puffy.images[0].photo).toBe(false);
+    expect(puffy.drawings?.map((a) => a.url)).toEqual([photo.art!.puffy]);
   });
 
-  it('keep the photo when a look has nothing for it', () => {
+  it('fall back to the drawing, then the photo, when a look has nothing for a card', () => {
     const plain = { ...cat, images: [{ ...photo, art: undefined }] };
-    expect(urls(applyLook(pack(plain), 'puffy'))).toEqual([photo.url]);
+    expect(urls(applyLook(pack(plain), 'puffy'))).toEqual([drawing.url]);
     expect(urls(applyLook(pack(plain), 'sticker'))).toEqual([photo.url]);
+    const bare = { key: 'x', images: [{ ...photo, art: undefined }] } as unknown as LoadedItem;
+    expect(urls(applyLook(pack(bare), 'puffy'))).toEqual([photo.url]);
+    expect(applyLook(pack(bare), 'storybook')[0].items[0].images[0].photo).toBe(false);
+  });
+
+  it('never leave a screen without pictures when only some cards have the look', () => {
+    const three = cat;
+    const noThree = { ...cat, key: 'dog', images: [{ ...photo, art: undefined }] };
+    const bare = { key: 'x', images: [{ ...photo, art: undefined }] } as unknown as LoadedItem;
+    for (const look of ['puffy', 'storybook'] as const) {
+      const items = applyLook([{ id: 'a', items: [three, noThree, bare] }] as unknown as LoadedPack[], look)[0].items;
+      expect(new Set(items.map((i) => Boolean(i.images[0].photo))).size).toBe(1);
+    }
   });
 
   it("never replace a parent's own photo", () => {

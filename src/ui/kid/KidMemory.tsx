@@ -12,6 +12,7 @@ import { CardNames } from './CardNames';
 import { KidFrame, PausedScreen } from './KidFrame';
 import { clearKidSnapshot, saveKidSnapshot, type KidConfig, type KidSnapshot } from './kidSnapshot';
 import { questionDone } from './sitting';
+import { lookBox } from '../theme/looks';
 import { choosePictures, fitSquares, useBoxSize, type Orientation } from './layout';
 import { Burst } from './OptionGrid';
 import { IdleScene, SessionEndScene } from './scenes';
@@ -103,7 +104,7 @@ export function KidMemory({
   const ref = useRef<HTMLDivElement>(null);
   const box = useBoxSize(ref);
   const rows = memoryRows(state.cards.length, box.w > box.h ? 'landscape' : 'portrait');
-  const { size, gap } = fitSquares(box, rows);
+  const { size, gap } = fitSquares(lookBox(box), rows);
 
   const finish = async (done: MemoryState) => {
     try {

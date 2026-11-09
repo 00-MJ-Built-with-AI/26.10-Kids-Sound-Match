@@ -70,7 +70,6 @@
 :root[data-look='bunny'] .kid.stage-paint .bunny-host { display: none; }
 
 :root[data-look='sticker']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book) {
-  --paper: #ffc93c;
   background-color: var(--paper);
   background-image: radial-gradient(rgba(255, 255, 255, 0.34) 11px, transparent 12px);
   background-size: 72px 72px;
@@ -93,7 +92,6 @@
 }
 
 :root[data-look='puffy']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book) {
-  --a: #7c5cff; --b: #3fa9f5;
   background: linear-gradient(160deg, var(--a), var(--b));
 }
 :root[data-look='puffy'] .kid.stage-talk { --a: #ffb347; --b: #ff6f91; }
@@ -118,6 +116,9 @@
 
 /* Tall or wide pictures stay inside their card. */
 :root[data-look]:not([data-look='now']) .option { grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
+
+:root[data-look='sticker'] .kid { --paper: #ffc93c; }
+:root[data-look='puffy'] .kid { --a: #7c5cff; --b: #3fa9f5; }
 
 /* The look's lettering on every card */
 :root[data-look]:not([data-look='now']) .card-name { font-family: var(--font); }
@@ -250,8 +251,8 @@
 .bunny-host { display: none; }
 :root[data-look='bunny'] .bunny-host { pointer-events: none; }
 :root[data-look='bunny'] .bunny-host .mascot { display: block; width: 100%; height: auto; }
-/* In most games Bunny watches from a corner. */
-:root[data-look='bunny'] .bunny-host.corner { position: absolute; bottom: calc(6px + env(safe-area-inset-bottom)); left: 6px; z-index: 3; display: block; width: clamp(62px, 16vmin, 104px); }
+/* In most games Bunny watches from the top of the screen, clear of the buttons and things to drag. */
+:root[data-look='bunny'] .bunny-host.corner { position: absolute; top: calc(4px + env(safe-area-inset-top)); left: 50%; z-index: 3; display: block; width: 54px; translate: -50% 0; }
 /* In the first games Bunny has its own place, with a speech bubble. */
 :root[data-look='bunny'] .bunny-host.header { display: flex; flex: none; align-items: center; gap: 12px; height: clamp(82px, 15vh, 132px); padding: 0 16px; }
 :root[data-look='bunny'] .bunny-host.header .bunny-pic { flex: none; height: 100%; aspect-ratio: 200 / 220; }
@@ -293,3 +294,147 @@
 @media (prefers-reduced-motion: reduce) {
   :root[data-look] .option { rotate: 0deg; }
 }
+
+/* ==========================================================================
+   Every other game. The same few card shapes are used all over, so each look
+   restyles them together; each game's own colour comes from its stage.
+   ========================================================================== */
+:root[data-look]:not([data-look='now']) :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) {
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+}
+
+/* What each game's background is */
+:root[data-look='sticker'] .kid.stage-peekaboo { --paper: #ffb38a; }
+:root[data-look='sticker'] .kid.stage-care { --paper: #ffb3cf; }
+:root[data-look='sticker'] .kid.stage-feel { --paper: #ffd166; }
+:root[data-look='sticker'] .kid.stage-opposites { --paper: #8fd9ff; }
+:root[data-look='sticker'] .kid.stage-puzzle { --paper: #a5e887; }
+:root[data-look='sticker'] .kid.stage-shapes { --paper: #ffa7a7; }
+:root[data-look='sticker'] .kid.stage-big { --paper: #c7b3ff; }
+:root[data-look='sticker'] .kid.stage-missing { --paper: #7fe0c3; }
+:root[data-look='sticker'] .kid.stage-count { --paper: #ffcf70; }
+:root[data-look='sticker'] .kid.stage-bubbles { --paper: #8ed2ff; }
+:root[data-look='sticker'] .kid.stage-tidy { --paper: #ffcb8a; }
+:root[data-look='sticker'] .kid.stage-sing { --paper: #d6b3ff; }
+:root[data-look='sticker'] .kid.stage-story { --paper: #9fe0d8; }
+:root[data-look='sticker'] .kid.stage-hide { --paper: #f7c59f; }
+:root[data-look='puffy'] .kid.stage-peekaboo { --a: #ff9a76; --b: #ff5f8f; }
+:root[data-look='puffy'] .kid.stage-care { --a: #ff9ccf; --b: #c86df0; }
+:root[data-look='puffy'] .kid.stage-feel { --a: #ffd24d; --b: #ff9142; }
+:root[data-look='puffy'] .kid.stage-opposites { --a: #4fc3ff; --b: #5b7cfa; }
+:root[data-look='puffy'] .kid.stage-puzzle { --a: #7fdc5f; --b: #1fb6a6; }
+:root[data-look='puffy'] .kid.stage-shapes { --a: #ff8080; --b: #f25fa8; }
+:root[data-look='puffy'] .kid.stage-big { --a: #b18cff; --b: #6a6cf2; }
+:root[data-look='puffy'] .kid.stage-missing { --a: #45dcb0; --b: #2f9fe0; }
+:root[data-look='puffy'] .kid.stage-count { --a: #ffc14d; --b: #f77b4d; }
+:root[data-look='puffy'] .kid.stage-bubbles { --a: #5cc8ff; --b: #4a7bf0; }
+:root[data-look='puffy'] .kid.stage-tidy { --a: #ffb45c; --b: #ee7a55; }
+:root[data-look='puffy'] .kid.stage-sing { --a: #c28cff; --b: #e66dc8; }
+:root[data-look='puffy'] .kid.stage-story { --a: #58d6c8; --b: #3f9df0; }
+:root[data-look='puffy'] .kid.stage-hide { --a: #ffb37a; --b: #e87fa0; }
+
+/* The end of a game: each look's own night */
+:root[data-look='sticker']:not([data-calm]) .kid.stage-idle { background-color: #1f6f78; background-image: radial-gradient(rgba(255, 255, 255, 0.1) 11px, transparent 12px); background-size: 72px 72px; }
+:root[data-look='storybook']:not([data-calm]) .kid.stage-idle { background: radial-gradient(circle at 50% 35%, #4d4466 0%, #2f2942 75%); }
+:root[data-look='puffy']:not([data-calm]) .kid.stage-idle { background: linear-gradient(160deg, #4a2fd0, #1f2a8a); }
+:root[data-look='bunny']:not([data-calm]) .kid.stage-idle { background: linear-gradient(#54488f, #8a6bb8 70%, #c98ab8); }
+
+/* The big round buttons in the games */
+:root[data-look='sticker'] :is(.resume, .end-play, .qp-play) { border: 5px solid #fff; background: #e4572e; box-shadow: 0 7px 14px rgba(0, 0, 0, 0.3); }
+:root[data-look='sticker'] :is(.replay, .page-btn, .album-close, .sing-back, .point-skip) { border: 3px solid #fff; background: #fff6df; box-shadow: 0 4px 9px rgba(0, 0, 0, 0.22); color: #e4572e; }
+:root[data-look='storybook'] :is(.resume, .end-play, .qp-play) { border: 2px solid #fff3d8; background: #c4532d; box-shadow: 0 0 0 3px #8a6a3f, 0 8px 14px rgba(40, 25, 5, 0.3); }
+:root[data-look='storybook'] :is(.replay, .page-btn, .album-close, .sing-back, .point-skip) { border: 1.5px solid #c9a877; background: #fffdf6; box-shadow: 2px 3px 0 #ead9b8; color: #8a6a3f; }
+:root[data-look='puffy'] :is(.resume, .end-play, .qp-play) { background: linear-gradient(#ffd34d, #ffb300); box-shadow: 0 8px 0 #d98e00, 0 16px 22px rgba(30, 20, 90, 0.35), inset 0 3px 0 rgba(255, 255, 255, 0.55); color: #5a3a00; }
+:root[data-look='puffy'] :is(.replay, .page-btn, .album-close, .sing-back, .point-skip) { background: linear-gradient(#fff, #eeeaff); box-shadow: 0 5px 0 #b9aef0, 0 9px 12px rgba(30, 20, 90, 0.25), inset 0 2px 0 #fff; color: #6a4df0; }
+:root[data-look='bunny'] :is(.resume, .end-play, .qp-play) { background: linear-gradient(#f58fb2, #ec6f9b); box-shadow: 0 10px 24px rgba(236, 111, 155, 0.45); color: #fff; }
+:root[data-look='bunny'] :is(.replay, .page-btn, .album-close, .sing-back, .point-skip) { background: #fff; box-shadow: 0 5px 12px rgba(110, 80, 160, 0.24); color: #ec6f9b; }
+
+/* ---------- 1 Sticker book ---------- */
+:root[data-look='sticker'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) { background: none; border-radius: 0; box-shadow: none; }
+:root[data-look='sticker'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) img,
+:root[data-look='sticker'] .peekaboo-card.named > img { width: 100%; height: 100%; object-fit: contain; border-radius: 0; filter: drop-shadow(0 6px 7px rgba(0, 0, 0, 0.3)); }
+:root[data-look='sticker'] .peekaboo-card.named > img { height: 84%; margin-bottom: 14%; }
+:root[data-look='sticker'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) img[src$='.svg'] {
+  filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 5px 6px rgba(0, 0, 0, 0.28));
+}
+:root[data-look='sticker'] :is(.feel-face.on, .big-card.celebrate, .opp-card.celebrate, .count-thing.counted, .care-tool.used, .tidy-thing.picked, .sing-card.word, .peekaboo-card.open) { box-shadow: none; }
+:root[data-look='sticker'] :is(.feel-face.on, .big-card.celebrate, .opp-card.celebrate, .count-thing.counted, .care-tool.used, .tidy-thing.picked, .sing-card.word, .peekaboo-card.open) img { filter: drop-shadow(0 0 14px #fff36b) drop-shadow(0 0 26px #ffd54a); }
+:root[data-look='sticker'] .tidy-thing:nth-child(odd),
+:root[data-look='sticker'] .feel-face:nth-child(odd) { rotate: -3deg; }
+:root[data-look='sticker'] .tidy-thing:nth-child(even),
+:root[data-look='sticker'] .feel-face:nth-child(even) { rotate: 3deg; }
+:root[data-look='sticker'] .memory-card .face { border: 4px solid #fff; border-radius: 9%; box-shadow: 0 6px 11px rgba(0, 0, 0, 0.28); }
+:root[data-look='sticker'] .memory-card .front { background: #fffaf0; }
+:root[data-look='sticker'] .memory-card .back { background-color: #e4572e; background-image: radial-gradient(rgba(255, 255, 255, 0.4) 16%, transparent 17%); background-size: 34% 34%; }
+:root[data-look='sticker'] .memory-card .face img { border-radius: 0; }
+:root[data-look='sticker'] .puzzle-piece,
+:root[data-look='sticker'] .puzzle-board { border-radius: 6px; }
+
+/* ---------- 2 Storybook ---------- */
+:root[data-look='storybook'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card) {
+  border-radius: 8%;
+  background: #fffdf6;
+  box-shadow: 0 0 0 1.5px #c9a877, 0 0 0 5px #fff, 0 0 0 6.5px #c9a877, 3px 7px 9px rgba(90, 60, 20, 0.24);
+}
+:root[data-look='storybook'] :is(.sing-song, .count-thing) { background: #fffdf6; box-shadow: 0 0 0 4px #fff, 0 0 0 6px #c9a877, 3px 7px 9px rgba(90, 60, 20, 0.24); }
+:root[data-look='storybook'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) img { border-radius: 0; filter: drop-shadow(0 4px 3px rgba(60, 40, 10, 0.22)); }
+:root[data-look='storybook'] :is(.feel-face.on, .big-card.celebrate, .opp-card.celebrate, .count-thing.counted, .care-tool.used, .tidy-thing.picked, .sing-card.word, .peekaboo-card.open) { box-shadow: 0 0 0 5px #ffe27a, 0 0 0 8px #e0a93c, 0 0 28px 8px rgba(255, 214, 90, 0.7); }
+:root[data-look='storybook'] .memory-card .face { border: 1.5px solid #c9a877; border-radius: 8%; box-shadow: 0 0 0 3px #fff, 0 0 0 4.5px #c9a877, 2px 5px 8px rgba(90, 60, 20, 0.24); }
+:root[data-look='storybook'] .memory-card .front { background: #fffdf6; }
+:root[data-look='storybook'] .memory-card .back { background: repeating-linear-gradient(45deg, #b98a5e 0 7%, #a97a50 7% 14%); }
+:root[data-look='storybook'] .memory-card .face img { border-radius: 0; }
+:root[data-look='storybook'] .puzzle-board { border-radius: 8px; box-shadow: 0 0 0 5px #fff, 0 0 0 7px #c9a877, 4px 8px 12px rgba(90, 60, 20, 0.28); }
+:root[data-look='storybook'] .puzzle-piece { border-radius: 6px; }
+:root[data-look='storybook'] .kid .sing-dots span { background: rgba(138, 106, 63, 0.3); }
+:root[data-look='storybook'] .kid .sing-dots span.on { background: #c4532d; }
+
+/* ---------- 3 Puffy toys ---------- */
+:root[data-look='puffy'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) {
+  --edge: #5b3fd6;
+  background: linear-gradient(#fff, #f2eeff);
+  box-shadow: 0 8px 0 var(--edge), 0 15px 20px rgba(30, 20, 90, 0.3), inset 0 3px 0 #fff;
+}
+:root[data-look='puffy'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card) { border-radius: 24%; }
+:root[data-look='puffy'] :is(.tidy-thing, .feel-face, .care-tool, .shelf-spot, .opp-card, .big-card, .sing-song, .count-thing):nth-child(3n + 2) { --edge: #e0689a; }
+:root[data-look='puffy'] :is(.tidy-thing, .feel-face, .care-tool, .shelf-spot, .opp-card, .big-card, .sing-song, .count-thing):nth-child(3n) { --edge: #1f9d8f; }
+:root[data-look='puffy'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) img { border-radius: 0; filter: drop-shadow(0 6px 5px rgba(30, 20, 90, 0.24)); }
+:root[data-look='puffy'] :is(.feel-face.on, .big-card.celebrate, .opp-card.celebrate, .count-thing.counted, .care-tool.used, .tidy-thing.picked, .sing-card.word, .peekaboo-card.open) { box-shadow: 0 8px 0 #e5a800, 0 0 0 6px #ffd54a, 0 0 42px 12px rgba(255, 213, 74, 0.75); }
+:root[data-look='puffy'] .memory-card .face { border-radius: 22%; box-shadow: 0 7px 0 #4a31bd, 0 12px 16px rgba(30, 20, 90, 0.3), inset 0 3px 0 rgba(255, 255, 255, 0.7); }
+:root[data-look='puffy'] .memory-card .front { background: linear-gradient(#fff, #f2eeff); }
+:root[data-look='puffy'] .memory-card .back { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0 20%, transparent 21%), linear-gradient(#8f76ff, #6a4df0); }
+:root[data-look='puffy'] .memory-card .face img { border-radius: 0; }
+:root[data-look='puffy'] .puzzle-board { border-radius: 26px; box-shadow: 0 8px 0 #4a31bd, 0 15px 20px rgba(30, 20, 90, 0.3); }
+:root[data-look='puffy'] .puzzle-piece { border-radius: 16px; box-shadow: 0 6px 0 #b9aef0, 0 11px 15px rgba(30, 20, 90, 0.3), 0 0 0 3px #fff; }
+
+/* ---------- 5 Bunny's show ---------- */
+:root[data-look='bunny'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) { border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px #fff, 0 9px 20px rgba(110, 80, 160, 0.26); }
+:root[data-look='bunny'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+:root[data-look='bunny'] :is(.peekaboo-card, .big-card, .shelf-spot, .tidy-thing, .feel-face, .opp-card, .care-tool, .sing-card, .sing-song, .count-thing) img[src$='.svg'] { width: 72%; height: 72%; border-radius: 0; object-fit: contain; }
+:root[data-look='bunny'] :is(.feel-face.on, .big-card.celebrate, .opp-card.celebrate, .count-thing.counted, .care-tool.used, .tidy-thing.picked, .sing-card.word, .peekaboo-card.open) { box-shadow: 0 0 0 8px #ffd54a, 0 0 42px 12px rgba(255, 213, 74, 0.7); }
+:root[data-look='bunny'] .memory-card .face { border-radius: 50%; box-shadow: 0 0 0 4px #fff, 0 7px 15px rgba(110, 80, 160, 0.26); }
+:root[data-look='bunny'] .memory-card .front { background: #fff; }
+:root[data-look='bunny'] .memory-card .back { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.55) 0 20%, transparent 21%), linear-gradient(#f9b4cc, #ec6f9b); }
+:root[data-look='bunny'] .memory-card .face img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+:root[data-look='bunny'] .memory-card .face img[src$='.svg'] { width: 72%; height: 72%; border-radius: 0; object-fit: contain; }
+:root[data-look='bunny'] .puzzle-board { border-radius: 30px; }
+:root[data-look='bunny'] .puzzle-piece { border-radius: 18px; }
+:root[data-look='bunny'] .kid.stage-scene .bunny-host.corner,
+:root[data-look='bunny'] .kid.stage-story .bunny-host.corner,
+:root[data-look='bunny'] .kid.stage-hide .bunny-host.corner,
+:root[data-look='bunny'] .kid.stage-book .bunny-host.corner,
+:root[data-look='bunny'] .kid.stage-music .bunny-host.corner { display: none; }
+
+/* ---------- The parent screens ---------- */
+:root[data-look='sticker'] .card { border: 3px solid #fff; box-shadow: 0 5px 12px rgba(120, 80, 20, 0.2); }
+:root[data-look='sticker'] .btn { border-radius: 10px; }
+:root[data-look='sticker'] .plan-tile { border: 3px solid #fff; border-radius: 10px; background: #fff; box-shadow: 0 4px 10px rgba(120, 80, 20, 0.22); }
+:root[data-look='storybook'] .card { border: 1px solid #ead9b8; box-shadow: 2px 3px 0 #ead9b8; }
+:root[data-look='storybook'] .btn { border-radius: 6px; }
+:root[data-look='storybook'] .plan-tile { border: 1px solid #d9c49d; border-radius: 6px; background: #fffdf6; box-shadow: 2px 3px 0 #ead9b8; }
+:root[data-look='puffy'] .card { border: 0; box-shadow: 0 6px 0 #ddd5fb, 0 12px 18px rgba(50, 30, 140, 0.12); }
+:root[data-look='puffy'] .btn { border-radius: 18px; }
+:root[data-look='puffy'] .btn.primary { box-shadow: 0 5px 0 #4a31bd; }
+:root[data-look='puffy'] .plan-tile { border: 0; border-radius: 24px; background: #fff; box-shadow: 0 6px 0 var(--tile, #6a4df0), 0 11px 15px rgba(50, 30, 140, 0.2); }
+:root[data-look='bunny'] .card { border: 0; box-shadow: 0 8px 20px rgba(120, 90, 170, 0.14); }
+:root[data-look='bunny'] .btn { border-radius: 999px; }
+:root[data-look='bunny'] .plan-tile { border: 0; border-radius: 28px; background: #fff; box-shadow: 0 7px 18px rgba(120, 90, 170, 0.18); }

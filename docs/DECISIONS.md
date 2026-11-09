@@ -384,12 +384,13 @@ hers.
 |---|---|
 | Five looks | Settings > Look: As it is now (the old look, untouched, and the default), Sticker book, Storybook, Puffy toys, Bunny's show. Spotlight stage was mocked up and left out |
 | Per child | Saved with each child's settings, so switching child switches the look |
-| How far it reaches | Every screen gets the look's colours, lettering, cards and buttons. Matching game, Talk time and Animal sounds also get the mock-up layouts; the other games are fine-tuned three at a time |
+| How far it reaches | Every game and parent screen has each look: its colours, lettering, card shapes and buttons, with a background colour per game. Painting, Make music, the bedtime book and the sleep light keep their own backgrounds. The parent asked for all the remaining games at once instead of three at a time |
 | Pictures | Sticker book: each photo lifted off its pastel circle with a thick white edge (a whole scene in a round frame stays a round sticker; six pale subjects use rembg). Storybook: the card's drawing. Puffy toys: Microsoft Fluent Emoji 3D where one exists (223 cards); the rest keep their drawing. Bunny's show keeps the photos. A parent's own photo is never replaced. Scripts: `tools/art/sticker-cutouts.py`, `tools/art/puffy-3d.mjs` |
 | Lettering | Baloo 2, Baloo Bhaijaan 2, Fredoka, Patrick Hand and El Messiri, packed with the app (SIL Open Font License); nothing is fetched while she plays |
 | Size | A look's pictures and fonts are fetched for offline use only for a child using that look, so other phones don't download them |
 | Evening calm | Takes over the look's colours at night; the look's cards and shapes stay |
-| New words on screen | Sound words on Animal sounds and Bunny's questions are written in `src/content/lookWords.ts` but stay off (`LOOK_WORDS_APPROVED`) until the parent has checked the list |
+| New words on screen | Sound words on Animal sounds and Bunny's questions (`src/content/lookWords.ts`), switched on after the parent saw the list and said to go ahead with everything |
+| Pictures on one screen | In Puffy toys and Storybook every picture a look uses counts as that look's kind, so a card with nothing for the look keeps its drawing or photo instead of emptying the screen. The jigsaw uses the square photo in Sticker book |
 
 ## Fixes applied by default
 

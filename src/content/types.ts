@@ -168,6 +168,8 @@ export interface ResolvedAsset {
   readonly photo?: boolean;
   /** A built-in photo redrawn for the looks that have their own pictures (Settings > Look). */
   readonly art?: { readonly sticker?: string; readonly puffy?: string };
+  /** The square photo behind a cut-out sticker: the jigsaw needs a square picture. */
+  readonly square?: string;
 }
 
 export interface LoadedItem {

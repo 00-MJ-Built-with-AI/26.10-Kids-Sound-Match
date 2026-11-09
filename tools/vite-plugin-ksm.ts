@@ -96,7 +96,9 @@ function copyDir(from: string, to: string): void {
 }
 
 /** Photos and sounds: cached as they're used and, a little at a time, in the background. */
-const MEDIA = /\.(jpe?g|webp|png|wav|mp3|m4a|ogg)$/i;
+const MEDIA = /\.(jpe?g|webp|png|wav|mp3|m4a|ogg|woff2)$/i;
+/** A look's own pictures and fonts: only fetched for a child who is using that look. */
+const LOOK_FILE = /^\.\/assets\/looks\//;
 
 function serviceWorker(core: string[], media: string[], version: string, mediaVersion: string): string {
   return `// Generated at build time. Caches the whole app so it works offline (spec rule 10).
@@ -106,8 +108,9 @@ function serviceWorker(core: string[], media: string[], version: string, mediaVe
 const CACHE = 'ksm-${version}';
 const MEDIA_CACHE = 'ksm-media-${mediaVersion}';
 const CORE = ${JSON.stringify(core)};
-const LATER = ${JSON.stringify(media)};
-const later = new Set(LATER.map((u) => new URL(u, self.registration.scope).href));
+const LATER = ${JSON.stringify(media.filter((u) => !LOOK_FILE.test(u)))};
+const LOOKS = ${JSON.stringify(media.filter((u) => LOOK_FILE.test(u)))};
+const later = new Set([...LATER, ...LOOKS].map((u) => new URL(u, self.registration.scope).href));
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });
@@ -120,11 +123,12 @@ self.addEventListener('activate', (event) => {
 });
 let warming = null;
 /** Fetches the photos and sounds not cached yet, three at a time. */
-function warm() {
-  warming ??= (async () => {
+function warm(look) {
+  const list = look ? LOOKS.filter((u) => u.includes('/looks/fonts/') || u.includes('/looks/' + look + '/')) : LATER;
+  warming = (warming ?? Promise.resolve()).then(async () => {
     const cache = await caches.open(MEDIA_CACHE);
     const todo = [];
-    for (const u of LATER) if (!(await cache.match(u, { ignoreSearch: true, ignoreVary: true }))) todo.push(u);
+    for (const u of list) if (!(await cache.match(u, { ignoreSearch: true, ignoreVary: true }))) todo.push(u);
     const next = async () => {
       for (let u = todo.shift(); u; u = todo.shift()) {
         try {
@@ -136,11 +140,12 @@ function warm() {
       }
     };
     await Promise.all([next(), next(), next()]);
-  })().finally(() => (warming = null));
+  });
   return warming;
 }
 self.addEventListener('message', (event) => {
   if (event.data === 'warm') event.waitUntil(warm());
+  else if (event.data && event.data.warmLook) event.waitUntil(warm(event.data.warmLook));
 });
 self.addEventListener('fetch', (event) => {
   const request = event.request;

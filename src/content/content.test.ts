@@ -129,7 +129,7 @@ describe('loader', () => {
     const cat = animals.items.find((i) => i.key === 'cat')!;
     expect(cat.sound).toEqual({ path: 'packs/animals/cat_sound.mp3', url: '/assets/packs/animals/cat_sound.mp3', real: true });
     // Every picture is a photo now (its old drawing kept for drawn scenes); the voice is still a stand-in.
-    expect(cat.images).toEqual([{ path: 'packs/animals/cat.jpg', url: '/assets/packs/animals/cat.jpg', real: true, photo: true }]);
+    expect(cat.images).toEqual([{ path: 'packs/animals/cat.jpg', url: '/assets/packs/animals/cat.jpg', real: true, photo: true, art: { sticker: '/assets/looks/sticker/animals/cat.webp', puffy: '/assets/looks/puffy/animals/cat.webp' } }]);
     expect(cat.drawings?.map((d) => d.path)).toEqual(['packs/animals/cat.svg']);
     expect(cat.nameAudio.ar.real).toBe(false);
     const cow = animals.items.find((i) => i.key === 'cow')!;

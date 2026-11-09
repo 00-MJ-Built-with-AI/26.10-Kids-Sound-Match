@@ -7,12 +7,16 @@ import { engageKidLock } from '../../lock/kidLock';
 import { loadLockPrefs } from '../../lock/lockPrefs';
 import { ParentGate } from '../../lock/ParentGate';
 import { MascotCheer } from './Mascot';
+import { BunnyHost } from './BunnyHost';
+import { lookNow } from '../theme/looks';
 import { PictureGate } from '../../lock/PicturePad';
 import { PlayIcon } from './icons';
 import { onQuestionDone, pinNeeded, REST_GRACE_MS, useSitting } from './sitting';
 
 /** Screens with no question in progress: a rest that is due starts straight away. */
 const BETWEEN_QUESTIONS = new Set(['idle', 'paused', 'explore']);
+/** Moments between games: Bunny's place is the game itself. */
+const NO_BUNNY = new Set(['idle', 'paused', 'ending']);
 
 /**
  * What every Kid Mode screen shares (spec 6): the device lock, the parent's low-contrast corner
@@ -22,6 +26,9 @@ const BETWEEN_QUESTIONS = new Set(['idle', 'paused', 'explore']);
 export function KidFrame({
   stage,
   left,
+  bunnyHeader,
+  bunnyBelow,
+  bunnyLanguages,
   onGateOpen,
   onGateCancel,
   onExit,
@@ -29,6 +36,10 @@ export function KidFrame({
 }: {
   stage: string;
   left?: ReactNode;
+  /** Bunny's show: Bunny gets its own place in this game (below the card with bunnyBelow) and a speech bubble. */
+  bunnyHeader?: boolean;
+  bunnyBelow?: boolean;
+  bunnyLanguages?: readonly ('ar' | 'en')[];
   onGateOpen: () => void;
   onGateCancel: () => void;
   onExit: () => void;
@@ -109,7 +120,7 @@ export function KidFrame({
   };
 
   return (
-    <div className={`kid stage-${stage}${resting ? ' resting' : ''}`} onClick={onAnyClick}>
+    <div className={`kid stage-${stage}${resting ? ' resting' : ''}${bunnyBelow ? ' bunny-below' : ''}`} onClick={onAnyClick}>
       <div className="kid-top">
         {resting ? <span /> : (left ?? <span />)}
         <GateButton
@@ -128,6 +139,7 @@ export function KidFrame({
           }}
         />
       </div>
+      {lookNow() === 'bunny' && !resting && !NO_BUNNY.has(stage) && <BunnyHost header={Boolean(bunnyHeader)} languages={bunnyLanguages} />}
       {children}
       <MascotCheer />
       {resting && (

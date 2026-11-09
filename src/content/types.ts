@@ -166,6 +166,8 @@ export interface ResolvedAsset {
   readonly real: boolean;
   /** A photo (a parent's own, or a photo in a My packs item), as opposed to a drawing. */
   readonly photo?: boolean;
+  /** A built-in photo redrawn for the looks that have their own pictures (Settings > Look). */
+  readonly art?: { readonly sticker?: string; readonly puffy?: string };
 }
 
 export interface LoadedItem {

@@ -378,6 +378,19 @@ hers.
 | Her week, for the family | The Report has "Her week, for the family": one picture with her character and the dates, her new words this week with their pictures, how she felt, her latest painting, and a few happy lines (minutes of play, new words, potty stars, a certificate earned this week), ready for WhatsApp. On Fridays a card on Home reminds you (until opened or closed that day) |
 | Her paintings | The Report shows her paintings (the newest 12; 40 are kept); tapping one opens it to save or share |
 
+## Added on 9 November 2026: choose the look
+
+| Change | Decision |
+|---|---|
+| Five looks | Settings > Look: As it is now (the old look, untouched, and the default), Sticker book, Storybook, Puffy toys, Bunny's show. Spotlight stage was mocked up and left out |
+| Per child | Saved with each child's settings, so switching child switches the look |
+| How far it reaches | Every screen gets the look's colours, lettering, cards and buttons. Matching game, Talk time and Animal sounds also get the mock-up layouts; the other games are fine-tuned three at a time |
+| Pictures | Sticker book: each photo lifted off its pastel circle with a thick white edge (a whole scene in a round frame stays a round sticker; six pale subjects use rembg). Storybook: the card's drawing. Puffy toys: Microsoft Fluent Emoji 3D where one exists (223 cards); the rest keep their drawing. Bunny's show keeps the photos. A parent's own photo is never replaced. Scripts: `tools/art/sticker-cutouts.py`, `tools/art/puffy-3d.mjs` |
+| Lettering | Baloo 2, Baloo Bhaijaan 2, Fredoka, Patrick Hand and El Messiri, packed with the app (SIL Open Font License); nothing is fetched while she plays |
+| Size | A look's pictures and fonts are fetched for offline use only for a child using that look, so other phones don't download them |
+| Evening calm | Takes over the look's colours at night; the look's cards and shapes stay |
+| New words on screen | Sound words on Animal sounds and Bunny's questions are written in `src/content/lookWords.ts` but stay off (`LOOK_WORDS_APPROVED`) until the parent has checked the list |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

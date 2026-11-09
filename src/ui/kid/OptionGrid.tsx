@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, type CSSProperties } from 'react';
 import { cheer } from './Mascot';
 import type { LocalizedText } from '../../content/types';
 import { CardNames } from './CardNames';
+import { lookNow } from '../theme/looks';
 import { fitSquares, layoutRows, useBoxSize } from './layout';
 
 interface Props {
@@ -57,8 +58,12 @@ export function aliveMotion(packId: string): string {
 export function OptionGrid({ options, pictures, faded, celebratedKey, hint, names, aliveFor, onTap }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const box = useBoxSize(ref);
-  const rows = layoutRows(options.length, box.w > box.h ? 'landscape' : 'portrait');
-  const { size, gap } = fitSquares(box, rows);
+  // Puffy toys: up to four pictures are wide bars, one under the other.
+  const bars = lookNow() === 'puffy' && options.length <= 4 && box.w <= box.h;
+  const rows = bars ? options.map((_, i) => [i]) : layoutRows(options.length, box.w > box.h ? 'landscape' : 'portrait');
+  // The new looks keep clear of the screen's edge; the original look stays exactly as it was.
+  const { size, gap } = fitSquares(lookNow() === 'now' ? box : { w: box.w - 32, h: box.h - 28 }, rows);
+  const barHeight = Math.min(Math.floor((box.h - 28 - gap * (rows.length - 1)) / rows.length), Math.round(box.w * 0.42));
 
   return (
     <div className="kid-grid" ref={ref} style={{ gap }}>
@@ -76,8 +81,8 @@ export function OptionGrid({ options, pictures, faded, celebratedKey, hint, name
                 <button
                   type="button"
                   key={key}
-                  className={`option${names?.[key] ? ' named' : ''}${state}`}
-                  style={{ width: size, height: size }}
+                  className={`option${bars ? ' bar' : ''}${names?.[key] ? ' named' : ''}${state}`}
+                  style={bars ? { width: Math.min(box.w - 32, 640), height: barHeight } : { width: size, height: size }}
                   data-key={key}
                   tabIndex={-1}
                   aria-hidden="true"

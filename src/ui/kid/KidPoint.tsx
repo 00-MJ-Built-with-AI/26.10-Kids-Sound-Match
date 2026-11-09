@@ -17,6 +17,9 @@ import { clearKidSnapshot, saveKidSnapshot, type KidConfig, type KidSnapshot } f
 import { questionDone } from './sitting';
 import { choosePictures, useBoxSize } from './layout';
 import { aliveMotion, Burst } from './OptionGrid';
+import { bunnySay } from './BunnyHost';
+import { lookNow } from '../theme/looks';
+import { BUNNY_ASKS_TALK, bunnyAsksSound, LOOK_WORDS_APPROVED, SOUND_WORDS } from '../../content/lookWords';
 import { IdleScene, SessionEndScene } from './scenes';
 import { EndScreen, type PickerOptions } from './EndScreen';
 import { awardSticker, StickerAlbum, stickerPicture, StickerReveal } from './Stickers';
@@ -310,10 +313,21 @@ export function KidPoint({
   const box = useBoxSize(ref);
   const size = Math.floor(Math.min(box.w * 0.8, box.h * 0.8, 520));
   const key = order[index];
+  const soundWord = sounds && LOOK_WORDS_APPROVED ? SOUND_WORDS[key] : undefined;
+
+  // Bunny's show: Bunny asks in a speech bubble.
+  useEffect(() => {
+    if (!LOOK_WORDS_APPROVED || lookNow() !== 'bunny') return;
+    const it = items.find((i) => i.key === key);
+    bunnySay(!it ? null : talk ? BUNNY_ASKS_TALK : sounds ? bunnyAsksSound(it, sources.get(key) ?? pack.id) : null);
+  }, [key]);
 
   return (
     <KidFrame
       stage={stage === 'playing' ? config.kind : stage}
+      bunnyHeader
+      bunnyBelow
+      bunnyLanguages={spokenLanguages(config.language)}
       onGateOpen={() => {
         gateRef.current = true;
         audio.stop();
@@ -326,6 +340,15 @@ export function KidPoint({
     >
       {stage === 'playing' && (
         <>
+          {soundWord && (
+            <div className="sound-word" aria-hidden="true">
+              {spokenLanguages(config.language).map((l) => (
+                <div key={l} lang={l} dir={l === 'ar' ? 'rtl' : 'ltr'}>
+                  {soundWord[l]}
+                </div>
+              ))}
+            </div>
+          )}
           <div className="point-area" ref={ref}>
             {size > 0 && key && (
               <button

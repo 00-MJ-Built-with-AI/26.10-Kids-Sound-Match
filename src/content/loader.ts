@@ -69,6 +69,16 @@ export async function loadContent(opts: LoadOptions): Promise<LoadedContent> {
     return placeholderOf(assetPath);
   };
 
+  // The same picture for the looks that redraw it: assets/looks/<look>/<pack>/<name>.webp (Settings > Look).
+  const lookArt = (assetPath: string): { art?: { sticker?: string; puffy?: string } } => {
+    const art: { sticker?: string; puffy?: string } = {};
+    for (const look of ['sticker', 'puffy'] as const) {
+      const file = assetPath.replace(/^packs\//, `looks/${look}/`).replace(PHOTO_FILE, '.webp');
+      if (realFiles.has(file)) art[look] = `${opts.baseUrl}assets/${encodePath(file)}`;
+    }
+    return Object.keys(art).length ? { art } : {};
+  };
+
   const packs: LoadedPack[] = [];
   const issues: ContentIssue[] = [];
   const manifests = new Map<string, PackManifest>();
@@ -109,7 +119,7 @@ export async function loadContent(opts: LoadOptions): Promise<LoadedContent> {
         const paths = itemPictures(item).map(itemAssetPath);
         // Built-in photos (.jpg / .webp) count as photos, like a parent's own: a screen shows photos
         // only when every picture on it has one.
-        const pictures = paths.map(usable).filter(isAsset).map((a) => (a.real && PHOTO_FILE.test(a.path) ? { ...a, photo: true } : a));
+        const pictures = paths.map(usable).filter(isAsset).map((a) => (a.real && PHOTO_FILE.test(a.path) ? { ...a, photo: true, ...lookArt(a.path) } : a));
         const photos = pictures.filter((a) => a.real);
         const drawing = item.drawing ? usable(itemAssetPath(item.drawing)) : null;
         const point = pointLines(item, (p) => resolve(itemAssetPath(p)));

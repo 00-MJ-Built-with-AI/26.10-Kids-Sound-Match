@@ -423,3 +423,6 @@ packs/feelings/hungry_sound.wav,https://pixabay.com/sound-effects/people-stomach
 packs/feelings/thirsty_sound.wav,https://pixabay.com/sound-effects/people-gulp-103200/,Pixabay Content License
 packs/feelings/sick_sound.wav,https://pixabay.com/sound-effects/people-cough-46034/,Pixabay Content License
 packs/feelings/cold_sound.wav,https://pixabay.com/sound-effects/film-special-effects-teeth-chatter-14492/,Pixabay Content License
+looks/sticker/*,the app's own photos (see the lines for packs/) lifted off their circles (tools/art/sticker-cutouts.py),as the photo
+looks/puffy/*,https://github.com/microsoft/fluentui-emoji (3D),MIT (fluent-emoji-LICENSE.txt)
+looks/fonts/*,Google Fonts: Baloo 2; Baloo Bhaijaan 2; Fredoka; Patrick Hand; El Messiri,SIL Open Font License (fonts-OFL.txt)

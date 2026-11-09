@@ -1,0 +1,295 @@
+/* The looks a parent can choose for each child (Settings > Look). <html data-look="..."> carries the
+   choice. "now" has no rules here: it is styles.css as it always was. Colours that would fight
+   Evening calm are written with :not([data-calm]), so the night colours take over. */
+
+@font-face { font-family: 'KSM Round'; src: url('/assets/looks/fonts/baloo2-latin.woff2') format('woff2'); font-weight: 400 800; font-display: swap; unicode-range: U+0000-02FF, U+2000-206F, U+20AC, U+2122; }
+@font-face { font-family: 'KSM Round'; src: url('/assets/looks/fonts/baloo-bhaijaan2-arabic.woff2') format('woff2'); font-weight: 400 800; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: 'KSM Toy'; src: url('/assets/looks/fonts/fredoka-latin.woff2') format('woff2'); font-weight: 300 700; font-display: swap; unicode-range: U+0000-02FF, U+2000-206F, U+20AC, U+2122; }
+@font-face { font-family: 'KSM Toy'; src: url('/assets/looks/fonts/baloo-bhaijaan2-arabic.woff2') format('woff2'); font-weight: 400 800; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: 'KSM Story'; src: url('/assets/looks/fonts/patrick-hand-latin.woff2') format('woff2'); font-weight: 400 800; font-display: swap; unicode-range: U+0000-02FF, U+2000-206F, U+20AC, U+2122; }
+@font-face { font-family: 'KSM Story'; src: url('/assets/looks/fonts/el-messiri-arabic.woff2') format('woff2'); font-weight: 400 800; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+
+:root[data-look='sticker'],
+:root[data-look='bunny'] {
+  --font: 'KSM Round', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+:root[data-look='puffy'] {
+  --font: 'KSM Toy', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+:root[data-look='storybook'] {
+  --font: 'KSM Story', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Arabic', Tahoma, sans-serif;
+}
+
+/* ---------- The parent screens and Home: each look's colours ---------- */
+:root[data-look='sticker'] {
+  --bg: #fff3cf; --surface: #fff; --ink: #35261c; --muted: #7d6a58; --line: #f3dfb8;
+  --primary: #e4572e; --primary-strong: #c8441f; --primary-soft: #ffe7d6; --accent: #ffb300; --accent-strong: #ef9f00;
+  --radius: 14px;
+}
+:root[data-look='storybook'] {
+  --bg: #fff7e6; --surface: #fffdf6; --ink: #4a3524; --muted: #86705a; --line: #ead9b8;
+  --primary: #8a6a3f; --primary-strong: #6f5430; --primary-soft: #f4e8cf; --accent: #c4532d; --accent-strong: #a84526;
+  --radius: 10px;
+}
+:root[data-look='puffy'] {
+  --bg: #efeaff; --surface: #fff; --ink: #2f2a55; --muted: #6f6a92; --line: #ddd5fb;
+  --primary: #6a4df0; --primary-strong: #5338cf; --primary-soft: #e8e2ff; --accent: #ff6f91; --accent-strong: #e4507a;
+  --radius: 24px;
+}
+:root[data-look='bunny'] {
+  --bg: #eaf5ff; --surface: #fff; --ink: #4a2f6b; --muted: #80709a; --line: #e2dcf2;
+  --primary: #ec6f9b; --primary-strong: #d4547f; --primary-soft: #ffe5ee; --accent: #9b7ce8; --accent-strong: #8263d6;
+  --radius: 26px;
+}
+:root[data-look='sticker'] body { background-image: radial-gradient(rgba(255, 255, 255, 0.75) 7px, transparent 8px); background-size: 46px 46px; }
+:root[data-look='bunny'] body { background: linear-gradient(#d8efff, #fff3dd 60%, #ffe6ee) fixed; }
+
+/* Home's buttons and tiles */
+:root[data-look='sticker'] .start-btn { border: 5px solid #fff; border-radius: 16px; background: #e4572e; box-shadow: 0 8px 16px rgba(120, 60, 10, 0.3); rotate: -1deg; }
+:root[data-look='sticker'] .game-tile { border: 4px solid #fff; border-bottom: 4px solid #fff; border-radius: 10px; box-shadow: 0 5px 12px rgba(120, 80, 20, 0.26); }
+:root[data-look='sticker'] .tile-wrap:nth-child(odd) .game-tile { rotate: -1.6deg; }
+:root[data-look='sticker'] .tile-wrap:nth-child(even) .game-tile { rotate: 1.4deg; }
+:root[data-look='sticker'] .tile-pic { border-radius: 14px; box-shadow: 0 0 0 3px #fff, 0 3px 7px rgba(0, 0, 0, 0.25); }
+
+:root[data-look='storybook'] .start-btn { border: 2px solid #8a6a3f; border-radius: 10px; outline: 2px solid #8a6a3f; outline-offset: 4px; background: #c4532d; box-shadow: none; }
+:root[data-look='storybook'] .game-tile { border: 1px solid #d9c49d; border-bottom: 1px solid #d9c49d; border-radius: 6px; background: #fffdf6; box-shadow: 2px 3px 0 #ead9b8; }
+:root[data-look='storybook'] .tile-pic { box-shadow: 0 0 0 3px #fff, 0 0 0 5px #c9a877; }
+:root[data-look='storybook'] .games-title { font-size: 1.35rem; }
+
+:root[data-look='puffy'] .start-btn { border-radius: 34px; background: linear-gradient(#8f76ff, #6a4df0); box-shadow: 0 9px 0 #4a31bd, 0 18px 26px rgba(50, 30, 140, 0.32), inset 0 4px 0 rgba(255, 255, 255, 0.35); }
+:root[data-look='puffy'] .game-tile { border-bottom: 0; border-radius: 26px; box-shadow: 0 7px 0 var(--tile), 0 13px 18px rgba(50, 30, 140, 0.22), inset 0 3px 0 #fff; }
+:root[data-look='puffy'] .game-tile:not(:disabled):active { translate: 0 5px; box-shadow: 0 2px 0 var(--tile), 0 5px 8px rgba(50, 30, 140, 0.2); }
+
+:root[data-look='bunny'] .start-btn { border-radius: 999px; background: linear-gradient(#f58fb2, #ec6f9b); box-shadow: 0 10px 22px rgba(236, 111, 155, 0.42); }
+:root[data-look='bunny'] .game-tile { border-bottom: 0; border-radius: 30px; box-shadow: 0 8px 20px rgba(120, 90, 170, 0.18); }
+:root[data-look='bunny'] .tile-pic { box-shadow: 0 0 0 5px #fff, 0 5px 12px rgba(120, 90, 170, 0.28); }
+
+/* ---------- Behind the games. Games with their own world (sleep, painting...) keep it. ---------- */
+:root[data-look='sticker']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book)::before { background: none; opacity: 1; }
+:root[data-look='bunny'] .kid.stage-sleep .bunny-host,
+:root[data-look='bunny'] .kid.stage-paint .bunny-host { display: none; }
+
+:root[data-look='sticker']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book) {
+  --paper: #ffc93c;
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.34) 11px, transparent 12px);
+  background-size: 72px 72px;
+}
+:root[data-look='sticker'] .kid.stage-talk { --paper: #4fd1b5; }
+:root[data-look='sticker'] .kid.stage-sounds { --paper: #ff8a65; }
+:root[data-look='sticker'] .kid.stage-point { --paper: #7cc4ff; }
+:root[data-look='sticker'] .kid.stage-actions { --paper: #ff9bc0; }
+:root[data-look='sticker'] .kid.stage-hunt { --paper: #b5e36b; }
+:root[data-look='sticker'] .kid.stage-explore { --paper: #c3a6ff; }
+
+:root[data-look='storybook']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book) {
+  background: #b98a5e;
+}
+:root[data-look='storybook']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book)::before {
+  inset: max(8px, env(safe-area-inset-top)) 16px 8px 8px;
+  border-radius: 6px 16px 16px 6px;
+  background: #fff7e6;
+  box-shadow: 4px 0 0 #efe2c6, 8px 0 0 #e2d2b0, 12px 2px 12px rgba(0, 0, 0, 0.32), inset 30px 0 24px -20px rgba(185, 151, 106, 0.55);
+}
+
+:root[data-look='puffy']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book) {
+  --a: #7c5cff; --b: #3fa9f5;
+  background: linear-gradient(160deg, var(--a), var(--b));
+}
+:root[data-look='puffy'] .kid.stage-talk { --a: #ffb347; --b: #ff6f91; }
+:root[data-look='puffy'] .kid.stage-sounds { --a: #35d0ba; --b: #2f80ed; }
+:root[data-look='puffy'] .kid.stage-point { --a: #ff8fb1; --b: #a06cf0; }
+:root[data-look='puffy'] .kid.stage-actions { --a: #ffc34d; --b: #ff7d5c; }
+:root[data-look='puffy']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book)::before {
+  background:
+    radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.24) 0 70px, transparent 71px),
+    radial-gradient(circle at 92% 62%, rgba(255, 255, 255, 0.18) 0 100px, transparent 101px),
+    radial-gradient(circle at 8% 90%, rgba(255, 255, 255, 0.14) 0 80px, transparent 81px);
+}
+
+:root[data-look='bunny']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book) {
+  background: linear-gradient(#cdebff, #fff2d9 70%, #ffe3ec);
+}
+:root[data-look='bunny']:not([data-calm]) .kid:not(.stage-idle):not(.stage-sleep):not(.stage-paint):not(.stage-music):not(.stage-book)::before {
+  background:
+    radial-gradient(ellipse 90px 34px at 12% 16%, rgba(255, 255, 255, 0.85) 98%, transparent),
+    radial-gradient(ellipse 110px 38px at 88% 26%, rgba(255, 255, 255, 0.75) 98%, transparent);
+}
+
+/* Tall or wide pictures stay inside their card. */
+:root[data-look]:not([data-look='now']) .option { grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
+
+/* The look's lettering on every card */
+:root[data-look]:not([data-look='now']) .card-name { font-family: var(--font); }
+
+/* ---------- 1 Sticker book: die-cut stickers on bright paper ---------- */
+:root[data-look='sticker'] .option { background: none; border-radius: 0; box-shadow: none; }
+:root[data-look='sticker'] .kid-row .option:nth-child(odd) { rotate: -3deg; }
+:root[data-look='sticker'] .kid-row .option:nth-child(even) { rotate: 3deg; }
+:root[data-look='sticker'] .kid-row:nth-child(even) .option:nth-child(odd) { rotate: 2deg; }
+:root[data-look='sticker'] .option img,
+:root[data-look='sticker'] .option.named img,
+:root[data-look='sticker'] .point-card img { width: 100%; height: 100%; border-radius: 0; filter: drop-shadow(0 6px 7px rgba(0, 0, 0, 0.3)); }
+:root[data-look='sticker'] .option.named img { height: 84%; margin-bottom: 14%; }
+/* Drawings have no white edge of their own: draw one. */
+:root[data-look='sticker'] .option img[src$='.svg'] {
+  filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 5px 6px rgba(0, 0, 0, 0.28));
+}
+:root[data-look='sticker'] .option.celebrate { box-shadow: none; }
+:root[data-look='sticker'] .option.celebrate img { filter: drop-shadow(0 0 16px #fff36b) drop-shadow(0 0 28px #ffd54a); }
+:root[data-look='sticker'] .card-name,
+:root[data-look='bunny'] .card-name {
+  display: flex;
+  align-items: center;
+  height: 1.42em;
+  padding: 0 0.42em;
+  max-width: 50%;
+  background: #fff;
+  font-size: 10.5cqmin;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+}
+:root[data-look='sticker'] .card-name.en,
+:root[data-look='bunny'] .card-name.en { top: auto; right: 50%; bottom: 1%; left: auto; border-radius: 0.34em 0 0 0.34em; }
+:root[data-look='sticker'] .card-name.ar,
+:root[data-look='bunny'] .card-name.ar { top: auto; right: auto; bottom: 1%; left: 50%; border-radius: 0 0.34em 0.34em 0; }
+/* One big card: a name above and a name below, like labels stuck on. */
+:root[data-look='sticker'] .point-card.named img { height: 72%; margin: 0; }
+:root[data-look='sticker'] .point-card .card-name { height: 1.5em; max-width: 90%; font-size: 12cqmin; border-radius: 0.24em; }
+:root[data-look='sticker'] .point-card .card-name.en { top: 0; right: auto; bottom: auto; left: 50%; translate: -50% 0; rotate: -2deg; }
+:root[data-look='sticker'] .point-card .card-name.ar { top: auto; right: auto; bottom: 0; left: 50%; translate: -50% 0; rotate: 2deg; }
+
+/* ---------- 2 Storybook: painted pictures on a book's page ---------- */
+:root[data-look='storybook'] .option { background: none; border-radius: 0; box-shadow: none; }
+:root[data-look='storybook'] .option::before {
+  content: '';
+  position: absolute;
+  top: 2%;
+  left: 7%;
+  width: 86%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 80% 22%, #ffe99a 0 9%, rgba(255, 233, 154, 0.3) 13%, transparent 17%),
+    radial-gradient(ellipse 90% 40% at 50% 100%, #8fca5f 96%, transparent),
+    linear-gradient(#bfe6f7 0 62%, #d9efc0 62%);
+  box-shadow: 0 0 0 5px #fff, 0 0 0 8px #c9a877, 0 6px 10px rgba(90, 60, 20, 0.22);
+}
+:root[data-look='storybook'] .option img,
+:root[data-look='storybook'] .option.named img { position: relative; width: 66%; height: 66%; margin-bottom: 8%; border-radius: 0; filter: drop-shadow(0 5px 4px rgba(60, 40, 10, 0.25)); }
+:root[data-look='storybook'] .option.named img { width: 60%; height: 60%; margin-bottom: 16%; }
+:root[data-look='storybook'] .option.named::before { width: 78%; left: 11%; }
+:root[data-look='storybook'] .option.celebrate { box-shadow: none; }
+:root[data-look='storybook'] .option.celebrate::before { box-shadow: 0 0 0 6px #ffe27a, 0 0 0 9px #e0a93c, 0 0 28px 8px rgba(255, 214, 90, 0.7); }
+:root[data-look='storybook'] .card-name { color: #4a3524; font-size: 12cqmin; font-weight: 700; }
+:root[data-look='storybook'] .card-name.en { top: auto; right: 52%; bottom: 0; left: auto; }
+:root[data-look='storybook'] .card-name.ar { top: auto; right: auto; bottom: 0; left: 52%; }
+/* One big picture: an arched window, with the words underneath. */
+:root[data-look='storybook'] .point-card::before,
+:root[data-look='storybook'] .point-card.named::before {
+  top: 0;
+  left: 6%;
+  width: 88%;
+  height: 76%;
+  aspect-ratio: auto;
+  border-radius: 46% 46% 3% 3% / 40% 40% 3% 3%;
+}
+:root[data-look='storybook'] .point-card img,
+:root[data-look='storybook'] .point-card.named img { width: 62%; height: 58%; margin-bottom: 25%; }
+:root[data-look='storybook'] .point-card .card-name { left: 0; right: 0; max-width: 100%; text-align: center; font-size: 11cqmin; }
+:root[data-look='storybook'] .point-card .card-name.en { bottom: 11%; }
+:root[data-look='storybook'] .point-card .card-name.ar { bottom: 0; }
+
+/* ---------- 3 Puffy toys: chunky 3D pictures and squishy buttons ---------- */
+:root[data-look='puffy'] .option {
+  --edge: #5b3fd6;
+  border-radius: 24%;
+  background: linear-gradient(#fff, #f2eeff);
+  box-shadow: 0 8px 0 var(--edge), 0 15px 20px rgba(30, 20, 90, 0.3), inset 0 3px 0 #fff;
+}
+:root[data-look='puffy'] .kid-grid .kid-row:nth-child(3n + 2) .option { --edge: #e0689a; }
+:root[data-look='puffy'] .kid-grid .kid-row:nth-child(3n) .option { --edge: #1f9d8f; }
+:root[data-look='puffy'] .kid-row .option:nth-child(2) { --edge: #e0689a; }
+:root[data-look='puffy'] .kid-row .option:nth-child(3) { --edge: #1f9d8f; }
+:root[data-look='puffy'] .option:active:not(.faded) { scale: 1; translate: 0 5px; box-shadow: 0 3px 0 var(--edge), 0 6px 10px rgba(30, 20, 90, 0.3), inset 0 3px 0 #fff; }
+:root[data-look='puffy'] .option img { border-radius: 0; filter: drop-shadow(0 6px 5px rgba(30, 20, 90, 0.24)); }
+:root[data-look='puffy'] .option.celebrate { box-shadow: 0 8px 0 #e5a800, 0 0 0 6px #ffd54a, 0 0 42px 12px rgba(255, 213, 74, 0.75); }
+:root[data-look='puffy'] .card-name { font-weight: 700; color: #2f2a55; }
+:root[data-look='puffy'] .card-name.ar { color: var(--edge); font-weight: 800; }
+/* Up to four pictures: wide bars, the picture on one side and the names on the other. */
+:root[data-look='puffy'] .option.bar {
+  display: grid;
+  grid-template-columns: 42% minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  border-radius: min(46px, 22cqmin);
+}
+:root[data-look='puffy'] .option.bar img { grid-row: 1 / 3; width: 88%; height: 88%; place-self: center; }
+:root[data-look='puffy'] .option.bar:not(.named) { grid-template-columns: 1fr; }
+:root[data-look='puffy'] .option.bar .card-name { position: static; justify-self: center; max-width: 96%; font-size: min(26cqmin, 9cqw); }
+:root[data-look='puffy'] .option.bar .card-name.en { align-self: end; }
+:root[data-look='puffy'] .option.bar .card-name.ar { align-self: start; }
+/* One big card: the toy pops out of the top. */
+:root[data-look='puffy'] .point-card { overflow: visible; --edge: #d4497a; }
+:root[data-look='puffy'] .kid.stage-sounds .point-card { --edge: #1b6fb8; }
+:root[data-look='puffy'] .point-card img,
+:root[data-look='puffy'] .point-card.named img { width: 74%; height: 74%; translate: 0 -24%; }
+:root[data-look='puffy'] .point-card .card-name { left: 0; right: 0; max-width: 100%; text-align: center; font-size: 14cqmin; }
+:root[data-look='puffy'] .point-card .card-name.en { top: auto; bottom: 22%; }
+:root[data-look='puffy'] .point-card .card-name.ar { bottom: 5%; font-size: 15cqmin; }
+
+/* ---------- 5 Bunny's show: round frames, and Bunny in every game ---------- */
+:root[data-look='bunny'] .option { border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px #fff, 0 9px 20px rgba(110, 80, 160, 0.26); }
+:root[data-look='bunny'] .option img,
+:root[data-look='bunny'] .option.named img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+:root[data-look='bunny'] .option img[src$='.svg'] { width: 72%; height: 72%; border-radius: 0; object-fit: contain; }
+:root[data-look='bunny'] .option.celebrate { box-shadow: 0 0 0 8px #ffd54a, 0 0 42px 12px rgba(255, 213, 74, 0.7); }
+:root[data-look='bunny'] .card-name { color: #4a2f6b; }
+:root[data-look='bunny'] .point-card .card-name { font-size: 9.5cqmin; }
+.mascot-cheer { z-index: 8; }
+:root[data-look='bunny'] .mascot-cheer { display: none; }
+
+.bunny-host { display: none; }
+:root[data-look='bunny'] .bunny-host { pointer-events: none; }
+:root[data-look='bunny'] .bunny-host .mascot { display: block; width: 100%; height: auto; }
+/* In most games Bunny watches from a corner. */
+:root[data-look='bunny'] .bunny-host.corner { position: absolute; bottom: calc(6px + env(safe-area-inset-bottom)); left: 6px; z-index: 3; display: block; width: clamp(62px, 16vmin, 104px); }
+/* In the first games Bunny has its own place, with a speech bubble. */
+:root[data-look='bunny'] .bunny-host.header { display: flex; flex: none; align-items: center; gap: 12px; height: clamp(82px, 15vh, 132px); padding: 0 16px; }
+:root[data-look='bunny'] .bunny-host.header .bunny-pic { flex: none; height: 100%; aspect-ratio: 200 / 220; }
+:root[data-look='bunny'] .bunny-bubble { position: relative; max-width: 66%; padding: 6px 16px; border-radius: 20px; background: #fff; color: #4a2f6b; font-size: clamp(1rem, 3.2vmin, 1.5rem); font-weight: 800; line-height: 1.18; text-align: center; box-shadow: 0 5px 14px rgba(110, 80, 160, 0.2); }
+:root[data-look='bunny'] .bunny-bubble::after { content: ''; position: absolute; top: calc(50% - 9px); left: -7px; width: 18px; height: 18px; background: #fff; transform: rotate(45deg); }
+[dir='rtl'] .bunny-bubble::after { right: -7px; left: auto; }
+/* Talk time and friends: the card first, Bunny under it, then the tick. */
+:root[data-look='bunny'] .kid.bunny-below .point-area { order: 1; }
+:root[data-look='bunny'] .kid.bunny-below .bunny-host.header { order: 2; }
+:root[data-look='bunny'] .kid.bunny-below .point-actions { order: 3; }
+
+/* The sound word on Animal sounds (once the word list is approved). */
+.sound-word { display: none; }
+:root[data-look='sticker'] .sound-word,
+:root[data-look='storybook'] .sound-word,
+:root[data-look='puffy'] .sound-word { display: block; flex: none; padding: 0 16px; text-align: center; font-weight: 800; font-size: clamp(1.5rem, 5vmin, 2.4rem); line-height: 1.1; }
+:root[data-look='sticker'] .sound-word { color: #e2452f; text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff; }
+:root[data-look='storybook'] .sound-word { color: #c4532d; }
+:root[data-look='puffy'] .sound-word { color: #fff; text-shadow: 0 3px 0 rgba(30, 20, 90, 0.35); }
+
+/* ---------- Settings: the five looks to choose from ---------- */
+.look-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
+.look-tile { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 0 0 8px; overflow: hidden; border: 3px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--ink); font-weight: 700; font-size: 0.86rem; line-height: 1.2; cursor: pointer; text-align: center; }
+.look-tile.on { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary); }
+.look-tile.on::after { content: '✓'; position: absolute; top: 6px; inset-inline-end: 6px; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.9rem; }
+.look-pic { position: relative; display: grid; place-items: center; height: 104px; }
+.look-pic img { width: 76%; height: 84px; object-fit: contain; }
+.look-pic .look-bunny { position: absolute; left: 4px; bottom: 2px; width: 40px; height: auto; }
+.look-tile-now .look-pic { background: radial-gradient(circle at 50% 30%, #fffdf8, #ffe4c2); }
+.look-tile-now .look-pic img { border-radius: 14px; }
+.look-tile-sticker .look-pic { background-color: #ffc93c; background-image: radial-gradient(rgba(255, 255, 255, 0.4) 5px, transparent 6px); background-size: 26px 26px; }
+.look-tile-sticker .look-pic img { rotate: -4deg; filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.3)); }
+.look-tile-storybook .look-pic { background: radial-gradient(ellipse 90% 34% at 50% 100%, #8fca5f 96%, transparent), linear-gradient(#bfe6f7, #d9efc0); box-shadow: inset 0 0 0 5px #fff7e6; }
+.look-tile-puffy .look-pic { background: linear-gradient(160deg, #7c5cff, #3fa9f5); }
+.look-tile-puffy .look-pic img { filter: drop-shadow(0 5px 4px rgba(30, 20, 90, 0.35)); }
+.look-tile-bunny .look-pic { background: linear-gradient(#cdebff, #fff2d9); }
+.look-tile-bunny .look-pic img:not(.look-bunny) { border-radius: 50%; box-shadow: 0 0 0 3px #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-look] .option { rotate: 0deg; }
+}

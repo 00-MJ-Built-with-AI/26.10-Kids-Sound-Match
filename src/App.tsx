@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { audioEngine } from './audio/audioEngine';
 import { FEEDBACK_SPEECH, voicedClip } from './audio/clips';
 import { placeholderPictureUsable } from './content/emojiSupport';
@@ -11,6 +11,8 @@ import type { ArGender, LoadedContent, LoadedFeedback, LoadedPack } from './cont
 import { MIN_ITEMS_PER_PACK } from './content/validate';
 import { cloud } from './custom/cloud';
 import { applyOverrides, overrideMap } from './custom/overrides';
+import { applyLook } from './content/looks';
+import { warmLook } from './ui/theme/looks';
 import { customStore } from './custom/store';
 import { customToLoaded } from './custom/toLoaded';
 import type { AssetOverride, CustomItem, CustomPack } from './custom/types';
@@ -53,6 +55,7 @@ import {
   saveSettings,
   spokenLanguages,
   uiLanguage,
+  type Look,
   type Settings,
 } from './settings/settings';
 import { local } from './settings/storage';
@@ -132,8 +135,8 @@ async function readCustom(): Promise<CustomData> {
  * The packs the app shows, in order: the built-in packs (with the parent's voice and photos swapped
  * in), the Mixed game, then the parent's own packs. Custom packs borrow the built-in praise.
  */
-function composePacks(builtin: readonly LoadedPack[], custom: CustomData) {
-  const voiced = applyOverrides(builtin, overrideMap(custom.overrides));
+function composePacks(builtin: readonly LoadedPack[], custom: CustomData, look: Look) {
+  const voiced = applyLook(applyOverrides(builtin, overrideMap(custom.overrides)), look);
   const feedback = voiced[0]?.feedback ?? NO_FEEDBACK;
   const customViews = customToLoaded(custom.packs, custom.items, feedback);
   const own = customViews.map((v) => v.loaded);
@@ -169,6 +172,12 @@ export function App() {
       document.documentElement.removeAttribute('data-calm');
     };
   }, [settings.eveningCalm]);
+
+  // The look chosen for this child: the whole app reads it from <html data-look>.
+  useLayoutEffect(() => {
+    document.documentElement.dataset.look = settings.look;
+    warmLook(settings.look);
+  }, [settings.look]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -256,7 +265,7 @@ function Shell({
   const [newCert, setNewCert] = useState<Certificate | null>(null);
   const soundChecked = useRef(false);
 
-  const { customViews, allPacks, oddPack } = useMemo(() => composePacks(builtin?.packs ?? [], custom), [builtin, custom]);
+  const { customViews, allPacks, oddPack } = useMemo(() => composePacks(builtin?.packs ?? [], custom, settings.look), [builtin, custom, settings.look]);
   // Packs with enough finished items to play.
   // "Do it with me" has its own game: it isn't one of the packs to choose from.
   const playablePacks = useMemo(() => allPacks.filter((p) => p.items.length >= MIN_ITEMS_PER_PACK && !p.ownGame), [allPacks]);
@@ -399,7 +408,7 @@ function Shell({
       // Spec 3.4: fail loudly in development; in release, skip broken items and carry on.
       if (import.meta.env.DEV && loaded.issues.some((i) => i.level === 'error')) setScreen('problems');
       else {
-        const composed = composePacks(loaded.packs, own);
+        const composed = composePacks(loaded.packs, own, settings.look);
         // A reload during Odd one out finds its game too.
         afterLoad([...composed.allPacks.filter((p) => p.items.length >= MIN_ITEMS_PER_PACK), ...(composed.oddPack ? [composed.oddPack] : [])]);
       }

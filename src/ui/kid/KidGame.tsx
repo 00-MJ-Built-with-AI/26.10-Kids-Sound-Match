@@ -19,6 +19,9 @@ import { clearKidSnapshot, saveKidSnapshot, type KidConfig, type KidSnapshot } f
 import { questionDone } from './sitting';
 import { choosePictures, useBoxSize } from './layout';
 import { aliveMotion, OptionGrid } from './OptionGrid';
+import { bunnySay } from './BunnyHost';
+import { lookNow } from '../theme/looks';
+import { bunnyAsksMatch, LOOK_WORDS_APPROVED } from '../../content/lookWords';
 import { IdleScene, SessionEndScene } from './scenes';
 
 /** Taps are ignored briefly after a question appears, so a finger still tapping can't skip it. */
@@ -368,6 +371,13 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
     };
   }, []);
 
+  // Bunny's show: Bunny asks the question in a speech bubble.
+  useEffect(() => {
+    if (!LOOK_WORDS_APPROVED || lookNow() !== 'bunny') return;
+    const q = view.question;
+    bunnySay(config.kind === 'game' && q.promptKey === undefined ? bunnyAsksMatch(item(q.targetKey), sources.get(q.targetKey) ?? pack.id, config.mode === 'SOUND_ONLY') : null);
+  }, [questionNo]);
+
   const grid = stage === 'playing' && pictures[view.question.options[0]] && (
     <OptionGrid
       key={questionNo}
@@ -385,6 +395,8 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
   return (
     <KidFrame
       stage={stage}
+      bunnyHeader
+      bunnyLanguages={spokenLanguages(config.language)}
       left={
         stage === 'playing' ? (
           <button

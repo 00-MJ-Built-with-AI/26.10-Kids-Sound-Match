@@ -1005,6 +1005,7 @@ function Shell({
             kind: kid.config.kind,
             available: pickerKinds,
             onPlay: restartKid,
+            onLook: (look) => update({ look }),
             realThing: takeReal,
             onRealDone,
             ...(kid.config.fromMenu || kid.config.kind === 'menu'

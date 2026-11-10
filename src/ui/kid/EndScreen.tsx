@@ -1,8 +1,9 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useRef, useState, type ReactNode } from 'react';
 import type { LoadedPack } from '../../content/types';
 import { useI18n } from '../../i18n/I18n';
 import { activeGroup, groupPlayable, pickPatch } from '../../settings/quickPick';
-import type { Settings } from '../../settings/settings';
+import type { Look, Settings } from '../../settings/settings';
+import { LookGrid } from '../parent/LookPicker';
 import {
   ActionsIcon,
   FeelIcon,
@@ -54,6 +55,8 @@ export interface PickerOptions {
   /** Find the real one: what to ask after this game, if it's time to. */
   realThing?: () => FindRealAsk | null;
   onRealDone?: (thing: RealThing, found: boolean) => void;
+  /** Changes the look for this child, straight from the end of a game. */
+  onLook?: (look: Look) => void;
   /** Her own menu: the games to offer instead of play-again. */
   menu?: readonly KidKind[];
   onMenu?: (kind: KidKind) => void;
@@ -74,10 +77,24 @@ function PickIcon() {
   );
 }
 
+/** A painter's palette: change the look. */
+function PaletteIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3C6.8 3 2.5 6.9 2.5 11.8c0 4.6 3.8 8.2 8.5 8.2 1.4 0 2.2-.9 2.2-2 0-.6-.3-1.1-.6-1.5-.3-.4-.5-.8-.5-1.2 0-1 .8-1.7 1.8-1.7h2.3c2.9 0 5.3-2 5.3-5C21.5 5.7 17.3 3 12 3z" fill="#fff4dc" stroke="#7a5a3a" strokeWidth="1.6" strokeLinejoin="round" />
+      <circle cx="7.3" cy="11.2" r="1.7" fill="#f05a8c" />
+      <circle cx="10.3" cy="7" r="1.7" fill="#f7a14a" />
+      <circle cx="15.2" cy="7" r="1.7" fill="#4fb477" />
+      <circle cx="18.2" cy="10.8" r="1.7" fill="#5b8def" />
+    </svg>
+  );
+}
+
 /**
  * After a game: a big play-again button in the middle, the sticker album in one bottom corner and
  * a small "choose" button in the other, for picking another pack, group or game without the PIN.
- * Nothing else can be changed from here, so it's fine if the child taps it.
+ * The look can be changed from the top corner too. Nothing else can be changed from here, so it's
+ * fine if the child taps it.
  */
 export function EndScreen({
   canReplay,
@@ -93,6 +110,36 @@ export function EndScreen({
   const { t } = useI18n();
   const [picking, setPicking] = useState(false);
   const [real, setReal] = useState<FindRealAsk | null>(() => picker?.realThing?.() ?? null);
+  const [choosingLook, setChoosingLook] = useState(false);
+  // The game on screen holds the pictures it started with, so a new look needs a fresh start.
+  const lookAtStart = useRef(picker?.settings.look);
+  const lookChanged = picker !== undefined && picker.settings.look !== lookAtStart.current;
+  const lookControls = picker?.onLook && (
+    <>
+      <button type="button" className="end-look" aria-label={t('endChangeLook')} onClick={() => setChoosingLook(true)}>
+        <PaletteIcon />
+      </button>
+      {choosingLook && (
+        <div className="quick-picker" role="dialog" aria-modal="true" aria-label={t('endChangeLook')} onPointerDown={(e) => e.stopPropagation()}>
+          <div className="qp-top">
+            <h2>{t('endChangeLook')}</h2>
+            <button type="button" className="album-close" aria-label={t('close')} onClick={() => setChoosingLook(false)}>
+              <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+                <path d="M8 8l14 14M22 8L8 22" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+          <LookGrid
+            look={picker.settings.look}
+            onChange={(look) => {
+              picker.onLook!(look);
+              setChoosingLook(false);
+            }}
+          />
+        </div>
+      )}
+    </>
+  );
   if (real) {
     return (
       <div className="end-screen">
@@ -110,13 +157,15 @@ export function EndScreen({
     return (
       <div className="end-screen">
         <MenuGrid kinds={picker.menu} onPick={picker.onMenu!} />
+        {lookControls}
       </div>
     );
   }
   return (
     <div className="end-screen">
+      {lookControls}
       {canReplay && (
-        <button type="button" className="end-play" aria-label={t('playAgain')} onClick={onPlayAgain}>
+        <button type="button" className="end-play" aria-label={t('playAgain')} onClick={lookChanged ? () => picker.onPlay(picker.kind, {}) : onPlayAgain}>
           <PlayIcon />
         </button>
       )}

@@ -5,9 +5,9 @@ import { MIN_ITEMS_PER_PACK } from '../../content/validate';
 import { isCustomPackId } from '../../custom/types';
 import { MEMORY_PAIRS, type ChoiceCount } from '../../engine';
 import { useI18n } from '../../i18n/I18n';
+import { LookGrid } from './LookPicker';
 import { HOLD_SECONDS, loadLockPrefs, loadPictureCode, saveLockPrefs, type LockPrefs } from '../../lock/lockPrefs';
 import { ParentGate } from '../../lock/ParentGate';
-import { Mascot } from '../kid/Mascot';
 import { PictureSetup } from '../../lock/PicturePad';
 import { PinSetup } from '../../lock/PinSetup';
 import { MAX_PROFILES, PROFILE_ANIMALS, PROFILE_CHARACTERS, PROFILE_COLORS, type Profile } from '../../settings/profiles';
@@ -640,35 +640,10 @@ function MixCard({ pack, settings, update, nudge, onRefuse }: CardProps) {
 /** The five looks, each shown with the same cow. */
 function LookCard({ look, onChange }: { look: Look; onChange: (look: Look) => void }) {
   const { t } = useI18n();
-  const base = `${import.meta.env.BASE_URL}assets/`;
-  const tiles: { id: Look; label: string; picture: string }[] = [
-    { id: 'now', label: t('lookNow'), picture: `${base}packs/animals/cow.jpg` },
-    { id: 'sticker', label: t('lookSticker'), picture: `${base}looks/sticker/animals/cow.webp` },
-    { id: 'storybook', label: t('lookStorybook'), picture: `${base}packs/animals/cow.svg` },
-    { id: 'puffy', label: t('lookPuffy'), picture: `${base}looks/puffy/animals/cow.webp` },
-    { id: 'bunny', label: t('lookBunny'), picture: `${base}packs/animals/cow.jpg` },
-  ];
   return (
     <section className="card">
       <h2>{t('settingsLook')}</h2>
-      <div className="look-grid" role="radiogroup" aria-label={t('settingsLook')}>
-        {tiles.map((tile) => (
-          <button
-            type="button"
-            key={tile.id}
-            role="radio"
-            aria-checked={look === tile.id}
-            className={`look-tile look-tile-${tile.id}${look === tile.id ? ' on' : ''}`}
-            onClick={() => onChange(tile.id)}
-          >
-            <span className="look-pic">
-              <img src={tile.picture} alt="" />
-              {tile.id === 'bunny' && <Mascot mood="wave" className="look-bunny" />}
-            </span>
-            {tile.label}
-          </button>
-        ))}
-      </div>
+      <LookGrid look={look} onChange={onChange} />
       <p className="hint">{t('settingsLookHint')}</p>
     </section>
   );

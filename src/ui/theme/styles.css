@@ -7548,3 +7548,26 @@ html[data-calm][data-season] .kid::after {
 .update-again { padding: 2px 0; border: 0; background: none; color: var(--accent); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
 .update-new { display: grid; gap: 6px; margin-block-start: 8px; }
 .update-new .msg { margin: 0; }
+
+/* ---------- Change the style, top right at the end of a game ---------- */
+.end-look {
+  position: fixed;
+  top: 15px;
+  right: 64px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(30, 30, 60, 0.28);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+html[dir='rtl'] .end-look { right: 12px; }
+.end-look:active { transform: scale(0.92); }
+/* The picker covers the whole screen, the parent's corner included. */
+.kid.stage-idle:has(.quick-picker) .kid-top { z-index: 0; }

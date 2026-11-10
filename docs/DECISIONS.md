@@ -416,6 +416,12 @@ The parent asked what to add, then to build all of it, after an interview.
 | What updating touches | Only the app's own stored files. Cookies, sign-in, settings, Words I know, recordings and the photos and sounds cache stay. If the same update was tried and the device is still behind, the second press replaces the stored app files outright, again keeping all of those |
 | Only on Home | Nothing updates by itself in the middle of a game because of this button |
 
+## Added on 10 November 2026: change the style after a game
+
+| Change | Decision |
+|---|---|
+| Style button | Every end screen has a palette button at the top right, beside the parent's corner circle when that is on the right too. It opens the five looks from Settings and saves the choice for this child. It needs no PIN, like the rest of the end screen. Play again after a change starts the game afresh so its pictures match the new look |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

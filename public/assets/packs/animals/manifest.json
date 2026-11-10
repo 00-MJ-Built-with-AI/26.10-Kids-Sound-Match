@@ -1159,6 +1159,14 @@
       "music": {
         "en": "feedback/music_en.mp3",
         "ar": "feedback/music_ar.mp3"
+      },
+      "find_real_f": {
+        "en": "feedback/find_real_f_en.mp3",
+        "ar": "feedback/find_real_f_ar.mp3"
+      },
+      "find_real_m": {
+        "en": "feedback/find_real_m_en.mp3",
+        "ar": "feedback/find_real_m_ar.mp3"
       }
     }
   }

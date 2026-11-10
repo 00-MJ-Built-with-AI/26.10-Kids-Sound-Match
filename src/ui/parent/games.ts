@@ -13,6 +13,8 @@ export interface GameInfo {
 
 export const GAMES: Record<string, GameInfo> = {
   talk: { label: 'talkGame', sub: 'talkSub', picture: 'actions/laugh.svg' },
+  phrases: { label: 'phrasesGame', sub: 'phrasesSub', picture: 'actions/kiss.svg' },
+  manners: { label: 'mannersGame', sub: 'mannersSub', picture: 'manners/hello.svg' },
   sounds: { label: 'soundsGame', sub: 'soundsSub', picture: 'animals/cow.svg' },
   sing: { label: 'singGame', sub: 'singSub', picture: 'care/music.svg' },
   point: { label: 'pointGame', sub: 'pointSub', picture: 'body/nose.svg' },

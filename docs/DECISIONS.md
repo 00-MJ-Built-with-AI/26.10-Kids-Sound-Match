@@ -392,6 +392,21 @@ hers.
 | New words on screen | Sound words on Animal sounds and Bunny's questions (`src/content/lookWords.ts`), switched on after the parent saw the list and said to go ahead with everything |
 | Pictures on one screen | In Puffy toys and Storybook every picture a look uses counts as that look's kind, so a card with nothing for the look keeps its drawing or photo instead of emptying the screen. The jigsaw uses the square photo in Sticker book |
 
+## Added on 10 November 2026: seven more, to help her talk
+
+The parent asked what to add, then to build all of it, after an interview.
+
+| Change | Decision |
+|---|---|
+| 5 words today | A card on Home while words still have no recording and fewer than 5 were recorded today: "Record now" opens the existing recording session, "Not today" hides it until tomorrow. Arabic first, then English; within each, the words she has played most come first |
+| Voice notes | The family keep using WhatsApp. Your voice and photos > A voice note from the family: choose the file, or share it to Sound Match from WhatsApp once the app is installed (`share_target` in the web manifest, kept by the service worker until the app reads it). Choose the word and language, trim, save. One voice per word, a new one replaces the old; one note can be cut for several words. The private link for relatives was not chosen |
+| Two-word time | A tile in Play together. A picture, the phrase said twice with quiet waits, the parent ticks or skips and the phrase is said back. 8 phrases a game, those built from words she understands or says first (`src/content/phrases.ts`). Pack `phrases` (30, reusing existing pictures, own game). Saved in the Report, not in Words I know. The first tick brings a Home card offering to tick "says two words together" |
+| Hello and thank you | Pack `manners` (17, drawn by `tools/art/draw-manners.mjs`): greetings, manners, Arabic blessings and asking (بدي، كمان، خلص، لا، آه). A tile in Play together that plays like Two-word time; a tick marks the word as said. In the pack list, not in the Mixed game |
+| Checked first | Both packs stay off the live app until `NEW_WORDS_APPROVED` in `src/content/newWords.ts` is true, as the parent asked to see the words first |
+| Find the real one | At most once a sitting, on the end screen: "يلّا دوّري على… طابة" / "Can you find a real… ball?", with a word she just heard and only things on a safe list (`src/content/realThings.ts`: no sharp, hot or electric things, no animals). The parent ticks or skips; a tick counts towards Words I know. Not after the books, stories or the sleep light |
+| Her own menu | "Let her choose" on Home opens four giant pictures with no words, locked like a game: her favourites, then her most-played, then games she can play alone. Never the bedtime book. After a game she comes back to it while today's play-again limit allows; the first choice isn't counted |
+| For the doctor | A card in the Report: one page in Arabic or English, printed or shared as a picture. Age (from a birth month, optional, on this phone only and not backed up), words understood (split by the language of the games where it can be), words said, phrases tried, milestones ticked and not ticked. Counts only: it never says on track or behind |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

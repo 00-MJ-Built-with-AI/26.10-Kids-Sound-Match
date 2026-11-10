@@ -23,4 +23,12 @@ describe('the recording session', () => {
     const packs = [{ items: [item('carrot')] }, { items: [item('carrot')] }];
     expect(wordsToRecord(packs, () => false)).toHaveLength(2);
   });
+
+  it('puts the words she plays most first, Arabic before English', () => {
+    const asset = (path: string) => ({ path, real: false });
+    const item = (n: string) => ({ nameAudio: { ar: asset(n + '_ar'), en: asset(n + '_en') } });
+    const packs = [{ items: [item('a'), item('b')] }];
+    const queue = wordsToRecord(packs, () => false, (_, i) => (i === 1 ? 5 : 0));
+    expect(queue.map((w) => [w.item, w.lang])).toEqual([[1, 'ar'], [0, 'ar'], [1, 'en'], [0, 'en']]);
+  });
 });

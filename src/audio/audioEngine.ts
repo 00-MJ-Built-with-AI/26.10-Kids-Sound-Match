@@ -1,3 +1,4 @@
+import { noteHeard } from './heard';
 import type { Clip, ClipCategory, FileClip } from './clips';
 import { analyzeClip } from './leveling';
 import { cancelSpeech, speak, speechAvailable, unlockSpeech } from './speech';
@@ -71,6 +72,7 @@ export class AudioEngine {
 
   /** Plays one clip. Resolves when it ends or is stopped; never rejects. */
   play(clip: Clip, isCancelled: () => boolean): Promise<void> {
+    noteHeard(clip.label);
     if (clip.kind === 'speech') {
       // No voice for this language on the phone: the placeholder beeps instead of silence.
       if (!speechAvailable(clip.lang)) return this.playFile(clip.fallback, isCancelled);

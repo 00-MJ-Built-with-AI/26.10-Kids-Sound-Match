@@ -73,6 +73,9 @@ export interface ManifestFeedback {
 /** The shared lines a manifest's `feedback_audio.lines` may hold. */
 export const FEEDBACK_LINE_IDS = [
   'talk',
+  // Find the real one: "يلّا دوّري على… طابة".
+  'find_real_f',
+  'find_real_m',
   'goodnight',
   'sleep_tight',
   'then',

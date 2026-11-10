@@ -1,0 +1,397 @@
+{
+  "pack_id": "phrases",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.75,
+  "name": {
+    "en": "Two-word time",
+    "ar": "وقت الكلمتين"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "items": [
+    {
+      "item_key": "ph_want_water",
+      "name": {
+        "en": "Want water",
+        "ar": "بدي موية"
+      },
+      "image": "food/water.svg",
+      "name_audio": {
+        "en": "phrases/want_water_name_en.mp3",
+        "ar": "phrases/want_water_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_want_milk",
+      "name": {
+        "en": "Want milk",
+        "ar": "بدي حليب"
+      },
+      "image": "food/milk.svg",
+      "name_audio": {
+        "en": "phrases/want_milk_name_en.mp3",
+        "ar": "phrases/want_milk_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_want_banana",
+      "name": {
+        "en": "Want banana",
+        "ar": "بدي موزة"
+      },
+      "image": "food/banana.svg",
+      "name_audio": {
+        "en": "phrases/want_banana_name_en.mp3",
+        "ar": "phrases/want_banana_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_want_ball",
+      "name": {
+        "en": "Want ball",
+        "ar": "بدي الطابة"
+      },
+      "image": "first-words/ball.svg",
+      "name_audio": {
+        "en": "phrases/want_ball_name_en.mp3",
+        "ar": "phrases/want_ball_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_want_teddy",
+      "name": {
+        "en": "Want teddy",
+        "ar": "بدي الدبدوب"
+      },
+      "image": "first-words/teddy.svg",
+      "name_audio": {
+        "en": "phrases/want_teddy_name_en.mp3",
+        "ar": "phrases/want_teddy_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_want_mama",
+      "name": {
+        "en": "Want Mama",
+        "ar": "بدي ماما"
+      },
+      "image": "family/mama.svg",
+      "name_audio": {
+        "en": "phrases/want_mama_name_en.mp3",
+        "ar": "phrases/want_mama_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_more_milk",
+      "name": {
+        "en": "More milk",
+        "ar": "كمان حليب"
+      },
+      "image": "food/milk.svg",
+      "name_audio": {
+        "en": "phrases/more_milk_name_en.mp3",
+        "ar": "phrases/more_milk_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_more_water",
+      "name": {
+        "en": "More water",
+        "ar": "كمان موية"
+      },
+      "image": "food/water.svg",
+      "name_audio": {
+        "en": "phrases/more_water_name_en.mp3",
+        "ar": "phrases/more_water_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_more_banana",
+      "name": {
+        "en": "More banana",
+        "ar": "كمان موزة"
+      },
+      "image": "food/banana.svg",
+      "name_audio": {
+        "en": "phrases/more_banana_name_en.mp3",
+        "ar": "phrases/more_banana_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_where_mama",
+      "name": {
+        "en": "Where's Mama?",
+        "ar": "وين ماما؟"
+      },
+      "image": "family/mama.svg",
+      "name_audio": {
+        "en": "phrases/where_mama_name_en.mp3",
+        "ar": "phrases/where_mama_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_where_baba",
+      "name": {
+        "en": "Where's Baba?",
+        "ar": "وين بابا؟"
+      },
+      "image": "family/baba.svg",
+      "name_audio": {
+        "en": "phrases/where_baba_name_en.mp3",
+        "ar": "phrases/where_baba_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_where_ball",
+      "name": {
+        "en": "Where's ball?",
+        "ar": "وين الطابة؟"
+      },
+      "image": "first-words/ball.svg",
+      "name_audio": {
+        "en": "phrases/where_ball_name_en.mp3",
+        "ar": "phrases/where_ball_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_where_cat",
+      "name": {
+        "en": "Where's cat?",
+        "ar": "وين القطة؟"
+      },
+      "image": "animals/cat.svg",
+      "name_audio": {
+        "en": "phrases/where_cat_name_en.mp3",
+        "ar": "phrases/where_cat_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_where_shoe",
+      "name": {
+        "en": "Where's shoe?",
+        "ar": "وين الحذاء؟"
+      },
+      "image": "first-words/shoe.svg",
+      "name_audio": {
+        "en": "phrases/where_shoe_name_en.mp3",
+        "ar": "phrases/where_shoe_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_bye_baba",
+      "name": {
+        "en": "Bye Baba",
+        "ar": "باي بابا"
+      },
+      "image": "family/baba.svg",
+      "name_audio": {
+        "en": "phrases/bye_baba_name_en.mp3",
+        "ar": "phrases/bye_baba_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_bye_mama",
+      "name": {
+        "en": "Bye Mama",
+        "ar": "باي ماما"
+      },
+      "image": "family/mama.svg",
+      "name_audio": {
+        "en": "phrases/bye_mama_name_en.mp3",
+        "ar": "phrases/bye_mama_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_bye_teta",
+      "name": {
+        "en": "Bye Teta",
+        "ar": "باي تيتا"
+      },
+      "image": "family/grandma.svg",
+      "name_audio": {
+        "en": "phrases/bye_teta_name_en.mp3",
+        "ar": "phrases/bye_teta_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_hi_jiddo",
+      "name": {
+        "en": "Hi Jiddo",
+        "ar": "مرحبا جدّو"
+      },
+      "image": "family/grandpa.svg",
+      "name_audio": {
+        "en": "phrases/hi_jiddo_name_en.mp3",
+        "ar": "phrases/hi_jiddo_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_hi_mama",
+      "name": {
+        "en": "Hi Mama",
+        "ar": "مرحبا ماما"
+      },
+      "image": "family/mama.svg",
+      "name_audio": {
+        "en": "phrases/hi_mama_name_en.mp3",
+        "ar": "phrases/hi_mama_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_mama_come",
+      "name": {
+        "en": "Mama, come",
+        "ar": "ماما تعالي"
+      },
+      "image": "family/mama.svg",
+      "name_audio": {
+        "en": "phrases/mama_come_name_en.mp3",
+        "ar": "phrases/mama_come_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_baba_come",
+      "name": {
+        "en": "Baba, come",
+        "ar": "بابا تعال"
+      },
+      "image": "family/baba.svg",
+      "name_audio": {
+        "en": "phrases/baba_come_name_en.mp3",
+        "ar": "phrases/baba_come_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_lets_play",
+      "name": {
+        "en": "Let's play",
+        "ar": "يلّا نلعب"
+      },
+      "image": "routine/play.svg",
+      "name_audio": {
+        "en": "phrases/lets_play_name_en.mp3",
+        "ar": "phrases/lets_play_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_go_out",
+      "name": {
+        "en": "Go out",
+        "ar": "يلّا برّا"
+      },
+      "image": "routine/go_out.svg",
+      "name_audio": {
+        "en": "phrases/go_out_name_en.mp3",
+        "ar": "phrases/go_out_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_baby_sleep",
+      "name": {
+        "en": "Baby sleeping",
+        "ar": "البيبي نايم"
+      },
+      "image": "actions/sleep.svg",
+      "name_audio": {
+        "en": "phrases/baby_sleep_name_en.mp3",
+        "ar": "phrases/baby_sleep_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_big_dog",
+      "name": {
+        "en": "Big dog",
+        "ar": "كلب كبير"
+      },
+      "image": "animals/dog.svg",
+      "name_audio": {
+        "en": "phrases/big_dog_name_en.mp3",
+        "ar": "phrases/big_dog_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_big_car",
+      "name": {
+        "en": "Big car",
+        "ar": "سيارة كبيرة"
+      },
+      "image": "vehicles/car.svg",
+      "name_audio": {
+        "en": "phrases/big_car_name_en.mp3",
+        "ar": "phrases/big_car_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_little_cat",
+      "name": {
+        "en": "Little cat",
+        "ar": "قطة صغيرة"
+      },
+      "image": "animals/cat.svg",
+      "name_audio": {
+        "en": "phrases/little_cat_name_en.mp3",
+        "ar": "phrases/little_cat_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_food_done",
+      "name": {
+        "en": "Food all done",
+        "ar": "خلص أكل"
+      },
+      "image": "actions/eat.svg",
+      "name_audio": {
+        "en": "phrases/food_done_name_en.mp3",
+        "ar": "phrases/food_done_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_open_door",
+      "name": {
+        "en": "Open door",
+        "ar": "افتح الباب"
+      },
+      "image": "home/door.svg",
+      "name_audio": {
+        "en": "phrases/open_door_name_en.mp3",
+        "ar": "phrases/open_door_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "ph_kiss_mama",
+      "name": {
+        "en": "Kiss Mama",
+        "ar": "بوسة ماما"
+      },
+      "image": "actions/kiss.svg",
+      "name_audio": {
+        "en": "phrases/kiss_mama_name_en.mp3",
+        "ar": "phrases/kiss_mama_name_ar.mp3"
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

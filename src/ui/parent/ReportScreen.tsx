@@ -16,9 +16,14 @@ import { ODD_PACK_ID, ODD_PACK_NAME } from '../../content/odd';
 import type { LoadedPack } from '../../content/types';
 import { blobUrl } from '../../custom/toLoaded';
 import { isCustomPackId } from '../../custom/types';
-import { formatDateTime, useI18n } from '../../i18n/I18n';
+import { formatDateTime, makeI18n, useI18n } from '../../i18n/I18n';
 import { reportStore } from '../../report/db';
 import { renderReportImage, type ReportImageRow } from '../../report/reportImage';
+import { renderDoctorImage } from '../../report/doctorImage';
+import { doctorStats } from '../../report/doctor';
+import { ageInMonths, loadBirthMonth, saveBirthMonth } from '../../settings/birth';
+import { loadMilestones, MILESTONES } from '../../settings/milestones';
+import type { Lang } from '../../content/types';
 import { shareSummary } from '../../report/share';
 import { firstTryPercent, itemSummary, type ItemSummaryRow } from '../../report/summary';
 import { resultPack, type QuestionResultEntity, type SessionEntity } from '../../report/types';
@@ -48,7 +53,8 @@ export function ReportScreen({
   const [tab, setTab] = useState<'items' | 'games'>('items');
   const [detail, setDetail] = useState<SessionEntity | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
-  const [shared, setShared] = useState<{ blob: Blob; url: string; name?: string; title?: string } | null>(null);
+  const [shared, setShared] = useState<{ blob: Blob; url: string; name?: string; title?: string; print?: boolean } | null>(null);
+  const [doctorLang, setDoctorLang] = useState<Lang>(lang);
   const [shareProblem, setShareProblem] = useState(false);
   const child = profiles.profiles.find((p) => p.id === childId) ?? profiles.profiles[0];
   // How do you feel?: her last week of check-ins, newest first.
@@ -56,6 +62,8 @@ export function ReportScreen({
   const feelPictures = useMemo(() => (feelPack ? choosePictures(feelPack.items, () => 0) : {}), [feelPack]);
   const feelings = useMemo(() => recentWords(loadFeelings(child.id), 7).reverse(), [child.id]);
   const several = profiles.profiles.length > 1;
+  const [birth, setBirth] = useState(() => loadBirthMonth(child.id));
+  useEffect(() => setBirth(loadBirthMonth(child.id)), [child.id]);
   // Play time: minutes per day this week, and her most-chosen games.
   const playLog = useMemo(() => loadPlayLog(child.id), [child.id]);
   const week = useMemo(() => weekMinutes(playLog), [playLog]);
@@ -114,6 +122,9 @@ export function ReportScreen({
     if (g.game === 'actions') return `${t('actionsGame')} · ${t('actionsRow', { n: g.questionCount })}`;
     if (g.game === 'sounds') return `${t('soundsGame')} · ${t('soundsRow', { n: g.questionCount })}`;
     if (g.game === 'hunt') return `${t('huntGame')} · ${t('huntRow', { n: g.questionCount })}`;
+    if (g.game === 'phrases') return `${t('phrasesGame')} · ${t('talkRow', { n: g.questionCount })}`;
+    if (g.game === 'manners') return `${t('mannersGame')} · ${t('talkRow', { n: g.questionCount })}`;
+    if (g.game === 'real') return `${t('realGame')} · ${packName(g.packId)}`;
     if (g.game === 'talk') return `${t('talkGame')} · ${packName(g.packId)} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'scene') {
       const where = g.variant === 'house' ? t('sceneHouse') : t('sceneFarm');
@@ -183,6 +194,39 @@ export function ReportScreen({
     });
     setShareProblem(false);
     setShared({ blob, url: blobUrl(blob), name: 'her-week.png', title: t('weekShareTitle') });
+  };
+
+  /** One plain page for a check-up, in the language the parent picks. */
+  const prepareDoctor = async () => {
+    if (!mine) return;
+    const { t: d } = makeI18n(doctorLang);
+    const locale = doctorLang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB';
+    const dateOf = (at: number) => new Date(at).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
+    const wordPacks = new Set([...wordLookup(packs).values()].map((w) => w.pack.id));
+    const s = doctorStats(mine.sessions, mine.questions, loadWordMarks(child.id), (id) => wordPacks.has(id));
+    const ticks = loadMilestones(child.id);
+    const age = ageInMonths(birth);
+    const blob = await renderDoctorImage({
+      rtl: doctorLang === 'ar',
+      title: d('doctorPageTitle'),
+      subtitle: [dateOf(Date.now()), ...(age === null ? [] : [d('doctorAge', { n: age })])].join(' · '),
+      stats: [
+        { value: String(s.understood.total), label: d('doctorUnderstood') },
+        { value: String(s.says), label: d('doctorSays') },
+        ...(packs.some((p) => p.id === 'phrases') ? [{ value: String(s.phrases), label: d('doctorPhrases') }] : []),
+      ],
+      notes: [
+        d('doctorByLanguage', { ar: s.understood.arabic, en: s.understood.english, both: s.understood.bothLanguages }),
+        ...(s.outsideApp ? [d('doctorOutside', { n: s.outsideApp })] : []),
+      ],
+      milestonesTitle: d('doctorMilestones'),
+      milestones: [...MILESTONES]
+        .sort((a, b) => Number(ticks[b.id] !== undefined) - Number(ticks[a.id] !== undefined))
+        .map((m) => ({ text: m.text[doctorLang], date: ticks[m.id] !== undefined ? dateOf(ticks[m.id]) : null })),
+      footer: d('doctorFooter'),
+    });
+    setShareProblem(false);
+    setShared({ blob, url: blobUrl(blob), name: 'for-the-doctor.png', title: t('doctorTitle'), print: true });
   };
 
   /** Draws the picture first, so the share sheet opens straight from the next tap. */
@@ -296,6 +340,35 @@ export function ReportScreen({
         </button>
       </section>
 
+      <section className="card doctor-card">
+        <h2>🩺 {t('doctorTitle')}</h2>
+        <p className="hint">{t('doctorHint')}</p>
+        <label className="doctor-birth">
+          <span>{t('doctorBirth')}</span>
+          <input
+            type="month"
+            value={birth}
+            max={new Date().toISOString().slice(0, 7)}
+            onChange={(e) => {
+              setBirth(e.target.value);
+              saveBirthMonth(child.id, e.target.value);
+            }}
+          />
+        </label>
+        <Segmented
+          label={t('doctorLanguage')}
+          value={doctorLang}
+          options={[
+            { value: 'ar' as const, label: t('langArabic') },
+            { value: 'en' as const, label: t('langEnglish') },
+          ]}
+          onChange={setDoctorLang}
+        />
+        <button type="button" className="btn primary wide" onClick={() => void prepareDoctor()} disabled={!mine}>
+          {t('doctorMake')}
+        </button>
+      </section>
+
       {paintings.length > 0 && (
         <section className="card paintings">
           <h2>🎨 {t('paintingsTitle')}</h2>
@@ -405,6 +478,12 @@ export function ReportScreen({
         </div>
       )}
 
+      {shared?.print && (
+        <div className="print-area print-only doctor-print">
+          <img src={shared.url} alt="" />
+        </div>
+      )}
+
       {shared && (
         <Overlay label={shared.title ?? t('shareReport')} onDismiss={() => setShared(null)}>
           <h2>{shared.title ?? t('shareReport')}</h2>
@@ -422,6 +501,11 @@ export function ReportScreen({
             <button type="button" className="btn" onClick={save}>
               {t('savePicture')}
             </button>
+            {shared.print && (
+              <button type="button" className="btn" onClick={() => window.print()}>
+                🖨️ {t('doctorPrint')}
+              </button>
+            )}
             {canShareFiles() && (
               <button type="button" className="btn primary" onClick={() => void share()}>
                 {t('share')}

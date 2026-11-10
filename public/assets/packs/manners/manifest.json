@@ -1,0 +1,295 @@
+{
+  "pack_id": "manners",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.4,
+  "name": {
+    "en": "Hello and thank you",
+    "ar": "مرحبا وشكراً"
+  },
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "greetings",
+      "name": {
+        "en": "Hello and bye",
+        "ar": "مرحبا وباي"
+      },
+      "items": [
+        "mn_hello",
+        "mn_bye",
+        "mn_good_morning",
+        "mn_good_night"
+      ]
+    },
+    {
+      "id": "manners",
+      "name": {
+        "en": "Manners",
+        "ar": "الأدب"
+      },
+      "items": [
+        "mn_thank_you",
+        "mn_please",
+        "mn_sorry",
+        "mn_welcome"
+      ]
+    },
+    {
+      "id": "blessings",
+      "name": {
+        "en": "Our words",
+        "ar": "كلماتنا"
+      },
+      "items": [
+        "mn_salam",
+        "mn_bismillah",
+        "mn_alhamdulillah",
+        "mn_inshallah"
+      ]
+    },
+    {
+      "id": "asking",
+      "name": {
+        "en": "Asking",
+        "ar": "الطلبات"
+      },
+      "items": [
+        "mn_want",
+        "mn_more",
+        "mn_all_done",
+        "mn_no",
+        "mn_yes"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "mn_hello",
+      "name": {
+        "en": "Hello",
+        "ar": "مرحبا"
+      },
+      "image": "manners/hello.svg",
+      "name_audio": {
+        "en": "manners/hello_name_en.mp3",
+        "ar": "manners/hello_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_bye",
+      "name": {
+        "en": "Bye-bye",
+        "ar": "باي باي"
+      },
+      "image": "manners/bye.svg",
+      "name_audio": {
+        "en": "manners/bye_name_en.mp3",
+        "ar": "manners/bye_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_good_morning",
+      "name": {
+        "en": "Good morning",
+        "ar": "صباح الخير"
+      },
+      "image": "manners/good_morning.svg",
+      "name_audio": {
+        "en": "manners/good_morning_name_en.mp3",
+        "ar": "manners/good_morning_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_good_night",
+      "name": {
+        "en": "Good night",
+        "ar": "تصبحوا على خير"
+      },
+      "image": "manners/good_night.svg",
+      "name_audio": {
+        "en": "manners/good_night_name_en.mp3",
+        "ar": "manners/good_night_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_thank_you",
+      "name": {
+        "en": "Thank you",
+        "ar": "شكراً"
+      },
+      "image": "manners/thank_you.svg",
+      "name_audio": {
+        "en": "manners/thank_you_name_en.mp3",
+        "ar": "manners/thank_you_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_please",
+      "name": {
+        "en": "Please",
+        "ar": "من فضلك"
+      },
+      "image": "manners/please.svg",
+      "name_audio": {
+        "en": "manners/please_name_en.mp3",
+        "ar": "manners/please_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_sorry",
+      "name": {
+        "en": "Sorry",
+        "ar": "آسفة"
+      },
+      "image": "manners/sorry.svg",
+      "name_audio": {
+        "en": "manners/sorry_name_en.mp3",
+        "ar": "manners/sorry_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_welcome",
+      "name": {
+        "en": "You're welcome",
+        "ar": "عفواً"
+      },
+      "image": "manners/welcome.svg",
+      "name_audio": {
+        "en": "manners/welcome_name_en.mp3",
+        "ar": "manners/welcome_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_salam",
+      "name": {
+        "en": "Salam alaikum",
+        "ar": "السلام عليكم"
+      },
+      "image": "manners/salam.svg",
+      "name_audio": {
+        "en": "manners/salam_name_en.mp3",
+        "ar": "manners/salam_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_bismillah",
+      "name": {
+        "en": "Bismillah",
+        "ar": "بسم الله"
+      },
+      "image": "manners/bismillah.svg",
+      "name_audio": {
+        "en": "manners/bismillah_name_en.mp3",
+        "ar": "manners/bismillah_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_alhamdulillah",
+      "name": {
+        "en": "Alhamdulillah",
+        "ar": "الحمد لله"
+      },
+      "image": "manners/alhamdulillah.svg",
+      "name_audio": {
+        "en": "manners/alhamdulillah_name_en.mp3",
+        "ar": "manners/alhamdulillah_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_inshallah",
+      "name": {
+        "en": "Inshallah",
+        "ar": "إن شاء الله"
+      },
+      "image": "manners/inshallah.svg",
+      "name_audio": {
+        "en": "manners/inshallah_name_en.mp3",
+        "ar": "manners/inshallah_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_want",
+      "name": {
+        "en": "I want",
+        "ar": "بدي"
+      },
+      "image": "manners/want.svg",
+      "name_audio": {
+        "en": "manners/want_name_en.mp3",
+        "ar": "manners/want_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_more",
+      "name": {
+        "en": "More",
+        "ar": "كمان"
+      },
+      "image": "manners/more.svg",
+      "name_audio": {
+        "en": "manners/more_name_en.mp3",
+        "ar": "manners/more_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_all_done",
+      "name": {
+        "en": "All done",
+        "ar": "خلص"
+      },
+      "image": "manners/all_done.svg",
+      "name_audio": {
+        "en": "manners/all_done_name_en.mp3",
+        "ar": "manners/all_done_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_no",
+      "name": {
+        "en": "No",
+        "ar": "لا"
+      },
+      "image": "manners/no.svg",
+      "name_audio": {
+        "en": "manners/no_name_en.mp3",
+        "ar": "manners/no_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "mn_yes",
+      "name": {
+        "en": "Yes",
+        "ar": "آه"
+      },
+      "image": "manners/yes.svg",
+      "name_audio": {
+        "en": "manners/yes_name_en.mp3",
+        "ar": "manners/yes_name_ar.mp3"
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

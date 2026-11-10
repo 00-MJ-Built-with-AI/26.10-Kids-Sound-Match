@@ -104,6 +104,14 @@ export function Home({
   sleepPrefs,
   onSleep,
   onPotty,
+  canPhrases,
+  canManners,
+  canMenu,
+  recordLeft,
+  onRecordToday,
+  onRecordLater,
+  twoWordsCard,
+  onTwoWords,
   celebrate,
   onCelebrated,
   onOpen,
@@ -170,6 +178,17 @@ export function Home({
   sleepPrefs: SleepPrefs;
   onSleep: (prefs: SleepPrefs) => void;
   onPotty: () => void;
+  canPhrases: boolean;
+  canManners: boolean;
+  /** Her own menu: there are enough games to choose from. */
+  canMenu: boolean;
+  /** Words still to record; 0 hides the card (done for today, or put off). */
+  recordLeft: number;
+  onRecordToday: () => void;
+  onRecordLater: () => void;
+  /** She said a phrase and "two words together" isn't ticked yet. */
+  twoWordsCard: boolean;
+  onTwoWords: (tick: boolean) => void;
   /** Ramadan or Eid (lanterns on the header, a card with the Ramadan and Eid words). */
   season: Season | null;
   onSeasonPlay?: (kind: 'game' | 'explore') => void;
@@ -229,6 +248,8 @@ export function Home({
   const activeProfile = profiles.profiles.find((p) => p.id === profiles.activeId);
   const together: Tile[] = [
     { id: 'talk', icon: <TalkIcon />, label: t('talkGame'), sub: t('talkSub'), on: onTalk, ok: canExplore },
+    ...(canPhrases ? [{ id: 'phrases', icon: <TalkIcon />, label: t('phrasesGame'), sub: t('phrasesSub'), on: () => onGame('phrases'), ok: true }] : []),
+    ...(canManners ? [{ id: 'manners', icon: <TalkIcon />, label: t('mannersGame'), sub: t('mannersSub'), on: () => onGame('manners'), ok: true }] : []),
     { id: 'sounds', icon: <SoundsIcon />, label: t('soundsGame'), sub: t('soundsSub'), on: () => onGame('sounds'), ok: canSounds },
     { id: 'sing', icon: <SingIcon />, label: t('singGame'), sub: t('singSub'), on: () => onGame('sing'), ok: canSing },
     { id: 'point', icon: <PointIcon />, label: t('pointGame'), sub: t('pointSub'), on: onPoint, ok: canPoint },
@@ -343,6 +364,43 @@ export function Home({
       <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
         {t('start')}
       </button>
+      {canMenu && (
+        <button type="button" className="her-menu-btn" onClick={() => onGame('menu')}>
+          <span aria-hidden="true">👆</span>
+          <span>
+            <strong>{t('herMenu')}</strong>
+            <small>{t('herMenuSub')}</small>
+          </span>
+        </button>
+      )}
+      {twoWordsCard && (
+        <section className="card nudge-card" role="status">
+          <h2>💬 {t('twoWordsTitle')}</h2>
+          <p>{t('twoWordsBody')}</p>
+          <div className="nudge-actions">
+            <button type="button" className="btn primary" onClick={() => onTwoWords(true)}>
+              {t('twoWordsYes')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => onTwoWords(false)}>
+              {t('twoWordsNo')}
+            </button>
+          </div>
+        </section>
+      )}
+      {recordLeft > 0 && (
+        <section className="card week-card record-card">
+          <h2>🎙️ {t('recordCardTitle')}</h2>
+          <p className="hint">{t('recordCardHint', { n: recordLeft })}</p>
+          <div className="nudge-actions">
+            <button type="button" className="btn primary" onClick={onRecordToday}>
+              {t('recordCardGo')}
+            </button>
+            <button type="button" className="btn ghost" onClick={onRecordLater}>
+              {t('recordCardLater')}
+            </button>
+          </div>
+        </section>
+      )}
       {weekCard && (
         <section className="card week-card">
           <h2>💌 {t('weekShareCard')}</h2>

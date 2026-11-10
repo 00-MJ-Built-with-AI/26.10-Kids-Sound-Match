@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { audioEngine } from './audio/audioEngine';
-import { FEEDBACK_SPEECH, voicedClip } from './audio/clips';
+import { FEEDBACK_SPEECH, findLine, voicedClip } from './audio/clips';
+import { forgetHeard, heardWords } from './audio/heard';
+import { packIsLive } from './content/newWords';
+import { phraseOrder } from './content/phrases';
+import { pickRealThing, type RealThing } from './content/realThings';
+import type { FindRealAsk } from './ui/kid/FindReal';
 import { placeholderPictureUsable } from './content/emojiSupport';
 import { loadContent } from './content/loader';
 import { buildMixedPack, sourcePacks } from './content/mixed';
@@ -21,6 +26,7 @@ import { enterFullscreen } from './lock/fullscreen';
 import { loadPinRecord } from './lock/pin';
 import { bookWords } from './report/book';
 import { reportStore } from './report/db';
+import { resultPack } from './report/types';
 import { memoryReady, oddLevel, type MemoryNext, type OddLevel } from './report/levels';
 import { practiceWeights, readyForMore, type NextLevel } from './report/practice';
 import { knownWords, wordEvidence, wordId } from './report/words';
@@ -37,11 +43,12 @@ import {
 import { countReplay, forgetReplays } from './settings/replays';
 import { forgetStickers } from './settings/stickers';
 import { voiceStore } from './settings/herVoice';
-import { forgetMilestones, loadMilestones, markCertificatesSeen, unseenCertificate, updateCertificates, type Certificate } from './settings/milestones';
+import { forgetMilestones, loadMilestones, markCertificatesSeen, toggleMilestone, unseenCertificate, updateCertificates, type Certificate } from './settings/milestones';
 import { countWords } from './report/wordCount';
-import { forgetFavourites, loadFavourites, saveFavourites } from './settings/favourites';
+import { forgetFavourites, herMenu, loadFavourites, saveFavourites } from './settings/favourites';
+import { forgetBirthMonth } from './settings/birth';
 import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
-import { forgetPlayLog, logPlay } from './settings/playLog';
+import { forgetPlayLog, loadPlayLog, logPlay, topGames } from './settings/playLog';
 import { today } from './settings/routine';
 import { loadSleepPrefs, saveSleepPrefs, type SleepPrefs } from './settings/sleepLight';
 import { currentSeason, loadSeasonPref, markCelebrated, saveSeasonPref, shouldCelebrate, type SeasonPref } from './settings/season';
@@ -69,7 +76,9 @@ import { Flashcards } from './ui/parent/Flashcards';
 import { Home, type HomeLink } from './ui/parent/Home';
 import { AboutScreen, ContentProblems, PrivacyScreen } from './ui/parent/InfoScreens';
 import { MyPacks } from './ui/parent/MyPacks';
-import { Personalize } from './ui/parent/Personalize';
+import { Personalize, recordedToday, SESSION_DAILY } from './ui/parent/Personalize';
+import { wordsToRecord } from './ui/parent/recordQueue';
+import { takeSharedVoiceNote, VoiceNoteScreen } from './ui/parent/VoiceNoteScreen';
 import { ReportScreen } from './ui/parent/ReportScreen';
 import { RoutineScreen } from './ui/parent/RoutineScreen';
 import { MilestonesScreen } from './ui/parent/MilestonesScreen';
@@ -93,6 +102,7 @@ type Screen =
   | 'about'
   | 'myPacks'
   | 'personalize'
+  | 'voiceNote'
   | 'studio'
   | 'flashcards'
   | 'words'
@@ -112,6 +122,12 @@ const NUDGE_AGAIN_AFTER_GAMES = 3;
 const MEMORY_NUDGE_DISMISSED_KEY = 'ksm.memoryNudgeDismissed.v1';
 /** Find it in the picture: the scene played last, so the next game shows the other one. */
 const LAST_SCENE_KEY = 'ksm.lastScene.v1';
+/** "Not today" on the Record 5 words card: the day. */
+const RECORD_CARD_KEY = 'ksm.recordCard.v1';
+/** "Not yet" on the two-words milestone card. */
+const TWO_WORDS_KEY = 'ksm.twoWordsAsked.v1';
+/** After these she doesn't need to be sent looking for something. */
+const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story'];
 /** Where's your nose? needs at least this many body parts it can ask about. */
 const MIN_POINT_ITEMS = 3;
 const PARENTS_GROUP_URL = (import.meta.env.VITE_PARENTS_GROUP_URL ?? '').trim();
@@ -222,6 +238,7 @@ export function App() {
       forgetFavourites(id);
       forgetMilestones(id);
       forgetPotty(id);
+      forgetBirthMonth(id);
       forgetPlayLog(id);
       void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
@@ -264,6 +281,13 @@ function Shell({
   const [memoryNudge, setMemoryNudge] = useState<MemoryNext | null>(null);
   const [newCert, setNewCert] = useState<Certificate | null>(null);
   const soundChecked = useRef(false);
+  /** A voice note shared into the app from WhatsApp. */
+  const [sharedNote, setSharedNote] = useState<Blob | null>(null);
+  /** How often she has played each word (word id), for the order to record them in. */
+  const [wordPlays, setWordPlays] = useState<ReadonlyMap<string, number>>(new Map());
+  const [recordCardOff, setRecordCardOff] = useState(() => local.get(RECORD_CARD_KEY) === new Date().toDateString());
+  const [twoWordsCard, setTwoWordsCard] = useState(false);
+  const personalizeFrom = useRef<'home' | 'myPacks'>('myPacks');
 
   const { customViews, allPacks, oddPack } = useMemo(() => composePacks(builtin?.packs ?? [], custom, settings.look), [builtin, custom, settings.look]);
   // Packs with enough finished items to play.
@@ -301,6 +325,8 @@ function Shell({
   const shapesPack = allPacks.find((p) => p.id === 'shapes');
   const storiesPack = allPacks.find((p) => p.id === 'stories');
   const hidePack = allPacks.find((p) => p.id === 'hide');
+  const phrasesPack = allPacks.find((p) => p.id === 'phrases');
+  const mannersPack = allPacks.find((p) => p.id === 'manners');
   const canPaint = (colorsPack?.items.length ?? 0) >= 4;
   const canHide = (hidePack?.items.length ?? 0) >= 3;
   const canStory = (storiesPack?.groups.length ?? 0) > 0;
@@ -365,6 +391,15 @@ function Shell({
       setScreen('firstRun');
       return;
     }
+    // A voice note shared from WhatsApp: the service worker kept it for us.
+    if (new URLSearchParams(window.location.search).get('shared') === 'voice') {
+      window.history.replaceState(null, '', window.location.pathname);
+      void takeSharedVoiceNote().then((note) => {
+        setSharedNote(note);
+        setScreen('voiceNote');
+      });
+      return;
+    }
     // A reload during a game returns to that game (the web's version of process death).
     const snap = loadKidSnapshot();
     const snapPack = snap && packs.find((p) => p.id === snap.config.packId);
@@ -395,6 +430,8 @@ function Shell({
         loaded = { packs: [], issues: [{ packId: '?', message: String(e), level: 'error' }] };
       }
       if (cancelled) return;
+      // New words the parent hasn't checked yet stay out of the live app.
+      loaded = { ...loaded, packs: loaded.packs.filter((p) => packIsLive(p.id)) };
       let own = NO_CUSTOM;
       try {
         own = await readCustom();
@@ -450,6 +487,18 @@ function Shell({
         // A new certificate (10, 25, 50 words or her first sentence): celebrated once on Home.
         const total = countWords(allPacks, forProfile(sessions, profileId), questions, loadWordMarks(profileId));
         setNewCert(unseenCertificate(profileId, updateCertificates(profileId, total, loadMilestones(profileId))));
+        // The order to record her words in: the ones she plays most first.
+        const plays = new Map<string, number>();
+        const byId = new Map(sessions.map((s) => [s.id, s]));
+        for (const q of questions) {
+          const s = byId.get(q.sessionId);
+          if (!s) continue;
+          const id = wordId(resultPack(q, s), q.itemKey);
+          plays.set(id, (plays.get(id) ?? 0) + 1);
+        }
+        setWordPlays(plays);
+        const saidPhrase = forProfile(sessions, profileId).some((s) => s.game === 'phrases' && s.questionCount > 0);
+        setTwoWordsCard(saidPhrase && loadMilestones(profileId).talk_two === undefined && !local.get(profileKey(TWO_WORDS_KEY, profileId)));
       })
       .catch(() => {
         setNudge(null);
@@ -492,7 +541,7 @@ function Shell({
   };
 
   /** Starts a game. `s` is the settings to use: the quick picker passes the ones it just saved. */
-  const startKid = async (kind: KidKind, given?: Settings) => {
+  const startKid = async (kind: KidKind, given?: Settings, opts?: { fromMenu?: boolean }) => {
     const s = given ?? nextSettings.current ?? settings;
     nextSettings.current = null;
     const storyId = kind === 'story' ? nextStory.current : null;
@@ -504,7 +553,11 @@ function Shell({
     // Odd one out plays with every pack of things, a scene with its own packs, Where's your nose?
     // with the body parts, Do it with me with the actions; the other games with the chosen pack.
     const gamePack =
-      kind === 'odd'
+      kind === 'phrases'
+        ? phrasesPack
+        : kind === 'manners'
+          ? mannersPack
+          : kind === 'odd'
         ? oddPack
         : kind === 'scene'
           ? scene?.packs.map((id) => allPacks.find((p) => p.id === id)).find((p) => p !== undefined)
@@ -543,6 +596,7 @@ function Shell({
     let weights: Record<string, number> = {};
     let level: OddLevel = 'easy';
     let bookIds: string[] = [];
+    let phraseIds: string[] = gamePack.items.map((i) => i.key);
     try {
       const sessions = forProfile(await reportStore.sessions(), profileId);
       // Adaptive practice: weights come from the Report on this device when the game starts.
@@ -551,6 +605,13 @@ function Shell({
         weights = practiceWeights(sessions, await reportStore.questions(), packIds);
       }
       if (kind === 'odd') level = oddLevel(sessions, await reportStore.questions());
+      if (kind === 'phrases') {
+        // Phrases built from words she understands or says come first.
+        const ids = new Set(sessions.map((x) => x.id));
+        const questions = (await reportStore.questions()).filter((q) => ids.has(q.sessionId));
+        const said = Object.keys(loadWordMarks(profileId).says);
+        phraseIds = phraseOrder(phraseIds, new Set([...knownWords(wordEvidence(sessions, questions)).keys(), ...said]));
+      }
       if (kind === 'book' || kind === 'bedtime') {
         // Her picture book: the words she knows or says, newest first, topped up from this pack.
         const ids = new Set(sessions.map((x) => x.id));
@@ -567,10 +628,11 @@ function Shell({
       if (kind === 'book' || kind === 'bedtime') bookIds = fillWords(gamePack, s);
       // No history available: every animal equally often, and an easy Odd one out.
     }
-    markPlayed(profileId, kind);
+    if (kind !== 'menu') markPlayed(profileId, kind);
     endPlay();
-    // The sleep light isn't play time.
-    playing.current = kind === 'sleep' ? null : { kind, profileId, start: Date.now() };
+    forgetHeard();
+    // The sleep light and her menu aren't play time.
+    playing.current = kind === 'sleep' || kind === 'menu' ? null : { kind, profileId, start: Date.now() };
     // The first game from Home starts the sitting; play-agains and the end screen's picker continue it.
     if (sittingStart.current === null) sittingStart.current = Date.now();
     setKid({
@@ -581,7 +643,11 @@ function Shell({
         profileId,
         packId: gamePack.id,
         itemKeys:
-          kind === 'odd'
+          kind === 'phrases'
+            ? phraseIds
+            : kind === 'manners'
+              ? gamePack.items.map((i) => i.key)
+              : kind === 'odd'
             ? gamePack.items.map((i) => i.key)
             : kind === 'scene' && scene
               ? sceneKeys(scene, s)
@@ -608,12 +674,13 @@ function Shell({
             ? s.mode
             : kind === 'care'
               ? 'SOUND_AND_NAME'
-              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide'].includes(kind)
+              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners'].includes(kind)
                 ? 'NAME_ONLY'
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
         ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
         ...(storyId ? { storyId } : {}),
+        ...(opts?.fromMenu ? { fromMenu: true } : {}),
         ...(kind === 'sleep' || (kind === 'bedtime' && sleepPrefs.afterBedtime)
           ? { sleep: { sound: sleepPrefs.sound, minutes: sleepPrefs.minutes } }
           : {}),
@@ -649,6 +716,8 @@ function Shell({
     ...(canPoint && genderKnown ? (['point'] as const) : []),
     ...(canActions && genderKnown ? (['actions'] as const) : []),
     'talk',
+    ...(phrasesPack ? (['phrases'] as const) : []),
+    ...(mannersPack ? (['manners'] as const) : []),
     ...(canCare ? (['care'] as const) : []),
     'turns',
     'book',
@@ -680,6 +749,46 @@ function Shell({
   ];
   const played = loadPlayed(profileId);
   const todayPlan = planFor(today(), planKinds, played, favourites).map((kind) => ({ kind, done: playedToday(played, kind) }));
+
+  // Her own menu: four big pictures she chooses from herself.
+  const menuKinds = herMenu(favourites, pickerKinds, topGames(loadPlayLog(profileId), 0, 12).map((g) => g.kind));
+
+  /** Find the real one: once a sitting, a real thing from the words she just heard. */
+  const realAsk = useRef<{ sitting: number; ask: FindRealAsk; done: boolean } | null>(null);
+  const takeReal = (): FindRealAsk | null => {
+    const sitting = sittingStart.current;
+    if (sitting === null || !kid || NO_REAL_THING.includes(kid.config.kind)) return null;
+    if (realAsk.current?.sitting === sitting) return realAsk.current.done ? null : realAsk.current.ask;
+    const thing = pickRealThing(heardWords(), allPacks);
+    if (!thing) return null;
+    const line = findLine(allPacks, profile?.arGender === 'm' ? 'find_real_m' : 'find_real_f');
+    const ask = { thing, line, languages: spokenLanguages(kid.config.language) };
+    realAsk.current = { sitting, ask, done: false };
+    return ask;
+  };
+  const onRealDone = (thing: RealThing, found: boolean) => {
+    if (realAsk.current) realAsk.current.done = true;
+    if (!found) return;
+    const now = Date.now();
+    void reportStore
+      .saveSession(
+        {
+          packId: thing.pack.id,
+          startedAt: now,
+          endedAt: now,
+          questionCount: 1,
+          toddlerMode: false,
+          choiceCount: 1,
+          language: settings.language,
+          mode: 'NAME_ONLY',
+          completed: true,
+          profileId,
+          game: 'real',
+        },
+        [{ itemKey: thing.item.key, packId: thing.pack.id, firstTryCorrect: true, attempts: 1, choiceCount: 1 }],
+      )
+      .catch((e) => console.warn('[report] could not save the real thing', e));
+  };
 
   /** Runs inside a tap: fullscreen must be requested from a user gesture. */
   const launch = (kind: KidKind) => {
@@ -767,7 +876,10 @@ function Shell({
         <MyPacks
           views={customViews}
           onBack={home}
-          onPersonalize={() => setScreen('personalize')}
+          onPersonalize={() => {
+            personalizeFrom.current = 'myPacks';
+            setScreen('personalize');
+          }}
           onChanged={onCustomChanged}
         />
       );
@@ -778,7 +890,25 @@ function Shell({
           packs={builtin?.packs ?? []}
           overrides={custom.overrides}
           onChanged={onCustomChanged}
-          onBack={() => setScreen('myPacks')}
+          onBack={() => setScreen(personalizeFrom.current)}
+          startSession={personalizeFrom.current === 'home'}
+          playCounts={wordPlays}
+          onVoiceNote={() => setScreen('voiceNote')}
+        />
+      );
+      break;
+    case 'voiceNote':
+      body = (
+        <VoiceNoteScreen
+          packs={builtin?.packs ?? []}
+          overrides={custom.overrides}
+          shared={sharedNote}
+          onChanged={onCustomChanged}
+          onBack={() => {
+            const fromShare = sharedNote !== null;
+            setSharedNote(null);
+            setScreen(fromShare ? 'home' : 'personalize');
+          }}
         />
       );
       break;
@@ -869,7 +999,25 @@ function Shell({
           config={kid.config}
           snapshot={kid.snapshot}
           telemetryEnabled={settings.telemetryEnabled}
-          picker={{ packs: playablePacks, settings, kind: kid.config.kind, available: pickerKinds, onPlay: restartKid }}
+          picker={{
+            packs: playablePacks,
+            settings,
+            kind: kid.config.kind,
+            available: pickerKinds,
+            onPlay: restartKid,
+            realThing: takeReal,
+            onRealDone,
+            ...(kid.config.fromMenu || kid.config.kind === 'menu'
+              ? {
+                  menu: menuKinds,
+                  onMenu: (next: KidKind) => {
+                    // The first choice is the one you opened the menu for; after that it's a play-again.
+                    if (kid.config.kind !== 'menu') countReplay(profileId);
+                    void startKid(next, undefined, { fromMenu: true });
+                  },
+                }
+              : {}),
+          }}
           onExit={() => {
             endPlay();
             setKid(null);
@@ -923,6 +1071,24 @@ function Shell({
           plan={todayPlan}
           sleepPrefs={sleepPrefs}
           onPotty={() => setScreen('potty')}
+          canPhrases={Boolean(phrasesPack)}
+          canManners={Boolean(mannersPack)}
+          canMenu={menuKinds.length >= 2}
+          recordLeft={!recordCardOff && recordedToday() < SESSION_DAILY ? wordsToRecord(builtin?.packs ?? [], (path) => custom.overrides.some((o) => o.path === path)).length : 0}
+          onRecordToday={() => {
+            personalizeFrom.current = 'home';
+            setScreen('personalize');
+          }}
+          onRecordLater={() => {
+            local.set(RECORD_CARD_KEY, new Date().toDateString());
+            setRecordCardOff(true);
+          }}
+          twoWordsCard={twoWordsCard}
+          onTwoWords={(tick) => {
+            if (tick) toggleMilestone(profileId, 'talk_two');
+            else local.set(profileKey(TWO_WORDS_KEY, profileId), '1');
+            setTwoWordsCard(false);
+          }}
           onSleep={(prefs) => {
             saveSleepPrefs(prefs);
             setSleepPrefs(prefs);

@@ -17,6 +17,7 @@ import { KidPoint } from './KidPoint';
 import { KidBubbles, KidSing, KidTidy } from './KidPlay';
 import { KidFeel, KidOpposites, KidPuzzle, KidShapes } from './KidMore';
 import { KidScene } from './KidScene';
+import { KidMenu } from './KidMenu';
 import { KidBig, KidCount, KidMissing } from './KidSmall';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
 
@@ -49,6 +50,8 @@ export function KidMode(props: Props) {
     };
   }, [config.packId]);
   switch (config.kind) {
+    case 'menu':
+      return <KidMenu config={config} picker={picker} onExit={onExit} />;
     case 'explore':
       return <KidExplore pack={pack} config={config} snapshot={snapshot} onExit={onExit} />;
     case 'memory':
@@ -108,6 +111,8 @@ export function KidMode(props: Props) {
     case 'talk':
     case 'sounds':
     case 'hunt':
+    case 'phrases':
+    case 'manners':
       return <KidPoint pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     default:
       return <KidGame {...props} />;

@@ -36,6 +36,9 @@ import {
 import type { KidKind } from './kidSnapshot';
 import { choosePictures } from './layout';
 import { AlbumIcon } from './Stickers';
+import { FindReal, type FindRealAsk } from './FindReal';
+import { MenuGrid } from './KidMenu';
+import type { RealThing } from '../../content/realThings';
 
 /** What the end screen's quick picker can offer, from App. */
 export interface PickerOptions {
@@ -48,6 +51,12 @@ export interface PickerOptions {
   available: readonly KidKind[];
   /** Starts a game (counted against today's play-again limit) after saving the pack and group. */
   onPlay: (kind: KidKind, patch: Partial<Settings>) => void;
+  /** Find the real one: what to ask after this game, if it's time to. */
+  realThing?: () => FindRealAsk | null;
+  onRealDone?: (thing: RealThing, found: boolean) => void;
+  /** Her own menu: the games to offer instead of play-again. */
+  menu?: readonly KidKind[];
+  onMenu?: (kind: KidKind) => void;
 }
 
 /** Games that play the chosen pack; the others bring their own pictures. */
@@ -83,6 +92,27 @@ export function EndScreen({
 }) {
   const { t } = useI18n();
   const [picking, setPicking] = useState(false);
+  const [real, setReal] = useState<FindRealAsk | null>(() => picker?.realThing?.() ?? null);
+  if (real) {
+    return (
+      <div className="end-screen">
+        <FindReal
+          ask={real}
+          onDone={(found) => {
+            picker?.onRealDone?.(real.thing, found);
+            setReal(null);
+          }}
+        />
+      </div>
+    );
+  }
+  if (canReplay && picker?.menu?.length) {
+    return (
+      <div className="end-screen">
+        <MenuGrid kinds={picker.menu} onPick={picker.onMenu!} />
+      </div>
+    );
+  }
   return (
     <div className="end-screen">
       {canReplay && (
@@ -127,6 +157,8 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
     { id: 'point', label: t('pointGame'), icon: <PointIcon /> },
     { id: 'actions', label: t('actionsGame'), icon: <ActionsIcon /> },
     { id: 'talk', label: t('talkGame'), icon: <TalkIcon /> },
+    { id: 'phrases', label: t('phrasesGame'), icon: <TalkIcon /> },
+    { id: 'manners', label: t('mannersGame'), icon: <TalkIcon /> },
     { id: 'care', label: t('careGame'), icon: <CareIcon /> },
     { id: 'turns', label: t('turnsGame'), icon: <TurnsIcon /> },
     { id: 'book', label: t('bookGame'), icon: <BookIcon /> },

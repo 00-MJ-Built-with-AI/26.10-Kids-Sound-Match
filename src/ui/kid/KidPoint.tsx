@@ -20,6 +20,7 @@ import { aliveMotion, Burst } from './OptionGrid';
 import { bunnySay } from './BunnyHost';
 import { lookNow } from '../theme/looks';
 import { BUNNY_ASKS_TALK, bunnyAsksSound, LOOK_WORDS_APPROVED, SOUND_WORDS } from '../../content/lookWords';
+import { PHRASES_PER_GAME } from '../../content/phrases';
 import { IdleScene, SessionEndScene } from './scenes';
 import { EndScreen, type PickerOptions } from './EndScreen';
 import { awardSticker, StickerAlbum, stickerPicture, StickerReveal } from './Stickers';
@@ -81,6 +82,10 @@ export function KidPoint({
   // Animal sounds ("بقرة… شو بتقول؟") and Colour hunt ("دوّري على شي… أحمر"): the same game.
   const sounds = config.kind === 'sounds';
   const hunt = config.kind === 'hunt';
+  // Two-word time and Hello and thank you: the phrase is said twice with a quiet wait to try it.
+  const phrases = config.kind === 'phrases';
+  const manners = config.kind === 'manners';
+  const sayAfter = phrases || manners;
   const lines = useMemo(
     () => ({
       says: findLine(packs, 'says'),
@@ -100,16 +105,23 @@ export function KidPoint({
   };
   const items = useMemo(() => {
     const allowed = new Set(config.itemKeys);
-    if (talk || sounds || hunt) return pack.items.filter((i) => allowed.has(i.key));
+    if (talk || sounds || hunt || sayAfter) return pack.items.filter((i) => allowed.has(i.key));
     return pointItems(pack, spokenLanguages(config.language), gender).filter((i) => allowed.has(i.key));
   }, [pack, config, gender]);
   const pictures = useMemo(() => choosePictures(items), [items]);
-  const deal = () =>
-    sceneQuestionOrder(
+  const deal = () => {
+    // Two-word time: the first ones are built from words she knows (see phraseOrder), once each.
+    if (sayAfter) {
+      const count = Math.min(config.questionsPerSession, PHRASES_PER_GAME);
+      const chosen = phrases ? config.itemKeys.slice(0, count) : items.map((i) => i.key);
+      return sceneQuestionOrder(chosen, Math.min(count, chosen.length), Math.random);
+    }
+    return sceneQuestionOrder(
       items.map((i) => i.key),
       Math.min(config.questionsPerSession, Math.max(items.length, 1) * 2),
       Math.random,
     );
+  };
 
   const [order, setOrder] = useState(deal);
   const [index, setIndex] = useState(0);
@@ -151,7 +163,8 @@ export function KidPoint({
     const it = item();
     if (!it || !canPlay()) return;
     const r = audio.resolver;
-    if (sounds) void audio.askLoop(r.spoken.flatMap((l) => [r.nameIn(it, l), ...r.line(it.arFeminine ? lines.saysF : lines.says, l)]));
+    if (sayAfter) void audio.askLoop(r.names(it), 2);
+    else if (sounds) void audio.askLoop(r.spoken.flatMap((l) => [r.nameIn(it, l), ...r.line(it.arFeminine ? lines.saysF : lines.says, l)]));
     else if (hunt) void audio.askLoop(r.spoken.flatMap((l) => [...r.line(lines.find, l), r.nameIn(it, l)]));
     else if (talk) void audio.talkAsk(it, r.line(talkLine));
     else void audio.pointAsk(it, gender);
@@ -182,7 +195,7 @@ export function KidPoint({
           mode: config.mode,
           completed: true,
           profileId: config.profileId,
-          game: sounds ? 'sounds' : hunt ? 'hunt' : talk ? 'talk' : actions ? 'actions' : 'point',
+          game: phrases ? 'phrases' : manners ? 'manners' : sounds ? 'sounds' : hunt ? 'hunt' : talk ? 'talk' : actions ? 'actions' : 'point',
         },
         foundKeys.current.map((key) => ({ itemKey: key, packId: sources.get(key) ?? pack.id, firstTryCorrect: true, attempts: 1, choiceCount: 1 })),
       );
@@ -193,10 +206,12 @@ export function KidPoint({
 
   const finish = () => {
     void save();
-    const sticker = awardSticker(
-      config.profileId,
-      foundKeys.current.map((key) => ({ key, packId: pack.id })),
-    );
+    const sticker = sayAfter
+      ? null
+      : awardSticker(
+          config.profileId,
+          foundKeys.current.map((key) => ({ key, packId: pack.id })),
+        );
     const stickerItem = sticker ? items.find((i) => i.key === sticker.key) : undefined;
     setNewSticker(stickerItem ? stickerPicture(stickerItem) : null);
     foundKeys.current = [];
@@ -239,11 +254,12 @@ export function KidPoint({
       void Promise.all([sleep(CELEBRATION_MS), Promise.race([audio.say(answer(it)), sleep(NAME_MAX_MS + 1000)])]).then(next);
       return;
     }
-    if (talk) {
+    if (talk || sayAfter) {
       // She said it: mark it in Words I know (a mark stays; only the parent takes one away).
+      // A phrase isn't a word: Two-word time only goes in the Report.
       const id = wordId(sources.get(it.key) ?? pack.id, it.key);
       const marks = loadWordMarks(config.profileId);
-      if (marks.says[id] === undefined) saveWordMarks(config.profileId, { ...marks, says: { ...marks.says, [id]: Date.now() } });
+      if (!phrases && marks.says[id] === undefined) saveWordMarks(config.profileId, { ...marks, says: { ...marks.says, [id]: Date.now() } });
       void Promise.all([sleep(CELEBRATION_MS), Promise.race([audio.say(audio.resolver.names(it)), sleep(NAME_MAX_MS)])]).then(next);
       return;
     }
@@ -254,10 +270,10 @@ export function KidPoint({
   const onSkip = () => {
     if (stageRef.current !== 'playing' || gateRef.current || busy.current) return;
     const it = item();
-    if ((talk || sounds || hunt) && it) {
+    if ((talk || sounds || hunt || sayAfter) && it) {
       // Not this time: she still hears the word before the next picture.
       busy.current = true;
-      void Promise.race([audio.say(talk ? audio.resolver.names(it) : answer(it)), sleep(NAME_MAX_MS + 1000)]).then(next);
+      void Promise.race([audio.say(talk || sayAfter ? audio.resolver.names(it) : answer(it)), sleep(NAME_MAX_MS + 1000)]).then(next);
       return;
     }
     audio.stop();

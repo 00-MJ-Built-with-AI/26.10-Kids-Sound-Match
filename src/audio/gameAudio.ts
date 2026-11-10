@@ -135,9 +135,9 @@ export class GameAudio {
   }
 
   /** Asks a question (these clips) a couple of times with long quiet gaps, until stopped. */
-  async askLoop(clips: readonly (Clip | null)[]): Promise<void> {
+  async askLoop(clips: readonly (Clip | null)[], times = POINT_ASKS): Promise<void> {
     const token = this.begin();
-    for (let i = 0; i < POINT_ASKS && !token.cancelled; i++) {
+    for (let i = 0; i < times && !token.cancelled; i++) {
       if (i > 0) await this.wait(POINT_REPEAT_MS, token);
       for (const clip of clips) await this.play(clip, token);
     }

@@ -107,6 +107,7 @@ function serviceWorker(core: string[], media: string[], version: string, mediaVe
 // The media cache only changes when a photo or sound does, so an app update doesn't download them again.
 const CACHE = 'ksm-${version}';
 const MEDIA_CACHE = 'ksm-media-${mediaVersion}';
+const SHARED_CACHE = 'ksm-shared';
 const CORE = ${JSON.stringify(core)};
 const LATER = ${JSON.stringify(media.filter((u) => !LOOK_FILE.test(u)))};
 const LOOKS = ${JSON.stringify(media.filter((u) => LOOK_FILE.test(u)))};
@@ -117,7 +118,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== MEDIA_CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== MEDIA_CACHE && k !== SHARED_CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -147,8 +148,26 @@ self.addEventListener('message', (event) => {
   if (event.data === 'warm') event.waitUntil(warm());
   else if (event.data && event.data.warmLook) event.waitUntil(warm(event.data.warmLook));
 });
+/** A voice note shared from WhatsApp: kept for the app to pick up, then open the app on it. */
+async function receiveShare(request) {
+  const scope = self.registration.scope;
+  try {
+    const file = (await request.formData()).get('audio');
+    if (file) {
+      const cache = await caches.open(SHARED_CACHE);
+      await cache.put(new URL('shared-voice-note', scope).href, new Response(file, { headers: { 'Content-Type': file.type || 'audio/ogg' } }));
+    }
+  } catch (e) {
+    console.warn('[share] could not read the voice note', e);
+  }
+  return Response.redirect(new URL('./?shared=voice', scope).href, 303);
+}
 self.addEventListener('fetch', (event) => {
   const request = event.request;
+  if (request.method === 'POST' && new URL(request.url).pathname.endsWith('/share-target')) {
+    event.respondWith(receiveShare(request));
+    return;
+  }
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
   event.respondWith(
     caches.match(request, { ignoreSearch: true, ignoreVary: true }).then((hit) => {

@@ -9,7 +9,7 @@ import { today } from './routine';
  */
 export const PLAN_GROUPS: readonly (readonly KidKind[])[] = [
   // Talking together: she says or shows, you tick.
-  ['talk', 'sounds', 'feel', 'point', 'actions', 'sing', 'hunt'],
+  ['talk', 'sounds', 'feel', 'point', 'actions', 'sing', 'hunt', 'phrases', 'manners'],
   // Playing: she taps, the app answers.
   ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count', 'story', 'paint', 'music'],
   // Thinking: matching, opposites, memory.

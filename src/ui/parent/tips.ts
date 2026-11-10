@@ -10,6 +10,26 @@ export interface GameTip {
 }
 
 export const TIPS: Record<string, Record<Lang, GameTip>> = {
+  phrases: {
+    en: {
+      how: 'Say the phrase with the app, then wait quietly and look at her. Tap ✓ for any try, even one word or the tune of it. Use the same phrases during the day, when she really wants the milk.',
+      learns: 'Joining two words, the step from single words to sentences. It usually begins around age 2, and every child gets there at her own pace.',
+    },
+    ar: {
+      how: 'قولوا الجملة مع التطبيق، ثم انتظروا بهدوء وانظروا إليها. المسوا ✓ لأي محاولة، حتى لو كلمة واحدة. استعملوا الجمل نفسها خلال اليوم، لمّا تكون فعلاً بدها حليب.',
+      learns: 'وصل كلمتين مع بعض، وهي الخطوة من الكلمة الواحدة إلى الجملة. تبدأ عادةً حول عمر السنتين، ولكل طفل وقته.',
+    },
+  },
+  manners: {
+    en: {
+      how: 'Act each one out together: wave, put a hand on your heart, say Bismillah before you eat. Tap ✓ when she says it or copies it. Bismillah means "in the name of Allah", Alhamdulillah "praise be to Allah", Inshallah "God willing".',
+      learns: 'Words she can use with people every day, and that kind words get a happy answer.',
+    },
+    ar: {
+      how: 'مثّلوا كل كلمة معها: لوّحوا باليد، حطّوا الإيد على القلب، قولوا بسم الله قبل الأكل. المسوا ✓ لمّا تقولها أو تقلّدها.',
+      learns: 'كلمات تستعملها مع الناس كل يوم، وأن الكلام اللطيف يلقى جواباً حلواً.',
+    },
+  },
   talk: {
     en: {
       how: 'Sit with her and look at the picture together. Ask "What\'s this?" and wait a few seconds: the waiting is the lesson. Tap ✓ for any try, even half a word.',

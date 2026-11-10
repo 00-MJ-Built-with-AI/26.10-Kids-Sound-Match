@@ -438,3 +438,11 @@
 :root[data-look='bunny'] .card { border: 0; box-shadow: 0 8px 20px rgba(120, 90, 170, 0.14); }
 :root[data-look='bunny'] .btn { border-radius: 999px; }
 :root[data-look='bunny'] .plan-tile { border: 0; border-radius: 28px; background: #fff; box-shadow: 0 7px 18px rgba(120, 90, 170, 0.18); }
+
+/* Her own menu in the new looks. */
+:root[data-look='sticker'] .her-menu-tile { background: #fff !important; border-radius: 22px; box-shadow: 0 0 0 7px #fff, 0 6px 14px rgba(70, 50, 20, 0.22); transform: rotate(-1.5deg); }
+:root[data-look='sticker'] .her-menu-tile:nth-child(even) { transform: rotate(1.5deg); }
+:root[data-look='storybook'] .her-menu-tile { background: #fffdf6 !important; border-radius: 10px; box-shadow: 0 0 0 4px #fff, 0 0 0 6px #c9a877, 3px 7px 9px rgba(90, 60, 20, 0.24); }
+:root[data-look='puffy'] .her-menu-tile { border-radius: 36px; box-shadow: 0 10px 0 #5a6fd8, 0 16px 22px rgba(30, 20, 90, 0.25); }
+:root[data-look='bunny'] .her-menu-tile { background: #fff !important; border-radius: 50%; box-shadow: 0 0 0 5px #fff, 0 9px 20px rgba(110, 80, 160, 0.26); }
+:root[data-look='bunny'] .her-menu-tile img { inset: 16%; width: 68%; height: 68%; }

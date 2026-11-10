@@ -11,6 +11,7 @@ import { useI18n } from '../../i18n/I18n';
 import { loadProfiles } from '../../settings/profiles';
 import { local } from '../../settings/storage';
 import { wordsToRecord } from './recordQueue';
+import { wordId } from '../../report/words';
 import { choosePictures } from '../kid/layout';
 import { ChevronIcon, Screen } from './components';
 import { PictureCropper } from './PictureCropper';
@@ -33,7 +34,7 @@ interface Line {
 type Editing = { kind: 'item'; key: string } | { kind: 'lines' } | { kind: 'session' } | null;
 
 /** The recording session suggests this many words a day. */
-const SESSION_DAILY = 5;
+export const SESSION_DAILY = 5;
 const SESSION_DAY_KEY = 'ksm.recordSession.v1';
 
 /** A name still read by the phone's voice, with its picture. */
@@ -43,7 +44,7 @@ interface SessionWord {
 }
 
 const today = () => new Date().toDateString();
-const recordedToday = () => {
+export const recordedToday = () => {
   const saved = local.getJson<{ day: string; n: number }>(SESSION_DAY_KEY);
   return saved?.day === today() ? saved.n : 0;
 };
@@ -58,16 +59,24 @@ export function Personalize({
   overrides,
   onChanged,
   onBack,
+  startSession = false,
+  playCounts,
+  onVoiceNote,
 }: {
   /** The built-in packs as shipped (the originals). */
   packs: readonly LoadedPack[];
   overrides: readonly AssetOverride[];
   onChanged: () => Promise<void>;
   onBack: () => void;
+  /** From Home's card: straight into today's words. */
+  startSession?: boolean;
+  /** How often she has played each word, so her words are recorded first. */
+  playCounts?: ReadonlyMap<string, number>;
+  onVoiceNote?: () => void;
 }) {
   const { t, lang } = useI18n();
   const [packId, setPackId] = useState(packs[0]?.id ?? '');
-  const [editing, setEditing] = useState<Editing>(null);
+  const [editing, setEditing] = useState<Editing>(startSession ? { kind: 'session' } : null);
   const mine = useMemo(() => overrideMap(overrides), [overrides]);
   const pack = packs.find((p) => p.id === packId) ?? packs[0];
 
@@ -82,7 +91,11 @@ export function Personalize({
   ];
   const gameLines = useMemo(() => buildGameLines(packs, t, lang), [packs, t, lang]);
   const nameLine = (item: LoadedItem, l: Lang): Line => itemLines(item).find((x) => x.lang === l && x.category === 'name')!;
-  const toRecord = wordsToRecord(packs, (path) => mine.has(path));
+  const toRecord = wordsToRecord(
+    packs,
+    (path) => mine.has(path),
+    (pack, item) => playCounts?.get(wordId(packs[pack].id, packs[pack].items[item].key)) ?? 0,
+  );
   const leftAr = toRecord.filter((w) => w.lang === 'ar').length;
 
   const editingItem = editing?.kind === 'item' ? pack?.items.find((i) => i.key === editing.key) : undefined;
@@ -110,7 +123,7 @@ export function Personalize({
         pictureOf={pictureOf}
         mine={mine}
         onChanged={onChanged}
-        onBack={() => setEditing(null)}
+        onBack={() => (startSession ? onBack() : setEditing(null))}
       />
     );
   }
@@ -145,6 +158,18 @@ export function Personalize({
         </span>
         <ChevronIcon />
       </button>
+      {onVoiceNote && (
+        <button type="button" className="card pack-card" onClick={onVoiceNote}>
+          <span className="link-icon big" aria-hidden="true">
+            🎧
+          </span>
+          <span className="pack-text">
+            <strong>{t('voiceNoteTitle')}</strong>
+            <span className="hint">{t('voiceNoteCard')}</span>
+          </span>
+          <ChevronIcon />
+        </button>
+      )}
       <button type="button" className="card pack-card" onClick={() => setEditing({ kind: 'lines' })}>
         <span className="link-icon big" aria-hidden="true">
           🎉
@@ -521,6 +546,8 @@ function buildGameLines(packs: readonly LoadedPack[], t: ReturnType<typeof useI1
     const shared = feedback.lines ?? {};
     for (const [id, title] of [
       ['talk', t('talkGame')],
+      ['find_real_f', t('realGame')],
+      ['find_real_m', t('realGame')],
       ['goodnight', t('bookGame')],
       ['sleep_tight', t('bookGame')],
       ['then', t('routineTitle')],

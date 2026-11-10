@@ -422,6 +422,12 @@ The parent asked what to add, then to build all of it, after an interview.
 |---|---|
 | Style button | Every end screen has a palette button at the top right, beside the parent's corner circle when that is on the right too. It opens the five looks from Settings and saves the choice for this child. It needs no PIN, like the rest of the end screen. Play again after a change starts the game afresh so its pictures match the new look |
 
+## Added on 10 November 2026: Home on a computer
+
+| Change | Decision |
+|---|---|
+| Columns | From 1280 px wide, Home has three columns: Start and Today's play, the games, then reminders and the parents' links. From 900 to 1279 px it has two, with the parents' links along the bottom. Below 900 px (phones and upright tablets) it is the same single column as before. Game tiles are smaller on a computer and lose their subtitle; the ⓘ still explains each game |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

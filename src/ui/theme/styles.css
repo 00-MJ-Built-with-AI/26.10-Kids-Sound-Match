@@ -7571,3 +7571,98 @@ html[dir='rtl'] .end-look { right: 12px; }
 .end-look:active { transform: scale(0.92); }
 /* The picker covers the whole screen, the parent's corner included. */
 .kid.stage-idle:has(.quick-picker) .kid-top { z-index: 0; }
+
+/* ---------- Home on a computer: two columns, then three ---------- */
+.home-col { display: contents; }
+@media (min-width: 900px) {
+  .parent.home {
+    display: grid;
+    grid-template-columns: minmax(300px, 340px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'a b' 'c b';
+    gap: 16px 20px;
+    align-items: start;
+    max-width: 1680px;
+    min-height: 0;
+    padding: 16px 20px;
+  }
+  .home-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .home-col-a { grid-area: a; }
+  .home-col-b { grid-area: b; }
+  .home-col-c { grid-area: c; }
+  .home .home-header.scene-header { min-height: 0; }
+  .home .build-stamp small { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
+  .home .update-new small { -webkit-line-clamp: 2; }
+  .home .games-row { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; margin-top: 8px; }
+  .home .game-tile { padding: 8px 4px 8px; gap: 3px; }
+  .home .game-tile small { display: none; }
+  .home .game-tile strong { font-size: 0.86rem; line-height: 1.15; }
+  .home .games-title { font-size: 1.02rem; }
+  .home .link-row { padding-block: 7px; }
+  .home .start-btn { min-height: 0; padding-block: 16px; font-size: 1.5rem; }
+}
+@media (min-width: 1280px) {
+  .parent.home {
+    grid-template-columns: minmax(300px, 340px) minmax(0, 1fr) minmax(250px, 290px);
+    grid-template-rows: auto;
+    grid-template-areas: 'a b c';
+  }
+}
+
+/* Home on a computer, compact enough to see it all at once. */
+@media (min-width: 900px) {
+  .home .home-header.scene-header { height: 126px; margin: 0; border-radius: 22px; }
+  .home .games-row { grid-template-columns: repeat(auto-fill, minmax(98px, 1fr)); gap: 8px; }
+  .home .tile-pic { width: 50px; height: 50px; }
+  .home .game-tile strong { font-size: 0.8rem; }
+  .home .games-group { margin: 0; }
+  .home .home-col-b { gap: 8px; }
+  .home .fav-choose { padding-block: 6px; }
+  .home .home-col-a { gap: 8px; }
+  .home .home-col-a .card { padding: 10px 12px; }
+  .home .home-col-a .card h2 { margin-block: 0 4px; font-size: 0.98rem; }
+  .home .record-card .hint { display: -webkit-box; overflow: hidden; margin-block: 0 6px; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 0.8rem; }
+  .home .home-col-a .nudge-actions .btn { padding-block: 6px; }
+  .home .build-stamp { padding: 6px 12px; }
+  .home .her-menu-btn { padding-block: 6px; }
+  .home .plan-card .hint { display: none; }
+  .home .plan-row { gap: 6px; }
+  .home .plan-tile { padding: 6px 2px; gap: 3px; font-size: 0.78rem; line-height: 1.15; }
+  .home .plan-tile .tile-pic { width: 42px; height: 42px; }
+}
+/* Two columns: the parents' links run along the bottom. */
+@media (min-width: 900px) and (max-width: 1279.98px) {
+  .parent.home { grid-template-rows: auto auto; grid-template-areas: 'a b' 'c c'; }
+  .home .links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 8px; }
+  .home .links h2 { grid-column: 1 / -1; }
+}
+
+/* Home on a computer: reminders share the parents' column, so Today's play stays in view. */
+.home-col-notices:empty { display: none; }
+@media (min-width: 900px) {
+  .home-col-notices { grid-area: n; gap: 8px; }
+  .home-col-plan { grid-area: p; }
+  .home .home-header .tagline { display: none; }
+  .home .home-header .header-text { padding-inline-end: 96px; }
+  .home :is(.home-col-notices, .home-col-plan) .card { padding: 10px 12px; }
+  .home :is(.home-col-notices, .home-col-plan) .card h2 { margin-block: 0 4px; font-size: 0.98rem; }
+  .home :is(.home-col-notices, .home-col-plan) .card p { margin-block: 0 6px; font-size: 0.86rem; }
+  .home .home-col-notices .nudge-actions .btn { padding-block: 6px; }
+  .home .link-row { min-height: 0; padding-block: 3px; gap: 10px; }
+  .home .link-icon { width: 28px; height: 28px; border-radius: 9px; font-size: 1rem; }
+  .home .links h2 { margin-block: 6px; }
+  .home .summary { gap: 4px; }
+  .home .summary .pill { font-size: 0.74rem; padding-block: 2px; }
+}
+@media (min-width: 900px) and (max-width: 1279.98px) {
+  .parent.home { grid-template-rows: auto auto 1fr auto; grid-template-areas: 'a b' 'n b' 'p b' 'c c'; }
+}
+@media (min-width: 1280px) {
+  .parent.home { grid-template-rows: auto 1fr; grid-template-areas: 'a b n' 'p b c'; }
+  .parent.home:has(.home-col-notices:empty) { grid-template-areas: 'a b c' 'p b c'; }
+}
+/* The parents' links follow straight after the reminders, whatever the height of the first column. */
+@media (min-width: 1280px) {
+  .parent.home { grid-template-rows: min-content auto 1fr; grid-template-areas: 'a b n' 'a b c' 'p b c'; }
+  .parent.home:has(.home-col-notices:empty) { grid-template-rows: auto 1fr; grid-template-areas: 'a b c' 'p b c'; }
+}

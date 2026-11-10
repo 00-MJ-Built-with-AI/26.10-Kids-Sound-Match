@@ -324,214 +324,224 @@ export function Home({
 
   return (
     <div className="parent home">
-      <HomeHeader
-        title={t('appName')}
-        tagline={t('appTagline')}
-        avatar={activeProfile ? <Avatar profile={activeProfile} size={54} /> : undefined}
-        season={season}
-        seasonLine={season === 'ramadan' ? `🌙 ${t('seasonRamadan')}` : season === 'eid' ? `🎉 ${t('seasonEid')}` : undefined}
-      />
+      <div className="home-col home-col-a">
+        <HomeHeader
+          title={t('appName')}
+          tagline={t('appTagline')}
+          avatar={activeProfile ? <Avatar profile={activeProfile} size={54} /> : undefined}
+          season={season}
+          seasonLine={season === 'ramadan' ? `🌙 ${t('seasonRamadan')}` : season === 'eid' ? `🎉 ${t('seasonEid')}` : undefined}
+        />
 
-      {/* Which update is open: always shown, so the parent can check a new one has arrived. */}
-      <UpdateStamp />
+        {/* Which update is open: always shown, so the parent can check a new one has arrived. */}
+        <UpdateStamp />
 
-      {profiles.profiles.length > 1 && (
-        <div className="who-plays">
-          <span className="muted">{t('whoIsPlaying')}</span>
-          <ProfileRow profiles={profiles.profiles} activeId={profiles.activeId} onSelect={onProfile} />
-        </div>
-      )}
+        {profiles.profiles.length > 1 && (
+          <div className="who-plays">
+            <span className="muted">{t('whoIsPlaying')}</span>
+            <ProfileRow profiles={profiles.profiles} activeId={profiles.activeId} onSelect={onProfile} />
+          </div>
+        )}
 
-      <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
-        {t('start')}
-      </button>
-      {canMenu && (
-        <button type="button" className="her-menu-btn" onClick={() => onGame('menu')}>
-          <span aria-hidden="true">👆</span>
-          <span>
-            <strong>{t('herMenu')}</strong>
-            <small>{t('herMenuSub')}</small>
-          </span>
+        <button type="button" className="start-btn" onClick={onStart} disabled={!canStart}>
+          {t('start')}
         </button>
-      )}
-      {twoWordsCard && (
-        <section className="card nudge-card" role="status">
-          <h2>💬 {t('twoWordsTitle')}</h2>
-          <p>{t('twoWordsBody')}</p>
-          <div className="nudge-actions">
-            <button type="button" className="btn primary" onClick={() => onTwoWords(true)}>
-              {t('twoWordsYes')}
-            </button>
-            <button type="button" className="btn ghost" onClick={() => onTwoWords(false)}>
-              {t('twoWordsNo')}
-            </button>
-          </div>
-        </section>
-      )}
-      {recordLeft > 0 && (
-        <section className="card week-card record-card">
-          <h2>🎙️ {t('recordCardTitle')}</h2>
-          <p className="hint">{t('recordCardHint', { n: recordLeft })}</p>
-          <div className="nudge-actions">
-            <button type="button" className="btn primary" onClick={onRecordToday}>
-              {t('recordCardGo')}
-            </button>
-            <button type="button" className="btn ghost" onClick={onRecordLater}>
-              {t('recordCardLater')}
-            </button>
-          </div>
-        </section>
-      )}
-      {weekCard && (
-        <section className="card week-card">
-          <h2>💌 {t('weekShareCard')}</h2>
-          <div className="nudge-actions">
-            <button
-              type="button"
-              className="btn primary"
-              onClick={() => {
-                closeWeekCard();
-                onOpen('report');
-              }}
-            >
-              {t('weekShareMake')}
-            </button>
-            <button type="button" className="btn ghost" onClick={closeWeekCard}>
-              {t('close')}
-            </button>
-          </div>
-        </section>
-      )}
-      {season && <SeasonCard season={season} onPlay={onSeasonPlay} />}
-      {newCert && (
-        <section className="card cert-card" role="status">
-          <h2>
-            🎓 {t('certNew')} {newCert.emoji}
-          </h2>
-          <p>{newCert.words ? t('certWordsLine', { n: newCert.words }) : t('certSentenceLine')}</p>
-          <div className="nudge-actions">
-            <button type="button" className="btn primary" onClick={() => onCertSeen(true)}>
-              {t('certSee')}
-            </button>
-            <button type="button" className="btn ghost" onClick={() => onCertSeen(false)}>
-              {t('close')}
-            </button>
-          </div>
-        </section>
-      )}
-      {/* Today's play: three games for today, ticked once played. */}
-      {plan.length > 0 && (
-        <section className="card plan-card">
-          <h2>☀️ {t('planTitle')}</h2>
-          <p className="hint">{t('planHint')}</p>
-          <div className="plan-row">
-            {plan.map(({ kind, done }) => {
-              const tile = [
-                ...together,
-                ...hers,
-                { id: 'game', icon: <PlayIcon />, label: t('matchGame'), sub: '', on: onStart, ok: canStart },
-              ].find((x) => x.id === kind);
-              if (!tile) return null;
-              return (
-                <button type="button" key={kind} className={`plan-tile tile-${kind}${done ? ' done' : ''}`} onClick={tile.on} disabled={!tile.ok}>
-                  <TilePicture id={kind} icon={tile.icon} />
-                  <strong>{tile.label}</strong>
-                  {done && <span className="plan-done">✓ {t('planDone')}</span>}
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      )}
-      {/* Her favourites first (when chosen), then the games played together (the parent ticks) and
-          the ones she plays herself; with favourites, those two are folded under "More games". */}
-      {favTiles.length > 0 ? (
-        <>
-          <section className="games-group fav-group">
-            <h2 className="games-title">
-              ⭐ {t('favTitle')}
-              <small>{t('favSub')}</small>
-              <button type="button" className="fav-edit" onClick={() => setPicking([...favourites])}>
-                {t('favEdit')}
-              </button>
-            </h2>
-            <div className="games-row">{favTiles.map(renderTile)}</div>
-          </section>
-          <details className="more-games">
-            <summary>{t('moreGames', { n: together.length + hers.length - favTiles.length })}</summary>
-            {groups(true)}
-          </details>
-        </>
-      ) : (
-        <>
-          <button type="button" className="fav-choose" onClick={() => setPicking([])}>
-            <span aria-hidden="true">⭐</span> {t('favChoose')}
-          </button>
-          {groups(false)}
-        </>
-      )}
-      {!pack ? (
-        <p className="note">{t('noPackReady')}</p>
-      ) : (
-        !canStart && <p className="note">{t('needMoreItems')}</p>
-      )}
-
-      {nudge && (
-        <section className="card nudge-card" role="status">
-          <h2>{t('nudgeTitle')}</h2>
-          <p>{t('nudgeBody', { p: nudge.percent, from: nudge.from, to: nudge.to })}</p>
-          <div className="nudge-actions">
-            <button type="button" className="btn primary" onClick={() => onNudgeAccept(nudge.to as ChoiceCount)}>
-              {t('nudgeAccept', { to: nudge.to })}
-            </button>
-            <button type="button" className="btn ghost" onClick={() => onNudgeDismiss(nudge)}>
-              {t('nudgeDismiss')}
-            </button>
-          </div>
-        </section>
-      )}
-
-      {memoryNudge && (
-        <section className="card nudge-card" role="status">
-          <h2>{t('memoryNudgeTitle')}</h2>
-          <p>{t('memoryNudgeBody', { from: memoryNudge.from, to: memoryNudge.to })}</p>
-          <div className="nudge-actions">
-            <button type="button" className="btn primary" onClick={() => onMemoryNudgeAccept(memoryNudge.to)}>
-              {t('memoryNudgeAccept', { to: memoryNudge.to })}
-            </button>
-            <button type="button" className="btn ghost" onClick={() => onMemoryNudgeDismiss(memoryNudge)}>
-              {t('nudgeDismiss')}
-            </button>
-          </div>
-        </section>
-      )}
-
-      {summary.length > 0 && (
-        <ul className="summary" aria-label={t('settings')}>
-          {summary.map((s) => (
-            <li key={s} className="pill">
-              {s}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {__ALLOW_PLACEHOLDERS__ && <p className="note">{t('testBuildNote')}</p>}
-
-
-      <nav className="links" aria-label={t('forParents')}>
-        <h2>{t('forParents')}</h2>
-        {links.map((l) => (
-          <button type="button" key={l.id} className="link-row" onClick={() => onOpen(l.id)}>
-            <span className="link-icon" aria-hidden="true">
-              {l.icon}
+        {canMenu && (
+          <button type="button" className="her-menu-btn" onClick={() => onGame('menu')}>
+            <span aria-hidden="true">👆</span>
+            <span>
+              <strong>{t('herMenu')}</strong>
+              <small>{t('herMenuSub')}</small>
             </span>
-            <span className="link-label">{l.label}</span>
-            <ChevronIcon />
           </button>
-        ))}
-      </nav>
+        )}
+      </div>
+      <div className="home-col home-col-notices">
+        {twoWordsCard && (
+          <section className="card nudge-card" role="status">
+            <h2>💬 {t('twoWordsTitle')}</h2>
+            <p>{t('twoWordsBody')}</p>
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" onClick={() => onTwoWords(true)}>
+                {t('twoWordsYes')}
+              </button>
+              <button type="button" className="btn ghost" onClick={() => onTwoWords(false)}>
+                {t('twoWordsNo')}
+              </button>
+            </div>
+          </section>
+        )}
+        {recordLeft > 0 && (
+          <section className="card week-card record-card">
+            <h2>🎙️ {t('recordCardTitle')}</h2>
+            <p className="hint">{t('recordCardHint', { n: recordLeft })}</p>
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" onClick={onRecordToday}>
+                {t('recordCardGo')}
+              </button>
+              <button type="button" className="btn ghost" onClick={onRecordLater}>
+                {t('recordCardLater')}
+              </button>
+            </div>
+          </section>
+        )}
+        {weekCard && (
+          <section className="card week-card">
+            <h2>💌 {t('weekShareCard')}</h2>
+            <div className="nudge-actions">
+              <button
+                type="button"
+                className="btn primary"
+                onClick={() => {
+                  closeWeekCard();
+                  onOpen('report');
+                }}
+              >
+                {t('weekShareMake')}
+              </button>
+              <button type="button" className="btn ghost" onClick={closeWeekCard}>
+                {t('close')}
+              </button>
+            </div>
+          </section>
+        )}
+        {season && <SeasonCard season={season} onPlay={onSeasonPlay} />}
+        {newCert && (
+          <section className="card cert-card" role="status">
+            <h2>
+              🎓 {t('certNew')} {newCert.emoji}
+            </h2>
+            <p>{newCert.words ? t('certWordsLine', { n: newCert.words }) : t('certSentenceLine')}</p>
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" onClick={() => onCertSeen(true)}>
+                {t('certSee')}
+              </button>
+              <button type="button" className="btn ghost" onClick={() => onCertSeen(false)}>
+                {t('close')}
+              </button>
+            </div>
+          </section>
+        )}
+      </div>
+      <div className="home-col home-col-plan">
+        {/* Today's play: three games for today, ticked once played. */}
+        {plan.length > 0 && (
+          <section className="card plan-card">
+            <h2>☀️ {t('planTitle')}</h2>
+            <p className="hint">{t('planHint')}</p>
+            <div className="plan-row">
+              {plan.map(({ kind, done }) => {
+                const tile = [
+                  ...together,
+                  ...hers,
+                  { id: 'game', icon: <PlayIcon />, label: t('matchGame'), sub: '', on: onStart, ok: canStart },
+                ].find((x) => x.id === kind);
+                if (!tile) return null;
+                return (
+                  <button type="button" key={kind} className={`plan-tile tile-${kind}${done ? ' done' : ''}`} onClick={tile.on} disabled={!tile.ok}>
+                    <TilePicture id={kind} icon={tile.icon} />
+                    <strong>{tile.label}</strong>
+                    {done && <span className="plan-done">✓ {t('planDone')}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        )}
+      </div>
+      <div className="home-col home-col-b">
+        {/* Her favourites first (when chosen), then the games played together (the parent ticks) and
+            the ones she plays herself; with favourites, those two are folded under "More games". */}
+        {favTiles.length > 0 ? (
+          <>
+            <section className="games-group fav-group">
+              <h2 className="games-title">
+                ⭐ {t('favTitle')}
+                <small>{t('favSub')}</small>
+                <button type="button" className="fav-edit" onClick={() => setPicking([...favourites])}>
+                  {t('favEdit')}
+                </button>
+              </h2>
+              <div className="games-row">{favTiles.map(renderTile)}</div>
+            </section>
+            <details className="more-games">
+              <summary>{t('moreGames', { n: together.length + hers.length - favTiles.length })}</summary>
+              {groups(true)}
+            </details>
+          </>
+        ) : (
+          <>
+            <button type="button" className="fav-choose" onClick={() => setPicking([])}>
+              <span aria-hidden="true">⭐</span> {t('favChoose')}
+            </button>
+            {groups(false)}
+          </>
+        )}
+        {!pack ? (
+          <p className="note">{t('noPackReady')}</p>
+        ) : (
+          !canStart && <p className="note">{t('needMoreItems')}</p>
+        )}
 
+      </div>
+      <div className="home-col home-col-c">
+        {nudge && (
+          <section className="card nudge-card" role="status">
+            <h2>{t('nudgeTitle')}</h2>
+            <p>{t('nudgeBody', { p: nudge.percent, from: nudge.from, to: nudge.to })}</p>
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" onClick={() => onNudgeAccept(nudge.to as ChoiceCount)}>
+                {t('nudgeAccept', { to: nudge.to })}
+              </button>
+              <button type="button" className="btn ghost" onClick={() => onNudgeDismiss(nudge)}>
+                {t('nudgeDismiss')}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {memoryNudge && (
+          <section className="card nudge-card" role="status">
+            <h2>{t('memoryNudgeTitle')}</h2>
+            <p>{t('memoryNudgeBody', { from: memoryNudge.from, to: memoryNudge.to })}</p>
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" onClick={() => onMemoryNudgeAccept(memoryNudge.to)}>
+                {t('memoryNudgeAccept', { to: memoryNudge.to })}
+              </button>
+              <button type="button" className="btn ghost" onClick={() => onMemoryNudgeDismiss(memoryNudge)}>
+                {t('nudgeDismiss')}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {summary.length > 0 && (
+          <ul className="summary" aria-label={t('settings')}>
+            {summary.map((s) => (
+              <li key={s} className="pill">
+                {s}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {__ALLOW_PLACEHOLDERS__ && <p className="note">{t('testBuildNote')}</p>}
+
+
+        <nav className="links" aria-label={t('forParents')}>
+          <h2>{t('forParents')}</h2>
+          {links.map((l) => (
+            <button type="button" key={l.id} className="link-row" onClick={() => onOpen(l.id)}>
+              <span className="link-icon" aria-hidden="true">
+                {l.icon}
+              </span>
+              <span className="link-label">{l.label}</span>
+              <ChevronIcon />
+            </button>
+          ))}
+        </nav>
+
+      </div>
       {tip && tipTile && (
         <Overlay label={t('tipFor', { game: tipTile.label })} onDismiss={() => setTipFor(null)}>
           <div className={`tip-head tile-${tipTile.id}`}>

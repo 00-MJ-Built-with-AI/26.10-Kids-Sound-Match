@@ -9,6 +9,8 @@ interface Options {
   telemetryUrl: string;
   /** Optional cloud backup of parents' own packs (Supabase). */
   supabaseUrl: string;
+  /** Published in build-info.json, so a device can tell it is behind. */
+  build: { time: string; commit: string; message: string };
 }
 
 /** Shape of /assets/packs/index.json. Browsers can't list folders, so this replaces the folder scan. */
@@ -399,7 +401,7 @@ export function ksmPlugin(opts: Options): Plugin {
       if (opts.allowPlaceholders) copyDir(placeholderDir, path.join(outDir, 'placeholders'));
       fs.writeFileSync(
         path.join(outDir, 'build-info.json'),
-        JSON.stringify({ mode: config.mode, placeholdersAllowed: opts.allowPlaceholders }, null, 2),
+        JSON.stringify({ mode: config.mode, placeholdersAllowed: opts.allowPlaceholders, ...opts.build }, null, 2),
       );
 
       // Host config files (_headers, _redirects) aren't served, so they can't be cached.

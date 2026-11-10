@@ -48,6 +48,7 @@ import { ChevronIcon, Overlay, Segmented, Toggle } from './components';
 import { gamePicture } from './games';
 import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
+import { UpdateStamp } from './UpdateStamp';
 import { Avatar, ProfileRow } from './ProfileRow';
 
 import { local } from '../../settings/storage';
@@ -332,27 +333,7 @@ export function Home({
       />
 
       {/* Which update is open: always shown, so the parent can check a new one has arrived. */}
-      <section className="build-stamp" aria-label={t('buildTitle')}>
-        <span className="build-dot" aria-hidden="true" />
-        <div>
-          <strong>
-            {t('buildUpdated', {
-              d: new Date(__BUILD_TIME__).toLocaleString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-              }),
-            })}
-          </strong>
-          <small>
-            v{__APP_VERSION__}
-            {__BUILD_COMMIT__ ? ` · ${__BUILD_COMMIT__}` : ''}
-            {__BUILD_MESSAGE__ ? ` · ${__BUILD_MESSAGE__}` : ''}
-          </small>
-        </div>
-      </section>
+      <UpdateStamp />
 
       {profiles.profiles.length > 1 && (
         <div className="who-plays">

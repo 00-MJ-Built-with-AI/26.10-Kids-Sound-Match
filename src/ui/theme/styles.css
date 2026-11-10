@@ -7539,3 +7539,12 @@ html[data-calm][data-season] .kid::after {
 .kid.stage-idle:has(.her-menu, .find-real) .gate { background: rgba(60, 40, 20, 0.1); }
 .kid.stage-idle:has(.her-menu, .find-real) .gate-dot { background: rgba(60, 40, 20, 0.45); }
 :root[data-calm] .kid.stage-idle:has(.her-menu, .find-real) .gate { background: rgba(255, 255, 255, 0.1); }
+
+/* ---------- Which update this device has ---------- */
+.build-stamp > div { flex: 1; }
+.build-stamp.has-update { border: 2px solid var(--accent); }
+.build-stamp.has-update .build-dot { background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
+.update-line { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 4px 0 0; color: var(--muted); font-size: 0.82rem; }
+.update-again { padding: 2px 0; border: 0; background: none; color: var(--accent); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.update-new { display: grid; gap: 6px; margin-block-start: 8px; }
+.update-new .msg { margin: 0; }

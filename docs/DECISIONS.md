@@ -408,6 +408,14 @@ The parent asked what to add, then to build all of it, after an interview.
 | For the doctor | A card in the Report: one page in Arabic or English, printed or shared as a picture. Age (from a birth month, optional, on this phone only and not backed up), words understood (split by the language of the games where it can be), words said, phrases tried, milestones ticked and not ticked. Counts only: it never says on track or behind |
 | Android app | The parent chose the website installed as an app (a Trusted Web Activity made with Bubblewrap, in `android/`), not a Kotlin rewrite, and an APK for the family's phones rather than Google Play. Same games as the site, updated with it. It opens from the live site, then works offline once loaded. It can't pin the screen by itself: use Android's own App pinning. Voice notes can be shared into it from WhatsApp. The signing key is outside the repo; `public/.well-known/assetlinks.json` holds its fingerprint so the app opens without an address bar. How to rebuild: `android/README.md` |
 
+## Added on 10 November 2026: getting the latest update
+
+| Change | Decision |
+|---|---|
+| Update on Home | The stamp now says what this device has, checks the live site when Home opens or comes back into view, and says either that it is the latest or that a newer update is ready, with its date, its note and a "Get the update" button. Every build publishes `build-info.json`, which is never cached for offline |
+| What updating touches | Only the app's own stored files. Cookies, sign-in, settings, Words I know, recordings and the photos and sounds cache stay. If the same update was tried and the device is still behind, the second press replaces the stored app files outright, again keeping all of those |
+| Only on Home | Nothing updates by itself in the middle of a game because of this button |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

@@ -27,17 +27,19 @@ export default defineConfig(({ command, mode }) => {
   // Placeholders (emoji pictures, tones, device speech) exist in development and test builds only.
   // A release build (`npm run build`) never contains them; tools/check-release.mjs enforces that.
   const allowPlaceholders = command === 'serve' || mode === 'test';
+  const builtAt = new Date().toISOString();
   return {
     base: './',
     plugins: [react(), ksmPlugin({
         allowPlaceholders,
         telemetryUrl: env.VITE_TELEMETRY_URL ?? '',
         supabaseUrl: env.VITE_SUPABASE_URL ?? '',
+        build: { time: builtAt, commit: git.commit, message: git.message },
       })],
     define: {
       __APP_VERSION__: JSON.stringify(pkg.version),
       // Shown on Home, so the parent can tell which update is open.
-      __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+      __BUILD_TIME__: JSON.stringify(builtAt),
       __BUILD_COMMIT__: JSON.stringify(git.commit),
       __BUILD_MESSAGE__: JSON.stringify(git.message),
       __ALLOW_PLACEHOLDERS__: JSON.stringify(allowPlaceholders),

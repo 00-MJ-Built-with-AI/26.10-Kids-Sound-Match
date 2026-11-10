@@ -404,7 +404,7 @@ export function ksmPlugin(opts: Options): Plugin {
 
       // Host config files (_headers, _redirects) aren't served, so they can't be cached.
       const precache = listFiles(outDir).filter(
-        (f) => f !== 'sw.js' && f !== 'build-info.json' && !f.split('/').pop()!.startsWith('_'),
+        (f) => f !== 'sw.js' && f !== 'build-info.json' && !f.startsWith('.well-known/') && !f.split('/').pop()!.startsWith('_'),
       );
       const hash = createHash('sha256');
       const mediaHash = createHash('sha256');

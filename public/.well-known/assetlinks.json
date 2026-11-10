@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.jouza.kidssoundmatch",
+      "sha256_cert_fingerprints": ["CC:8C:03:9E:C8:D6:63:80:49:C2:0A:9D:95:16:3E:1D:01:5A:2D:1C:01:A9:CD:08:A1:8D:10:D1:E2:70:A4:BC"]
+    }
+  }
+]

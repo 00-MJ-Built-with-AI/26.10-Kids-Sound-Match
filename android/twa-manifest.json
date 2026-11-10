@@ -1,0 +1,53 @@
+{
+  "packageId": "com.jouza.kidssoundmatch",
+  "host": "kids-sound-match.vercel.app",
+  "name": "Kids Sound Match",
+  "launcherName": "Sound Match",
+  "display": "fullscreen",
+  "themeColor": "#FFF8EF",
+  "themeColorDark": "#FFF8EF",
+  "navigationColor": "#FFF8EF",
+  "navigationColorDark": "#FFF8EF",
+  "navigationDividerColor": "#FFF8EF",
+  "navigationDividerColorDark": "#FFF8EF",
+  "backgroundColor": "#FFF8EF",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "http://localhost:4173/icon-512.png",
+  "maskableIconUrl": "http://localhost:4173/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\Users\\Jouza\\.ksm-android\\keys\\android.keystore",
+    "alias": "ksm"
+  },
+  "appVersionName": "1.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "http://localhost:4173/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "enableSiteSettingsShortcut": false,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://kids-sound-match.vercel.app/",
+  "minSdkVersion": 24,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1.0",
+  "shareTarget": {
+    "action": "/share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "audio",
+          "accept": ["audio/*", ".opus", ".ogg", ".oga", ".m4a", ".aac", ".mp3", ".wav"]
+        }
+      ]
+    }
+  }
+}

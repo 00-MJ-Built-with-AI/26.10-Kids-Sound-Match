@@ -4,3 +4,13 @@ dev-assets
 *.tsbuildinfo
 .env
 .env*.local
+
+# Android app: built files stay on this PC (the signing key lives outside the repo)
+android/.gradle
+android/build
+android/app/build
+android/local.properties
+android/*.apk
+android/*.aab
+android/*.idsig
+android/*.keystore

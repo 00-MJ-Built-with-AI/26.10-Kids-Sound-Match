@@ -55,7 +55,9 @@ export type KidKind =
   | 'daybook'
   | 'bring'
   | 'cups'
-  | 'garden';
+  | 'garden'
+  | 'camera'
+  | 'mystory';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {

@@ -2,6 +2,7 @@ import { FEEDBACK_SPEECH } from '../audio/clips';
 import type { LoadedPack } from '../content/types';
 import { TALK_PROMPTS } from '../learn/talkPrompts';
 import { TALKING_STEPS } from '../report/talking';
+import { STORY_TEMPLATES } from '../learn/storyMaker';
 import { ar, en, type StringKey } from './strings';
 
 /**
@@ -31,6 +32,13 @@ export const REVIEW_UI_KEYS: readonly StringKey[] = [
   'voiceFrom', 'voiceFromHint', 'voiceToWord', 'voiceToPage', 'voiceToMessage', 'voicePageHint', 'voiceMessageHint', 'voiceMessageKeep',
   'myMessages', 'myMessagesHint', 'messagesPack', 'messagesCount', 'messageSomeone', 'voiceKeptMessage', 'voiceKeptPage', 'voiceNoteCard', 'voiceNoteIntro', 'voiceNoteReady',
   'arabicCheckTitle', 'arabicCheckIntro', 'arabicCheckDone', 'arabicCheckOnlyOpen', 'arabicCopy', 'arabicCopied', 'arabicUndo',
+  'cameraGame', 'cameraSub', 'cameraLoading', 'cameraDenied', 'cameraFailed', 'bringCamera', 'mystoryGame', 'mystorySub', 'wordsSure', 'wordsSureHint',
+  'timelineTitle', 'timelineIntro', 'timelineThisMonth', 'timelineRecordHint', 'timelineRecord', 'timelineStop', 'timelineFree', 'timelineEmpty', 'timelineVideo',
+  'timelineVideoHint', 'timelineMake', 'timelineShare', 'timelineSave', 'timelineRemove', 'timelineRemoveBody', 'timelineVideoTitle', 'timelineMonthCard',
+  'timelineMonthBody', 'timelineBirthday', 'timelineBirthdayBody', 'timelineLater', 'familyCircleTitle', 'familyIntro', 'familySignIn', 'familyLinks',
+  'familyNoLinks', 'familySend', 'familyTurnOff', 'familyTurnOn', 'familyNewFor', 'familyNewLink', 'familyShareText', 'familyUpdatesHint', 'familyPrivacy',
+  'familyPageHello', 'familyPageIntro', 'familyPageOff', 'familyPageNew', 'familyPageRecord', 'familyPageRecordHint', 'familyPageMessage', 'familyPageWord',
+  'familyPageWords', 'familyPageSend', 'familyPageAgain', 'familyPageSent', 'familyPagePrivate',
 ];
 
 /** Spoken lines added with the new games. */
@@ -50,6 +58,15 @@ export function reviewGroups(packs: readonly LoadedPack[]): ReviewGroup[] {
     {
       title: 'arabicPrompts',
       lines: (['book', 'daybook'] as const).flatMap((b) => TALK_PROMPTS[b].ar.map((x, n) => ({ id: `prompt:${b}:${n}`, ar: x, en: TALK_PROMPTS[b].en[n] ?? '' }))),
+    },
+    {
+      title: 'mystoryGame',
+      lines: STORY_TEMPLATES.flatMap((s) =>
+        s.pages.flatMap((p, n) => [
+          { id: `story:${s.id}:${n}:m`, ar: p.ar_m, en: p.en },
+          ...(p.ar_f !== p.ar_m ? [{ id: `story:${s.id}:${n}:f`, ar: p.ar_f, en: p.en }] : []),
+        ]),
+      ),
     },
     { title: 'arabicScreens', lines: REVIEW_UI_KEYS.map((k) => ({ id: `ui:${k}`, ar: ar[k], en: en[k] })) },
   ].filter((g) => g.lines.length) as ReviewGroup[];

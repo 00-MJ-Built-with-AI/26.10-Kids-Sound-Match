@@ -10,6 +10,22 @@ import { Mascot } from './Mascot';
 import { Burst } from './OptionGrid';
 import { questionDone } from './sitting';
 import { ShellFrame, sleep, useKidShell } from './useKidShell';
+import { wordForCoco } from '../../camera/cocoWords';
+import { useCamera } from '../../camera/useCamera';
+
+/** Bring me with the camera on: when it's sure it sees the thing asked for, it counts as found. */
+function BringCamera({ target, packs, onSpotted }: { target: LoadedItem; packs: readonly LoadedPack[]; onSpotted: () => void }) {
+  const { t } = useI18n();
+  const { videoRef, state } = useCamera(true, (name) => {
+    if (wordForCoco(name, packs)?.item.key === target.key) onSpotted();
+  });
+  return (
+    <div className="bring-camera">
+      <video ref={videoRef} playsInline muted />
+      {state !== 'ready' && <small>{state === 'denied' ? t('cameraDenied') : state === 'failed' ? t('cameraFailed') : t('cameraLoading')}</small>}
+    </div>
+  );
+}
 
 /** Things asked for in one game. */
 export const BRING_ROUNDS = 5;
@@ -50,6 +66,8 @@ export function KidBring(props: {
   const line = useMemo(() => findLine(packs, config.arGender === 'm' ? 'bring_m' : 'bring_f'), [packs, config.arGender]);
   const [round, setRound] = useState(0);
   const [found, setFound] = useState(false);
+  // The camera can spot the thing she brings (things the camera knows: a cup, a ball, a book...).
+  const [camera, setCamera] = useState(false);
   const busy = useRef(false);
   const results = useRef<
     {
@@ -164,7 +182,11 @@ export function KidBring(props: {
             {found && <Burst size={240} quiet />}
           </button>
         )}
+        {camera && thing && !found && <BringCamera key={round} target={thing.item} packs={packs} onSpotted={() => void next(true)} />}
         <div className="point-actions">
+          <button type="button" className={camera ? "point-skip bring-camera-btn on" : "point-skip bring-camera-btn"} aria-pressed={camera} aria-label={t("bringCamera")} onClick={() => setCamera((c) => !c)}>
+            📷
+          </button>
           <button type="button" className="point-skip" aria-label={t('pointSkip')} onClick={() => void next(false)}>
             <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 5.5l8 6.5-8 6.5zM14 5.5l7 6.5-7 6.5z" fill="currentColor" />

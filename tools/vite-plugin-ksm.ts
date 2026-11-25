@@ -110,6 +110,8 @@ function serviceWorker(core: string[], media: string[], version: string, mediaVe
 const CACHE = 'ksm-${version}';
 const MEDIA_CACHE = 'ksm-media-${mediaVersion}';
 const SHARED_CACHE = 'ksm-shared';
+// The camera's recognition model (18 MB): fetched the first time the camera opens, kept across updates.
+const MODEL_CACHE = 'ksm-models-v1';
 const CORE = ${JSON.stringify(core)};
 const LATER = ${JSON.stringify(media.filter((u) => !LOOK_FILE.test(u)))};
 const LOOKS = ${JSON.stringify(media.filter((u) => LOOK_FILE.test(u)))};
@@ -120,7 +122,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== MEDIA_CACHE && k !== SHARED_CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== MEDIA_CACHE && k !== SHARED_CACHE && k !== MODEL_CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -171,6 +173,14 @@ self.addEventListener('fetch', (event) => {
     return;
   }
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+  if (new URL(request.url).pathname.includes('/models/')) {
+    event.respondWith(
+      caches.open(MODEL_CACHE).then((cache) =>
+        cache.match(request, { ignoreSearch: true }).then((hit) => hit || fetch(request).then((res) => (res.ok && event.waitUntil(cache.put(request, res.clone())), res))),
+      ),
+    );
+    return;
+  }
   event.respondWith(
     caches.match(request, { ignoreSearch: true, ignoreVary: true }).then((hit) => {
       if (hit) return hit;
@@ -406,7 +416,7 @@ export function ksmPlugin(opts: Options): Plugin {
 
       // Host config files (_headers, _redirects) aren't served, so they can't be cached.
       const precache = listFiles(outDir).filter(
-        (f) => f !== 'sw.js' && f !== 'build-info.json' && !f.startsWith('.well-known/') && !f.split('/').pop()!.startsWith('_'),
+        (f) => f !== 'sw.js' && f !== 'build-info.json' && !f.startsWith('.well-known/') && !f.startsWith('models/') && !f.split('/').pop()!.startsWith('_'),
       );
       const hash = createHash('sha256');
       const mediaHash = createHash('sha256');

@@ -49,6 +49,7 @@ import { forLater, GAME_AGES, gamePicture } from './games';
 import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
 import { WeekCheckin } from './WeekCheckin';
+import { TimelineCard } from './TimelineCard';
 import { UpdateStamp } from './UpdateStamp';
 import { Avatar, ProfileRow } from './ProfileRow';
 
@@ -58,7 +59,7 @@ const WEEK_CARD_KEY = 'ksm.weekCard.v1';
 /** "All games" on Home: open or folded, as the parent last left it. */
 const ALL_GAMES_KEY = 'ksm.allGamesOpen.v1';
 
-export type HomeLink = 'report' | 'words' | 'milestones' | 'snap' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
+export type HomeLink = 'report' | 'words' | 'milestones' | 'snap' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about' | 'timeline' | 'familyCircle';
 
 /** Spec 5.2: title, settings summary, a large START button, and the parent links. */
 export function Home({
@@ -286,6 +287,8 @@ export function Home({
     { id: 'settings', label: t('settings'), icon: '⚙️' },
     { id: 'myPacks', label: t('myPacks'), icon: '🎨' },
     { id: 'flashcards', label: t('flashcards'), icon: '🖨️' },
+    { id: 'timeline', label: t('timelineTitle'), icon: '🎞️' },
+    { id: 'familyCircle', label: t('familyCircleTitle'), icon: '👨‍👩‍👧' },
     // The recording studio saves into the app's files, so it only exists on the PC's dev server.
     ...(import.meta.env.DEV ? [{ id: 'studio' as const, label: t('studio'), icon: '🎙️' }] : []),
     ...(showParentsGroup ? [{ id: 'parentsGroup' as const, label: t('parentsGroup'), icon: '💬' }] : []),
@@ -305,6 +308,8 @@ export function Home({
     // With no book yet, the tile opens My packs to make one.
     { id: 'daybook', icon: <BookIcon />, label: t('daybookGame'), sub: hasBooks ? t('daybookSub') : t('daybookMake'), on: () => (hasBooks ? onGame('daybook') : onOpen('myPacks')), ok: true },
     { id: 'bring', icon: <HuntIcon />, label: t('bringGame'), sub: t('bringSub'), on: () => onGame('bring'), ok: true },
+    { id: 'camera', icon: <HuntIcon />, label: t('cameraGame'), sub: t('cameraSub'), on: () => onGame('camera'), ok: true },
+    { id: 'mystory', icon: <BookIcon />, label: t('mystoryGame'), sub: t('mystorySub'), on: () => onGame('mystory'), ok: true },
     { id: 'point', icon: <PointIcon />, label: t('pointGame'), sub: t('pointSub'), on: onPoint, ok: canPoint },
     { id: 'actions', icon: <ActionsIcon />, label: t('actionsGame'), sub: t('actionsSub'), on: onActions, ok: canActions },
     { id: 'hunt', icon: <HuntIcon />, label: t('huntGame'), sub: t('huntSub'), on: () => onGame('hunt'), ok: canHunt },
@@ -460,6 +465,7 @@ export function Home({
           </section>
         )}
         {checkin && activeProfile && <WeekCheckin childId={activeProfile.id} packs={allPacks} onDone={onCheckinDone} />}
+        {activeProfile && <TimelineCard profileId={activeProfile.id} onOpen={() => onOpen('timeline')} />}
         {askBirth && (
           <section className="card nudge-card birth-card">
             <h2>🎂 {t('birthCardTitle')}</h2>

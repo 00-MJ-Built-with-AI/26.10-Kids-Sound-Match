@@ -1,13 +1,14 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
+import { FamilyApp } from './ui/family/FamilyPage';
 import { audioEngine } from './audio/audioEngine';
 import './ui/theme/styles.css';
 
+// A family link (…?family=<link>) opens the family's page, not the app.
+const familyToken = new URLSearchParams(location.search).get('family');
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <StrictMode>{familyToken && /^[0-9a-f]{48,}$/.test(familyToken) ? <FamilyApp token={familyToken} /> : <App />}</StrictMode>,
 );
 
 // Works offline after the first visit (spec rule 10). Service workers need HTTPS or localhost.

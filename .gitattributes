@@ -1,0 +1,3 @@
+# The camera model weights are binary: never convert line endings.
+public/models/** -text
+public/models/**/*.json text eol=lf

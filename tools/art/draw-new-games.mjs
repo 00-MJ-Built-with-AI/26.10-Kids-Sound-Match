@@ -86,6 +86,26 @@ const tiles = {
       `<g class="note">${note(260, 130, '#5B8DEF')}</g><g class="note b">${note(90, 120, '#F05A8C')}</g>`,
     MOTION.bob + MOTION.note,
   ),
+  camera: card(
+    '#E8F1FF',
+    // A phone looking at a cup, with the viewfinder corners and a speech bubble naming it.
+    R(70, 90, 180, 250, 26, '#3a3f4a') + R(84, 112, 152, 196, 12, '#CFE6FF', 0) +
+      P('M128 236 L192 236 L188 288 Q187 296 179 296 L141 296 Q133 296 132 288 Z', '#7ED0B5', 3.5) + L('M192 248 q18 4 12 22 q-4 10 -14 9', INK, 3.5) +
+      L('M96 128 v-10 h14 M224 128 v-10 h-14 M96 292 v10 h14 M224 292 v10 h-14', '#fff', 4) +
+      C(160, 322, 8, '#5d6470', 0) +
+      P('M250 110 Q250 80 280 80 L330 80 Q360 80 360 110 L360 140 Q360 170 330 170 L300 170 L276 196 L282 170 Q250 168 250 140 Z', '#fff') +
+      '<g class="bob">' + face(305, 122, 1.1) + '</g>' + sparkle(320, 300, 0.8),
+    MOTION.bob,
+  ),
+  mystory: card(
+    '#FFF1E6',
+    // An open storybook with a little family on one page and a cat on the other, and a star.
+    P('M200 120 Q140 96 60 110 L60 300 Q140 288 200 310 Z', '#fff') + P('M200 120 Q260 96 340 110 L340 300 Q260 288 200 310 Z', '#fff') + L('M200 120 V310', INK, 4) +
+      C(110, 190, 20, '#F7C6A3') + R(92, 210, 36, 50, 12, '#F05A8C', 3.5) + C(150, 206, 14, '#E8B48C') + R(138, 220, 26, 38, 10, '#5B8DEF', 3.5) +
+      E(268, 230, 40, 30, '#F7A14A') + C(268, 186, 24, '#F7A14A') + P('M250 170 l-6 -22 l18 12 Z M286 170 l6 -22 l-18 12 Z', '#F7A14A', 3.5) + C(260, 184, 3.5, INK, 0) + C(276, 184, 3.5, INK, 0) +
+      '<g class="bob">' + P('M200 40 l12 24 l26 4 l-19 18 l5 26 l-24 -13 l-24 13 l5 -26 l-19 -18 l26 -4 Z', '#FFC531', 3.5) + '</g>',
+    MOTION.bob,
+  ),
 };
 
 const dir = path.join(process.cwd(), 'public', 'assets', 'tiles');

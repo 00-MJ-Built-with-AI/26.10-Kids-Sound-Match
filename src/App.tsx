@@ -28,7 +28,7 @@ import { bookWords } from './report/book';
 import { reportStore } from './report/db';
 import { resultPack } from './report/types';
 import { memoryReady, oddLevel, type MemoryNext, type OddLevel } from './report/levels';
-import { practiceWeights, readyForMore, type NextLevel } from './report/practice';
+import { readyForMore, type NextLevel } from './report/practice';
 import { knownWords, wordEvidence, wordId } from './report/words';
 import {
   characterUrl,
@@ -50,6 +50,7 @@ import { ageInMonths, forgetBirthMonth, loadBirthMonth, saveBirthMonth } from '.
 import { forLater } from './ui/parent/games';
 import { forgetPath, loadPath } from './learn/path';
 import { bringList, cupToys, gardenThings } from './content/playThings';
+import { brainWeights, buildBrain, learningWords } from './learn/brain';
 import { customKind } from './custom/types';
 import { endRest, REST_ALLOWED, restingUntil, startRest } from './settings/rest';
 import { ownBooks } from './ui/kid/KidDayBook';
@@ -97,6 +98,11 @@ import { PottyScreen } from './ui/parent/PottyScreen';
 import { forgetPotty } from './settings/potty';
 import { SettingsScreen } from './ui/parent/SettingsScreen';
 import { ArabicCheck } from './ui/parent/ArabicCheck';
+import { VoiceTimeline } from './ui/parent/VoiceTimeline';
+import { FamilyCircle } from './ui/parent/FamilyCircle';
+import { cloudClient } from './custom/cloud';
+import { parentFamily, PUBLISH_EVERY_MS } from './family/family';
+import { buildSummary, collectInbox } from './family/publish';
 import { fixPacks, loadFixes } from './i18n/arabicFixes';
 import { checkinDue, markCheckinSeen } from './report/checkin';
 import { StartFlow, type StartStep } from './ui/parent/StartFlow';
@@ -106,6 +112,8 @@ import { WordsScreen } from './ui/parent/WordsScreen';
 
 type Screen =
   | 'arabicCheck'
+  | 'timeline'
+  | 'familyCircle'
   | 'loading'
   | 'problems'
   | 'firstRun'
@@ -152,7 +160,9 @@ const heardMessages = (): string[] => {
   const r = local.getJson<unknown>(MESSAGES_HEARD_KEY);
   return Array.isArray(r) ? r.filter((x): x is string => typeof x === 'string') : [];
 };
-const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story', 'bring', 'daybook', 'rhymes'];
+const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story', 'bring', 'daybook', 'rhymes', 'camera', 'mystory'];
+/** When this phone last refreshed what the family circle sees. */
+const FAMILY_PUBLISHED_KEY = 'ksm.familyPublished.v1';
 /** Where's your nose? needs at least this many body parts it can ask about. */
 const MIN_POINT_ITEMS = 3;
 const PARENTS_GROUP_URL = (import.meta.env.VITE_PARENTS_GROUP_URL ?? '').trim();
@@ -376,6 +386,8 @@ function Shell({
   const canRhymes = (rhymesPack?.groups.length ?? 0) > 0 || allPacks.some((p) => customKind(p.id) === 'song' && p.id.startsWith('custom:') && p.items.length > 0);
   const canGarden = gardenThings(allPacks).length >= 4;
   const canCups = cupToys(allPacks).length >= 1;
+  // What's this? needs a camera and a phone that can run the model (any phone from the last few years).
+  const canCamera = typeof navigator !== 'undefined' && Boolean(navigator.mediaDevices?.getUserMedia);
   const canPaint = (colorsPack?.items.length ?? 0) >= 4;
   const canHide = (hidePack?.items.length ?? 0) >= 3;
   const canStory = (storiesPack?.groups.length ?? 0) > 0;
@@ -624,7 +636,7 @@ function Shell({
         ? (rhymesPack ?? songsPack)
         : kind === 'daybook'
           ? books[0]
-          : kind === 'bring' || kind === 'cups' || kind === 'garden'
+          : kind === 'bring' || kind === 'cups' || kind === 'garden' || kind === 'camera' || kind === 'mystory'
             ? (animalsPack ?? playablePacks[0])
             : ["lesson","variety","newone","verbs","showme","places","feelings"].includes(kind)
         ? learnPack
@@ -681,14 +693,22 @@ function Shell({
       const sessions = forProfile(await reportStore.sessions(), profileId);
       // Adaptive practice: weights come from the Report on this device when the game starts.
       if (kind === 'game' && s.adaptive && !toddlerMode) {
-        const packIds = gamePack.parts ? gamePack.parts.map((p) => p.id) : [gamePack.id];
-        weights = practiceWeights(sessions, await reportStore.questions(), packIds);
+        // The learning brain: words she's unsure of come up more, from every game she played.
+        const ids = new Set(sessions.map((x) => x.id));
+        const brain = buildBrain(sessions, (await reportStore.questions()).filter((q) => ids.has(q.sessionId)), loadWordMarks(profileId).says);
+        weights = brainWeights(brain, gamePack.parts ? gamePack.parts : [gamePack]);
       }
       if (kind === 'odd') level = oddLevel(sessions, await reportStore.questions());
+      if (kind === 'mystory') {
+        const ids = new Set(sessions.map((x) => x.id));
+        const questions = (await reportStore.questions()).filter((q) => ids.has(q.sessionId));
+        thingIds = [...knownWords(wordEvidence(sessions, questions)).keys(), ...Object.keys(loadWordMarks(profileId).says)];
+      }
       if (kind === 'bring') {
         const ids = new Set(sessions.map((x) => x.id));
         const questions = (await reportStore.questions()).filter((q) => ids.has(q.sessionId));
-        const learning = new Set(loadPath(profileId).words.filter((w) => w.done < 3).map((w) => w.word));
+        const brain = buildBrain(sessions, questions, loadWordMarks(profileId).says);
+        const learning = new Set([...loadPath(profileId).words.filter((w) => w.done < 3).map((w) => w.word), ...learningWords(brain)]);
         thingIds = bringList(allPacks, learning, new Set(knownWords(wordEvidence(sessions, questions)).keys()));
       }
       if (kind === 'lesson' || kind === 'variety' || kind === 'newone') learn = learnToday(profileId, allPacks, sessions, await reportStore.questions());
@@ -738,7 +758,7 @@ function Shell({
         profileId,
         packId: gamePack.id,
         itemKeys:
-          kind === 'bring' || kind === 'cups' || kind === 'garden'
+          kind === 'bring' || kind === 'cups' || kind === 'garden' || kind === 'mystory' || kind === 'camera'
             ? thingIds
             : kind === 'rhymes' || kind === 'daybook'
               ? gamePack.items.map((i) => i.key)
@@ -777,7 +797,7 @@ function Shell({
             ? s.mode
             : kind === 'care'
               ? 'SOUND_AND_NAME'
-              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners', 'instructions', 'lesson', 'variety', 'newone', 'verbs', 'showme', 'places', 'feelings', 'rhymes', 'daybook', 'bring', 'cups', 'garden'].includes(kind)
+              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners', 'instructions', 'lesson', 'variety', 'newone', 'verbs', 'showme', 'places', 'feelings', 'rhymes', 'daybook', 'bring', 'cups', 'garden', 'camera', 'mystory'].includes(kind)
                 ? 'NAME_ONLY'
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
@@ -828,6 +848,8 @@ function Shell({
     ...(genderKnown ? (['bring'] as const) : []),
     ...(canCups ? (['cups'] as const) : []),
     ...(canGarden ? (['garden'] as const) : []),
+    ...(canCamera ? (['camera'] as const) : []),
+    'mystory',
     ...(canInstructions && genderKnown ? (['instructions'] as const) : []),
     ...(canCare ? (['care'] as const) : []),
     'turns',
@@ -953,6 +975,53 @@ function Shell({
     .flatMap((v) => v.loaded.items)
     .filter((i) => !heard.includes(i.key))
     .sort((a, b) => (a.key < b.key ? 1 : -1))[0];
+  /** Refreshes what the family circle sees (the active child). */
+  const publishFamily = async () => {
+    if (!cloud.userId || !profile || !builtin) return;
+    const sessions = forProfile(await reportStore.sessions(), profileId);
+    const ids = new Set(sessions.map((x) => x.id));
+    const summary = await buildSummary({
+      child: profile,
+      log: loadPlayLog(profileId),
+      sessions,
+      questions: (await reportStore.questions()).filter((q) => ids.has(q.sessionId)),
+      says: loadWordMarks(profileId).says,
+      builtin: builtin.packs,
+      views: customViews,
+      lang,
+    });
+    await parentFamily(await cloudClient(), cloud.userId).publish(summary);
+    local.set(FAMILY_PUBLISHED_KEY, String(Date.now()));
+  };
+  /** Picks up the family's recordings: words in their voice, and messages for her. */
+  const collectFamily = async () => {
+    if (!cloud.userId || !builtin) return 0;
+    const n = await collectInbox(parentFamily(await cloudClient(), cloud.userId), builtin.packs, customViews);
+    if (n) await onCustomChanged();
+    return n;
+  };
+  const familyChecked = useRef(false);
+  const familyJobs = useRef({ publishFamily, collectFamily });
+  familyJobs.current = { publishFamily, collectFamily };
+  // Once the cloud backup is signed in and synced: pick up the family's recordings, and refresh what
+  // they see every few hours. Quietly does nothing until the family circle is set up.
+  useEffect(() => {
+    const check = () => {
+      if (familyChecked.current || cloud.state.status !== 'synced' || !cloud.userId || !builtin) return;
+      familyChecked.current = true;
+      void (async () => {
+        try {
+          await familyJobs.current.collectFamily();
+          const last = Number(local.get(FAMILY_PUBLISHED_KEY));
+          if (!Number.isFinite(last) || Date.now() - last > PUBLISH_EVERY_MS) await familyJobs.current.publishFamily();
+        } catch (e) {
+          console.info('[family] not set up yet, or offline', e);
+        }
+      })();
+    };
+    check();
+    return cloud.subscribe(check);
+  }, [builtin]);
   const home = () => setScreen('home');
   const playableCount = pack ? enabledItemKeys(pack, settings).length : 0;
   let body;
@@ -971,6 +1040,12 @@ function Shell({
       break;
     case 'firstRun':
       body = <FirstRun update={update} onDone={home} />;
+      break;
+    case 'timeline':
+      body = profile ? <VoiceTimeline child={profile} packs={allPacks} views={customViews} onBack={home} /> : null;
+      break;
+    case 'familyCircle':
+      body = <FamilyCircle onPublish={publishFamily} onCollect={collectFamily} onMyPacks={() => setScreen('myPacks')} onBack={home} />;
       break;
     case 'arabicCheck':
       body = <ArabicCheck packs={builtin?.packs ?? []} onChanged={() => setArFixes(loadFixes())} onBack={() => setScreen('settings')} />;

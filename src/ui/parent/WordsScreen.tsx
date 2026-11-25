@@ -24,6 +24,7 @@ import { Overlay, Screen } from './components';
 import { Avatar, ProfileRow } from './ProfileRow';
 import { WordPath } from './WordPath';
 import { TalkingCard } from './TalkingCard';
+import { buildBrain, sureness } from '../../learn/brain';
 import { ageInMonths, loadBirthMonth } from '../../settings/birth';
 
 interface WordInfo {
@@ -172,6 +173,13 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
       ),
     );
   }, [data, child.id, lookup]);
+  // The learning brain: how sure we are now that she understands each word.
+  const brain = useMemo(() => {
+    if (!data) return null;
+    const sessions = forProfile(data.sessions, child.id);
+    const ids = new Set(sessions.map((s) => s.id));
+    return buildBrain(sessions, data.questions.filter((q) => ids.has(q.sessionId)), marks.says);
+  }, [data, child.id, marks]);
 
   const words: ShownWord[] = useMemo(() => {
     const ids = new Set([...known.keys(), ...Object.keys(marks.says)]);
@@ -298,6 +306,7 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
           </div>
         </section>
       )}
+      {words.length > 0 && brain && <p className="hint">{t('wordsSureHint')}</p>}
       {words.length > 0 && (
         <ul className="words-grid">
           {words.map((w) => (
@@ -306,6 +315,11 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
               <strong>{w.item.name[lang]}</strong>
               <span className="hint">{w.item.name[other]}</span>
               {w.since !== undefined && <span className="word-since">✓ {date(w.since)}</span>}
+              {brain && (
+                <span className="sure-bar" title={t('wordsSure', { p: Math.round(sureness(brain.get(w.id)) * 100) })}>
+                  <i style={{ width: `${Math.round(sureness(brain.get(w.id)) * 100)}%` }} />
+                </span>
+              )}
               <button
                 type="button"
                 className={w.says !== undefined ? 'says-btn on' : 'says-btn'}

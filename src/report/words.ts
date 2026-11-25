@@ -18,6 +18,8 @@ export interface WordEvidence {
   /** When the game was played. */
   at: number;
   right: boolean;
+  /** The game it came from (its language, for the learning brain). */
+  session?: number;
 }
 
 /**
@@ -46,7 +48,7 @@ export function wordEvidence(
     if (!isWordPack(packId)) continue;
     const right = q.firstTryCorrect && !q.hinted;
     const miss = !q.firstTryCorrect && q.attempts > 1;
-    if (right || miss) out.push({ word: wordId(packId, q.itemKey), at: session.startedAt, right });
+    if (right || miss) out.push({ word: wordId(packId, q.itemKey), at: session.startedAt, right, session: q.sessionId });
   }
   return out.sort((a, b) => a.at - b.at);
 }

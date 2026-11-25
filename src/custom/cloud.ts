@@ -32,6 +32,24 @@ function supabase(): Promise<SupabaseClient> {
   return client;
 }
 
+/** The signed-in parent's connection (the family circle uses it too). */
+export function cloudClient(): Promise<SupabaseClient> {
+  return supabase();
+}
+
+/**
+ * A connection for a family link's page: nobody signs in, nothing is kept on the phone. The
+ * family link (the token) is all it carries.
+ */
+let familyClientPromise: Promise<SupabaseClient> | null = null;
+export function familyClient(): Promise<SupabaseClient> {
+  if (!cloudConfigured) return Promise.reject(new Error('Cloud is not set up'));
+  familyClientPromise ??= import('@supabase/supabase-js').then(({ createClient }) =>
+    createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } }),
+  );
+  return familyClientPromise;
+}
+
 /** The database was set up from an older schema.sql (PostgREST: unknown table / Postgres: no relation). */
 function missingTable(error: { code?: string; message?: string }): boolean {
   return error.code === 'PGRST205' || error.code === '42P01' || /custom_overrides/.test(error.message ?? '');
@@ -174,6 +192,11 @@ function set(patch: Partial<CloudState>) {
 export const cloud = {
   get state(): CloudState {
     return state;
+  },
+
+  /** The signed-in parent's account id, or null. */
+  get userId(): string | null {
+    return uid;
   },
 
   subscribe(listener: () => void): () => void {

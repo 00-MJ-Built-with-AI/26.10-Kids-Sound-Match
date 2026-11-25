@@ -220,6 +220,8 @@ function QuickPicker({ packs, settings, kind, available, onPlay, onClose }: Pick
     { id: 'bring', label: t('bringGame'), icon: <HuntIcon /> },
     { id: 'cups', label: t('cupsGame'), icon: <HideIcon /> },
     { id: 'garden', label: t('gardenGame'), icon: <MusicIcon /> },
+    { id: 'camera', label: t('cameraGame'), icon: <HuntIcon /> },
+    { id: 'mystory', label: t('mystoryGame'), icon: <BookIcon /> },
     { id: 'instructions', label: t('instructionsGame'), icon: <ActionsIcon /> },
     { id: 'care', label: t('careGame'), icon: <CareIcon /> },
     { id: 'turns', label: t('turnsGame'), icon: <TurnsIcon /> },

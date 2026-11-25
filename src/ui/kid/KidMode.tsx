@@ -24,6 +24,8 @@ import { KidDayBook } from './KidDayBook';
 import { KidBring } from './KidBring';
 import { KidCups } from './KidCups';
 import { KidGarden } from './KidGarden';
+import { KidCamera } from './KidCamera';
+import { KidStoryMaker } from './KidStoryMaker';
 import { KidBig, KidCount, KidMissing } from './KidSmall';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
 
@@ -76,6 +78,10 @@ export function KidMode(props: Props) {
       return <KidCups pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'garden':
       return <KidGarden pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'camera':
+      return <KidCamera pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'mystory':
+      return <KidStoryMaker pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'menu':
       return <KidMenu config={config} picker={picker} onExit={onExit} />;
     case 'explore':

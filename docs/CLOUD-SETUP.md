@@ -51,6 +51,22 @@ You'll need about 20 minutes, a Google account, and a free Supabase account.
 3. Restart the app (`npm run dev`, or `npm run deploy` for the online version).
 4. Open **My packs → Sign in with Google**.
 
+## 5. Family circle (optional)
+
+Private links for grandparents and family: they see her week, her words and her books, and record a
+word or a message for her. It uses the same Supabase project.
+
+1. In Supabase: **SQL Editor > New query**, paste all of `supabase/family.sql` and press **Run**.
+   (The app shows the same text under Home > Family circle > Copy the setup.)
+2. The live site needs `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in Vercel
+   (Project > Settings > Environment Variables), the same values as in `.env.local`, then a redeploy.
+3. In the app, sign in to the cloud backup (My packs), then Home > Family circle > make a link for each
+   person and send it.
+
+A family link is a 64-character secret: with it, someone can only read the summary the parent's phone
+shares and send recordings into the parent's inbox (at most 30 a day, audio only, up to 5 MB each).
+Turning a link off stops it straight away.
+
 ## Notes
 
 - Sign-in works on `http://localhost:5173` on this PC and on the HTTPS site, but not on the home

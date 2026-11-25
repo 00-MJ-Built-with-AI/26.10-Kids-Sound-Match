@@ -480,4 +480,24 @@ export const TIPS: Record<string, Record<Lang, GameTip>> = {
       learns: "السبب والنتيجة (بلمس، بيغنّي)، وأصوات الحيوانات والأشياء.",
     },
   },
+  camera: {
+    en: {
+      how: "Hold the phone with her and walk around: point it at a cup, the cat, a ball. When the camera is sure, Bunny names it and shows its picture. Say the word with her and touch the real thing. The first time, it downloads its picture brain (18 MB); after that it works offline. Nothing it sees leaves the phone.",
+      learns: "That words name real things around her, not only pictures.",
+    },
+    ar: {
+      how: "امسكوا التلفون معها ولفّوا بالبيت: وجّهوه على كاسة، القطة، طابة. لما تتأكّد الكاميرا، الأرنب بيسمّي الشي وبيورجي صورته. قولوا الكلمة معها والمسوا الشي الحقيقي. أول مرة بتنزّل عقل الصور (18 ميغا)، وبعدها بتشتغل بدون إنترنت. ولا شي بتشوفه بيطلع من التلفون.",
+      learns: "إنّه الكلمات أسماء لأشياء حقيقية حواليها، مش بس صور.",
+    },
+  },
+  mystory: {
+    en: {
+      how: "A new 5-page story each week, made with someone from her family and words she knows. Read it together: point at the pictures and let her finish the sentences. Your family photos appear when you've added them in Your voice and photos.",
+      learns: "Stories about people she loves, with words she knows, hold her attention and grow her sentences.",
+    },
+    ar: {
+      how: "قصة جديدة من ٥ صفحات كل أسبوع، فيها حدا من عيلتها وكلمات بتعرفها. اقرأوها سوا: أشّروا على الصور وخلّوها تكمّل الجمل. صور عيلتكم بتطلع لما تزيدوها من «صوتكم وصوركم».",
+      learns: "القصص عن ناس بتحبهم، بكلمات بتعرفها، بتشدّ انتباهها وبتكبّر جملها.",
+    },
+  },
 };

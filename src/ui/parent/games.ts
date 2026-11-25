@@ -45,6 +45,8 @@ export const GAMES: Record<string, GameInfo> = {
   bring: { label: 'bringGame', sub: 'bringSub', picture: 'tiles/bring.svg' },
   cups: { label: 'cupsGame', sub: 'cupsSub', picture: 'tiles/cups.svg' },
   garden: { label: 'gardenGame', sub: 'gardenSub', picture: 'tiles/garden.svg' },
+  camera: { label: 'cameraGame', sub: 'cameraSub', picture: 'tiles/camera.svg' },
+  mystory: { label: 'mystoryGame', sub: 'mystorySub', picture: 'tiles/mystory.svg' },
   instructions: { label: 'instructionsGame', sub: 'instructionsSub', picture: 'first-words/shoe.svg' },
   phrases: { label: 'phrasesGame', sub: 'phrasesSub', picture: 'actions/kiss.svg' },
   manners: { label: 'mannersGame', sub: 'mannersSub', picture: 'manners/hello.svg' },

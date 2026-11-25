@@ -21,7 +21,8 @@ import { reportStore } from '../../report/db';
 import { renderReportImage, type ReportImageRow } from '../../report/reportImage';
 import { renderDoctorImage } from '../../report/doctorImage';
 import { doctorStats } from '../../report/doctor';
-import { talkingView } from '../../report/talking';
+import { talkingLines, talkingView } from '../../report/talking';
+import { WeekCheckin } from './WeekCheckin';
 import { languageBalance } from '../../report/languages';
 import { ageInMonths, loadBirthMonth, saveBirthMonth } from '../../settings/birth';
 import { loadMilestones, MILESTONES } from '../../settings/milestones';
@@ -233,7 +234,7 @@ export function ReportScreen({
       notes: [
         d('doctorByLanguage', { ar: s.understood.arabic, en: s.understood.english, both: s.understood.bothLanguages }),
         ...(s.outsideApp ? [d('doctorOutside', { n: s.outsideApp })] : []),
-        ...(talking ? [`${d('talkingBy', { age: ageText(talking.months) })} (${d('talkingSourceShort')}):`, ...talking.text[doctorLang].map((x) => `•  ${x}`)] : []),
+        ...(talking ? [`${d('talkingBy', { age: ageText(talking.months) })} (${d('talkingSourceShort')}):`, ...talkingLines(talking, doctorLang).map((x) => `•  ${x}`)] : []),
       ],
       milestonesTitle: d('doctorMilestones'),
       milestones: [...MILESTONES]
@@ -330,6 +331,11 @@ export function ReportScreen({
                 </div>
               ))}
             </div>
+            {/* The guide for her age (AAP and WHO), next to her own minutes: no warnings. */}
+            <p className="screen-guide">
+              {t('screenAverage', { n: Math.round(weekTotal / 7) })}{' '}
+              {ageInMonths(birth) !== null && ageInMonths(birth)! >= 24 ? t('screenGuide2') : t('screenGuideUnder2')}
+            </p>
             {favouriteGames.length > 0 && (
               <>
                 <h3 className="play-top-title">{t('playTimeTop')}</h3>
@@ -347,6 +353,8 @@ export function ReportScreen({
           </>
         )}
       </section>
+
+      <WeekCheckin childId={child.id} packs={packs} />
 
       {mine && mine.sessions.length > 0 && (() => {
         const b = languageBalance(mine.sessions);

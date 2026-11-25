@@ -92,3 +92,10 @@ describe('talking at her age', () => {
     expect(talkingView(10, 0, false).now).toBeNull();
   });
 });
+
+describe('an empty pack', () => {
+  it('has no pictures, and nothing breaks', async () => {
+    const { choosePictures } = await import('../ui/kid/layout');
+    expect(choosePictures([])).toEqual({});
+  });
+});

@@ -7,6 +7,7 @@ import { ArrowIcon } from './icons';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
 import { questionDone } from './sitting';
 import { ShellFrame, useKidShell } from './useKidShell';
+import { talkPrompt } from '../../learn/talkPrompts';
 
 /** Her books (My packs > New book), each page a photo and a sentence in the parent's voice. */
 export function ownBooks(packs: readonly LoadedPack[]): LoadedPack[] {
@@ -90,6 +91,9 @@ export function KidDayBook(props: {
         </div>
       ) : (
         <div className="book daybook" dir="ltr">
+          <span className="book-prompt" dir="auto" key={`p${page}`}>
+            💬 {talkPrompt('daybook', page, lang)}
+          </span>
           <button type="button" className={`book-page ${turn}`} key={`${book}-${page}`} tabIndex={-1} aria-hidden="true" onPointerDown={() => read()}>
             {item && (
               <span className="book-picture daybook-photo">

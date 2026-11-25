@@ -40,6 +40,7 @@ export function SettingsScreen({
   update,
   profiles,
   onBack,
+  onArabicCheck,
   seasonPref,
   onSeasonPref,
 }: {
@@ -49,6 +50,8 @@ export function SettingsScreen({
   update: (patch: Partial<Settings>) => void;
   profiles: ProfileControls;
   onBack: () => void;
+  /** Check the Arabic: the new Arabic lines to tick or fix. */
+  onArabicCheck: () => void;
   seasonPref: SeasonPref;
   onSeasonPref: (pref: SeasonPref) => void;
 }) {
@@ -190,6 +193,9 @@ export function SettingsScreen({
             />
           </Row>
         )}
+        <button type="button" className="btn ghost wide arabic-check-link" onClick={onArabicCheck}>
+          ✍️ {t('arabicCheckTitle')}
+        </button>
         <Row label={t('settingsQuestions')}>
           <Segmented
             label={t('settingsQuestions')}

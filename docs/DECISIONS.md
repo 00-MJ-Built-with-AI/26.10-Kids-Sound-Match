@@ -475,6 +475,20 @@ Interview answers: starter rhymes and the parent's own songs; several books; the
 | Talking at her age | Words I know shows what most children say and understand by her age and what comes next (CDC "Learn the Signs. Act Early." 2022 milestones, 12 to 36 months: `src/report/talking.ts`), her counts, and "count both languages together". A calm "mention it at her next check-up" only when 1 or 2 words are marked as said after 18 months, or "two words together" isn't ticked after 2 years (nothing when no words are marked, since that usually means they aren't being marked). No scores. The doctor's page lists the same "most children by…" points |
 | Tiles and tips | New tiles: Show me happy (Learn), Song time, My books and Bring me (Play together), Where did it go? and Sound garden (Her games), with drawn tile pictures and ⓘ tips. All are in Today's play groups and the end screen's picker |
 
+## Added on 25 November 2026: checking the Arabic, a simpler Home, family voices, talk prompts, her week, screen time
+
+Interview answers: a page in the app to check the Arabic; Her top games first; WhatsApp voice notes for words, book pages and messages; prompts in both books; her week on Home and in the Report; minutes with a gentle guide.
+
+| Change | Decision |
+|---|---|
+| Check the Arabic | Settings > Check the Arabic lists the 142 Arabic lines added since the parent last read the Arabic (Song time, Show me happy, the Bring me lines, Talking at her age, the talk prompts and the new screen text: `src/i18n/arabicReview.ts`). ✓ marks a line right, ✎ fixes it. A fix is used on this phone straight away, on screen and in the spoken voice (`src/i18n/arabicFixes.ts`: word and rhyme names in the packs, spoken lines in `voicedClip`, screen text in `t()`). "Copy my fixes" copies the list (id, old, new) to send, so the fix can be made permanent for everyone. Fixes and ticks stay on this phone |
+| A simpler Home | "Her games" comes first: her favourites, today's 3 games and the 6 she played most in the last 30 days (games for later stay folded unless they're favourites). Every other game folds under "All games (n)", which stays open or closed as the parent last left it. With fewer than 4 such games (a new phone), Home looks as before |
+| Family voices | A shared WhatsApp voice note now asks who it's from (remembered) and goes to a word (as before), a page of one of her books (a new page with that voice, then add the photo and words; "+ New book" makes "My day"), or a message for her. Messages are kept as My packs (kind `note`, id prefix `5e55a9e5`), so they back up like the others. The newest message not yet heard shows on Home ("A message from Teta": Play it / Done). My packs lists them under Family messages |
+| Talk prompts | One small line for the grown-up at the top of each page of Her picture book (not at Bedtime) and My books ("Ask: what's this?", "Wait, let her point first", "Copy what she says and add one word"), taking turns page by page (`src/learn/talkPrompts.ts`) |
+| Her week | Once she has played for a week, Home shows "Her week" until "Got it" (then again a week later): minutes and days, games she came back to (2+ days), games she left quickly (most tries under a minute), new words understood and words said, and one idea for next week. The Report always shows it. Same seven days as the Report's play time (`src/report/checkin.ts`) |
+| Screen time | The Report's play time adds the daily average and the guide for her age: under 2, short times with you beside her (AAP, WHO); from 2, up to about an hour a day, best together (WHO). No warnings or colours |
+| Empty packs | A pack with nothing finished (a new book, an empty pack of mine) no longer breaks the word lists and Home (`choosePictures` returns no pictures) |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

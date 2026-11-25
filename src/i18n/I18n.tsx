@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import type { Lang } from '../content/types';
 import { ar, en, type StringKey } from './strings';
+import { fixedText } from './arabicFixes';
 
 const TABLES: Record<Lang, Record<StringKey, string>> = { en, ar };
 
@@ -16,7 +17,8 @@ export function makeI18n(lang: Lang): I18n {
     lang,
     dir: lang === 'ar' ? 'rtl' : 'ltr',
     t: (key, vars) => {
-      const text = table[key] ?? en[key];
+      // Arabic text the parent corrected in Settings > Check the Arabic.
+      const text = lang === 'ar' ? fixedText(`ui:${key}`, table[key] ?? en[key]) : (table[key] ?? en[key]);
       return vars ? text.replace(/\{(\w+)\}/g, (m, name: string) => (name in vars ? String(vars[name]) : m)) : text;
     },
   };

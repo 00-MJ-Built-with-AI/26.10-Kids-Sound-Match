@@ -1,5 +1,5 @@
 import { useI18n } from '../../i18n/I18n';
-import { talkingView } from '../../report/talking';
+import { talkingLines, talkingView } from '../../report/talking';
 
 /**
  * Words I know > Talking at her age: what most children do by now and next, her own numbers, and a
@@ -25,7 +25,7 @@ export function TalkingCard({ ageMonths, says, understood, twoWords }: { ageMont
         <>
           <h3 className="path-head">{t('talkingBy', { age: age(view.now.months) })}</h3>
           <ul className="talking-list">
-            {view.now.text[lang].map((x) => (
+            {talkingLines(view.now, lang).map((x) => (
               <li key={x}>{x}</li>
             ))}
           </ul>
@@ -35,7 +35,7 @@ export function TalkingCard({ ageMonths, says, understood, twoWords }: { ageMont
         <>
           <h3 className="path-head">{t('talkingNext', { age: age(view.next.months) })}</h3>
           <ul className="talking-list next">
-            {view.next.text[lang].map((x) => (
+            {talkingLines(view.next, lang).map((x) => (
               <li key={x}>{x}</li>
             ))}
           </ul>

@@ -74,12 +74,14 @@ export function MyPacks({
         <ChevronIcon />
       </button>
       <CloudBackup />
-      {(['words', 'book', 'song'] as const).map((kind) => {
+      {(['words', 'book', 'song', 'note'] as const).map((kind) => {
         const mine = views.filter((v) => customKind(v.pack.id) === kind);
+        // Family messages come from shared voice notes, so their section shows only once there are some.
+        if (kind === 'note' && !mine.length) return null;
         return (
           <section key={kind} className="my-kind">
-            <h2 className="games-title">{kind === 'book' ? '📖 ' + t('myBooks') : kind === 'song' ? '🎵 ' + t('mySongs') : '🖼️ ' + t('myPicturePacks')}</h2>
-            {kind !== 'words' && <p className="hint">{kind === 'book' ? t('myBooksHint') : t('mySongsHint')}</p>}
+            <h2 className="games-title">{kind === 'note' ? '💌 ' + t('myMessages') : kind === 'book' ? '📖 ' + t('myBooks') : kind === 'song' ? '🎵 ' + t('mySongs') : '🖼️ ' + t('myPicturePacks')}</h2>
+            {kind !== 'words' && <p className="hint">{kind === 'note' ? t('myMessagesHint') : kind === 'book' ? t('myBooksHint') : t('mySongsHint')}</p>}
             {mine.map((v) => (
               <button type="button" key={v.pack.id} className="card pack-card" onClick={() => setOpenId(v.pack.id)}>
                 <span className="pack-thumbs" aria-hidden="true">
@@ -93,7 +95,9 @@ export function MyPacks({
                 <span className="pack-text">
                   <strong>{v.pack.name[lang] || v.pack.name.en || v.pack.name.ar}</strong>
                   <span className="hint">
-                    {kind === 'book' ? (
+                    {kind === 'note' ? (
+                      t('messagesCount', { n: v.loaded.items.length })
+                    ) : kind === 'book' ? (
                       t('pagesCount', { n: v.loaded.items.length })
                     ) : kind === 'song' ? (
                       t('linesCount', { n: v.loaded.items.length })
@@ -107,7 +111,7 @@ export function MyPacks({
                 <ChevronIcon />
               </button>
             ))}
-            {creating?.kind !== kind && (
+            {kind !== 'note' && creating?.kind !== kind && (
               <button
                 type="button"
                 className="btn wide"
@@ -201,7 +205,7 @@ function PackDetail({
 
   return (
     <Screen title={title} onBack={onBack}>
-      <p className="hint">{kind === 'book' ? t('myBooksHint') : kind === 'song' ? t('mySongsHint') : <ReadyLine view={view} />}</p>
+      <p className="hint">{kind === 'note' ? t('myMessagesHint') : kind === 'book' ? t('myBooksHint') : kind === 'song' ? t('mySongsHint') : <ReadyLine view={view} />}</p>
       <section className="card">
         <div className="item-grid">
           {view.items.map((item) => (

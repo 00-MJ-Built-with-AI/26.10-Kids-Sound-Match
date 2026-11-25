@@ -96,12 +96,16 @@ import { SnapScreen } from './ui/parent/SnapScreen';
 import { PottyScreen } from './ui/parent/PottyScreen';
 import { forgetPotty } from './settings/potty';
 import { SettingsScreen } from './ui/parent/SettingsScreen';
+import { ArabicCheck } from './ui/parent/ArabicCheck';
+import { fixPacks, loadFixes } from './i18n/arabicFixes';
+import { checkinDue, markCheckinSeen } from './report/checkin';
 import { StartFlow, type StartStep } from './ui/parent/StartFlow';
 import { Overlay } from './ui/parent/components';
 import { Studio } from './ui/parent/Studio';
 import { WordsScreen } from './ui/parent/WordsScreen';
 
 type Screen =
+  | 'arabicCheck'
   | 'loading'
   | 'problems'
   | 'firstRun'
@@ -142,6 +146,12 @@ const TWO_STEPS_AFTER = 15;
 /** "Not now" on the birth month card. */
 const BIRTH_ASKED_KEY = 'ksm.birthAsked.v1';
 // Bring me is already the real thing; a book of her own photos and Song time end calmly.
+/** Family voice messages already played on Home (ids). */
+const MESSAGES_HEARD_KEY = 'ksm.messagesHeard.v1';
+const heardMessages = (): string[] => {
+  const r = local.getJson<unknown>(MESSAGES_HEARD_KEY);
+  return Array.isArray(r) ? r.filter((x): x is string => typeof x === 'string') : [];
+};
 const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story', 'bring', 'daybook', 'rhymes'];
 /** Where's your nose? needs at least this many body parts it can ask about. */
 const MIN_POINT_ITEMS = 3;
@@ -313,7 +323,14 @@ function Shell({
   const [twoWordsCard, setTwoWordsCard] = useState(false);
   const personalizeFrom = useRef<'home' | 'myPacks'>('myPacks');
 
-  const { customViews, allPacks, oddPack } = useMemo(() => composePacks(builtin?.packs ?? [], custom, settings.look), [builtin, custom, settings.look]);
+  // The parent's corrections from Check the Arabic, applied to word and rhyme names.
+  const [arFixes, setArFixes] = useState(loadFixes);
+  const { customViews, allPacks, oddPack } = useMemo(
+    () => composePacks(fixPacks(builtin?.packs ?? [], arFixes), custom, settings.look),
+    [builtin, custom, settings.look, arFixes],
+  );
+  // Home's cards that come and go (her week, a family message): re-read when one is closed.
+  const [homeTick, setHomeTick] = useState(0);
   // Packs with enough finished items to play.
   // "Do it with me" has its own game: it isn't one of the packs to choose from.
   const playablePacks = useMemo(() => allPacks.filter((p) => p.items.length >= MIN_ITEMS_PER_PACK && !p.ownGame), [allPacks]);
@@ -930,6 +947,12 @@ function Shell({
     cloud.scheduleSync();
   };
 
+  const heard = homeTick >= 0 ? heardMessages() : [];
+  const newestMessage = customViews
+    .filter((v) => customKind(v.pack.id) === 'note')
+    .flatMap((v) => v.loaded.items)
+    .filter((i) => !heard.includes(i.key))
+    .sort((a, b) => (a.key < b.key ? 1 : -1))[0];
   const home = () => setScreen('home');
   const playableCount = pack ? enabledItemKeys(pack, settings).length : 0;
   let body;
@@ -949,6 +972,9 @@ function Shell({
     case 'firstRun':
       body = <FirstRun update={update} onDone={home} />;
       break;
+    case 'arabicCheck':
+      body = <ArabicCheck packs={builtin?.packs ?? []} onChanged={() => setArFixes(loadFixes())} onBack={() => setScreen('settings')} />;
+      break;
     case 'settings':
       body = pack ? (
         <SettingsScreen
@@ -958,6 +984,7 @@ function Shell({
           update={update}
           profiles={profiles}
           onBack={home}
+          onArabicCheck={() => setScreen('arabicCheck')}
           seasonPref={seasonPref}
           onSeasonPref={(pref) => {
             saveSeasonPref(pref);
@@ -1016,6 +1043,7 @@ function Shell({
       body = (
         <VoiceNoteScreen
           packs={builtin?.packs ?? []}
+          views={customViews}
           overrides={custom.overrides}
           shared={sharedNote}
           onChanged={onCustomChanged}
@@ -1190,6 +1218,24 @@ function Shell({
           canHide={canHide}
           onGame={playGame}
           plan={todayPlan}
+          topPlayed={topGames(loadPlayLog(profileId), Date.now() - 30 * 86_400_000, 6).map((g) => g.kind)}
+          allPacks={allPacks}
+          checkin={homeTick >= 0 && checkinDue(profileId, loadPlayLog(profileId))}
+          onCheckinDone={() => {
+            markCheckinSeen(profileId);
+            setHomeTick((n) => n + 1);
+          }}
+          message={newestMessage ? { id: newestMessage.key, from: newestMessage.name[lang] } : null}
+          onMessagePlay={() => {
+            if (!newestMessage) return;
+            audioEngine.unlock();
+            audioEngine.stopAll();
+            void audioEngine.play({ kind: 'file', url: newestMessage.nameAudio[languages[0] ?? 'ar'].url, category: 'name', label: 'family-message' }, () => false);
+          }}
+          onMessageDone={() => {
+            if (newestMessage) local.setJson(MESSAGES_HEARD_KEY, [...heardMessages(), newestMessage.key].slice(-200));
+            setHomeTick((n) => n + 1);
+          }}
           sleepPrefs={sleepPrefs}
           onPotty={() => setScreen('potty')}
           canPhrases={Boolean(phrasesPack)}

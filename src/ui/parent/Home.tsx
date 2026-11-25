@@ -48,12 +48,15 @@ import { ChevronIcon, Overlay, Segmented, Toggle } from './components';
 import { forLater, GAME_AGES, gamePicture } from './games';
 import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
+import { WeekCheckin } from './WeekCheckin';
 import { UpdateStamp } from './UpdateStamp';
 import { Avatar, ProfileRow } from './ProfileRow';
 
 import { local } from '../../settings/storage';
 
 const WEEK_CARD_KEY = 'ksm.weekCard.v1';
+/** "All games" on Home: open or folded, as the parent last left it. */
+const ALL_GAMES_KEY = 'ksm.allGamesOpen.v1';
 
 export type HomeLink = 'report' | 'words' | 'milestones' | 'snap' | 'settings' | 'myPacks' | 'flashcards' | 'studio' | 'parentsGroup' | 'privacy' | 'about';
 
@@ -96,6 +99,13 @@ export function Home({
   canHide,
   onGame,
   plan,
+  topPlayed,
+  allPacks,
+  checkin,
+  onCheckinDone,
+  message,
+  onMessagePlay,
+  onMessageDone,
   favourites,
   onFavourites,
   newCert,
@@ -178,6 +188,17 @@ export function Home({
   onGame: (kind: KidKind) => void;
   /** Today's play: three games, and whether each was played today. */
   plan: { kind: KidKind; done: boolean }[];
+  /** The games she plays most (last 30 days), for "Her games" at the top. */
+  topPlayed: readonly string[];
+  /** Every pack, for the pictures of her new words in the week card. */
+  allPacks: readonly LoadedPack[];
+  /** Her week: the check-in card is due. */
+  checkin: boolean;
+  onCheckinDone: () => void;
+  /** The newest voice message from the family she hasn't heard yet. */
+  message: { id: string; from: string } | null;
+  onMessagePlay: () => void;
+  onMessageDone: () => void;
   /** Her favourite games (tile ids), shown first; empty = not chosen yet. */
   favourites: readonly string[];
   onFavourites: (ids: string[]) => void;
@@ -348,13 +369,13 @@ export function Home({
       )}
     </div>
   );
-  const groups = (skipFavourites: boolean) =>
+  const groups = (skip: readonly string[]) =>
     [
       { title: t('homeLearn'), sub: t('homeLearnSub'), tiles: learn },
       { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },
       { title: t('homeHer'), sub: t('homeHerSub'), tiles: hers },
     ].map((group) => {
-      const tiles = (skipFavourites ? group.tiles.filter((g) => !favourites.includes(g.id)) : group.tiles).filter((g) => !forLater(g.id, ageMonths));
+      const tiles = group.tiles.filter((g) => !skip.includes(g.id) && !forLater(g.id, ageMonths));
       return (
         tiles.length > 0 && (
           <section key={group.title} className="games-group">
@@ -376,6 +397,14 @@ export function Home({
       <div className="games-row">{laterTiles.map(renderTile)}</div>
     </details>
   );
+  // A simpler Home: her favourites, today's three games and the 6 she plays most come first; every
+  // other game folds under "All games" (open or closed as the parent last left it).
+  const topIds = [...new Set([...favourites, ...plan.map((p) => p.kind as string), ...topPlayed])];
+  const topTiles = topIds
+    .map((id) => allTiles.find((x) => x.id === id))
+    .filter((x): x is Tile => x !== undefined && x.ok && (favourites.includes(x.id) || !forLater(x.id, ageMonths)));
+  const simple = topTiles.length >= 4;
+  const [allOpen, setAllOpen] = useState(() => local.get(ALL_GAMES_KEY) === '1');
   const [birthInput, setBirthInput] = useState('');
   const tipTile = tipFor ? allTiles.find((x) => x.id === tipFor) : undefined;
   const tip = tipFor ? TIPS[tipFor]?.[lang] : undefined;
@@ -415,6 +444,22 @@ export function Home({
         )}
       </div>
       <div className="home-col home-col-notices">
+        {/* A message from the family and her week come first among the notices. */}
+        {message && (
+          <section className="card message-card" role="status">
+            <h2>💌 {t('messageTitle', { from: message.from })}</h2>
+            <p className="hint">{t('messageBody')}</p>
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" onClick={onMessagePlay}>
+                ▶ {t('messagePlay')}
+              </button>
+              <button type="button" className="btn ghost" onClick={onMessageDone}>
+                {t('messageDone')}
+              </button>
+            </div>
+          </section>
+        )}
+        {checkin && activeProfile && <WeekCheckin childId={activeProfile.id} packs={allPacks} onDone={onCheckinDone} />}
         {askBirth && (
           <section className="card nudge-card birth-card">
             <h2>🎂 {t('birthCardTitle')}</h2>
@@ -548,7 +593,33 @@ export function Home({
       <div className="home-col home-col-b">
         {/* Her favourites first (when chosen), then the games played together (the parent ticks) and
             the ones she plays herself; with favourites, those two are folded under "More games". */}
-        {favTiles.length > 0 ? (
+        {simple ? (
+          <>
+            <section className="games-group fav-group">
+              <h2 className="games-title">
+                ⭐ {t('herTopTitle')}
+                <small>{t('herTopSub')}</small>
+                <button type="button" className="fav-edit" onClick={() => setPicking([...favourites])}>
+                  {favourites.length ? t('favEdit') : t('favChoose')}
+                </button>
+              </h2>
+              <div className="games-row">{topTiles.map(renderTile)}</div>
+            </section>
+            <details
+              className="more-games all-games"
+              open={allOpen}
+              onToggle={(e) => {
+                const open = (e.currentTarget as HTMLDetailsElement).open;
+                setAllOpen(open);
+                local.set(ALL_GAMES_KEY, open ? '1' : '0');
+              }}
+            >
+              <summary>{t('allGames', { n: allTiles.filter((x) => !topTiles.includes(x) && !forLater(x.id, ageMonths)).length })}</summary>
+              {groups(topTiles.map((x) => x.id))}
+            </details>
+            {later}
+          </>
+        ) : favTiles.length > 0 ? (
           <>
             <section className="games-group fav-group">
               <h2 className="games-title">
@@ -562,7 +633,7 @@ export function Home({
             </section>
             <details className="more-games">
               <summary>{t('moreGames', { n: together.length + hers.length - favTiles.length })}</summary>
-              {groups(true)}
+              {groups(favourites)}
             </details>
             {later}
           </>
@@ -571,7 +642,7 @@ export function Home({
             <button type="button" className="fav-choose" onClick={() => setPicking([])}>
               <span aria-hidden="true">⭐</span> {t('favChoose')}
             </button>
-            {groups(false)}
+            {groups([])}
             {later}
           </>
         )}

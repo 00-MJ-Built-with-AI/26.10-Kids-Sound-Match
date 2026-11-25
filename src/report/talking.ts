@@ -1,4 +1,5 @@
 import type { Lang } from '../content/types';
+import { fixedText } from '../i18n/arabicFixes';
 
 /**
  * Talking milestones: what most children (about 3 in 4) do by each age, from the CDC's "Learn the
@@ -59,6 +60,11 @@ export const TALKING_STEPS: readonly TalkingStep[] = [
     },
   },
 ];
+
+/** A step's points in a language, with the parent's Arabic fixes. */
+export function talkingLines(step: TalkingStep, lang: Lang): string[] {
+  return step.text[lang].map((x, n) => (lang === 'ar' ? fixedText(`talk:${step.months}:${n}`, x) : x));
+}
 
 export interface TalkingView {
   /** What most children do by now (the latest step at or before her age); null under a year. */

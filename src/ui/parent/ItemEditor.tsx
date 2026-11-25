@@ -89,7 +89,7 @@ export function ItemEditor({
   };
 
   const slots: { slot: Slot; label: string }[] =
-    kind === 'book'
+    kind === 'book' || kind === 'note'
       ? [
           { slot: 'ar', label: t('recPageAr') },
           { slot: 'en', label: t('recPageEn') },
@@ -104,7 +104,7 @@ export function ItemEditor({
             { slot: 'en', label: t('recNameEn') },
             { slot: 'sound', label: t('recSound') },
           ];
-  const title = kind === 'book' ? (item ? t('editPage') : t('newPage')) : kind === 'song' ? (item ? t('editLine') : t('newLine')) : item ? t('editItem') : t('newItem');
+  const title = kind === 'book' || kind === 'note' ? (item ? t('editPage') : t('newPage')) : kind === 'song' ? (item ? t('editLine') : t('newLine')) : item ? t('editItem') : t('newItem');
 
   return (
     <Screen title={title} onBack={onCancel}>
@@ -155,7 +155,7 @@ export function ItemEditor({
       </section>
 
       <section className="card">
-        <h2>{kind === 'book' ? t('pageWords') : kind === 'song' ? t('lineWords') : t('names')}</h2>
+        <h2>{kind === 'book' || kind === 'note' ? t('pageWords') : kind === 'song' ? t('lineWords') : t('names')}</h2>
         <label className="field">
           <span>{kind === 'words' ? t('nameAr') : t('wordsAr')}</span>
           <input

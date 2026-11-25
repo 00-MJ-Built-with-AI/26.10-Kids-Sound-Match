@@ -58,19 +58,22 @@ export interface AssetOverride {
 
 /**
  * What a parent's pack is: a set of pictures (the matching games), one of her books (a photo and a
- * sentence on each page) or a song (a picture and a sung line each). The kind is kept in the first
+ * sentence on each page), a song (a picture and a sung line each) or the family's voice messages
+ * for her (a voice note kept as a message, shown on Home). The kind is kept in the first
  * 8 characters of the pack's id, so the cloud tables (and other phones) need no change.
  */
-export type CustomKind = 'words' | 'book' | 'song';
+export type CustomKind = 'words' | 'book' | 'song' | 'note';
 const KIND_MARKS: Record<Exclude<CustomKind, 'words'>, string> = {
   book: 'b00cb00c',
   song: '50a950a9',
+  note: '5e55a9e5',
 };
 
 export function customKind(packId: string): CustomKind {
   const id = packId.startsWith(CUSTOM_PACK_PREFIX) ? packId.slice(CUSTOM_PACK_PREFIX.length) : packId;
   if (id.startsWith(KIND_MARKS.book)) return 'book';
   if (id.startsWith(KIND_MARKS.song)) return 'song';
+  if (id.startsWith(KIND_MARKS.note)) return 'note';
   return 'words';
 }
 

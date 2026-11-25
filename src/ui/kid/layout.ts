@@ -60,6 +60,8 @@ export function choosePictures(
   random: () => number = Math.random,
   { drawingsFirst = false }: { drawingsFirst?: boolean } = {},
 ): Record<string, string> {
+  // A pack with nothing finished yet (a new book, an empty pack of mine) has no pictures.
+  if (!items.length) return {};
   // One kind of picture per screen: photos if every item has one, else drawings if every item has
   // one, else the development placeholders. A parent's photo of Grandma next to drawings would
   // become the clue instead of the word. The drawn scenes and the stickers prefer drawings.

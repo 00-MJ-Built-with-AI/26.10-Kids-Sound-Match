@@ -16,6 +16,7 @@ import { IdleScene } from './scenes';
 import { questionDone } from './sitting';
 import { StickerAlbum } from './Stickers';
 import { SleepScene } from './KidSleep';
+import { talkPrompt } from '../../learn/talkPrompts';
 
 type Stage = 'paused' | 'reading' | 'lullaby' | 'idle' | 'sleepLight';
 
@@ -211,6 +212,12 @@ export function KidBook({
     >
       {stage === 'reading' && (
         <div className="book" dir="ltr">
+          {/* Her picture book (not at bedtime): a small line for the grown-up, to talk about the page. */}
+          {word && config.kind === 'book' && (
+            <span className="book-prompt" dir="auto" key={`p${page}`}>
+              💬 {talkPrompt('book', page - 1, lang, word.item.name[lang])}
+            </span>
+          )}
           <div className="book-sky" aria-hidden="true">
             <span className="book-moon" />
             {[12, 28, 46, 64, 80, 90].map((x, i) => (

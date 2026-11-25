@@ -1,5 +1,6 @@
 import type { ArGender, FeedbackLineId, Lang, LoadedItem, LoadedPack, ResolvedAsset } from '../content/types';
 import { speechSupported } from './speech';
+import { fixedText } from '../i18n/arabicFixes';
 
 export type ClipCategory = 'sound' | 'name' | 'feedback';
 
@@ -286,7 +287,9 @@ export class ClipResolver {
 }
 
 /** A recording, or (development only) the device voice reading `text` while the recording is a placeholder. */
-export function voicedClip(asset: ResolvedAsset, text: string | undefined, lang: Lang, category: ClipCategory, label: string): Clip {
+export function voicedClip(asset: ResolvedAsset, given: string | undefined, lang: Lang, category: ClipCategory, label: string): Clip {
+  // A spoken line the parent corrected in Check the Arabic (word names are corrected in the packs).
+  const text = given !== undefined && lang === 'ar' ? fixedText(`line:${asset.path}`, given) : given;
   // Placeholders only resolve in development/test builds, so release builds never reach speech.
   // Whether the phone has a voice is decided when the clip plays: phones list their voices late.
   if (!asset.real && text && speechSupported()) return { kind: 'speech', text, lang, label, fallback: file(asset, category, label) };

@@ -56,6 +56,37 @@ export interface AssetOverride {
   syncedMediaVersion?: number;
 }
 
+/**
+ * What a parent's pack is: a set of pictures (the matching games), one of her books (a photo and a
+ * sentence on each page) or a song (a picture and a sung line each). The kind is kept in the first
+ * 8 characters of the pack's id, so the cloud tables (and other phones) need no change.
+ */
+export type CustomKind = 'words' | 'book' | 'song';
+const KIND_MARKS: Record<Exclude<CustomKind, 'words'>, string> = {
+  book: 'b00cb00c',
+  song: '50a950a9',
+};
+
+export function customKind(packId: string): CustomKind {
+  const id = packId.startsWith(CUSTOM_PACK_PREFIX) ? packId.slice(CUSTOM_PACK_PREFIX.length) : packId;
+  if (id.startsWith(KIND_MARKS.book)) return 'book';
+  if (id.startsWith(KIND_MARKS.song)) return 'song';
+  return 'words';
+}
+
+/** A new pack id of this kind. */
+export function newPackId(kind: CustomKind = 'words'): string {
+  const id = newId();
+  return kind === 'words' ? id : KIND_MARKS[kind] + id.slice(8);
+}
+
+/** An id that sorts by when it was made (a UUID v7), so a book's pages keep the order they were added in. */
+export function newTimeId(now: number = Date.now()): string {
+  const rest = newId().replace(/-/g, '').slice(12);
+  const h = now.toString(16).padStart(12, '0').slice(-12) + '7' + rest.slice(1);
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`;
+}
+
 /** Custom pack ids in the game are prefixed so they can't clash with built-in packs. */
 export const CUSTOM_PACK_PREFIX = 'custom:';
 

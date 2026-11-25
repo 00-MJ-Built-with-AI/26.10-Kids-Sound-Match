@@ -4,7 +4,7 @@ import { iconToBlob, loadImage, releaseImage } from '../../custom/imageTools';
 import { customOps } from '../../custom/ops';
 import { customStore } from '../../custom/store';
 import { blobUrl } from '../../custom/toLoaded';
-import { itemComplete, type CustomItem, type CustomPack } from '../../custom/types';
+import { customKind, itemComplete, type CustomItem, type CustomPack } from '../../custom/types';
 import { useI18n } from '../../i18n/I18n';
 import { Overlay, Screen } from './components';
 import { IconPicker } from './IconPicker';
@@ -30,6 +30,8 @@ export function ItemEditor({
   autoCamera?: boolean;
 }) {
   const { t } = useI18n();
+  // A page of her book or a line of a song: a picture and the words, spoken or sung, no sound.
+  const kind = customKind(pack.id);
   const [draft, setDraft] = useState<CustomItem>(() => item ?? ops.emptyItem(pack.id));
   const [mediaChanged, setMediaChanged] = useState(false);
   const [cropping, setCropping] = useState<HTMLImageElement | null>(null);
@@ -86,14 +88,26 @@ export function ItemEditor({
     onDone();
   };
 
-  const slots: { slot: Slot; label: string }[] = [
-    { slot: 'ar', label: t('recNameAr') },
-    { slot: 'en', label: t('recNameEn') },
-    { slot: 'sound', label: t('recSound') },
-  ];
+  const slots: { slot: Slot; label: string }[] =
+    kind === 'book'
+      ? [
+          { slot: 'ar', label: t('recPageAr') },
+          { slot: 'en', label: t('recPageEn') },
+        ]
+      : kind === 'song'
+        ? [
+            { slot: 'ar', label: t('recLineAr') },
+            { slot: 'en', label: t('recLineEn') },
+          ]
+        : [
+            { slot: 'ar', label: t('recNameAr') },
+            { slot: 'en', label: t('recNameEn') },
+            { slot: 'sound', label: t('recSound') },
+          ];
+  const title = kind === 'book' ? (item ? t('editPage') : t('newPage')) : kind === 'song' ? (item ? t('editLine') : t('newLine')) : item ? t('editItem') : t('newItem');
 
   return (
-    <Screen title={item ? t('editItem') : t('newItem')} onBack={onCancel}>
+    <Screen title={title} onBack={onCancel}>
       <section className="card">
         <h2>{t('picture')}</h2>
         <div className="picture-row">
@@ -141,9 +155,9 @@ export function ItemEditor({
       </section>
 
       <section className="card">
-        <h2>{t('names')}</h2>
+        <h2>{kind === 'book' ? t('pageWords') : kind === 'song' ? t('lineWords') : t('names')}</h2>
         <label className="field">
-          <span>{t('nameAr')}</span>
+          <span>{kind === 'words' ? t('nameAr') : t('wordsAr')}</span>
           <input
             dir="rtl"
             lang="ar"
@@ -152,7 +166,7 @@ export function ItemEditor({
           />
         </label>
         <label className="field">
-          <span>{t('nameEn')}</span>
+          <span>{kind === 'words' ? t('nameEn') : t('wordsEn')}</span>
           <input
             dir="ltr"
             lang="en"
@@ -192,7 +206,7 @@ export function ItemEditor({
         })}
       </section>
 
-      {!complete && <p className="hint">{t('itemNeeds')}</p>}
+      {!complete && <p className="hint">{kind === 'words' ? t('itemNeeds') : t('pageNeeds')}</p>}
       <div className="stack">
         <button type="button" className="btn primary wide big" disabled={!complete || saving} onClick={() => void save()}>
           {t('save')}

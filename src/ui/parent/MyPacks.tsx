@@ -3,8 +3,8 @@ import { MIN_ITEMS_PER_PACK } from '../../content/validate';
 import { customOps } from '../../custom/ops';
 import { customStore } from '../../custom/store';
 import { blobUrl, type CustomPackView } from '../../custom/toLoaded';
-import { itemComplete } from '../../custom/types';
-import { useI18n } from '../../i18n/I18n';
+import { customKind, itemComplete, type CustomKind } from '../../custom/types';
+import { makeI18n, useI18n } from '../../i18n/I18n';
 import { CloudBackup } from './CloudBackup';
 import { ChevronIcon, Overlay, Screen } from './components';
 import { ItemEditor } from './ItemEditor';
@@ -27,7 +27,7 @@ export function MyPacks({
   const { t, lang } = useI18n();
   const [openId, setOpenId] = useState<string | null>(null);
   const [editing, setEditing] = useState<{ itemId: string | null } | null>(null);
-  const [creating, setCreating] = useState<{ ar: string; en: string } | null>(null);
+  const [creating, setCreating] = useState<{ ar: string; en: string; kind: CustomKind } | null>(null);
   const open = views.find((v) => v.pack.id === openId);
 
   if (open && editing) {
@@ -74,53 +74,83 @@ export function MyPacks({
         <ChevronIcon />
       </button>
       <CloudBackup />
-      {views.map((v) => (
-        <button type="button" key={v.pack.id} className="card pack-card" onClick={() => setOpenId(v.pack.id)}>
-          <span className="pack-thumbs" aria-hidden="true">
-            {v.items
-              .filter((i) => i.picture)
-              .slice(0, 3)
-              .map((i) => (
-                <img key={i.id} src={blobUrl(i.picture!)} alt="" />
-              ))}
-          </span>
-          <span className="pack-text">
-            <strong>{v.pack.name[lang] || v.pack.name.en || v.pack.name.ar}</strong>
-            <span className="hint">
-              {t('itemsCount', { n: v.loaded.items.length })} · <ReadyLine view={v} />
-            </span>
-          </span>
-          <ChevronIcon />
-        </button>
-      ))}
-      {creating ? (
-        <section className="card">
-          <h2>{t('newPack')}</h2>
-          <PackNameFields value={creating} onChange={setCreating} />
-          <div className="nudge-actions">
-            <button
-              type="button"
-              className="btn primary"
-              disabled={!creating.ar.trim() && !creating.en.trim()}
-              onClick={async () => {
-                const pack = await ops.createPack({ ar: creating.ar.trim(), en: creating.en.trim() });
-                setCreating(null);
-                await onChanged();
-                setOpenId(pack.id);
-              }}
-            >
-              {t('create')}
-            </button>
-            <button type="button" className="btn ghost" onClick={() => setCreating(null)}>
-              {t('cancel')}
-            </button>
-          </div>
-        </section>
-      ) : (
-        <button type="button" className="btn primary wide" onClick={() => setCreating({ ar: '', en: '' })}>
-          + {t('newPack')}
-        </button>
-      )}
+      {(['words', 'book', 'song'] as const).map((kind) => {
+        const mine = views.filter((v) => customKind(v.pack.id) === kind);
+        return (
+          <section key={kind} className="my-kind">
+            <h2 className="games-title">{kind === 'book' ? '📖 ' + t('myBooks') : kind === 'song' ? '🎵 ' + t('mySongs') : '🖼️ ' + t('myPicturePacks')}</h2>
+            {kind !== 'words' && <p className="hint">{kind === 'book' ? t('myBooksHint') : t('mySongsHint')}</p>}
+            {mine.map((v) => (
+              <button type="button" key={v.pack.id} className="card pack-card" onClick={() => setOpenId(v.pack.id)}>
+                <span className="pack-thumbs" aria-hidden="true">
+                  {v.items
+                    .filter((i) => i.picture)
+                    .slice(0, 3)
+                    .map((i) => (
+                      <img key={i.id} src={blobUrl(i.picture!)} alt="" />
+                    ))}
+                </span>
+                <span className="pack-text">
+                  <strong>{v.pack.name[lang] || v.pack.name.en || v.pack.name.ar}</strong>
+                  <span className="hint">
+                    {kind === 'book' ? (
+                      t('pagesCount', { n: v.loaded.items.length })
+                    ) : kind === 'song' ? (
+                      t('linesCount', { n: v.loaded.items.length })
+                    ) : (
+                      <>
+                        {t('itemsCount', { n: v.loaded.items.length })} · <ReadyLine view={v} />
+                      </>
+                    )}
+                  </span>
+                </span>
+                <ChevronIcon />
+              </button>
+            ))}
+            {creating?.kind !== kind && (
+              <button
+                type="button"
+                className="btn wide"
+                onClick={() =>
+                  setCreating({
+                    kind,
+                    // Her first book starts as "My day".
+                    ...(kind === 'book' && !mine.length
+                      ? { ar: makeI18n('ar').t('bookFirstName'), en: makeI18n('en').t('bookFirstName') }
+                      : { ar: '', en: '' }),
+                  })
+                }
+              >
+                + {kind === 'book' ? t('newBook') : kind === 'song' ? t('newSong') : t('newPack')}
+              </button>
+            )}
+            {creating?.kind === kind && (
+              <section className="card">
+                <h2>{kind === 'book' ? t('newBook') : kind === 'song' ? t('newSong') : t('newPack')}</h2>
+                <PackNameFields value={creating} onChange={(v) => setCreating({ ...v, kind })} />
+                <div className="nudge-actions">
+                  <button
+                    type="button"
+                    className="btn primary"
+                    disabled={!creating.ar.trim() && !creating.en.trim()}
+                    onClick={async () => {
+                      const pack = await ops.createPack({ ar: creating.ar.trim(), en: creating.en.trim() }, creating.kind);
+                      setCreating(null);
+                      await onChanged();
+                      setOpenId(pack.id);
+                    }}
+                  >
+                    {t('create')}
+                  </button>
+                  <button type="button" className="btn ghost" onClick={() => setCreating(null)}>
+                    {t('cancel')}
+                  </button>
+                </div>
+              </section>
+            )}
+          </section>
+        );
+      })}
     </Screen>
   );
 }
@@ -167,12 +197,11 @@ function PackDetail({
   const [confirmDelete, setConfirmDelete] = useState(false);
   const renamed = name.ar !== view.pack.name.ar || name.en !== view.pack.name.en;
   const title = view.pack.name[lang] || view.pack.name.en || view.pack.name.ar;
+  const kind = customKind(view.pack.id);
 
   return (
     <Screen title={title} onBack={onBack}>
-      <p className="hint">
-        <ReadyLine view={view} />
-      </p>
+      <p className="hint">{kind === 'book' ? t('myBooksHint') : kind === 'song' ? t('mySongsHint') : <ReadyLine view={view} />}</p>
       <section className="card">
         <div className="item-grid">
           {view.items.map((item) => (
@@ -184,6 +213,7 @@ function PackDetail({
                 {item.nameAudio.en ? 'E' : ''}
                 {item.sound ? '♪' : ''}
               </span>
+              {kind !== 'words' && <span className="page-number">{view.items.indexOf(item) + 1}</span>}
               {!itemComplete(item) && <span className="tag">{t('unfinished')}</span>}
             </button>
           ))}
@@ -191,7 +221,7 @@ function PackDetail({
             <span className="plus" aria-hidden="true">
               +
             </span>
-            <span className="animal-name">{t('addItem')}</span>
+            <span className="animal-name">{kind === 'book' ? t('addPage') : kind === 'song' ? t('addLine') : t('addItem')}</span>
           </button>
         </div>
       </section>

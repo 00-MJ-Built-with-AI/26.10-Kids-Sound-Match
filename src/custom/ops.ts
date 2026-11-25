@@ -1,6 +1,6 @@
 import type { LocalizedText } from '../content/types';
 import type { CustomStore } from './store';
-import { newId, type CustomItem, type CustomPack } from './types';
+import { newPackId, newTimeId, type CustomItem, type CustomKind, type CustomPack } from './types';
 
 /** Creating, editing and deleting the parent's packs and items. */
 export function customOps(store: CustomStore, now: () => number = Date.now) {
@@ -15,8 +15,13 @@ export function customOps(store: CustomStore, now: () => number = Date.now) {
   });
 
   return {
-    async createPack(name: LocalizedText): Promise<CustomPack> {
-      const pack: CustomPack = { id: newId(), name, updatedAt: now(), deleted: false };
+    async createPack(name: LocalizedText, kind: CustomKind = 'words'): Promise<CustomPack> {
+      const pack: CustomPack = {
+        id: newPackId(kind),
+        name,
+        updatedAt: now(),
+        deleted: false,
+      };
       await store.putPack(pack);
       return pack;
     },
@@ -35,7 +40,7 @@ export function customOps(store: CustomStore, now: () => number = Date.now) {
 
     emptyItem(packId: string): CustomItem {
       return {
-        id: newId(),
+        id: newTimeId(now()),
         packId,
         name: { en: '', ar: '' },
         picture: null,
@@ -50,7 +55,11 @@ export function customOps(store: CustomStore, now: () => number = Date.now) {
 
     /** `mediaChanged`: the picture or a recording changed, so a signed-in sync re-sends the files. */
     async saveItem(item: CustomItem, mediaChanged: boolean): Promise<void> {
-      await store.putItem({ ...item, mediaVersion: item.mediaVersion + (mediaChanged ? 1 : 0), updatedAt: now() });
+      await store.putItem({
+        ...item,
+        mediaVersion: item.mediaVersion + (mediaChanged ? 1 : 0),
+        updatedAt: now(),
+      });
     },
 
     async deleteItem(item: CustomItem): Promise<void> {

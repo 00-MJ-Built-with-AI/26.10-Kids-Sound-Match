@@ -5,7 +5,7 @@ import { wordId } from '../report/words';
  * The Learn games, as a list of steps: meeting a word, or picking the right picture. Built from the
  * packs so the same games teach whatever words the path chooses.
  */
-export type LearnMode = 'lesson' | 'variety' | 'newone' | 'verbs' | 'showme' | 'places';
+export type LearnMode = 'lesson' | 'variety' | 'newone' | 'verbs' | 'showme' | 'places' | 'feelings';
 
 export interface WordRef {
   id: string;
@@ -132,6 +132,19 @@ export function showMeStep(target: LoadedItem, all: readonly LoadedItem[], pack:
   return { kind: 'pick', ask: 'showme', askItem: target, options, targets: [target.key], nameWrong: false };
 }
 
+/**
+ * Show me happy: the happy face among two other feelings, one on the same child and one on the
+ * other child, so she listens to the feeling and not to who it is.
+ */
+export function feelStep(target: LoadedItem, all: readonly LoadedItem[], pack: LoadedPack, random: () => number): Step | null {
+  const [, who, feel] = target.key.split('_');
+  const sameWho = shuffled(all.filter((i) => i.key.startsWith(`fe_${who}_`) && !i.key.endsWith(`_${feel}`)), random)[0];
+  const otherWho = shuffled(all.filter((i) => !i.key.startsWith(`fe_${who}_`) && !i.key.endsWith(`_${feel}`) && (!sameWho || i.key.split('_')[2] !== sameWho.key.split('_')[2])), random)[0];
+  if (!sameWho || !otherWho) return null;
+  const options = shuffled([target, sameWho, otherWho].map((item) => ({ key: item.key, item, pack })), random);
+  return { kind: 'pick', ask: 'showme', askItem: target, options, targets: [target.key], nameWrong: false };
+}
+
 /** In, on, under: the same two things three ways. */
 export function placeStep(target: LoadedItem, all: readonly LoadedItem[], pack: LoadedPack, random: () => number): Step | null {
   const thing = target.key.split('_')[1];
@@ -193,6 +206,7 @@ export function buildSteps(input: LearnInput): Step[] {
     for (const target of shuffled(set, random).slice(0, STEPS_PER_GAME)) {
       if (mode === 'verbs') steps.push(verbStep(target, set, pack, random));
       else if (mode === 'showme') steps.push(showMeStep(target, set, pack, random));
+      else if (mode === 'feelings') steps.push(feelStep(target, set, pack, random));
       else steps.push(placeStep(target, set, pack, random));
     }
   }

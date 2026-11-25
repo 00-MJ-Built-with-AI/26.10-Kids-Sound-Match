@@ -9,11 +9,11 @@ import { today } from './routine';
  */
 export const PLAN_GROUPS: readonly (readonly KidKind[])[] = [
   // Talking together: she says or shows, you tick.
-  ['talk', 'sounds', 'feel', 'point', 'actions', 'sing', 'hunt', 'phrases', 'manners', 'instructions'],
+  ['talk', 'sounds', 'feel', 'point', 'actions', 'sing', 'hunt', 'phrases', 'manners', 'instructions', 'rhymes', 'bring'],
   // Playing: she taps, the app answers.
-  ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count', 'story', 'paint', 'music'],
+  ['bubbles', 'care', 'peekaboo', 'puzzle', 'shapes', 'tidy', 'count', 'story', 'paint', 'music', 'garden', 'cups', 'daybook'],
   // Thinking: matching, opposites, memory.
-  ['game', 'big', 'opposites', 'missing', 'memory', 'explore', 'scene', 'hide', 'variety', 'newone', 'verbs', 'showme'],
+  ['game', 'big', 'opposites', 'missing', 'memory', 'explore', 'scene', 'hide', 'variety', 'newone', 'verbs', 'showme', 'feelings'],
 ];
 
 /** A small stable number for a string, so the same day gives the same plan. */

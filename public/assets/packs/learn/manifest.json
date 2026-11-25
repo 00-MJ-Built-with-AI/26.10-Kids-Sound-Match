@@ -64,6 +64,27 @@
         "pl_teddy_on",
         "pl_teddy_under"
       ]
+    },
+    {
+      "id": "feelings",
+      "name": {
+        "en": "Show me happy",
+        "ar": "فرجيني الفرحان"
+      },
+      "items": [
+        "fe_girl_happy",
+        "fe_girl_sad",
+        "fe_girl_angry",
+        "fe_girl_scared",
+        "fe_girl_sleepy",
+        "fe_girl_surprised",
+        "fe_boy_happy",
+        "fe_boy_sad",
+        "fe_boy_angry",
+        "fe_boy_scared",
+        "fe_boy_sleepy",
+        "fe_boy_surprised"
+      ]
     }
   ],
   "items": [
@@ -401,6 +422,150 @@
       "name_audio": {
         "en": "learn/pl_teddy_under_name_en.mp3",
         "ar": "learn/pl_teddy_under_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_girl_happy",
+      "name": {
+        "en": "Happy",
+        "ar": "فرحانة"
+      },
+      "image": "learn/fe_girl_happy.svg",
+      "name_audio": {
+        "en": "learn/fe_girl_happy_name_en.mp3",
+        "ar": "learn/fe_girl_happy_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_girl_sad",
+      "name": {
+        "en": "Sad",
+        "ar": "زعلانة"
+      },
+      "image": "learn/fe_girl_sad.svg",
+      "name_audio": {
+        "en": "learn/fe_girl_sad_name_en.mp3",
+        "ar": "learn/fe_girl_sad_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_girl_angry",
+      "name": {
+        "en": "Angry",
+        "ar": "معصّبة"
+      },
+      "image": "learn/fe_girl_angry.svg",
+      "name_audio": {
+        "en": "learn/fe_girl_angry_name_en.mp3",
+        "ar": "learn/fe_girl_angry_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_girl_scared",
+      "name": {
+        "en": "Scared",
+        "ar": "خايفة"
+      },
+      "image": "learn/fe_girl_scared.svg",
+      "name_audio": {
+        "en": "learn/fe_girl_scared_name_en.mp3",
+        "ar": "learn/fe_girl_scared_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_girl_sleepy",
+      "name": {
+        "en": "Sleepy",
+        "ar": "نعسانة"
+      },
+      "image": "learn/fe_girl_sleepy.svg",
+      "name_audio": {
+        "en": "learn/fe_girl_sleepy_name_en.mp3",
+        "ar": "learn/fe_girl_sleepy_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_girl_surprised",
+      "name": {
+        "en": "Surprised",
+        "ar": "متفاجئة"
+      },
+      "image": "learn/fe_girl_surprised.svg",
+      "name_audio": {
+        "en": "learn/fe_girl_surprised_name_en.mp3",
+        "ar": "learn/fe_girl_surprised_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_boy_happy",
+      "name": {
+        "en": "Happy",
+        "ar": "فرحان"
+      },
+      "image": "learn/fe_boy_happy.svg",
+      "name_audio": {
+        "en": "learn/fe_boy_happy_name_en.mp3",
+        "ar": "learn/fe_boy_happy_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_boy_sad",
+      "name": {
+        "en": "Sad",
+        "ar": "زعلان"
+      },
+      "image": "learn/fe_boy_sad.svg",
+      "name_audio": {
+        "en": "learn/fe_boy_sad_name_en.mp3",
+        "ar": "learn/fe_boy_sad_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_boy_angry",
+      "name": {
+        "en": "Angry",
+        "ar": "معصّب"
+      },
+      "image": "learn/fe_boy_angry.svg",
+      "name_audio": {
+        "en": "learn/fe_boy_angry_name_en.mp3",
+        "ar": "learn/fe_boy_angry_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_boy_scared",
+      "name": {
+        "en": "Scared",
+        "ar": "خايف"
+      },
+      "image": "learn/fe_boy_scared.svg",
+      "name_audio": {
+        "en": "learn/fe_boy_scared_name_en.mp3",
+        "ar": "learn/fe_boy_scared_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_boy_sleepy",
+      "name": {
+        "en": "Sleepy",
+        "ar": "نعسان"
+      },
+      "image": "learn/fe_boy_sleepy.svg",
+      "name_audio": {
+        "en": "learn/fe_boy_sleepy_name_en.mp3",
+        "ar": "learn/fe_boy_sleepy_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "fe_boy_surprised",
+      "name": {
+        "en": "Surprised",
+        "ar": "متفاجئ"
+      },
+      "image": "learn/fe_boy_surprised.svg",
+      "name_audio": {
+        "en": "learn/fe_boy_surprised_name_en.mp3",
+        "ar": "learn/fe_boy_surprised_name_ar.mp3"
       }
     }
   ],

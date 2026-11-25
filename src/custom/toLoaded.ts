@@ -1,5 +1,5 @@
 import type { LoadedFeedback, LoadedItem, LoadedPack, ResolvedAsset } from '../content/types';
-import { CUSTOM_PACK_PREFIX, itemComplete, type CustomItem, type CustomPack } from './types';
+import { CUSTOM_PACK_PREFIX, customKind, itemComplete, type CustomItem, type CustomPack } from './types';
 
 /** Object URLs for stored Blobs, made once per Blob. */
 const urls = new WeakMap<Blob, string>();
@@ -32,21 +32,35 @@ export function customToLoaded(
   feedback: LoadedFeedback,
   urlFor: (blob: Blob) => string = blobUrl,
 ): CustomPackView[] {
-  const asset = (blob: Blob, path: string): ResolvedAsset => ({ path, url: urlFor(blob), real: true });
+  const asset = (blob: Blob, path: string): ResolvedAsset => ({
+    path,
+    url: urlFor(blob),
+    real: true,
+  });
   return packs
     .filter((p) => !p.deleted)
     .map((pack) => {
-      const own = items.filter((i) => i.packId === pack.id && !i.deleted);
+      const kind = customKind(pack.id);
+      // A book's pages and a song's lines in the order they were added.
+      const own = items.filter((i) => i.packId === pack.id && !i.deleted).sort((a, b) => (kind === 'words' ? 0 : a.id < b.id ? -1 : 1));
       const playable: LoadedItem[] = own.filter(itemComplete).map((i) => {
         const ar = i.nameAudio.ar ?? i.nameAudio.en!;
         const en = i.nameAudio.en ?? i.nameAudio.ar!;
         return {
           key: i.id,
           name: { ar: i.name.ar || i.name.en, en: i.name.en || i.name.ar },
-          images: [{ ...asset(i.picture!, `custom/${i.id}/picture`), photo: i.pictureKind === 'photo' }],
+          images: [
+            {
+              ...asset(i.picture!, `custom/${i.id}/picture`),
+              photo: i.pictureKind === 'photo',
+            },
+          ],
           placeholderImage: null,
           sound: i.sound ? asset(i.sound, `custom/${i.id}/sound`) : null,
-          nameAudio: { ar: asset(ar, `custom/${i.id}/name_ar`), en: asset(en, `custom/${i.id}/name_en`) },
+          nameAudio: {
+            ar: asset(ar, `custom/${i.id}/name_ar`),
+            en: asset(en, `custom/${i.id}/name_en`),
+          },
           confusableWith: [],
         };
       });
@@ -56,13 +70,18 @@ export function customToLoaded(
         loaded: {
           id: CUSTOM_PACK_PREFIX + pack.id,
           version: 1,
-          name: { ar: pack.name.ar || pack.name.en, en: pack.name.en || pack.name.ar },
+          name: {
+            ar: pack.name.ar || pack.name.en,
+            en: pack.name.en || pack.name.ar,
+          },
           kind: 'match',
           // After the built-in packs and the Mixed game.
           order: CUSTOM_PACK_ORDER,
           items: playable,
           groups: [],
           feedback,
+          // Books and songs have their own games, not the matching games.
+          ...(kind === 'words' ? {} : { ownGame: true, inMix: false }),
         },
       };
     });

@@ -21,6 +21,7 @@ import { reportStore } from '../../report/db';
 import { renderReportImage, type ReportImageRow } from '../../report/reportImage';
 import { renderDoctorImage } from '../../report/doctorImage';
 import { doctorStats } from '../../report/doctor';
+import { talkingView } from '../../report/talking';
 import { languageBalance } from '../../report/languages';
 import { ageInMonths, loadBirthMonth, saveBirthMonth } from '../../settings/birth';
 import { loadMilestones, MILESTONES } from '../../settings/milestones';
@@ -128,13 +129,14 @@ export function ReportScreen({
     if (g.game === 'sounds') return `${t('soundsGame')} · ${t('soundsRow', { n: g.questionCount })}`;
     if (g.game === 'hunt') return `${t('huntGame')} · ${t('huntRow', { n: g.questionCount })}`;
     if (g.game === 'learn') {
-      const label = { lesson: t('lessonGame'), variety: t('varietyGame'), newone: t('newoneGame'), verbs: t('verbsGame'), showme: t('showmeGame'), places: t('placesGame') }[g.variant ?? ''] ?? t('homeLearn');
+      const label = { lesson: t('lessonGame'), variety: t('varietyGame'), newone: t('newoneGame'), verbs: t('verbsGame'), showme: t('showmeGame'), places: t('placesGame'), feelings: t('feelingsGame') }[g.variant ?? ''] ?? t('homeLearn');
       return `${label} · ${t('gameQuestions', { n: g.questionCount })} · ${pct === null ? '—' : t('gameFirstTry', { p: pct })}`;
     }
     if (g.game === 'instructions') return `${t('instructionsGame')} · ${t('actionsRow', { n: g.questionCount })}`;
     if (g.game === 'phrases') return `${t('phrasesGame')} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'manners') return `${t('mannersGame')} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'real') return `${t('realGame')} · ${packName(g.packId)}`;
+    if (g.game === 'bring') return `${t('bringGame')} · ${t('huntRow', { n: g.questionCount })}`;
     if (g.game === 'talk') return `${t('talkGame')} · ${packName(g.packId)} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'scene') {
       const where = g.variant === 'house' ? t('sceneHouse') : t('sceneFarm');
@@ -216,6 +218,9 @@ export function ReportScreen({
     const s = doctorStats(mine.sessions, mine.questions, loadWordMarks(child.id), (id) => wordPacks.has(id));
     const ticks = loadMilestones(child.id);
     const age = ageInMonths(birth);
+    // What most children say and understand by her age (the same as Words I know > Talking at her age).
+    const talking = age === null ? null : talkingView(age, s.says, ticks.talk_two !== undefined).now;
+    const ageText = (m: number) => (m % 12 ? d('talkingMonths', { n: m }) : d('talkingYears', { n: m / 12 }));
     const blob = await renderDoctorImage({
       rtl: doctorLang === 'ar',
       title: d('doctorPageTitle'),
@@ -228,6 +233,7 @@ export function ReportScreen({
       notes: [
         d('doctorByLanguage', { ar: s.understood.arabic, en: s.understood.english, both: s.understood.bothLanguages }),
         ...(s.outsideApp ? [d('doctorOutside', { n: s.outsideApp })] : []),
+        ...(talking ? [`${d('talkingBy', { age: ageText(talking.months) })} (${d('talkingSourceShort')}):`, ...talking.text[doctorLang].map((x) => `•  ${x}`)] : []),
       ],
       milestonesTitle: d('doctorMilestones'),
       milestones: [...MILESTONES]

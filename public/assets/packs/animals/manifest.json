@@ -1179,6 +1179,18 @@
       "show_me": {
         "en": "feedback/show_me_en.mp3",
         "ar": "feedback/show_me_ar.mp3"
+      },
+      "bring_f": {
+        "en": "feedback/bring_f_en.mp3",
+        "ar": "feedback/bring_f_ar.mp3"
+      },
+      "bring_m": {
+        "en": "feedback/bring_m_en.mp3",
+        "ar": "feedback/bring_m_ar.mp3"
+      },
+      "where_teddy": {
+        "en": "feedback/where_teddy_en.mp3",
+        "ar": "feedback/where_teddy_ar.mp3"
       }
     }
   }

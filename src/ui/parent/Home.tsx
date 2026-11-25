@@ -109,6 +109,10 @@ export function Home({
   canManners,
   canLearn,
   canInstructions,
+  canRhymes,
+  hasBooks,
+  canCups,
+  canGarden,
   lesson,
   ageMonths,
   askBirth,
@@ -190,6 +194,12 @@ export function Home({
   /** The Learn section's games. */
   canLearn: boolean;
   canInstructions: boolean;
+  /** Song time: the starter rhymes or a song of the parent's own. */
+  canRhymes: boolean;
+  /** At least one of her books (My packs > New book) has a finished page. */
+  hasBooks: boolean;
+  canCups: boolean;
+  canGarden: boolean;
   /** Her age in months, from her birth month; null when it isn't set. */
   ageMonths: number | null;
   /** Ask for her birth month (it isn't set, and the parent hasn't said "not now"). */
@@ -269,7 +279,11 @@ export function Home({
     ...(canPhrases ? [{ id: 'phrases', icon: <TalkIcon />, label: t('phrasesGame'), sub: t('phrasesSub'), on: () => onGame('phrases'), ok: true }] : []),
     ...(canManners ? [{ id: 'manners', icon: <TalkIcon />, label: t('mannersGame'), sub: t('mannersSub'), on: () => onGame('manners'), ok: true }] : []),
     { id: 'sounds', icon: <SoundsIcon />, label: t('soundsGame'), sub: t('soundsSub'), on: () => onGame('sounds'), ok: canSounds },
+    { id: 'rhymes', icon: <SingIcon />, label: t('rhymesGame'), sub: t('rhymesSub'), on: () => onGame('rhymes'), ok: canRhymes },
     { id: 'sing', icon: <SingIcon />, label: t('singGame'), sub: t('singSub'), on: () => onGame('sing'), ok: canSing },
+    // With no book yet, the tile opens My packs to make one.
+    { id: 'daybook', icon: <BookIcon />, label: t('daybookGame'), sub: hasBooks ? t('daybookSub') : t('daybookMake'), on: () => (hasBooks ? onGame('daybook') : onOpen('myPacks')), ok: true },
+    { id: 'bring', icon: <HuntIcon />, label: t('bringGame'), sub: t('bringSub'), on: () => onGame('bring'), ok: true },
     { id: 'point', icon: <PointIcon />, label: t('pointGame'), sub: t('pointSub'), on: onPoint, ok: canPoint },
     { id: 'actions', icon: <ActionsIcon />, label: t('actionsGame'), sub: t('actionsSub'), on: onActions, ok: canActions },
     { id: 'hunt', icon: <HuntIcon />, label: t('huntGame'), sub: t('huntSub'), on: () => onGame('hunt'), ok: canHunt },
@@ -287,6 +301,8 @@ export function Home({
     { id: 'paint', icon: <PaintIcon />, label: t('paintGame'), sub: t('paintSub'), on: () => onGame('paint'), ok: canPaint },
     { id: 'music', icon: <MusicIcon />, label: t('musicGame'), sub: t('musicSub'), on: () => onGame('music'), ok: canPaint },
     { id: 'hide', icon: <HideIcon />, label: t('hideGame'), sub: t('hideSub'), on: () => onGame('hide'), ok: canHide },
+    { id: 'cups', icon: <HideIcon />, label: t('cupsGame'), sub: t('cupsSub'), on: () => onGame('cups'), ok: canCups },
+    { id: 'garden', icon: <MusicIcon />, label: t('gardenGame'), sub: t('gardenSub'), on: () => onGame('garden'), ok: canGarden },
     { id: 'bubbles', icon: <BubblesIcon />, label: t('bubblesGame'), sub: t('bubblesSub'), on: () => onGame('bubbles'), ok: canExplore },
     { id: 'care', icon: <CareIcon />, label: t('careGame'), sub: t('careSub'), on: onCare, ok: canCare },
     { id: 'explore', icon: <ExploreIcon />, label: t('explore'), sub: t('exploreSub'), on: onExplore, ok: canExplore },
@@ -311,6 +327,7 @@ export function Home({
         { id: 'showme', icon: <PointIcon />, label: t('showmeGame'), sub: t('showmeSub'), on: () => onGame('showme'), ok: true },
         { id: 'instructions', icon: <ActionsIcon />, label: t('instructionsGame'), sub: t('instructionsSub'), on: () => onGame('instructions'), ok: canInstructions },
         { id: 'places', icon: <HideIcon />, label: t('placesGame'), sub: t('placesSub'), on: () => onGame('places'), ok: true },
+        { id: 'feelings', icon: <FeelIcon />, label: t('feelingsGame'), sub: t('feelingsSub'), on: () => onGame('feelings'), ok: true },
       ]
     : [];
   const allTiles = [...learn, ...together, ...hers];

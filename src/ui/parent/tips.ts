@@ -420,4 +420,64 @@ export const TIPS: Record<string, Record<Lang, GameTip>> = {
       learns: 'ربط الصوت أو الكلمة بصورتها.',
     },
   },
+  feelings: {
+    en: {
+      how: "She hears \"Show me happy\" and finds the happy face. Make the face yourself too, and name her own feelings during the day: \"You're sad, the tower fell.\"",
+      learns: "Feeling words: they help her tell you how she feels instead of crying it out.",
+    },
+    ar: {
+      how: "بتسمع «فرجيني الفرحان» وبتلاقي الوجه الفرحان. اعملوا الوجه إنتو كمان، وسمّوا مشاعرها خلال اليوم: «إنتِ زعلانة، البرج وقع».",
+      learns: "كلمات المشاعر: بتساعدها تحكيلكم شو حاسّة بدل ما تبكي.",
+    },
+  },
+  rhymes: {
+    en: {
+      how: "Sing along and do the actions with her (clap, jump, wave). Sing the same song again and again: toddlers learn from repeats. Add your own songs in My packs > New song.",
+      learns: "Rhythm and rhyme make words easier to hear and remember; the actions join words to movement.",
+    },
+    ar: {
+      how: "غنّوا معها واعملوا الحركات (سقفة، نطّة، باي). غنّوا نفس الأغنية كثير: الصغار بيتعلّموا من التكرار. زيدوا أغانيكم من مجموعاتي > أغنية جديدة.",
+      learns: "الإيقاع والقافية بيسهّلوا سماع الكلمات وحفظها، والحركات بتربط الكلمة بالحركة.",
+    },
+  },
+  daybook: {
+    en: {
+      how: "Make a book in My packs > New book: a photo of her day on each page and one short sentence in your voice. Read it together and point: \"Who's that? It's you!\"",
+      learns: "Words about her own life are the ones she learns fastest, and seeing her day in order helps her know what comes next.",
+    },
+    ar: {
+      how: "اعملوا كتاب من مجموعاتي > كتاب جديد: صورة من يومها بكل صفحة وجملة قصيرة بصوتكم. اقرأوه سوا وأشّروا: «مين هاي؟ هاي إنتِ!»",
+      learns: "الكلمات عن حياتها هي اللي بتتعلّمها أسرع، وشوفة يومها بالترتيب بتساعدها تعرف شو الجاي.",
+    },
+  },
+  bring: {
+    en: {
+      how: "The app asks for something from home (\"Can you bring me the cup?\"). Go with her if she needs help, then tap ✓ when she brings it or points to it. Skip anything she can't reach.",
+      learns: "Following a one-step direction, and knowing that the word means the real thing, not only its picture.",
+    },
+    ar: {
+      how: "التطبيق بيطلب شي من البيت («جيبيلي الكاسة؟»). روحوا معها إذا احتاجت مساعدة، والمسوا ✓ لما تجيبه أو تأشّر عليه. تخطّوا أي شي ما بتطوله.",
+      learns: "تنفيذ طلب من خطوة وحدة، ومعرفة إنّه الكلمة هي الشي الحقيقي مش بس صورته.",
+    },
+  },
+  cups: {
+    en: {
+      how: "A toy goes under a cup, then she lifts the cup she thinks it's under. Later rounds have three cups, and one slides to swap places. Play it for real with two cups and a small toy.",
+      learns: "Things still exist when hidden, following with her eyes, and the words \"under\" and \"gone\".",
+    },
+    ar: {
+      how: "لعبة بتتخبّى تحت كاسة، وهي بترفع الكاسة اللي بتفكّرها تحتها. بالجولات الأخيرة في ثلاث كاسات ووحدة بتتزحلق وبتبدّل مكانها. العبوها بالحقيقة بكاستين ولعبة صغيرة.",
+      learns: "الأشياء بتضلّ موجودة لما تتخبّى، والمتابعة بعيونها، وكلمات «تحت» و«راح».",
+    },
+  },
+  garden: {
+    en: {
+      how: "Let her tap anything: each thing makes its sound, and the grass plays notes. There are no wrong answers, so it suits a tired moment. Make the sounds with her: \"Moo!\"",
+      learns: "Cause and effect (I tap, it sings), and the sounds of animals and things.",
+    },
+    ar: {
+      how: "خلّوها تلمس أي شي: كل شي بيطلّع صوته، والعشب بيعزف نغمات. ما في غلط، فبتنفع لما تكون تعبانة. اعملوا الأصوات معها: «موو!»",
+      learns: "السبب والنتيجة (بلمس، بيغنّي)، وأصوات الحيوانات والأشياء.",
+    },
+  },
 };

@@ -19,6 +19,11 @@ import { KidFeel, KidOpposites, KidPuzzle, KidShapes } from './KidMore';
 import { KidScene } from './KidScene';
 import { KidMenu } from './KidMenu';
 import { KidLearn } from './KidLearn';
+import { KidRhymes } from './KidRhymes';
+import { KidDayBook } from './KidDayBook';
+import { KidBring } from './KidBring';
+import { KidCups } from './KidCups';
+import { KidGarden } from './KidGarden';
 import { KidBig, KidCount, KidMissing } from './KidSmall';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
 
@@ -59,7 +64,18 @@ export function KidMode(props: Props) {
     case 'verbs':
     case 'showme':
     case 'places':
+    case 'feelings':
       return <KidLearn pack={pack} packs={packs} raw={raw} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'rhymes':
+      return <KidRhymes pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'daybook':
+      return <KidDayBook pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'bring':
+      return <KidBring pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'cups':
+      return <KidCups pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
+    case 'garden':
+      return <KidGarden pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'menu':
       return <KidMenu config={config} picker={picker} onExit={onExit} />;
     case 'explore':

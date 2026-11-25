@@ -1,0 +1,405 @@
+{
+  "pack_id": "rhymes",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.81,
+  "name": {
+    "en": "Song time",
+    "ar": "وقت الأغاني"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "clap",
+      "name": {
+        "en": "Clap Clap",
+        "ar": "سقّف سقّف"
+      },
+      "items": [
+        "rh_clap_1",
+        "rh_clap_2",
+        "rh_clap_3",
+        "rh_clap_4"
+      ]
+    },
+    {
+      "id": "cars",
+      "name": {
+        "en": "Beep beep",
+        "ar": "بيب بيب"
+      },
+      "items": [
+        "rh_cars_1",
+        "rh_cars_2",
+        "rh_cars_3",
+        "rh_cars_4"
+      ]
+    },
+    {
+      "id": "morning",
+      "name": {
+        "en": "Good morning",
+        "ar": "صباح الخير"
+      },
+      "items": [
+        "rh_morning_1",
+        "rh_morning_2",
+        "rh_morning_3",
+        "rh_morning_4"
+      ]
+    },
+    {
+      "id": "wash",
+      "name": {
+        "en": "Wash wash",
+        "ar": "نغسل نغسل"
+      },
+      "items": [
+        "rh_wash_1",
+        "rh_wash_2",
+        "rh_wash_3",
+        "rh_wash_4"
+      ]
+    },
+    {
+      "id": "animals",
+      "name": {
+        "en": "Like the animals",
+        "ar": "متل الحيوانات"
+      },
+      "items": [
+        "rh_animals_1",
+        "rh_animals_2",
+        "rh_animals_3",
+        "rh_animals_4"
+      ]
+    },
+    {
+      "id": "night",
+      "name": {
+        "en": "Night night",
+        "ar": "تصبحوا على خير"
+      },
+      "items": [
+        "rh_night_1",
+        "rh_night_2",
+        "rh_night_3",
+        "rh_night_4"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "rh_clap_1",
+      "name": {
+        "en": "Clap, clap, clap your hands",
+        "ar": "يلّا نسقّف، سقفة سقفة"
+      },
+      "image": "actions/clap.svg",
+      "name_audio": {
+        "en": "rhymes/rh_clap_1_name_en.mp3",
+        "ar": "rhymes/rh_clap_1_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_clap_2",
+      "name": {
+        "en": "Stamp, stamp, stamp your feet",
+        "ar": "يلّا ندبدب بإجرينا"
+      },
+      "image": "actions/stamp.svg",
+      "name_audio": {
+        "en": "rhymes/rh_clap_2_name_en.mp3",
+        "ar": "rhymes/rh_clap_2_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_clap_3",
+      "name": {
+        "en": "Jump, jump, jump up high",
+        "ar": "يلّا ننطّ لفوق لفوق"
+      },
+      "image": "actions/jump.svg",
+      "name_audio": {
+        "en": "rhymes/rh_clap_3_name_en.mp3",
+        "ar": "rhymes/rh_clap_3_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_clap_4",
+      "name": {
+        "en": "And sit down, nice and neat",
+        "ar": "وهلّق نقعد كلّنا سوا"
+      },
+      "image": "actions/sit.svg",
+      "name_audio": {
+        "en": "rhymes/rh_clap_4_name_en.mp3",
+        "ar": "rhymes/rh_clap_4_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_cars_1",
+      "name": {
+        "en": "Little car goes beep, beep, beep",
+        "ar": "السيارة بتعمل بيب بيب بيب"
+      },
+      "image": "vehicles/car.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_cars_1_name_en.mp3",
+        "ar": "rhymes/rh_cars_1_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_cars_2",
+      "name": {
+        "en": "The big bus goes round and round",
+        "ar": "الباص الكبير بيلفّ ويلفّ"
+      },
+      "image": "vehicles/bus.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_cars_2_name_en.mp3",
+        "ar": "rhymes/rh_cars_2_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_cars_3",
+      "name": {
+        "en": "The train goes choo, choo, choo",
+        "ar": "القطار بيعمل توت توت توت"
+      },
+      "image": "vehicles/train.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_cars_3_name_en.mp3",
+        "ar": "rhymes/rh_cars_3_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_cars_4",
+      "name": {
+        "en": "And the plane goes up, up, up!",
+        "ar": "والطيّارة بتطير لفوق لفوق!"
+      },
+      "image": "vehicles/airplane.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_cars_4_name_en.mp3",
+        "ar": "rhymes/rh_cars_4_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_morning_1",
+      "name": {
+        "en": "Good morning, sun!",
+        "ar": "صباح الخير يا شمس!"
+      },
+      "image": "weather/sun.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_morning_1_name_en.mp3",
+        "ar": "rhymes/rh_morning_1_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_morning_2",
+      "name": {
+        "en": "Good morning, little bird!",
+        "ar": "صباح الخير يا عصفور!"
+      },
+      "image": "animals/bird.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_morning_2_name_en.mp3",
+        "ar": "rhymes/rh_morning_2_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_morning_3",
+      "name": {
+        "en": "Wake up, wake up, up so high",
+        "ar": "يلّا نصحى ونمدّ إيدينا لفوق"
+      },
+      "image": "routine/wake_up.svg",
+      "name_audio": {
+        "en": "rhymes/rh_morning_3_name_en.mp3",
+        "ar": "rhymes/rh_morning_3_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_morning_4",
+      "name": {
+        "en": "Hello, hello, new day!",
+        "ar": "أهلا أهلا يا يوم جديد!"
+      },
+      "image": "actions/wave.svg",
+      "name_audio": {
+        "en": "rhymes/rh_morning_4_name_en.mp3",
+        "ar": "rhymes/rh_morning_4_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_wash_1",
+      "name": {
+        "en": "Wash, wash, wash our hands",
+        "ar": "نغسل نغسل إيدينا"
+      },
+      "image": "actions/wash_hands.svg",
+      "name_audio": {
+        "en": "rhymes/rh_wash_1_name_en.mp3",
+        "ar": "rhymes/rh_wash_1_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_wash_2",
+      "name": {
+        "en": "Brush, brush, brush our teeth",
+        "ar": "نفرشي نفرشي سنانّا"
+      },
+      "image": "actions/brush_teeth.svg",
+      "name_audio": {
+        "en": "rhymes/rh_wash_2_name_en.mp3",
+        "ar": "rhymes/rh_wash_2_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_wash_3",
+      "name": {
+        "en": "Splash, splash in the bath",
+        "ar": "بالحمّام نطرطش بالمي"
+      },
+      "image": "routine/bath.svg",
+      "name_audio": {
+        "en": "rhymes/rh_wash_3_name_en.mp3",
+        "ar": "rhymes/rh_wash_3_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_wash_4",
+      "name": {
+        "en": "All clean! Now a kiss!",
+        "ar": "صرنا نضاف! وهلّق بوسة!"
+      },
+      "image": "actions/kiss.svg",
+      "name_audio": {
+        "en": "rhymes/rh_wash_4_name_en.mp3",
+        "ar": "rhymes/rh_wash_4_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_animals_1",
+      "name": {
+        "en": "Hop, hop like a rabbit",
+        "ar": "ننطّ ننطّ متل الأرنب"
+      },
+      "image": "animals/rabbit.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_animals_1_name_en.mp3",
+        "ar": "rhymes/rh_animals_1_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_animals_2",
+      "name": {
+        "en": "Waddle like a duck",
+        "ar": "نمشي ونتمايل متل البطّة"
+      },
+      "image": "animals/duck.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_animals_2_name_en.mp3",
+        "ar": "rhymes/rh_animals_2_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_animals_3",
+      "name": {
+        "en": "Swim, swim like a fish",
+        "ar": "نسبح نسبح متل السمكة"
+      },
+      "image": "animals/fish.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_animals_3_name_en.mp3",
+        "ar": "rhymes/rh_animals_3_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_animals_4",
+      "name": {
+        "en": "And roar like a lion!",
+        "ar": "ونزأر متل الأسد!"
+      },
+      "image": "animals/lion.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_animals_4_name_en.mp3",
+        "ar": "rhymes/rh_animals_4_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_night_1",
+      "name": {
+        "en": "The moon is up, the stars are bright",
+        "ar": "طلع القمر والنجوم بتلمع"
+      },
+      "image": "weather/moon.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_night_1_name_en.mp3",
+        "ar": "rhymes/rh_night_1_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_night_2",
+      "name": {
+        "en": "Teddy is yawning: night, night",
+        "ar": "الدبدوب نعسان: تصبح على خير"
+      },
+      "image": "first-words/teddy.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_night_2_name_en.mp3",
+        "ar": "rhymes/rh_night_2_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_night_3",
+      "name": {
+        "en": "Close our eyes and snuggle tight",
+        "ar": "نغمّض عيونّا ونتغطّى منيح"
+      },
+      "image": "first-words/blanket.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_night_3_name_en.mp3",
+        "ar": "rhymes/rh_night_3_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "rh_night_4",
+      "name": {
+        "en": "Sweet dreams until the morning light",
+        "ar": "أحلام حلوة لبكرا الصبح"
+      },
+      "image": "weather/star.jpg",
+      "name_audio": {
+        "en": "rhymes/rh_night_4_name_en.mp3",
+        "ar": "rhymes/rh_night_4_name_ar.mp3"
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

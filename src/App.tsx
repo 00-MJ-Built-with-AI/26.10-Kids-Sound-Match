@@ -48,7 +48,12 @@ import { countWords } from './report/wordCount';
 import { forgetFavourites, herMenu, loadFavourites, saveFavourites } from './settings/favourites';
 import { ageInMonths, forgetBirthMonth, loadBirthMonth, saveBirthMonth } from './settings/birth';
 import { forLater } from './ui/parent/games';
-import { forgetPath } from './learn/path';
+import { forgetPath, loadPath } from './learn/path';
+import { bringList, cupToys, gardenThings } from './content/playThings';
+import { customKind } from './custom/types';
+import { endRest, REST_ALLOWED, restingUntil, startRest } from './settings/rest';
+import { ownBooks } from './ui/kid/KidDayBook';
+import { ParentGate } from './lock/ParentGate';
 import { learnToday, type LessonPlan } from './learn/today';
 import { wordRefs } from './learn/steps';
 import { choosePictures } from './ui/kid/layout';
@@ -136,7 +141,8 @@ const TWO_WORDS_KEY = 'ksm.twoWordsAsked.v1';
 const TWO_STEPS_AFTER = 15;
 /** "Not now" on the birth month card. */
 const BIRTH_ASKED_KEY = 'ksm.birthAsked.v1';
-const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story'];
+// Bring me is already the real thing; a book of her own photos and Song time end calmly.
+const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story', 'bring', 'daybook', 'rhymes'];
 /** Where's your nose? needs at least this many body parts it can ask about. */
 const MIN_POINT_ITEMS = 3;
 const PARENTS_GROUP_URL = (import.meta.env.VITE_PARENTS_GROUP_URL ?? '').trim();
@@ -275,7 +281,7 @@ function Shell({
   profiles: ProfileControls;
 }) {
   const profileId = profiles.state.activeId;
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [builtin, setBuiltin] = useState<LoadedContent | null>(null);
   const [custom, setCustom] = useState<CustomData>(NO_CUSTOM);
   const [screen, setScreen] = useState<Screen>('loading');
@@ -286,7 +292,9 @@ function Shell({
   const [startKind, setStartKind] = useState<KidKind>('game');
   // Where's your nose?: asking a parent once whether the child is a girl or a boy (Arabic grammar).
   // Where's your nose? and Do it with me ask once whether the child is a girl or a boy (Arabic grammar).
-  const [askGender, setAskGender] = useState<'point' | 'actions' | 'hunt' | 'instructions' | null>(null);
+  const [askGender, setAskGender] = useState<'point' | 'actions' | 'hunt' | 'instructions' | 'bring' | null>(null);
+  // Games rest until morning after Bedtime in the evening: the game she tried to open, and the PIN.
+  const [resting, setResting] = useState<{ until: number; gate: boolean } | null>(null);
   /** Today's lesson: the new words and how many to review. */
   const [lesson, setLesson] = useState<LessonPlan | null>(null);
   /** Her birth month: Home shows the games for her age first. */
@@ -345,6 +353,12 @@ function Shell({
   const mannersPack = allPacks.find((p) => p.id === 'manners');
   const learnPack = allPacks.find((p) => p.id === 'learn');
   const instructionsPack = allPacks.find((p) => p.id === 'instructions');
+  const rhymesPack = allPacks.find((p) => p.id === 'rhymes');
+  // Her books (My packs > New book) and the parent's own songs.
+  const books = ownBooks(allPacks);
+  const canRhymes = (rhymesPack?.groups.length ?? 0) > 0 || allPacks.some((p) => customKind(p.id) === 'song' && p.id.startsWith('custom:') && p.items.length > 0);
+  const canGarden = gardenThings(allPacks).length >= 4;
+  const canCups = cupToys(allPacks).length >= 1;
   const canPaint = (colorsPack?.items.length ?? 0) >= 4;
   const canHide = (hidePack?.items.length ?? 0) >= 3;
   const canStory = (storiesPack?.groups.length ?? 0) > 0;
@@ -589,7 +603,13 @@ function Shell({
     // Odd one out plays with every pack of things, a scene with its own packs, Where's your nose?
     // with the body parts, Do it with me with the actions; the other games with the chosen pack.
     const gamePack =
-      ["lesson","variety","newone","verbs","showme","places"].includes(kind)
+      kind === 'rhymes'
+        ? (rhymesPack ?? songsPack)
+        : kind === 'daybook'
+          ? books[0]
+          : kind === 'bring' || kind === 'cups' || kind === 'garden'
+            ? (animalsPack ?? playablePacks[0])
+            : ["lesson","variety","newone","verbs","showme","places","feelings"].includes(kind)
         ? learnPack
         : kind === 'instructions'
           ? instructionsPack
@@ -639,6 +659,7 @@ function Shell({
     let phraseIds: string[] = gamePack.items.map((i) => i.key);
     let learn: LessonPlan | undefined;
     let twoSteps = false;
+    let thingIds: string[] = kind === 'cups' ? cupToys(allPacks) : kind === 'garden' ? gardenThings(allPacks) : [];
     try {
       const sessions = forProfile(await reportStore.sessions(), profileId);
       // Adaptive practice: weights come from the Report on this device when the game starts.
@@ -647,6 +668,12 @@ function Shell({
         weights = practiceWeights(sessions, await reportStore.questions(), packIds);
       }
       if (kind === 'odd') level = oddLevel(sessions, await reportStore.questions());
+      if (kind === 'bring') {
+        const ids = new Set(sessions.map((x) => x.id));
+        const questions = (await reportStore.questions()).filter((q) => ids.has(q.sessionId));
+        const learning = new Set(loadPath(profileId).words.filter((w) => w.done < 3).map((w) => w.word));
+        thingIds = bringList(allPacks, learning, new Set(knownWords(wordEvidence(sessions, questions)).keys()));
+      }
       if (kind === 'lesson' || kind === 'variety' || kind === 'newone') learn = learnToday(profileId, allPacks, sessions, await reportStore.questions());
       if (kind === 'instructions') {
         // Two steps join in once she has done 15 one-step instructions.
@@ -675,9 +702,11 @@ function Shell({
       }
     } catch {
       if (kind === 'book' || kind === 'bedtime') bookIds = fillWords(gamePack, s);
+      if (kind === 'bring') thingIds = bringList(allPacks, new Set(), new Set());
       // No history available: every animal equally often, and an easy Odd one out.
     }
     if (kind !== 'menu') markPlayed(profileId, kind);
+    if (kind === 'bedtime') startRest(profileId);
     endPlay();
     forgetHeard();
     // The sleep light and her menu aren't play time.
@@ -692,7 +721,11 @@ function Shell({
         profileId,
         packId: gamePack.id,
         itemKeys:
-          kind === 'phrases'
+          kind === 'bring' || kind === 'cups' || kind === 'garden'
+            ? thingIds
+            : kind === 'rhymes' || kind === 'daybook'
+              ? gamePack.items.map((i) => i.key)
+              : kind === 'phrases'
             ? phraseIds
             : kind === 'manners'
               ? gamePack.items.map((i) => i.key)
@@ -727,11 +760,11 @@ function Shell({
             ? s.mode
             : kind === 'care'
               ? 'SOUND_AND_NAME'
-              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners', 'instructions', 'lesson', 'variety', 'newone', 'verbs', 'showme', 'places'].includes(kind)
+              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners', 'instructions', 'lesson', 'variety', 'newone', 'verbs', 'showme', 'places', 'feelings', 'rhymes', 'daybook', 'bring', 'cups', 'garden'].includes(kind)
                 ? 'NAME_ONLY'
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
-        ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime', 'instructions'].includes(kind) ? { arGender } : {}),
+        ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime', 'instructions', 'bring'].includes(kind) ? { arGender } : {}),
         ...(learn ? { learn } : {}),
         ...(storyId ? { storyId } : {}),
         ...(opts?.fromMenu ? { fromMenu: true } : {}),
@@ -772,7 +805,12 @@ function Shell({
     'talk',
     ...(phrasesPack ? (['phrases'] as const) : []),
     ...(mannersPack ? (['manners'] as const) : []),
-    ...(learnPack ? (["lesson","variety","newone","verbs","showme","places"] as const) : []),
+    ...(learnPack ? (["lesson","variety","newone","verbs","showme","places","feelings"] as const) : []),
+    ...(canRhymes ? (['rhymes'] as const) : []),
+    ...(books.length ? (['daybook'] as const) : []),
+    ...(genderKnown ? (['bring'] as const) : []),
+    ...(canCups ? (['cups'] as const) : []),
+    ...(canGarden ? (['garden'] as const) : []),
     ...(canInstructions && genderKnown ? (['instructions'] as const) : []),
     ...(canCare ? (['care'] as const) : []),
     'turns',
@@ -803,6 +841,7 @@ function Shell({
     ...(canActions && !genderKnown ? (['actions'] as const) : []),
     ...(canHunt && !genderKnown ? (['hunt'] as const) : []),
     ...(canInstructions && !genderKnown ? (['instructions'] as const) : []),
+    ...(!genderKnown ? (['bring'] as const) : []),
   ];
   const played = loadPlayed(profileId);
   // Today's play and her menu suggest games that suit her age (her favourites always count).
@@ -863,6 +902,11 @@ function Shell({
 
   const begin = (kind: KidKind) => {
     audioEngine.unlock(); // browsers only allow sound after a tap
+    const until = REST_ALLOWED.includes(kind) ? null : restingUntil(profileId);
+    if (until !== null) {
+      setResting({ until, gate: false });
+      return;
+    }
     if (soundChecked.current) launch(kind);
     else {
       setStartKind(kind);
@@ -872,14 +916,14 @@ function Shell({
   };
 
   /** Arabic needs to know: "أين أنفُكِ؟" and "سقّفي!" for a girl, "أين أنفُكَ؟" and "سقّف!" for a boy. */
-  const beginWithGender = (kind: 'point' | 'actions' | 'hunt' | 'instructions') => {
+  const beginWithGender = (kind: 'point' | 'actions' | 'hunt' | 'instructions' | 'bring') => {
     if (genderKnown) begin(kind);
     else setAskGender(kind);
   };
 
   /** A game from Home, a tip or the milestones (the ones with Arabic grammar ask first). */
   const playGame = (kind: KidKind) =>
-    kind === 'hunt' || kind === 'point' || kind === 'actions' || kind === 'instructions' ? beginWithGender(kind) : begin(kind);
+    kind === 'hunt' || kind === 'point' || kind === 'actions' || kind === 'instructions' || kind === 'bring' ? beginWithGender(kind) : begin(kind);
 
   const onCustomChanged = async () => {
     await refreshCustom();
@@ -1009,7 +1053,7 @@ function Shell({
     case 'snap':
       body = (
         <SnapScreen
-          views={customViews}
+          views={customViews.filter((v) => customKind(v.pack.id) === 'words')}
           familyPack={allPacks.find((p) => p.id === 'family')}
           overrides={custom.overrides}
           onChanged={onCustomChanged}
@@ -1071,7 +1115,10 @@ function Shell({
           config={kid.config}
           snapshot={kid.snapshot}
           telemetryEnabled={settings.telemetryEnabled}
-          picker={{
+          picker={
+            restingUntil(profileId) !== null && REST_ALLOWED.includes(kid.config.kind)
+              ? undefined
+              : {
             packs: playablePacks,
             settings,
             kind: kid.config.kind,
@@ -1090,7 +1137,8 @@ function Shell({
                   },
                 }
               : {}),
-          }}
+          }
+          }
           onExit={() => {
             endPlay();
             setKid(null);
@@ -1148,6 +1196,10 @@ function Shell({
           canManners={Boolean(mannersPack)}
           canLearn={Boolean(learnPack)}
           canInstructions={canInstructions}
+          canRhymes={canRhymes}
+          hasBooks={books.length > 0}
+          canCups={canCups}
+          canGarden={canGarden}
           lesson={lessonCard}
           ageMonths={ageMonths}
           askBirth={!birth && !birthAsked}
@@ -1235,6 +1287,33 @@ function Shell({
       <div key={screen} className={screen === 'kid' ? 'screen-in' : 'screen-in parent-screen'}>
         {body}
       </div>
+      {resting && (
+        <Overlay label={t('gamesRestTitle')} onDismiss={() => setResting(null)}>
+          <div className="rest-card">
+            <span className="rest-moon" aria-hidden="true">🌙</span>
+            <h2>{t('gamesRestTitle')}</h2>
+            <p>{t('gamesRestBody', { time: new Date(resting.until).toLocaleTimeString(lang === 'ar' ? 'ar-JO-u-nu-latn' : 'en-GB', { hour: 'numeric', minute: '2-digit' }) })}</p>
+          </div>
+          <div className="pin-footer">
+            <button type="button" className="btn ghost" onClick={() => setResting({ ...resting, gate: true })}>
+              🔓 {t('gamesRestOpen')}
+            </button>
+            <button type="button" className="btn primary" onClick={() => setResting(null)}>
+              {t('gamesRestOk')}
+            </button>
+          </div>
+        </Overlay>
+      )}
+      {resting?.gate && (
+        <ParentGate
+          title={t('gamesRestOpen')}
+          onSuccess={() => {
+            endRest(profileId);
+            setResting(null);
+          }}
+          onCancel={() => setResting({ ...resting, gate: false })}
+        />
+      )}
       {askGender && profile && (
         <Overlay label={t('genderTitle')} onDismiss={() => setAskGender(null)}>
           <h2>{t('genderTitle')}</h2>

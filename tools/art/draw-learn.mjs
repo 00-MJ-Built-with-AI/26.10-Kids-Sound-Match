@@ -69,6 +69,22 @@ for (const [name, base] of Object.entries(who)) {
   for (const [act, [bg, body, css]] of Object.entries(ACTIONS)) pictures[`${name}_${act}`] = card(bg, body(base), css ?? '');
 }
 
+/* ------------------------------------------------------------ feelings: "Show me happy" */
+// The same girl and boy, each with six feelings, so she listens to the feeling, not the child.
+// Close up (head and shoulders), so a toddler sees the face.
+const close = (body) => at(-96, -8, 1.48, body);
+const FEELINGS = {
+  happy: ['#FFF4CC', (b) => close(child(b, { pose: 'up', expr: 'happy' })) + sparkle(90, 90, 0.8) + sparkle(320, 110, 0.6)],
+  sad: ['#E3ECF7', (b) => close(child(b, { pose: 'slump', expr: 'sad' }))],
+  angry: ['#FDE2DE', (b) => close(child(b, { pose: 'hips', expr: 'angry' })) + L('M84 92 l16 10 M78 116 l20 2 M318 92 l-16 10 M324 116 l-20 2', '#E8504A', 5)],
+  scared: ['#ECE6F7', (b) => close(child(b, { pose: 'cheeks', expr: 'scared' }))],
+  sleepy: ['#E3E6F7', (b) => close(child(b, { pose: 'rub', expr: 'yawn' })) + `<g class="zee">${zee(300, 100, 1)}</g><g class="zee b">${zee(326, 76, 0.8)}</g>`, MOVE.zee],
+  surprised: ['#E2F4FB', (b) => close(child(b, { pose: 'wow', expr: 'surprised' })) + L('M70 80 l14 14 M60 120 h20 M330 80 l-14 14 M340 120 h-20', '#FFC531', 5)],
+};
+for (const [name, base] of Object.entries(who)) {
+  for (const [feel, [bg, body, css]] of Object.entries(FEELINGS)) pictures[`fe_${name}_${feel}`] = card(bg, body(base), css ?? '');
+}
+
 /* ------------------------------------------------------------ in, on, under */
 const ball = (x, y, r = 34) =>
   C(x, y, r, '#fff') + P(`M${x} ${y - r * 0.45} l${r * 0.42} ${r * 0.3} l${-r * 0.16} ${r * 0.5} h${-r * 0.52} l${-r * 0.16} ${-r * 0.5} Z`, INK, 0) + L(`M${x - r * 0.9} ${y + r * 0.2} q${r * 0.9} ${r * 0.5} ${r * 1.8} 0`, '#E8504A', 4);

@@ -114,6 +114,14 @@ export const FEEDBACK_SPEECH: Record<string, string> = {
   'feedback/this_is_f_en.mp3': 'This is a',
   'feedback/show_me_ar.mp3': 'فرجيني',
   'feedback/show_me_en.mp3': 'Show me',
+  // Bring me, before the name.
+  'feedback/bring_f_ar.mp3': 'جيبيلي',
+  'feedback/bring_m_ar.mp3': 'جيبلي',
+  'feedback/bring_f_en.mp3': 'Can you bring me the',
+  'feedback/bring_m_en.mp3': 'Can you bring me the',
+  // Where did it go?
+  'feedback/where_teddy_ar.mp3': 'وين الدبدوب؟',
+  'feedback/where_teddy_en.mp3': "Where's teddy?",
 };
 
 /** A shared line in both languages (see FeedbackLineId). */

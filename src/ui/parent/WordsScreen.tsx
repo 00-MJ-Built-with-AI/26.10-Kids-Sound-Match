@@ -23,6 +23,8 @@ import { Certificates } from './Certificates';
 import { Overlay, Screen } from './components';
 import { Avatar, ProfileRow } from './ProfileRow';
 import { WordPath } from './WordPath';
+import { TalkingCard } from './TalkingCard';
+import { ageInMonths, loadBirthMonth } from '../../settings/birth';
 
 interface WordInfo {
   id: string;
@@ -333,6 +335,8 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
       )}
 
       {data && <Certificates profile={child} earned={earned} />}
+
+      <TalkingCard ageMonths={ageInMonths(loadBirthMonth(child.id))} says={says} understood={understood} twoWords={loadMilestones(child.id).talk_two !== undefined} />
 
       <WordPath packs={packs} lookup={lookup} child={child} data={data} />
 

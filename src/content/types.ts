@@ -80,6 +80,11 @@ export const FEEDBACK_LINE_IDS = [
   'this_is',
   'this_is_f',
   'show_me',
+  // Bring me: "Can you bring me the… cup?" (to a girl / a boy in Arabic)
+  'bring_f',
+  'bring_m',
+  // Where did it go?: "Where's teddy?"
+  'where_teddy',
   'goodnight',
   'sleep_tight',
   'then',

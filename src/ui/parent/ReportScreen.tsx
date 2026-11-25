@@ -21,6 +21,7 @@ import { reportStore } from '../../report/db';
 import { renderReportImage, type ReportImageRow } from '../../report/reportImage';
 import { renderDoctorImage } from '../../report/doctorImage';
 import { doctorStats } from '../../report/doctor';
+import { languageBalance } from '../../report/languages';
 import { ageInMonths, loadBirthMonth, saveBirthMonth } from '../../settings/birth';
 import { loadMilestones, MILESTONES } from '../../settings/milestones';
 import type { Lang } from '../../content/types';
@@ -40,10 +41,13 @@ export function ReportScreen({
   profiles,
   onBack,
   onWords,
+  onLanguage,
 }: {
   packs: readonly LoadedPack[];
   profiles: ProfileState;
   onBack: () => void;
+  /** Plays a child's games in one language from now on (the balance tip). */
+  onLanguage?: (childId: string, lang: Lang) => void;
   /** Opens Words I know. */
   onWords?: () => void;
 }) {
@@ -55,6 +59,7 @@ export function ReportScreen({
   const [confirmClear, setConfirmClear] = useState(false);
   const [shared, setShared] = useState<{ blob: Blob; url: string; name?: string; title?: string; print?: boolean } | null>(null);
   const [doctorLang, setDoctorLang] = useState<Lang>(lang);
+  const [switchedTo, setSwitchedTo] = useState<Lang | null>(null);
   const [shareProblem, setShareProblem] = useState(false);
   const child = profiles.profiles.find((p) => p.id === childId) ?? profiles.profiles[0];
   // How do you feel?: her last week of check-ins, newest first.
@@ -336,6 +341,47 @@ export function ReportScreen({
           </>
         )}
       </section>
+
+      {mine && mine.sessions.length > 0 && (() => {
+        const b = languageBalance(mine.sessions);
+        if (!b.total) return null;
+        const pct = (n: number) => Math.round((n / b.total) * 100);
+        const name = (l: Lang) => (l === 'ar' ? t('langArabic') : t('langEnglish'));
+        return (
+          <section className="card lang-balance">
+            <h2>🗣️ {t('balanceTitle')}</h2>
+            <p className="hint">{t('balanceHint', { n: b.total })}</p>
+            <div className="balance-bar" role="img" aria-label={`${t('langArabic')} ${pct(b.arabic)}%, ${t('langEnglish')} ${pct(b.english)}%, ${t('langBoth')} ${pct(b.both)}%`}>
+              {b.arabic > 0 && <i className="bal-ar" style={{ flexGrow: b.arabic }} />}
+              {b.both > 0 && <i className="bal-both" style={{ flexGrow: b.both }} />}
+              {b.english > 0 && <i className="bal-en" style={{ flexGrow: b.english }} />}
+            </div>
+            <ul className="balance-key">
+              <li><i className="bal-ar" /> {t('langArabic')} {pct(b.arabic)}%</li>
+              <li><i className="bal-both" /> {t('langBoth')} {pct(b.both)}%</li>
+              <li><i className="bal-en" /> {t('langEnglish')} {pct(b.english)}%</li>
+            </ul>
+            {b.suggest && !switchedTo && (
+              <div className="balance-tip">
+                <p>{t('balanceTip', { low: name(b.suggest) })}</p>
+                {onLanguage && (
+                  <button
+                    type="button"
+                    className="btn primary"
+                    onClick={() => {
+                      onLanguage(child.id, b.suggest!);
+                      setSwitchedTo(b.suggest);
+                    }}
+                  >
+                    {t('balanceSwitch', { low: name(b.suggest) })}
+                  </button>
+                )}
+              </div>
+            )}
+            {switchedTo && <p className="msg">✓ {t('balanceSwitched', { low: name(switchedTo) })}</p>}
+          </section>
+        );
+      })()}
 
       <section className="card week-share">
         <h2>💌 {t('weekShareTitle')}</h2>

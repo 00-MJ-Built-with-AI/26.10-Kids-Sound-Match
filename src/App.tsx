@@ -46,7 +46,8 @@ import { voiceStore } from './settings/herVoice';
 import { forgetMilestones, loadMilestones, markCertificatesSeen, toggleMilestone, unseenCertificate, updateCertificates, type Certificate } from './settings/milestones';
 import { countWords } from './report/wordCount';
 import { forgetFavourites, herMenu, loadFavourites, saveFavourites } from './settings/favourites';
-import { forgetBirthMonth } from './settings/birth';
+import { ageInMonths, forgetBirthMonth, loadBirthMonth, saveBirthMonth } from './settings/birth';
+import { forLater } from './ui/parent/games';
 import { forgetPath } from './learn/path';
 import { learnToday, type LessonPlan } from './learn/today';
 import { wordRefs } from './learn/steps';
@@ -133,6 +134,8 @@ const TWO_WORDS_KEY = 'ksm.twoWordsAsked.v1';
 /** After these she doesn't need to be sent looking for something. */
 /** Do what I say: two-step instructions join in after this many one-step ones. */
 const TWO_STEPS_AFTER = 15;
+/** "Not now" on the birth month card. */
+const BIRTH_ASKED_KEY = 'ksm.birthAsked.v1';
 const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story'];
 /** Where's your nose? needs at least this many body parts it can ask about. */
 const MIN_POINT_ITEMS = 3;
@@ -246,6 +249,7 @@ export function App() {
       forgetPotty(id);
       forgetBirthMonth(id);
       forgetPath(id);
+      local.remove(profileKey(BIRTH_ASKED_KEY, id));
       forgetPlayLog(id);
       void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
@@ -285,6 +289,9 @@ function Shell({
   const [askGender, setAskGender] = useState<'point' | 'actions' | 'hunt' | 'instructions' | null>(null);
   /** Today's lesson: the new words and how many to review. */
   const [lesson, setLesson] = useState<LessonPlan | null>(null);
+  /** Her birth month: Home shows the games for her age first. */
+  const [birth, setBirth] = useState('');
+  const [birthAsked, setBirthAsked] = useState(false);
   const pendingGender = useRef<ArGender | null>(null);
   const [nudge, setNudge] = useState<NextLevel | null>(null);
   const [memoryNudge, setMemoryNudge] = useState<MemoryNext | null>(null);
@@ -399,6 +406,11 @@ function Shell({
   const nextStory = useRef<string | null>(null);
   const [sleepPrefs, setSleepPrefs] = useState<SleepPrefs>(loadSleepPrefs);
   const [favourites, setFavourites] = useState<string[]>(() => loadFavourites(profileId));
+  useEffect(() => {
+    setBirth(loadBirthMonth(profileId));
+    setBirthAsked(Boolean(local.get(profileKey(BIRTH_ASKED_KEY, profileId))));
+  }, [profileId, screen === 'home']);
+  const ageMonths = ageInMonths(birth);
   useEffect(() => setFavourites(loadFavourites(profileId)), [profileId]);
 
   const refreshCustom = useCallback(async () => {
@@ -793,10 +805,12 @@ function Shell({
     ...(canInstructions && !genderKnown ? (['instructions'] as const) : []),
   ];
   const played = loadPlayed(profileId);
-  const todayPlan = planFor(today(), planKinds, played, favourites).map((kind) => ({ kind, done: playedToday(played, kind) }));
+  // Today's play and her menu suggest games that suit her age (her favourites always count).
+  const forHerAge = (k: KidKind) => !forLater(k, ageMonths) || favourites.includes(k);
+  const todayPlan = planFor(today(), planKinds.filter(forHerAge), played, favourites).map((kind) => ({ kind, done: playedToday(played, kind) }));
 
   // Her own menu: four big pictures she chooses from herself.
-  const menuKinds = herMenu(favourites, pickerKinds, topGames(loadPlayLog(profileId), 0, 12).map((g) => g.kind));
+  const menuKinds = herMenu(favourites, pickerKinds.filter(forHerAge), topGames(loadPlayLog(profileId), 0, 12).map((g) => g.kind));
 
   /** Find the real one: once a sitting, a real thing from the words she just heard. */
   const realAsk = useRef<{ sitting: number; ask: FindRealAsk; done: boolean } | null>(null);
@@ -909,7 +923,18 @@ function Shell({
       ) : null;
       break;
     case 'report':
-      body = <ReportScreen packs={allPacks} profiles={profiles.state} onBack={home} onWords={() => setScreen('words')} />;
+      body = (
+        <ReportScreen
+          packs={allPacks}
+          profiles={profiles.state}
+          onBack={home}
+          onWords={() => setScreen('words')}
+          onLanguage={(childId, language) => {
+            if (childId === profileId) update({ language });
+            else saveSettings({ ...loadSettings(childId), language }, childId);
+          }}
+        />
+      );
       break;
     case 'privacy':
       body = <PrivacyScreen onBack={home} />;
@@ -1124,6 +1149,17 @@ function Shell({
           canLearn={Boolean(learnPack)}
           canInstructions={canInstructions}
           lesson={lessonCard}
+          ageMonths={ageMonths}
+          askBirth={!birth && !birthAsked}
+          onBirth={(month) => {
+            if (month) {
+              saveBirthMonth(profileId, month);
+              setBirth(month);
+            } else {
+              local.set(profileKey(BIRTH_ASKED_KEY, profileId), '1');
+              setBirthAsked(true);
+            }
+          }}
           canMenu={menuKinds.length >= 2}
           recordLeft={!recordCardOff && recordedToday() < SESSION_DAILY ? wordsToRecord(builtin?.packs ?? [], (path) => custom.overrides.some((o) => o.path === path)).length : 0}
           onRecordToday={() => {

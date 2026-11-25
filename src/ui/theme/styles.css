@@ -7681,3 +7681,45 @@ html[dir='rtl'] .end-look { right: 12px; }
   .home .lesson-word img { width: 48px; height: 48px; }
   .home .lesson-card .hint { font-size: 0.8rem; margin-block: 0 6px; }
 }
+
+/* ---------- Her word path (Words I know) and the week sheet ---------- */
+.word-path .path-head { margin: 12px 0 6px; font-size: 0.95rem; }
+.path-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.path-word { position: relative; display: grid; justify-items: center; gap: 2px; width: 72px; text-align: center; }
+.path-word img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; background: #fff; box-shadow: 0 0 0 2px var(--line); }
+.path-word small { font-size: 0.75rem; line-height: 1.15; }
+.path-row.small .path-word { width: 52px; }
+.path-row.small .path-word img { width: 38px; height: 38px; }
+.path-skip { position: absolute; top: -4px; inset-inline-end: 0; width: 22px; height: 22px; padding: 0; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); color: var(--muted); font-size: 0.7rem; cursor: pointer; }
+.path-day { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 8px; margin-block-end: 6px; }
+.word-path .btn { margin-block-start: 10px; }
+body:has(.week-print) .words-print { display: none !important; }
+.week-sheet { font-family: system-ui, sans-serif; color: #222; }
+.week-sheet header { display: flex; align-items: center; gap: 14px; margin-block-end: 4mm; }
+.week-sheet h1 { margin: 0; font-size: 22pt; }
+.week-sheet header p { margin: 0; color: #555; }
+.sheet-day { display: grid; grid-template-columns: 34mm 1fr; gap: 3mm; padding: 2.2mm 0; border-top: 1px solid #ccc; break-inside: avoid; }
+.sheet-weekday { font-size: 11pt; }
+.sheet-words { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+.sheet-word { display: flex; gap: 2mm; align-items: flex-start; }
+.sheet-word img { width: 17mm; height: 17mm; border-radius: 50%; object-fit: cover; flex: none; }
+.sheet-word b { display: block; font-size: 11pt; }
+.sheet-word small { display: block; font-size: 8pt; color: #444; line-height: 1.2; }
+.week-sheet footer { margin-block-start: 4mm; color: #666; font-size: 9pt; text-align: center; }
+
+/* ---------- Games for later, and her birth month ---------- */
+.tile-age { position: absolute; top: 6px; inset-inline-start: 6px; padding: 1px 6px; border-radius: 999px; background: #eef7e8; color: #3c7d34; font-size: 0.68rem; font-weight: 700; }
+.game-tile { position: relative; }
+.later-games .hint { margin: 6px 4px 0; }
+.birth-input { box-sizing: border-box; width: 100%; margin-block: 6px; padding: 10px 12px; border: 1.5px solid #d8d2c8; border-radius: 12px; font: inherit; }
+
+/* ---------- Arabic and English balance ---------- */
+.balance-bar { display: flex; height: 18px; margin-block: 8px 6px; overflow: hidden; border-radius: 999px; background: var(--line); }
+.balance-bar i { display: block; min-width: 6px; }
+.bal-ar { background: #2f9e8f; }
+.bal-en { background: #5b8def; }
+.bal-both { background: #b48cf0; }
+.balance-key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; padding: 0; list-style: none; font-size: 0.85rem; }
+.balance-key i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: middle; }
+.balance-tip { margin-block-start: 10px; padding: 10px 12px; border-radius: 14px; background: #fff7e3; }
+.balance-tip p { margin: 0 0 8px; }

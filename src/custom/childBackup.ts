@@ -1,4 +1,6 @@
 import { loadFavourites, saveFavourites } from '../settings/favourites';
+import { loadPath, mergePaths, sanitizePath, savePath, type PathState } from '../learn/path';
+import { loadBirthMonth, saveBirthMonth } from '../settings/birth';
 import type { VoiceClip, VoiceStore } from '../settings/herVoice';
 import { voiceId } from '../settings/herVoice';
 import { loadCertificates, loadMilestones, saveCertificates, saveMilestones } from '../settings/milestones';
@@ -29,6 +31,10 @@ export interface ChildData {
   potty: PottyEntry[];
   /** Her recordings: word id -> when recorded (the files are stored separately). */
   voice: Record<string, number>;
+  /** Her word path (missing in backups made before it existed). */
+  path?: PathState;
+  /** Her birth month, YYYY-MM (the doctor's page and the games for her age). */
+  birth?: string;
 }
 
 /** What the backup needs from the cloud's file storage (paths are inside the account's folder). */
@@ -74,6 +80,8 @@ export function sanitizeChildData(raw: unknown): ChildData | null {
     favourites: (Array.isArray(r.favourites) ? r.favourites : []).filter((x): x is string => typeof x === 'string'),
     potty: (Array.isArray(r.potty) ? r.potty : []).filter((e) => e && typeof e.at === 'number' && (e.kind === 'try' || e.kind === 'done')),
     voice: nums(r.voice),
+    path: sanitizePath(r.path),
+    ...(typeof r.birth === 'string' && /^\d{4}-\d{2}$/.test(r.birth) ? { birth: r.birth } : {}),
   };
 }
 
@@ -98,6 +106,8 @@ export function mergeChildData(a: ChildData, b: ChildData): ChildData {
     favourites: a.favourites.length ? a.favourites : b.favourites,
     potty: byAt([...a.potty, ...b.potty], (e) => `${e.at}|${e.kind}`),
     voice,
+    path: mergePaths(a.path ?? sanitizePath(null), b.path ?? sanitizePath(null)),
+    ...(a.birth || b.birth ? { birth: a.birth || b.birth } : {}),
   };
 }
 
@@ -116,6 +126,8 @@ export function readLocal(profileId: string, clips: readonly VoiceClip[]): Child
     favourites: loadFavourites(profileId),
     potty: loadPotty(profileId),
     voice: Object.fromEntries(clips.map((c) => [c.word, c.at])),
+    path: loadPath(profileId),
+    ...(loadBirthMonth(profileId) ? { birth: loadBirthMonth(profileId) } : {}),
   };
 }
 
@@ -127,6 +139,8 @@ function writeLocal(profileId: string, d: ChildData): void {
   savePlayLog(profileId, d.playLog);
   if (d.favourites.length) saveFavourites(profileId, d.favourites);
   savePotty(profileId, d.potty);
+  if (d.path) savePath(profileId, d.path);
+  if (d.birth && !loadBirthMonth(profileId)) saveBirthMonth(profileId, d.birth);
 }
 
 /**

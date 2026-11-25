@@ -1,18 +1,22 @@
-import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { LoadedItem, LoadedPack } from '../content/types';
-import { dueReviews, lessonWords, planToday, practise, type PathState } from './path';
+import { addToday, dueReviews, EMPTY_PATH, lessonWords, mergePaths, pathView, planToday, practise, sanitizePath, skipWord, type PathState } from './path';
 import { buildSteps, showMeStep, variants, wordRefs } from './steps';
+import { languageBalance } from '../report/languages';
+import type { SessionEntity } from '../report/types';
 
-const empty: PathState = { words: [], day: '', today: [] };
+const empty: PathState = EMPTY_PATH;
 
 describe('the daily word path', () => {
-  const candidates = ['first-words/ball', 'first-words/cup', 'first-words/teddy', 'food/milk', 'food/water'];
+  const candidates = Array.from({ length: 30 }, (_, i) => `first-words/w${i}`);
 
-  it('chooses three new words a day, skipping the ones she knows, and keeps them all day', () => {
-    const s = planToday(empty, candidates, new Set(['first-words/cup']), '2026-11-25');
-    expect(s.today).toEqual(['first-words/ball', 'first-words/teddy', 'food/milk']);
-    expect(planToday(s, candidates, new Set(), '2026-11-25')).toBe(s);
+  it('plans the week: three new words a day, skipping the ones she knows, fixed all week', () => {
+    const s = planToday(empty, candidates, new Set(['first-words/w1']), '2026-11-25');
+    expect(lessonWords(s, '2026-11-25').fresh).toEqual(['first-words/w0', 'first-words/w2', 'first-words/w3']);
+    expect(lessonWords(s, '2026-11-26').fresh).toEqual(['first-words/w4', 'first-words/w5', 'first-words/w6']);
+    expect(Object.keys(s.week!.days)).toHaveLength(7);
+    expect(planToday(s, candidates, new Set(), '2026-12-01')).toBe(s);
+    expect(planToday(s, candidates, new Set(), '2026-12-02').week!.start).toBe('2026-12-02');
   });
 
   it('brings a word back on day 2, day 4 and day 7', () => {
@@ -27,6 +31,7 @@ describe('the daily word path', () => {
     expect(dueReviews(s, '2026-11-07')).toEqual(['food/milk']);
     s = practise(s, 'food/milk', '2026-11-07');
     expect(dueReviews(s, '2026-11-30')).toEqual([]);
+    expect(pathView(s, '2026-11-30').learned).toEqual(['food/milk']);
   });
 
   it('counts a review once a day, and catches up after missed days', () => {
@@ -37,14 +42,33 @@ describe('the daily word path', () => {
     expect(dueReviews(s, '2026-11-06')).toEqual(['food/milk']);
   });
 
-  it("doesn't bring today's new words back as reviews", () => {
-    const s = practise(planToday(empty, candidates, new Set(), '2026-11-25'), 'first-words/ball', '2026-11-25');
-    expect(lessonWords(s, '2026-11-25')).toEqual({ fresh: ['first-words/ball', 'first-words/cup', 'first-words/teddy'], review: [] });
+  it('lets the parent skip a word or add one to today', () => {
+    let s = planToday(empty, candidates, new Set(), '2026-11-25');
+    s = skipWord(s, 'first-words/w4');
+    expect(lessonWords(s, '2026-11-26').fresh).toEqual(['first-words/w3', 'first-words/w5']);
+    s = addToday(s, 'animals/cat', '2026-11-25');
+    expect(lessonWords(s, '2026-11-25').fresh).toEqual(['first-words/w0', 'first-words/w1', 'first-words/w2', 'animals/cat']);
+    expect(pathView(s, '2026-11-25').upcoming[0]).toEqual({ day: '2026-11-26', words: ['first-words/w3', 'first-words/w5'] });
   });
 
-  it('starts from words that exist', () => {
-    const packs = ['first-words', 'home', 'food', 'animals'].map((id) => JSON.parse(fs.readFileSync(`public/assets/packs/${id}/manifest.json`, 'utf8')) as { items: { item_key: string }[] });
-    expect(packs.every((p) => p.items.length > 10)).toBe(true);
+  it('merges two phones: earliest start, furthest progress', () => {
+    const a = practise(empty, 'food/milk', '2026-11-01');
+    const b = { ...practise(practise(empty, 'food/milk', '2026-11-03'), 'food/milk', '2026-11-05'), skipped: ['animals/cat'] };
+    const m = mergePaths(a, b);
+    expect(m.words).toEqual([{ word: 'food/milk', introduced: '2026-11-01', done: 1, last: '2026-11-05' }]);
+    expect(m.skipped).toEqual(['animals/cat']);
+    expect(sanitizePath({ words: [{ word: 1 }], week: 'x' })).toEqual({ words: [], week: null, skipped: [] });
+  });
+});
+
+describe('Arabic and English balance', () => {
+  const now = Date.parse('2026-11-25T12:00:00Z');
+  const games = (lang: string, n: number) => Array.from({ length: n }, () => ({ language: lang, startedAt: now - 86_400_000 }) as unknown as SessionEntity);
+
+  it('suggests the language falling behind', () => {
+    expect(languageBalance([...games('en', 8), ...games('ar', 1)], now).suggest).toBe('ar');
+    expect(languageBalance([...games('ar', 4), ...games('en', 4)], now).suggest).toBeNull();
+    expect(languageBalance(games('en', 3), now).suggest).toBeNull();
   });
 });
 

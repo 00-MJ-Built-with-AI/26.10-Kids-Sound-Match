@@ -22,6 +22,7 @@ import { choosePictures } from '../kid/layout';
 import { Certificates } from './Certificates';
 import { Overlay, Screen } from './components';
 import { Avatar, ProfileRow } from './ProfileRow';
+import { WordPath } from './WordPath';
 
 interface WordInfo {
   id: string;
@@ -333,6 +334,8 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
 
       {data && <Certificates profile={child} earned={earned} />}
 
+      <WordPath packs={packs} lookup={lookup} child={child} data={data} />
+
       <section className="card">
         <h2>{t('wordsExtraTitle')}</h2>
         <p className="hint">{t('wordsExtraHint')}</p>
@@ -414,7 +417,7 @@ export function WordsScreen({ packs, profiles, onBack }: { packs: readonly Loade
         </button>
       </div>
 
-      <div className="print-area print-only">
+      <div className="print-area print-only words-print">
         {pages.map((page, i) => (
           <div className="sheet per-9" key={i}>
             {page.map((w) =>

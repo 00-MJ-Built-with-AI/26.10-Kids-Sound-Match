@@ -45,7 +45,7 @@ import {
   TurnsIcon,
 } from '../kid/icons';
 import { ChevronIcon, Overlay, Segmented, Toggle } from './components';
-import { gamePicture } from './games';
+import { forLater, GAME_AGES, gamePicture } from './games';
 import { TIPS } from './tips';
 import { HomeHeader } from './HomeHeader';
 import { UpdateStamp } from './UpdateStamp';
@@ -110,6 +110,9 @@ export function Home({
   canLearn,
   canInstructions,
   lesson,
+  ageMonths,
+  askBirth,
+  onBirth,
   canMenu,
   recordLeft,
   onRecordToday,
@@ -187,6 +190,12 @@ export function Home({
   /** The Learn section's games. */
   canLearn: boolean;
   canInstructions: boolean;
+  /** Her age in months, from her birth month; null when it isn't set. */
+  ageMonths: number | null;
+  /** Ask for her birth month (it isn't set, and the parent hasn't said "not now"). */
+  askBirth: boolean;
+  /** A birth month (YYYY-MM), or null for "not now". */
+  onBirth: (month: string | null) => void;
   /** Today's lesson: the new words, and how many to review; null before it's worked out. */
   lesson: { words: { picture: string; name: { en: string; ar: string } }[]; review: number } | null;
   /** Her own menu: there are enough games to choose from. */
@@ -306,12 +315,14 @@ export function Home({
     : [];
   const allTiles = [...learn, ...together, ...hers];
   const favTiles = favourites.map((id) => allTiles.find((x) => x.id === id)).filter((x): x is Tile => x !== undefined);
+  const ageLabel = (months: number) => t('ageFrom', { age: months % 12 ? `${Math.floor(months / 12)}½` : String(months / 12) });
   const renderTile = (g: Tile) => (
     <div key={g.id} className="tile-wrap">
       <button type="button" className={`game-tile tile-${g.id}`} onClick={g.on} disabled={!g.ok}>
         <TilePicture id={g.id} icon={g.icon} />
         <strong>{g.label}</strong>
         <small>{g.sub}</small>
+        {forLater(g.id, ageMonths) && <span className="tile-age">{ageLabel(GAME_AGES[g.id])}</span>}
       </button>
       {TIPS[g.id] && (
         <button type="button" className="tile-info" aria-label={t('tipFor', { game: g.label })} onClick={() => setTipFor(g.id)}>
@@ -326,7 +337,7 @@ export function Home({
       { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },
       { title: t('homeHer'), sub: t('homeHerSub'), tiles: hers },
     ].map((group) => {
-      const tiles = skipFavourites ? group.tiles.filter((g) => !favourites.includes(g.id)) : group.tiles;
+      const tiles = (skipFavourites ? group.tiles.filter((g) => !favourites.includes(g.id)) : group.tiles).filter((g) => !forLater(g.id, ageMonths));
       return (
         tiles.length > 0 && (
           <section key={group.title} className="games-group">
@@ -339,6 +350,16 @@ export function Home({
         )
       );
     });
+  // Games for when she's older, folded away at the end (her favourites always stay at the top).
+  const laterTiles = allTiles.filter((g) => forLater(g.id, ageMonths) && !favourites.includes(g.id)).sort((a, b) => GAME_AGES[a.id] - GAME_AGES[b.id]);
+  const later = laterTiles.length > 0 && (
+    <details className="more-games later-games">
+      <summary>🌱 {t('laterGames', { n: laterTiles.length })}</summary>
+      <p className="hint">{t('laterGamesHint')}</p>
+      <div className="games-row">{laterTiles.map(renderTile)}</div>
+    </details>
+  );
+  const [birthInput, setBirthInput] = useState('');
   const tipTile = tipFor ? allTiles.find((x) => x.id === tipFor) : undefined;
   const tip = tipFor ? TIPS[tipFor]?.[lang] : undefined;
 
@@ -377,6 +398,21 @@ export function Home({
         )}
       </div>
       <div className="home-col home-col-notices">
+        {askBirth && (
+          <section className="card nudge-card birth-card">
+            <h2>🎂 {t('birthCardTitle')}</h2>
+            <p>{t('birthCardBody')}</p>
+            <input type="month" className="birth-input" value={birthInput} max={new Date().toISOString().slice(0, 7)} onChange={(e) => setBirthInput(e.target.value)} aria-label={t('birthCardTitle')} />
+            <div className="nudge-actions">
+              <button type="button" className="btn primary" disabled={!birthInput} onClick={() => onBirth(birthInput)}>
+                {t('save')}
+              </button>
+              <button type="button" className="btn ghost" onClick={() => onBirth(null)}>
+                {t('recordCardLater')}
+              </button>
+            </div>
+          </section>
+        )}
         {twoWordsCard && (
           <section className="card nudge-card" role="status">
             <h2>💬 {t('twoWordsTitle')}</h2>
@@ -474,6 +510,7 @@ export function Home({
             <div className="plan-row">
               {plan.map(({ kind, done }) => {
                 const tile = [
+                  ...learn,
                   ...together,
                   ...hers,
                   { id: 'game', icon: <PlayIcon />, label: t('matchGame'), sub: '', on: onStart, ok: canStart },
@@ -510,6 +547,7 @@ export function Home({
               <summary>{t('moreGames', { n: together.length + hers.length - favTiles.length })}</summary>
               {groups(true)}
             </details>
+            {later}
           </>
         ) : (
           <>
@@ -517,6 +555,7 @@ export function Home({
               <span aria-hidden="true">⭐</span> {t('favChoose')}
             </button>
             {groups(false)}
+            {later}
           </>
         )}
         {!pack ? (

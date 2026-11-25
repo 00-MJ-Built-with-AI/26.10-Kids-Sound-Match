@@ -446,6 +446,17 @@ For a child of about 20 months: games built on how toddlers learn words fastest,
 | Lines | New packs `learn` (the questions) and `instructions`, plus shared lines this_is (هاد), this_is_f (هاي) and show_me (فرجيني): recordable in the studio and Your voice and photos; the phone reads them until recorded. Live straight away, with the list sent to the parent for corrections |
 | Words I know | Today's lesson, Same word different pictures and The new one count like the matching game |
 
+## Added on 25 November 2026: her age, her word path, the week sheet, both languages
+
+| Change | Decision |
+|---|---|
+| Games for her age | Each game that suits older children has an age (`GAME_AGES` in `src/ui/parent/games.ts`: 2 for In on under, Memory, What's missing?, Puzzles, Find it in the picture, My turn your turn, Shape sorter, Big and little; 2½ for Count with me, Opposites, Odd one out). From her birth month, Home folds those into "For when she's older" at the end, each tile labelled with its age; she can still play them. Her favourites always stay at the top. Today's play and her menu suggest only games for her age (or her favourites). Without a birth month nothing moves, and a card on Home asks for it once ("Not today" hides it for good) |
+| Her word path | Words I know has "Her word path": today's words, later this week, words coming back for review with their day, and words learned. ✕ skips a word she already knows (no lesson, no reviews); "Add a word to today's lesson" puts any word in today's lesson |
+| Week planned ahead | The path now plans 7 days at once (3 new words a day) and keeps that plan all week, so the lessons match the printed sheet. A new week is planned on the first day after it ends |
+| Week sheet | "Print this week's words": one A4 page with her character, each day's three words with their picture, Arabic and English names, and one everyday way to use each word (by picture set, in the app's language: `src/learn/sheetTips.ts`) |
+| Backup | "Also back up her things" now includes her word path (each word keeps its earliest start and furthest progress; the newer week plan wins; skipped words from either phone) and her birth month |
+| Arabic and English | The Report shows her games over the last two weeks as Arabic, both languages and English. With at least 6 games, if one language is below a third (games in both count half each), a gentle tip and a button switch her games to that language; Settings switches back |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

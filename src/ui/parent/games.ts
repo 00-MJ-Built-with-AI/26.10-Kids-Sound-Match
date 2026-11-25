@@ -9,7 +9,27 @@ export interface GameInfo {
   sub: StringKey;
   /** 'pack/file.svg' under assets/packs, or 'tiles/x.svg' under assets (drawn for the tile). */
   picture: string;
+  /** From this age (months), the game suits her best; before it, Home folds it away for later. */
+  minAge?: number;
 }
+
+/** Age, in months, for each game that suits older children. */
+export const GAME_AGES: Readonly<Record<string, number>> = {
+  places: 24,
+  memory: 24,
+  missing: 24,
+  puzzle: 24,
+  scene: 24,
+  turns: 24,
+  shapes: 24,
+  big: 24,
+  count: 30,
+  opposites: 30,
+  odd: 30,
+};
+
+/** Too early for her? Unknown age: every game is shown as before. */
+export const forLater = (id: string, ageMonths: number | null) => ageMonths !== null && (GAME_AGES[id] ?? 0) > ageMonths;
 
 export const GAMES: Record<string, GameInfo> = {
   talk: { label: 'talkGame', sub: 'talkSub', picture: 'actions/laugh.svg' },

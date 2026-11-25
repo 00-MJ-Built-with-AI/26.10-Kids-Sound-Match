@@ -9,7 +9,8 @@ interface Props {
   options: readonly string[];
   pictures: Readonly<Record<string, string>>;
   faded: readonly string[];
-  celebratedKey: string | null;
+  /** The right answer, or several (Same word, different pictures). */
+  celebratedKey: string | readonly string[] | null;
   /** Gentle hint: this picture wiggles. The pulse number restarts the wiggle each time. */
   hint: { key: string; pulse: number } | null;
   /** The names to show on each picture; none when the names are switched off. */
@@ -63,6 +64,7 @@ export function OptionGrid({ options, pictures, faded, celebratedKey, hint, name
   const rows = bars ? options.map((_, i) => [i]) : layoutRows(options.length, box.w > box.h ? 'landscape' : 'portrait');
   // The new looks keep clear of the screen's edge; the original look stays exactly as it was.
   const { size, gap } = fitSquares(lookBox(box), rows);
+  const celebrated = (key: string) => (typeof celebratedKey === 'string' ? celebratedKey === key : Boolean(celebratedKey?.includes(key)));
   const barHeight = Math.min(Math.floor((box.h - 28 - gap * (rows.length - 1)) / rows.length), Math.round(box.w * 0.42));
 
   return (
@@ -73,7 +75,7 @@ export function OptionGrid({ options, pictures, faded, celebratedKey, hint, name
             {row.map((i) => {
               const key = options[i];
               let state = '';
-              if (celebratedKey === key) state = ` celebrate ${aliveFor?.(key) ?? ''}`;
+              if (celebrated(key)) state = ` celebrate ${aliveFor?.(key) ?? ''}`;
               else if (faded.includes(key)) state = ' faded';
               else if (celebratedKey) state = ' resting';
               else if (hint?.key === key) state = hint.pulse % 2 ? ' hint-a' : ' hint-b';
@@ -90,7 +92,7 @@ export function OptionGrid({ options, pictures, faded, celebratedKey, hint, name
                 >
                   <img src={pictures[key]} alt="" draggable={false} />
                   {names?.[key] && <CardNames name={names[key]} />}
-                  {celebratedKey === key && <Burst size={size} />}
+                  {celebrated(key) && <Burst size={size} />}
                 </button>
               );
             })}

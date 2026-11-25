@@ -1,0 +1,430 @@
+{
+  "pack_id": "learn",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.3,
+  "name": {
+    "en": "Learn",
+    "ar": "نتعلّم"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "verbs",
+      "name": {
+        "en": "Action words",
+        "ar": "كلمات الأفعال"
+      },
+      "items": [
+        "lv_jump",
+        "lv_eat",
+        "lv_drink",
+        "lv_sleep",
+        "lv_wave",
+        "lv_dance",
+        "lv_clap",
+        "lv_run",
+        "lv_swim",
+        "lv_brush"
+      ]
+    },
+    {
+      "id": "showme",
+      "name": {
+        "en": "Show me",
+        "ar": "فرجيني"
+      },
+      "items": [
+        "sm_girl_eat",
+        "sm_boy_eat",
+        "sm_girl_drink",
+        "sm_boy_drink",
+        "sm_girl_sleep",
+        "sm_boy_sleep",
+        "sm_girl_jump",
+        "sm_boy_jump",
+        "sm_girl_wave",
+        "sm_boy_wave",
+        "sm_girl_wash",
+        "sm_boy_wash"
+      ]
+    },
+    {
+      "id": "places",
+      "name": {
+        "en": "In, on, under",
+        "ar": "جوّا، فوق، تحت"
+      },
+      "items": [
+        "pl_ball_in",
+        "pl_ball_on",
+        "pl_ball_under",
+        "pl_teddy_in",
+        "pl_teddy_on",
+        "pl_teddy_under"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "lv_jump",
+      "name": {
+        "en": "Who's jumping?",
+        "ar": "مين عم تنطّ؟"
+      },
+      "image": "actions/jump.svg",
+      "name_audio": {
+        "en": "learn/lv_jump_name_en.mp3",
+        "ar": "learn/lv_jump_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_eat",
+      "name": {
+        "en": "Who's eating?",
+        "ar": "مين عم تاكل؟"
+      },
+      "image": "actions/eat.svg",
+      "name_audio": {
+        "en": "learn/lv_eat_name_en.mp3",
+        "ar": "learn/lv_eat_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_drink",
+      "name": {
+        "en": "Who's drinking?",
+        "ar": "مين عم تشرب؟"
+      },
+      "image": "actions/drink.svg",
+      "name_audio": {
+        "en": "learn/lv_drink_name_en.mp3",
+        "ar": "learn/lv_drink_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_sleep",
+      "name": {
+        "en": "Who's sleeping?",
+        "ar": "مين نايمة؟"
+      },
+      "image": "actions/sleep.svg",
+      "name_audio": {
+        "en": "learn/lv_sleep_name_en.mp3",
+        "ar": "learn/lv_sleep_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_wave",
+      "name": {
+        "en": "Who's waving bye-bye?",
+        "ar": "مين عم تقول باي باي؟"
+      },
+      "image": "actions/wave.svg",
+      "name_audio": {
+        "en": "learn/lv_wave_name_en.mp3",
+        "ar": "learn/lv_wave_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_dance",
+      "name": {
+        "en": "Who's dancing?",
+        "ar": "مين عم ترقص؟"
+      },
+      "image": "actions/dance.svg",
+      "name_audio": {
+        "en": "learn/lv_dance_name_en.mp3",
+        "ar": "learn/lv_dance_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_clap",
+      "name": {
+        "en": "Who's clapping?",
+        "ar": "مين عم تسقّف؟"
+      },
+      "image": "actions/clap.svg",
+      "name_audio": {
+        "en": "learn/lv_clap_name_en.mp3",
+        "ar": "learn/lv_clap_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_run",
+      "name": {
+        "en": "Who's running?",
+        "ar": "مين عم تركض؟"
+      },
+      "image": "actions/run.svg",
+      "name_audio": {
+        "en": "learn/lv_run_name_en.mp3",
+        "ar": "learn/lv_run_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_swim",
+      "name": {
+        "en": "Who's swimming?",
+        "ar": "مين عم تسبح؟"
+      },
+      "image": "actions/swim.svg",
+      "name_audio": {
+        "en": "learn/lv_swim_name_en.mp3",
+        "ar": "learn/lv_swim_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "lv_brush",
+      "name": {
+        "en": "Who's brushing her teeth?",
+        "ar": "مين عم تفرّش سنانها؟"
+      },
+      "image": "actions/brush_teeth.svg",
+      "name_audio": {
+        "en": "learn/lv_brush_name_en.mp3",
+        "ar": "learn/lv_brush_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_girl_eat",
+      "name": {
+        "en": "The girl eating",
+        "ar": "البنت عم تاكل"
+      },
+      "image": "learn/girl_eat.svg",
+      "name_audio": {
+        "en": "learn/sm_girl_eat_name_en.mp3",
+        "ar": "learn/sm_girl_eat_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_boy_eat",
+      "name": {
+        "en": "The boy eating",
+        "ar": "الولد عم ياكل"
+      },
+      "image": "learn/boy_eat.svg",
+      "name_audio": {
+        "en": "learn/sm_boy_eat_name_en.mp3",
+        "ar": "learn/sm_boy_eat_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_girl_drink",
+      "name": {
+        "en": "The girl drinking",
+        "ar": "البنت عم تشرب"
+      },
+      "image": "learn/girl_drink.svg",
+      "name_audio": {
+        "en": "learn/sm_girl_drink_name_en.mp3",
+        "ar": "learn/sm_girl_drink_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_boy_drink",
+      "name": {
+        "en": "The boy drinking",
+        "ar": "الولد عم يشرب"
+      },
+      "image": "learn/boy_drink.svg",
+      "name_audio": {
+        "en": "learn/sm_boy_drink_name_en.mp3",
+        "ar": "learn/sm_boy_drink_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_girl_sleep",
+      "name": {
+        "en": "The girl sleeping",
+        "ar": "البنت نايمة"
+      },
+      "image": "learn/girl_sleep.svg",
+      "name_audio": {
+        "en": "learn/sm_girl_sleep_name_en.mp3",
+        "ar": "learn/sm_girl_sleep_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_boy_sleep",
+      "name": {
+        "en": "The boy sleeping",
+        "ar": "الولد نايم"
+      },
+      "image": "learn/boy_sleep.svg",
+      "name_audio": {
+        "en": "learn/sm_boy_sleep_name_en.mp3",
+        "ar": "learn/sm_boy_sleep_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_girl_jump",
+      "name": {
+        "en": "The girl jumping",
+        "ar": "البنت عم تنطّ"
+      },
+      "image": "learn/girl_jump.svg",
+      "name_audio": {
+        "en": "learn/sm_girl_jump_name_en.mp3",
+        "ar": "learn/sm_girl_jump_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_boy_jump",
+      "name": {
+        "en": "The boy jumping",
+        "ar": "الولد عم ينطّ"
+      },
+      "image": "learn/boy_jump.svg",
+      "name_audio": {
+        "en": "learn/sm_boy_jump_name_en.mp3",
+        "ar": "learn/sm_boy_jump_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_girl_wave",
+      "name": {
+        "en": "The girl waving",
+        "ar": "البنت عم تقول باي"
+      },
+      "image": "learn/girl_wave.svg",
+      "name_audio": {
+        "en": "learn/sm_girl_wave_name_en.mp3",
+        "ar": "learn/sm_girl_wave_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_boy_wave",
+      "name": {
+        "en": "The boy waving",
+        "ar": "الولد عم يقول باي"
+      },
+      "image": "learn/boy_wave.svg",
+      "name_audio": {
+        "en": "learn/sm_boy_wave_name_en.mp3",
+        "ar": "learn/sm_boy_wave_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_girl_wash",
+      "name": {
+        "en": "The girl washing her hands",
+        "ar": "البنت عم تغسل إيديها"
+      },
+      "image": "learn/girl_wash.svg",
+      "name_audio": {
+        "en": "learn/sm_girl_wash_name_en.mp3",
+        "ar": "learn/sm_girl_wash_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "sm_boy_wash",
+      "name": {
+        "en": "The boy washing his hands",
+        "ar": "الولد عم يغسل إيديه"
+      },
+      "image": "learn/boy_wash.svg",
+      "name_audio": {
+        "en": "learn/sm_boy_wash_name_en.mp3",
+        "ar": "learn/sm_boy_wash_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "pl_ball_in",
+      "name": {
+        "en": "The ball in the box",
+        "ar": "الطابة جوّا الصندوق"
+      },
+      "image": "learn/ball_in.svg",
+      "name_audio": {
+        "en": "learn/pl_ball_in_name_en.mp3",
+        "ar": "learn/pl_ball_in_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "pl_ball_on",
+      "name": {
+        "en": "The ball on the box",
+        "ar": "الطابة على الصندوق"
+      },
+      "image": "learn/ball_on.svg",
+      "name_audio": {
+        "en": "learn/pl_ball_on_name_en.mp3",
+        "ar": "learn/pl_ball_on_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "pl_ball_under",
+      "name": {
+        "en": "The ball under the box",
+        "ar": "الطابة تحت الصندوق"
+      },
+      "image": "learn/ball_under.svg",
+      "name_audio": {
+        "en": "learn/pl_ball_under_name_en.mp3",
+        "ar": "learn/pl_ball_under_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "pl_teddy_in",
+      "name": {
+        "en": "Teddy in bed",
+        "ar": "الدبدوب بالتخت"
+      },
+      "image": "learn/teddy_in.svg",
+      "name_audio": {
+        "en": "learn/pl_teddy_in_name_en.mp3",
+        "ar": "learn/pl_teddy_in_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "pl_teddy_on",
+      "name": {
+        "en": "Teddy on the bed",
+        "ar": "الدبدوب على التخت"
+      },
+      "image": "learn/teddy_on.svg",
+      "name_audio": {
+        "en": "learn/pl_teddy_on_name_en.mp3",
+        "ar": "learn/pl_teddy_on_name_ar.mp3"
+      }
+    },
+    {
+      "item_key": "pl_teddy_under",
+      "name": {
+        "en": "Teddy under the bed",
+        "ar": "الدبدوب تحت التخت"
+      },
+      "image": "learn/teddy_under.svg",
+      "name_audio": {
+        "en": "learn/pl_teddy_under_name_en.mp3",
+        "ar": "learn/pl_teddy_under_name_ar.mp3"
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

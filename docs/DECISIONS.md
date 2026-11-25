@@ -428,6 +428,24 @@ The parent asked what to add, then to build all of it, after an interview.
 |---|---|
 | Columns | From 1280 px wide, Home has three columns: Start and Today's play, the games, then reminders and the parents' links. From 900 to 1279 px it has two, with the parents' links along the bottom. Below 900 px (phones and upright tablets) it is the same single column as before. Game tiles are smaller on a computer and lose their subtitle; the ⓘ still explains each game |
 
+## Added on 25 November 2026: the Learn section
+
+For a child of about 20 months: games built on how toddlers learn words fastest, chosen in an interview.
+
+| Change | Decision |
+|---|---|
+| Learn group | A new group at the top of Home's games, "Learn", with seven tiles, and a "Today's words" card above Today's play |
+| Daily word path | Three new words a day, everyday words first (first words, home, food, animals, clothes, body, then the rest), skipping words she already understands or says. Each word comes back two, four and seven days after she first met it; at most four reviews a lesson. Per child, on this phone (`src/learn/path.ts`). Only Today's lesson moves words along the path |
+| Today's lesson | About five minutes: each new word is met in its different pictures ("هاد… قطة"), then found next to a word she knows, then the reviews (Same word, different pictures), then a check of the new words |
+| Same word, different pictures | Two pictures of one word (a photo, a drawing or the 3D toy) and one other word: either right picture counts and both celebrate. Uses the pictures as shipped, whatever the look |
+| The new one | A word she knows and one she doesn't, asking for the new one; a tap on the known one names it and asks again |
+| Action words | "مين عم تنطّ؟" / "Who's jumping?": the girl from Do it with me, three actions to choose from |
+| Show me | "فرجيني… البنت عم تاكل": the girl or a boy doing one of six things (12 new drawings, `tools/art/draw-learn.mjs`). The other pictures are the same child doing something else and the other child doing the same thing |
+| In, on, under | A ball and a toy box on short legs, and a teddy and a bed, three ways each (6 drawings). Shown now, with a note that it's best from about age 2 |
+| Do what I say | Like Do it with me: "جيبي الطابة!", the parent ticks. 10 one-step instructions, and 6 two-step ones join in after 15 one-step ticks. Linked to the "follows an instruction" milestone. Arabic follows the child (جيبي / جيب) |
+| Lines | New packs `learn` (the questions) and `instructions`, plus shared lines this_is (هاد), this_is_f (هاي) and show_me (فرجيني): recordable in the studio and Your voice and photos; the phone reads them until recorded. Live straight away, with the list sent to the parent for corrections |
+| Words I know | Today's lesson, Same word different pictures and The new one count like the matching game |
+
 ## Fixes applied by default
 
 1. Feedback paths (`feedback/...`) resolve from the assets root, matching spec 3.1; item paths resolve from `packs/`. `asset_root` is ignored because the item paths already include the pack folder.

@@ -76,6 +76,10 @@ export const FEEDBACK_LINE_IDS = [
   // Find the real one: "يلّا دوّري على… طابة".
   'find_real_f',
   'find_real_m',
+  // Learn: "هاد… قطة" / "هاي… بطة" when meeting a new word, and "فرجيني…" for Show me.
+  'this_is',
+  'this_is_f',
+  'show_me',
   'goodnight',
   'sleep_tight',
   'then',

@@ -107,6 +107,13 @@ export const FEEDBACK_SPEECH: Record<string, string> = {
   'feedback/find_real_m_ar.mp3': 'يلّا دوّر على',
   'feedback/find_real_f_en.mp3': 'Can you find a real',
   'feedback/find_real_m_en.mp3': 'Can you find a real',
+  // Learn: meeting a new word, and Show me.
+  'feedback/this_is_ar.mp3': 'هاد',
+  'feedback/this_is_f_ar.mp3': 'هاي',
+  'feedback/this_is_en.mp3': 'This is a',
+  'feedback/this_is_f_en.mp3': 'This is a',
+  'feedback/show_me_ar.mp3': 'فرجيني',
+  'feedback/show_me_en.mp3': 'Show me',
 };
 
 /** A shared line in both languages (see FeedbackLineId). */

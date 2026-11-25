@@ -1,0 +1,489 @@
+{
+  "pack_id": "instructions",
+  "pack_version": 1,
+  "schema_version": 1,
+  "order": 6.35,
+  "name": {
+    "en": "Do what I say",
+    "ar": "اعملي متل ما بقول"
+  },
+  "own_game": true,
+  "in_mix": false,
+  "groups": [
+    {
+      "id": "one",
+      "name": {
+        "en": "One step",
+        "ar": "خطوة وحدة"
+      },
+      "items": [
+        "do_ball",
+        "do_book",
+        "do_shoes",
+        "do_spoon",
+        "do_teddy",
+        "do_door",
+        "do_chair",
+        "do_head",
+        "do_cup",
+        "do_box"
+      ]
+    },
+    {
+      "id": "two",
+      "name": {
+        "en": "Two steps",
+        "ar": "خطوتين"
+      },
+      "items": [
+        "do_ball_baba",
+        "do_book_mama",
+        "do_teddy_bed",
+        "do_shoes_mama",
+        "do_clap_jump",
+        "do_door_come"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item_key": "do_ball",
+      "name": {
+        "en": "Ball",
+        "ar": "جيبي الطابة"
+      },
+      "image": "first-words/ball.svg",
+      "name_audio": {
+        "en": "instructions/do_ball_name_en.mp3",
+        "ar": "instructions/do_ball_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Bring me the ball!",
+          "audio": "instructions/do_ball_en.mp3"
+        },
+        "ar_f": {
+          "text": "جيبي الطابة!",
+          "audio": "instructions/do_ball_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "جيب الطابة!",
+          "audio": "instructions/do_ball_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_book",
+      "name": {
+        "en": "Book",
+        "ar": "جيبي الكتاب"
+      },
+      "image": "first-words/book.svg",
+      "name_audio": {
+        "en": "instructions/do_book_name_en.mp3",
+        "ar": "instructions/do_book_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Bring me the book!",
+          "audio": "instructions/do_book_en.mp3"
+        },
+        "ar_f": {
+          "text": "جيبي الكتاب!",
+          "audio": "instructions/do_book_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "جيب الكتاب!",
+          "audio": "instructions/do_book_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_shoes",
+      "name": {
+        "en": "Shoes",
+        "ar": "جيبي الحذاء"
+      },
+      "image": "first-words/shoe.svg",
+      "name_audio": {
+        "en": "instructions/do_shoes_name_en.mp3",
+        "ar": "instructions/do_shoes_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Bring your shoes!",
+          "audio": "instructions/do_shoes_en.mp3"
+        },
+        "ar_f": {
+          "text": "جيبي الحذاء!",
+          "audio": "instructions/do_shoes_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "جيب الحذاء!",
+          "audio": "instructions/do_shoes_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_spoon",
+      "name": {
+        "en": "Spoon",
+        "ar": "جيبي المعلقة"
+      },
+      "image": "first-words/spoon.svg",
+      "name_audio": {
+        "en": "instructions/do_spoon_name_en.mp3",
+        "ar": "instructions/do_spoon_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Bring me the spoon!",
+          "audio": "instructions/do_spoon_en.mp3"
+        },
+        "ar_f": {
+          "text": "جيبي المعلقة!",
+          "audio": "instructions/do_spoon_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "جيب المعلقة!",
+          "audio": "instructions/do_spoon_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_teddy",
+      "name": {
+        "en": "Teddy",
+        "ar": "بوسي الدبدوب"
+      },
+      "image": "first-words/teddy.svg",
+      "name_audio": {
+        "en": "instructions/do_teddy_name_en.mp3",
+        "ar": "instructions/do_teddy_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Give teddy a kiss!",
+          "audio": "instructions/do_teddy_en.mp3"
+        },
+        "ar_f": {
+          "text": "بوسي الدبدوب!",
+          "audio": "instructions/do_teddy_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "بوس الدبدوب!",
+          "audio": "instructions/do_teddy_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_door",
+      "name": {
+        "en": "Door",
+        "ar": "سكّري الباب"
+      },
+      "image": "home/door.svg",
+      "name_audio": {
+        "en": "instructions/do_door_name_en.mp3",
+        "ar": "instructions/do_door_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Close the door!",
+          "audio": "instructions/do_door_en.mp3"
+        },
+        "ar_f": {
+          "text": "سكّري الباب!",
+          "audio": "instructions/do_door_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "سكّر الباب!",
+          "audio": "instructions/do_door_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_chair",
+      "name": {
+        "en": "Chair",
+        "ar": "اقعدي عالكرسي"
+      },
+      "image": "first-words/chair.svg",
+      "name_audio": {
+        "en": "instructions/do_chair_name_en.mp3",
+        "ar": "instructions/do_chair_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Sit on the chair!",
+          "audio": "instructions/do_chair_en.mp3"
+        },
+        "ar_f": {
+          "text": "اقعدي عالكرسي!",
+          "audio": "instructions/do_chair_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "اقعد عالكرسي!",
+          "audio": "instructions/do_chair_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_head",
+      "name": {
+        "en": "Hand",
+        "ar": "حطّي إيدك على راسك"
+      },
+      "image": "body/hand.svg",
+      "name_audio": {
+        "en": "instructions/do_head_name_en.mp3",
+        "ar": "instructions/do_head_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Put your hand on your head!",
+          "audio": "instructions/do_head_en.mp3"
+        },
+        "ar_f": {
+          "text": "حطّي إيدك على راسك!",
+          "audio": "instructions/do_head_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "حطّ إيدك على راسك!",
+          "audio": "instructions/do_head_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_cup",
+      "name": {
+        "en": "Cup",
+        "ar": "عطي بابا الكاسة"
+      },
+      "image": "first-words/cup.svg",
+      "name_audio": {
+        "en": "instructions/do_cup_name_en.mp3",
+        "ar": "instructions/do_cup_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Give Baba the cup!",
+          "audio": "instructions/do_cup_en.mp3"
+        },
+        "ar_f": {
+          "text": "عطي بابا الكاسة!",
+          "audio": "instructions/do_cup_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "عطي بابا الكاسة!",
+          "audio": "instructions/do_cup_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_box",
+      "name": {
+        "en": "Box",
+        "ar": "حطّي الطابة بالصندوق"
+      },
+      "image": "learn/ball_in.svg",
+      "name_audio": {
+        "en": "instructions/do_box_name_en.mp3",
+        "ar": "instructions/do_box_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Put the ball in the box!",
+          "audio": "instructions/do_box_en.mp3"
+        },
+        "ar_f": {
+          "text": "حطّي الطابة بالصندوق!",
+          "audio": "instructions/do_box_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "حطّ الطابة بالصندوق!",
+          "audio": "instructions/do_box_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_ball_baba",
+      "name": {
+        "en": "Ball, Baba",
+        "ar": "جيبي الطابة وعطيها لبابا"
+      },
+      "image": "first-words/ball.svg",
+      "name_audio": {
+        "en": "instructions/do_ball_baba_name_en.mp3",
+        "ar": "instructions/do_ball_baba_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Get the ball and give it to Baba!",
+          "audio": "instructions/do_ball_baba_en.mp3"
+        },
+        "ar_f": {
+          "text": "جيبي الطابة وعطيها لبابا!",
+          "audio": "instructions/do_ball_baba_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "جيب الطابة وعطيها لبابا!",
+          "audio": "instructions/do_ball_baba_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_book_mama",
+      "name": {
+        "en": "Book, Mama",
+        "ar": "جيبي الكتاب واقعدي جنب ماما"
+      },
+      "image": "first-words/book.svg",
+      "name_audio": {
+        "en": "instructions/do_book_mama_name_en.mp3",
+        "ar": "instructions/do_book_mama_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Get the book and sit with Mama!",
+          "audio": "instructions/do_book_mama_en.mp3"
+        },
+        "ar_f": {
+          "text": "جيبي الكتاب واقعدي جنب ماما!",
+          "audio": "instructions/do_book_mama_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "جيب الكتاب واقعد جنب ماما!",
+          "audio": "instructions/do_book_mama_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_teddy_bed",
+      "name": {
+        "en": "Teddy, bed",
+        "ar": "بوسي الدبدوب ونيّميه بالتخت"
+      },
+      "image": "first-words/teddy.svg",
+      "name_audio": {
+        "en": "instructions/do_teddy_bed_name_en.mp3",
+        "ar": "instructions/do_teddy_bed_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Kiss teddy and put him to bed!",
+          "audio": "instructions/do_teddy_bed_en.mp3"
+        },
+        "ar_f": {
+          "text": "بوسي الدبدوب ونيّميه بالتخت!",
+          "audio": "instructions/do_teddy_bed_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "بوس الدبدوب ونيّمه بالتخت!",
+          "audio": "instructions/do_teddy_bed_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_shoes_mama",
+      "name": {
+        "en": "Shoes, Mama",
+        "ar": "شيلي الحذاء وجيبيه لماما"
+      },
+      "image": "first-words/shoe.svg",
+      "name_audio": {
+        "en": "instructions/do_shoes_mama_name_en.mp3",
+        "ar": "instructions/do_shoes_mama_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Pick up your shoes and bring them to Mama!",
+          "audio": "instructions/do_shoes_mama_en.mp3"
+        },
+        "ar_f": {
+          "text": "شيلي الحذاء وجيبيه لماما!",
+          "audio": "instructions/do_shoes_mama_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "شيل الحذاء وجيبه لماما!",
+          "audio": "instructions/do_shoes_mama_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_clap_jump",
+      "name": {
+        "en": "Clap, jump",
+        "ar": "سقّفي ونطّي"
+      },
+      "image": "actions/jump.svg",
+      "name_audio": {
+        "en": "instructions/do_clap_jump_name_en.mp3",
+        "ar": "instructions/do_clap_jump_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Clap your hands and jump!",
+          "audio": "instructions/do_clap_jump_en.mp3"
+        },
+        "ar_f": {
+          "text": "سقّفي ونطّي!",
+          "audio": "instructions/do_clap_jump_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "سقّف ونطّ!",
+          "audio": "instructions/do_clap_jump_ar_m.mp3"
+        }
+      }
+    },
+    {
+      "item_key": "do_door_come",
+      "name": {
+        "en": "Door, come",
+        "ar": "سكّري الباب وتعالي لعندي"
+      },
+      "image": "home/door.svg",
+      "name_audio": {
+        "en": "instructions/do_door_come_name_en.mp3",
+        "ar": "instructions/do_door_come_name_ar.mp3"
+      },
+      "point": {
+        "en": {
+          "text": "Close the door and come to me!",
+          "audio": "instructions/do_door_come_en.mp3"
+        },
+        "ar_f": {
+          "text": "سكّري الباب وتعالي لعندي!",
+          "audio": "instructions/do_door_come_ar_f.mp3"
+        },
+        "ar_m": {
+          "text": "سكّر الباب وتعال لعندي!",
+          "audio": "instructions/do_door_come_ar_m.mp3"
+        }
+      }
+    }
+  ],
+  "feedback_audio": {
+    "correct": {
+      "en": [
+        "feedback/correct_en_1.mp3",
+        "feedback/correct_en_2.mp3",
+        "feedback/correct_en_3.mp3",
+        "feedback/correct_en_4.mp3",
+        "feedback/correct_en_5.mp3"
+      ],
+      "ar": [
+        "feedback/correct_ar_1.mp3",
+        "feedback/correct_ar_2.mp3",
+        "feedback/correct_ar_3.mp3",
+        "feedback/correct_ar_4.mp3",
+        "feedback/correct_ar_5.mp3"
+      ]
+    },
+    "incorrect_tone": "feedback/incorrect_tone.mp3",
+    "session_end": {
+      "en": "feedback/session_end_en.mp3",
+      "ar": "feedback/session_end_ar.mp3"
+    }
+  }
+}

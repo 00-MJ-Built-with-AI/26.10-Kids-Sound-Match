@@ -18,6 +18,7 @@ import { KidBubbles, KidSing, KidTidy } from './KidPlay';
 import { KidFeel, KidOpposites, KidPuzzle, KidShapes } from './KidMore';
 import { KidScene } from './KidScene';
 import { KidMenu } from './KidMenu';
+import { KidLearn } from './KidLearn';
 import { KidBig, KidCount, KidMissing } from './KidSmall';
 import type { KidConfig, KidSnapshot } from './kidSnapshot';
 
@@ -25,6 +26,8 @@ interface Props {
   pack: LoadedPack;
   /** Every pack, for the sticker album (and the scenes, which take things from several). */
   packs: readonly LoadedPack[];
+  /** The packs as shipped (the Learn games show every picture of a word). */
+  raw: readonly LoadedPack[];
   config: KidConfig;
   snapshot: KidSnapshot | null;
   telemetryEnabled: boolean;
@@ -38,7 +41,7 @@ interface Props {
  * scene, Where's your nose?, Do it with me, Talk time, her picture book or Look after the baby.
  */
 export function KidMode(props: Props) {
-  const { pack, packs, config, snapshot, picker, onExit } = props;
+  const { pack, packs, raw, config, snapshot, picker, onExit } = props;
   // The game's scene, as a CSS variable the frame's background uses.
   useEffect(() => {
     const root = document.documentElement;
@@ -50,6 +53,13 @@ export function KidMode(props: Props) {
     };
   }, [config.packId]);
   switch (config.kind) {
+    case 'lesson':
+    case 'variety':
+    case 'newone':
+    case 'verbs':
+    case 'showme':
+    case 'places':
+      return <KidLearn pack={pack} packs={packs} raw={raw} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     case 'menu':
       return <KidMenu config={config} picker={picker} onExit={onExit} />;
     case 'explore':
@@ -113,6 +123,7 @@ export function KidMode(props: Props) {
     case 'hunt':
     case 'phrases':
     case 'manners':
+    case 'instructions':
       return <KidPoint pack={pack} packs={packs} config={config} snapshot={snapshot} picker={picker} onExit={onExit} />;
     default:
       return <KidGame {...props} />;

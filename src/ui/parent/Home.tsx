@@ -107,6 +107,9 @@ export function Home({
   onPotty,
   canPhrases,
   canManners,
+  canLearn,
+  canInstructions,
+  lesson,
   canMenu,
   recordLeft,
   onRecordToday,
@@ -181,6 +184,11 @@ export function Home({
   onPotty: () => void;
   canPhrases: boolean;
   canManners: boolean;
+  /** The Learn section's games. */
+  canLearn: boolean;
+  canInstructions: boolean;
+  /** Today's lesson: the new words, and how many to review; null before it's worked out. */
+  lesson: { words: { picture: string; name: { en: string; ar: string } }[]; review: number } | null;
   /** Her own menu: there are enough games to choose from. */
   canMenu: boolean;
   /** Words still to record; 0 hides the card (done for today, or put off). */
@@ -285,7 +293,18 @@ export function Home({
     { id: 'odd', icon: <OddIcon />, label: t('oddOneOut'), sub: t('oddSub'), on: onOdd, ok: canOdd },
   ];
 
-  const allTiles = [...together, ...hers];
+  const learn: Tile[] = canLearn
+    ? [
+        { id: 'lesson', icon: <BookIcon />, label: t('lessonGame'), sub: t('lessonSub'), on: () => onGame('lesson'), ok: true },
+        { id: 'variety', icon: <PlayIcon />, label: t('varietyGame'), sub: t('varietySub'), on: () => onGame('variety'), ok: true },
+        { id: 'newone', icon: <PlayIcon />, label: t('newoneGame'), sub: t('newoneSub'), on: () => onGame('newone'), ok: true },
+        { id: 'verbs', icon: <ActionsIcon />, label: t('verbsGame'), sub: t('verbsSub'), on: () => onGame('verbs'), ok: true },
+        { id: 'showme', icon: <PointIcon />, label: t('showmeGame'), sub: t('showmeSub'), on: () => onGame('showme'), ok: true },
+        { id: 'instructions', icon: <ActionsIcon />, label: t('instructionsGame'), sub: t('instructionsSub'), on: () => onGame('instructions'), ok: canInstructions },
+        { id: 'places', icon: <HideIcon />, label: t('placesGame'), sub: t('placesSub'), on: () => onGame('places'), ok: true },
+      ]
+    : [];
+  const allTiles = [...learn, ...together, ...hers];
   const favTiles = favourites.map((id) => allTiles.find((x) => x.id === id)).filter((x): x is Tile => x !== undefined);
   const renderTile = (g: Tile) => (
     <div key={g.id} className="tile-wrap">
@@ -303,6 +322,7 @@ export function Home({
   );
   const groups = (skipFavourites: boolean) =>
     [
+      { title: t('homeLearn'), sub: t('homeLearnSub'), tiles: learn },
       { title: t('homeTogether'), sub: t('homeTogetherSub'), tiles: together },
       { title: t('homeHer'), sub: t('homeHerSub'), tiles: hers },
     ].map((group) => {
@@ -424,6 +444,28 @@ export function Home({
         )}
       </div>
       <div className="home-col home-col-plan">
+        {/* Today's lesson: the word path's new words. */}
+        {canLearn && lesson && (
+          <section className="card lesson-card">
+            <h2>📚 {t('lessonCardTitle')}</h2>
+            {lesson.words.length > 0 ? (
+              <div className="lesson-words">
+                {lesson.words.map((w) => (
+                  <span key={w.picture} className="lesson-word">
+                    <img src={w.picture} alt="" />
+                    <small>{w.name[lang]}</small>
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="hint">{lesson.review ? t('lessonCardOnlyReview') : t('lessonCardDone')}</p>
+            )}
+            {lesson.review > 0 && <p className="hint">{t('lessonCardReview', { n: lesson.review })}</p>}
+            <button type="button" className="btn primary wide" onClick={() => onGame('lesson')}>
+              {t('lessonCardStart')}
+            </button>
+          </section>
+        )}
         {/* Today's play: three games for today, ticked once played. */}
         {plan.length > 0 && (
           <section className="card plan-card">

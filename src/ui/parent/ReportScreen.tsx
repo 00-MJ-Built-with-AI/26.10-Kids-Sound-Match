@@ -122,6 +122,11 @@ export function ReportScreen({
     if (g.game === 'actions') return `${t('actionsGame')} · ${t('actionsRow', { n: g.questionCount })}`;
     if (g.game === 'sounds') return `${t('soundsGame')} · ${t('soundsRow', { n: g.questionCount })}`;
     if (g.game === 'hunt') return `${t('huntGame')} · ${t('huntRow', { n: g.questionCount })}`;
+    if (g.game === 'learn') {
+      const label = { lesson: t('lessonGame'), variety: t('varietyGame'), newone: t('newoneGame'), verbs: t('verbsGame'), showme: t('showmeGame'), places: t('placesGame') }[g.variant ?? ''] ?? t('homeLearn');
+      return `${label} · ${t('gameQuestions', { n: g.questionCount })} · ${pct === null ? '—' : t('gameFirstTry', { p: pct })}`;
+    }
+    if (g.game === 'instructions') return `${t('instructionsGame')} · ${t('actionsRow', { n: g.questionCount })}`;
     if (g.game === 'phrases') return `${t('phrasesGame')} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'manners') return `${t('mannersGame')} · ${t('talkRow', { n: g.questionCount })}`;
     if (g.game === 'real') return `${t('realGame')} · ${packName(g.packId)}`;

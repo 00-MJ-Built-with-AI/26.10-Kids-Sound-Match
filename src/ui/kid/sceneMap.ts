@@ -27,6 +27,8 @@ const SCENE_OF: Record<string, string> = {
   eid: 'stage',
   phrases: 'playroom',
   manners: 'park',
+  learn: 'playroom',
+  instructions: 'playroom',
 };
 export function sceneFor(packId: string): string {
   return SCENE_OF[packId] ?? 'garden';

@@ -35,7 +35,7 @@ export function wordEvidence(
 ): WordEvidence[] {
   const counted = new Map(
     sessions
-      .filter((s) => !s.toddlerMode && (isMatchGame(s) || s.game === 'scene' || s.game === 'point' || s.game === 'actions' || s.game === 'talk' || s.game === 'hunt' || s.game === 'manners' || s.game === 'real'))
+      .filter((s) => !s.toddlerMode && (isMatchGame(s) || s.game === 'scene' || s.game === 'point' || s.game === 'actions' || s.game === 'talk' || s.game === 'hunt' || s.game === 'manners' || s.game === 'real' || (s.game === 'learn' && ['lesson', 'variety', 'newone'].includes(s.variant ?? ''))))
       .map((s) => [s.id, s]),
   );
   const out: WordEvidence[] = [];

@@ -1167,6 +1167,18 @@
       "find_real_m": {
         "en": "feedback/find_real_m_en.mp3",
         "ar": "feedback/find_real_m_ar.mp3"
+      },
+      "this_is": {
+        "en": "feedback/this_is_en.mp3",
+        "ar": "feedback/this_is_ar.mp3"
+      },
+      "this_is_f": {
+        "en": "feedback/this_is_f_en.mp3",
+        "ar": "feedback/this_is_f_ar.mp3"
+      },
+      "show_me": {
+        "en": "feedback/show_me_en.mp3",
+        "ar": "feedback/show_me_ar.mp3"
       }
     }
   }

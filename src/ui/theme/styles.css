@@ -7666,3 +7666,18 @@ html[dir='rtl'] .end-look { right: 12px; }
   .parent.home { grid-template-rows: min-content auto 1fr; grid-template-areas: 'a b n' 'a b c' 'p b c'; }
   .parent.home:has(.home-col-notices:empty) { grid-template-rows: auto 1fr; grid-template-areas: 'a b c' 'p b c'; }
 }
+
+/* ---------- Learn: today's lesson on Home, and meeting a word ---------- */
+.lesson-card { background: linear-gradient(180deg, #f3fbff 0%, #e4f2ff 100%); }
+.lesson-words { display: flex; justify-content: center; gap: 12px; margin-block: 6px 10px; }
+.lesson-word { display: grid; justify-items: center; gap: 4px; min-width: 0; }
+.lesson-word img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: #fff; box-shadow: 0 0 0 3px #fff, 0 3px 8px rgba(40, 80, 140, 0.18); }
+.lesson-word small { font-weight: 700; }
+.lesson-card .btn { margin-block-start: 4px; }
+.learn-meet img { animation: learn-meet-in 0.35s ease-out both; }
+@keyframes learn-meet-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .learn-meet img { animation: none; } }
+@media (min-width: 900px) {
+  .home .lesson-word img { width: 48px; height: 48px; }
+  .home .lesson-card .hint { font-size: 0.8rem; margin-block: 0 6px; }
+}

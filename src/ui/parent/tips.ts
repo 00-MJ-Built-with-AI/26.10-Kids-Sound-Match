@@ -10,6 +10,76 @@ export interface GameTip {
 }
 
 export const TIPS: Record<string, Record<Lang, GameTip>> = {
+  lesson: {
+    en: {
+      how: 'Once a day, sit with her for about five minutes. She meets three new words, each shown in a few different pictures, then finds them. Words come back two, four and seven days later. Use the words again in real life the same day.',
+      learns: 'New words, remembered for longer: practice spread over days sticks far better than many repeats at once.',
+    },
+    ar: {
+      how: 'مرة باليوم، اقعدوا معها حوالي خمس دقائق. بتتعرّف على ثلاث كلمات جديدة، كل وحدة بكم صورة، وبعدين بتلاقيها. الكلمات بترجع بعد يومين وأربعة وسبعة أيام. استعملوا الكلمات بالحياة بنفس اليوم.',
+      learns: 'كلمات جديدة بتنحفظ لوقت أطول: التمرين الموزّع على أيام بيثبت أكثر بكثير من التكرار مرة وحدة.',
+    },
+  },
+  variety: {
+    en: {
+      how: '"Where\'s the cat?" Two pictures are right: a photo and a drawing, or a toy. Either one counts, and both celebrate together. Point at the real cat or toy cat at home too.',
+      learns: 'What a word really means: a cat is a cat in a photo, a drawing or a toy, not just one picture.',
+    },
+    ar: {
+      how: '«وين القطة؟» في صورتين صح: صورة حقيقية ورسمة أو لعبة. أي وحدة منهم بتنحسب، والثنتين بيحتفلوا مع بعض. دلّوها كمان على القطة الحقيقية أو اللعبة بالبيت.',
+      learns: 'معنى الكلمة الحقيقي: القطة قطة بالصورة والرسمة واللعبة، مش بس بصورة وحدة.',
+    },
+  },
+  newone: {
+    en: {
+      how: 'A picture she knows next to one she doesn\'t, and the app asks for the new word. She works it out because she already knows the other. If she taps the one she knows, it says its name and asks again.',
+      learns: 'Picking up a new word in one go by ruling out the known one, which is a big way toddlers learn words fast.',
+    },
+    ar: {
+      how: 'صورة بتعرفها جنب صورة ما بتعرفها، والتطبيق بيسأل عن الكلمة الجديدة. بتعرفها لأنها بتعرف الثانية. إذا لمست اللي بتعرفها، بيقول اسمها وبيسأل مرة ثانية.',
+      learns: 'تتعلّم كلمة جديدة من أول مرة لما تستبعد اللي بتعرفها، وهاي من أهم طرق تعلّم الكلمات السريع.',
+    },
+  },
+  verbs: {
+    en: {
+      how: '"Who\'s jumping?" She finds the girl jumping among two other actions. Then jump together!',
+      learns: 'Action words, which she needs to start putting words together.',
+    },
+    ar: {
+      how: '«مين عم تنطّ؟» بتلاقي البنت اللي عم تنطّ بين حركتين ثانيين. وبعدين نطّوا مع بعض!',
+      learns: 'كلمات الأفعال، اللي بتحتاجها لتبلّش تركّب الكلمات مع بعض.',
+    },
+  },
+  showme: {
+    en: {
+      how: '"Show me the girl eating." One picture shows the same child doing something else, another shows another child eating, so she has to listen to both words.',
+      learns: 'Understanding two words together, the step before saying them.',
+    },
+    ar: {
+      how: '«فرجيني البنت عم تاكل». صورة فيها نفس الطفل عم يعمل شي ثاني، وصورة فيها طفل ثاني عم ياكل، فلازم تسمع الكلمتين.',
+      learns: 'فهم كلمتين مع بعض، وهاي الخطوة اللي قبل ما تقولهم.',
+    },
+  },
+  places: {
+    en: {
+      how: '"The ball under the box." The same ball and box three ways. Then play it for real: put her teddy in, on and under a box. Best from about age 2.',
+      learns: 'In, on and under: her first words for where things are.',
+    },
+    ar: {
+      how: '«الطابة تحت الصندوق». نفس الطابة والصندوق بثلاث طرق. وبعدين العبوها بالحقيقة: حطّوا الدبدوب جوّا الصندوق وعليه وتحته. الأفضل من عمر السنتين تقريباً.',
+      learns: 'جوّا وعلى وتحت: أول كلماتها عن مكان الأشياء.',
+    },
+  },
+  instructions: {
+    en: {
+      how: 'The app says "Bring me the ball!" and she does it around the room; tap ✓ when she does, even with your help. After 15 one-step instructions, two-step ones join in.',
+      learns: 'Listening and following instructions, one step then two.',
+    },
+    ar: {
+      how: 'التطبيق بيقول «جيبي الطابة!» وهي بتعملها بالغرفة؛ المسوا ✓ لما تعملها، حتى لو بمساعدتكم. بعد 15 مهمّة بخطوة وحدة، بتنضمّ المهمّات بخطوتين.',
+      learns: 'الاستماع وتنفيذ التعليمات، خطوة وبعدين خطوتين.',
+    },
+  },
   phrases: {
     en: {
       how: 'Say the phrase with the app, then wait quietly and look at her. Tap ✓ for any try, even one word or the tune of it. Use the same phrases during the day, when she really wants the milk.',

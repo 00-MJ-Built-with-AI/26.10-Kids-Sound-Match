@@ -75,6 +75,8 @@ export function KidPoint({
   const { t } = useI18n();
   const gender: ArGender = config.arGender ?? 'f';
   const actions = config.kind === 'actions';
+  // Do what I say: "جيبي الطابة!", she does it, the parent ticks.
+  const instructions = config.kind === 'instructions';
   const talk = config.kind === 'talk';
   // Mixed game: which pack each picture came from (for Words I know).
   const sources = useMemo(() => sourcePacks(pack), [pack]);
@@ -98,7 +100,7 @@ export function KidPoint({
   const answer = (it: LoadedItem) => (sounds ? [audio.resolver.sound(it)] : audio.resolver.names(it));
   /** On an action's picture, what to do ("Clap your hands!", "سقّفي!") rather than its name. */
   const cardName = (item: LoadedItem) => {
-    if (!actions || talk || sounds || hunt) return item.name;
+    if (!(actions || instructions) || talk || sounds || hunt) return item.name;
     const en = item.point?.en?.text ?? item.name.en;
     const ar = item.point?.[gender === 'm' ? 'ar_m' : 'ar_f']?.text ?? item.name.ar;
     return { en, ar };
@@ -195,7 +197,7 @@ export function KidPoint({
           mode: config.mode,
           completed: true,
           profileId: config.profileId,
-          game: phrases ? 'phrases' : manners ? 'manners' : sounds ? 'sounds' : hunt ? 'hunt' : talk ? 'talk' : actions ? 'actions' : 'point',
+          game: phrases ? 'phrases' : manners ? 'manners' : sounds ? 'sounds' : hunt ? 'hunt' : talk ? 'talk' : instructions ? 'instructions' : actions ? 'actions' : 'point',
         },
         foundKeys.current.map((key) => ({ itemKey: key, packId: sources.get(key) ?? pack.id, firstTryCorrect: true, attempts: 1, choiceCount: 1 })),
       );
@@ -206,7 +208,7 @@ export function KidPoint({
 
   const finish = () => {
     void save();
-    const sticker = sayAfter
+    const sticker = sayAfter || instructions
       ? null
       : awardSticker(
           config.profileId,

@@ -21,7 +21,7 @@ export const MILESTONES: readonly Milestone[] = [
   { id: 'talk_names', area: 'talk', text: { en: 'Names things in a book when you point and ask', ar: 'تسمّي الأشياء في الكتاب حين تشيرون وتسألون' }, games: ['book', 'talk'] },
   { id: 'talk_two', area: 'talk', text: { en: 'Says two words together, like "more milk" (her first sentence!)', ar: 'تقول كلمتين معاً، مثل «بدي حليب» (أول جملة لها!)' }, games: ['talk', 'book'] },
   { id: 'und_body', area: 'understand', text: { en: 'Points to at least two body parts when you ask', ar: 'تشير إلى عضوين من جسمها على الأقل حين تسألون' }, games: ['point'] },
-  { id: 'und_follow', area: 'understand', text: { en: 'Follows a simple instruction without a gesture ("give me the ball")', ar: 'تنفّذ تعليمة بسيطة دون إشارة («أعطيني الطابة»)' }, games: ['actions', 'tidy'] },
+  { id: 'und_follow', area: 'understand', text: { en: 'Follows a simple instruction without a gesture ("give me the ball")', ar: 'تنفّذ تعليمة بسيطة دون إشارة («أعطيني الطابة»)' }, games: ['instructions', 'actions', 'tidy'] },
   { id: 'und_point', area: 'understand', text: { en: 'Points to a picture in a book when you name it', ar: 'تشير إلى صورة في الكتاب حين تسمّونها' }, games: ['scene', 'explore', 'game'] },
   { id: 'und_hidden', area: 'understand', text: { en: 'Looks for things you hide, and notices what\'s missing', ar: 'تبحث عن الأشياء التي تخبّئونها، وتلاحظ ما ينقص' }, games: ['peekaboo', 'missing'] },
   { id: 'move_run', area: 'move', text: { en: 'Runs, and kicks a ball', ar: 'تركض وتركل الطابة' }, games: ['actions'] },

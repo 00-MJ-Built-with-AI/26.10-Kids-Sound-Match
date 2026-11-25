@@ -547,6 +547,9 @@ function buildGameLines(packs: readonly LoadedPack[], t: ReturnType<typeof useI1
     for (const [id, title] of [
       ['talk', t('talkGame')],
       ['find_real_f', t('realGame')],
+      ['this_is', t('lessonGame')],
+      ['this_is_f', t('lessonGame')],
+      ['show_me', t('showmeGame')],
       ['find_real_m', t('realGame')],
       ['goodnight', t('bookGame')],
       ['sleep_tight', t('bookGame')],

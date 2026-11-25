@@ -47,6 +47,10 @@ import { forgetMilestones, loadMilestones, markCertificatesSeen, toggleMilestone
 import { countWords } from './report/wordCount';
 import { forgetFavourites, herMenu, loadFavourites, saveFavourites } from './settings/favourites';
 import { forgetBirthMonth } from './settings/birth';
+import { forgetPath } from './learn/path';
+import { learnToday, type LessonPlan } from './learn/today';
+import { wordRefs } from './learn/steps';
+import { choosePictures } from './ui/kid/layout';
 import { loadPlayed, markPlayed, planFor, playedToday } from './settings/plan';
 import { forgetPlayLog, loadPlayLog, logPlay, topGames } from './settings/playLog';
 import { today } from './settings/routine';
@@ -127,6 +131,8 @@ const RECORD_CARD_KEY = 'ksm.recordCard.v1';
 /** "Not yet" on the two-words milestone card. */
 const TWO_WORDS_KEY = 'ksm.twoWordsAsked.v1';
 /** After these she doesn't need to be sent looking for something. */
+/** Do what I say: two-step instructions join in after this many one-step ones. */
+const TWO_STEPS_AFTER = 15;
 const NO_REAL_THING: readonly KidKind[] = ['book', 'bedtime', 'sleep', 'menu', 'story'];
 /** Where's your nose? needs at least this many body parts it can ask about. */
 const MIN_POINT_ITEMS = 3;
@@ -239,6 +245,7 @@ export function App() {
       forgetMilestones(id);
       forgetPotty(id);
       forgetBirthMonth(id);
+      forgetPath(id);
       forgetPlayLog(id);
       void voiceStore.forgetChild(id);
       local.remove(profileKey(NUDGE_DISMISSED_KEY, id));
@@ -275,7 +282,9 @@ function Shell({
   const [startKind, setStartKind] = useState<KidKind>('game');
   // Where's your nose?: asking a parent once whether the child is a girl or a boy (Arabic grammar).
   // Where's your nose? and Do it with me ask once whether the child is a girl or a boy (Arabic grammar).
-  const [askGender, setAskGender] = useState<'point' | 'actions' | 'hunt' | null>(null);
+  const [askGender, setAskGender] = useState<'point' | 'actions' | 'hunt' | 'instructions' | null>(null);
+  /** Today's lesson: the new words and how many to review. */
+  const [lesson, setLesson] = useState<LessonPlan | null>(null);
   const pendingGender = useRef<ArGender | null>(null);
   const [nudge, setNudge] = useState<NextLevel | null>(null);
   const [memoryNudge, setMemoryNudge] = useState<MemoryNext | null>(null);
@@ -327,6 +336,8 @@ function Shell({
   const hidePack = allPacks.find((p) => p.id === 'hide');
   const phrasesPack = allPacks.find((p) => p.id === 'phrases');
   const mannersPack = allPacks.find((p) => p.id === 'manners');
+  const learnPack = allPacks.find((p) => p.id === 'learn');
+  const instructionsPack = allPacks.find((p) => p.id === 'instructions');
   const canPaint = (colorsPack?.items.length ?? 0) >= 4;
   const canHide = (hidePack?.items.length ?? 0) >= 3;
   const canStory = (storiesPack?.groups.length ?? 0) > 0;
@@ -345,6 +356,18 @@ function Shell({
   // Look after the baby needs every one of its needs (food, milk, bath, bed, hug).
   const canCare = pointItems(carePack, languages, profile?.arGender ?? 'f').length >= 5;
   const canActions = pointItems(actionsPack, languages, profile?.arGender ?? 'f').length >= MIN_POINT_ITEMS;
+  const canInstructions = pointItems(instructionsPack, languages, profile?.arGender ?? 'f').length >= MIN_POINT_ITEMS;
+  // Today's lesson on Home: the new words' pictures and names.
+  const lessonRefs = useMemo(() => wordRefs(allPacks), [allPacks]);
+  const lessonCard = lesson
+    ? {
+        words: lesson.fresh.flatMap((id) => {
+          const ref = lessonRefs.get(id);
+          return ref ? [{ picture: choosePictures([ref.item], () => 0)[ref.item.key], name: ref.item.name }] : [];
+        }),
+        review: lesson.review.length,
+      }
+    : null;
   /** The play-time timer: when this sitting began (the first game played from Home), null at Home. */
   const sittingStart = useRef<number | null>(null);
   /** Play time: the game on screen and when it began (logged when it ends). */
@@ -499,6 +522,7 @@ function Shell({
         setWordPlays(plays);
         const saidPhrase = forProfile(sessions, profileId).some((s) => s.game === 'phrases' && s.questionCount > 0);
         setTwoWordsCard(saidPhrase && loadMilestones(profileId).talk_two === undefined && !local.get(profileKey(TWO_WORDS_KEY, profileId)));
+        setLesson(learnToday(profileId, allPacks, forProfile(sessions, profileId), questions));
       })
       .catch(() => {
         setNudge(null);
@@ -553,7 +577,11 @@ function Shell({
     // Odd one out plays with every pack of things, a scene with its own packs, Where's your nose?
     // with the body parts, Do it with me with the actions; the other games with the chosen pack.
     const gamePack =
-      kind === 'phrases'
+      ["lesson","variety","newone","verbs","showme","places"].includes(kind)
+        ? learnPack
+        : kind === 'instructions'
+          ? instructionsPack
+          : kind === 'phrases'
         ? phrasesPack
         : kind === 'manners'
           ? mannersPack
@@ -597,6 +625,8 @@ function Shell({
     let level: OddLevel = 'easy';
     let bookIds: string[] = [];
     let phraseIds: string[] = gamePack.items.map((i) => i.key);
+    let learn: LessonPlan | undefined;
+    let twoSteps = false;
     try {
       const sessions = forProfile(await reportStore.sessions(), profileId);
       // Adaptive practice: weights come from the Report on this device when the game starts.
@@ -605,6 +635,13 @@ function Shell({
         weights = practiceWeights(sessions, await reportStore.questions(), packIds);
       }
       if (kind === 'odd') level = oddLevel(sessions, await reportStore.questions());
+      if (kind === 'lesson' || kind === 'variety' || kind === 'newone') learn = learnToday(profileId, allPacks, sessions, await reportStore.questions());
+      if (kind === 'instructions') {
+        // Two steps join in once she has done 15 one-step instructions.
+        const ids = new Set(sessions.filter((x) => x.game === 'instructions').map((x) => x.id));
+        const oneStep = new Set(gamePack.groups.find((g) => g.id === 'one')?.items ?? []);
+        twoSteps = (await reportStore.questions()).filter((q) => ids.has(q.sessionId) && oneStep.has(q.itemKey)).length >= TWO_STEPS_AFTER;
+      }
       if (kind === 'phrases') {
         // Phrases built from words she understands or says come first.
         const ids = new Set(sessions.map((x) => x.id));
@@ -651,7 +688,11 @@ function Shell({
             ? gamePack.items.map((i) => i.key)
             : kind === 'scene' && scene
               ? sceneKeys(scene, s)
-              : kind === 'point' || kind === 'actions' || kind === 'care'
+              : kind === 'instructions'
+                ? pointItems(gamePack, spoken, arGender)
+                    .map((i) => i.key)
+                    .filter((k) => twoSteps || (gamePack.groups.find((g) => g.id === 'one')?.items ?? []).includes(k))
+                : kind === 'point' || kind === 'actions' || kind === 'care'
                 ? pointItems(gamePack, spoken, arGender).map((i) => i.key)
                 : kind === 'book' || kind === 'bedtime'
                   ? bookIds
@@ -674,11 +715,12 @@ function Shell({
             ? s.mode
             : kind === 'care'
               ? 'SOUND_AND_NAME'
-              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners'].includes(kind)
+              : ['sounds', 'hunt', 'big', 'missing', 'bubbles', 'opposites', 'shapes', 'puzzle', 'story', 'paint', 'music', 'hide', 'phrases', 'manners', 'instructions', 'lesson', 'variety', 'newone', 'verbs', 'showme', 'places'].includes(kind)
                 ? 'NAME_ONLY'
                 : effectiveMode(gamePack, s.mode),
         ...(scene ? { sceneId: scene.id } : {}),
-        ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime'].includes(kind) ? { arGender } : {}),
+        ...(['point', 'actions', 'care', 'hunt', 'sing', 'feel', 'opposites', 'bedtime', 'instructions'].includes(kind) ? { arGender } : {}),
+        ...(learn ? { learn } : {}),
         ...(storyId ? { storyId } : {}),
         ...(opts?.fromMenu ? { fromMenu: true } : {}),
         ...(kind === 'sleep' || (kind === 'bedtime' && sleepPrefs.afterBedtime)
@@ -718,6 +760,8 @@ function Shell({
     'talk',
     ...(phrasesPack ? (['phrases'] as const) : []),
     ...(mannersPack ? (['manners'] as const) : []),
+    ...(learnPack ? (["lesson","variety","newone","verbs","showme","places"] as const) : []),
+    ...(canInstructions && genderKnown ? (['instructions'] as const) : []),
     ...(canCare ? (['care'] as const) : []),
     'turns',
     'book',
@@ -746,6 +790,7 @@ function Shell({
     ...(canPoint && !genderKnown ? (['point'] as const) : []),
     ...(canActions && !genderKnown ? (['actions'] as const) : []),
     ...(canHunt && !genderKnown ? (['hunt'] as const) : []),
+    ...(canInstructions && !genderKnown ? (['instructions'] as const) : []),
   ];
   const played = loadPlayed(profileId);
   const todayPlan = planFor(today(), planKinds, played, favourites).map((kind) => ({ kind, done: playedToday(played, kind) }));
@@ -813,13 +858,14 @@ function Shell({
   };
 
   /** Arabic needs to know: "أين أنفُكِ؟" and "سقّفي!" for a girl, "أين أنفُكَ؟" and "سقّف!" for a boy. */
-  const beginWithGender = (kind: 'point' | 'actions' | 'hunt') => {
+  const beginWithGender = (kind: 'point' | 'actions' | 'hunt' | 'instructions') => {
     if (genderKnown) begin(kind);
     else setAskGender(kind);
   };
 
   /** A game from Home, a tip or the milestones (the ones with Arabic grammar ask first). */
-  const playGame = (kind: KidKind) => (kind === 'hunt' || kind === 'point' || kind === 'actions' ? beginWithGender(kind) : begin(kind));
+  const playGame = (kind: KidKind) =>
+    kind === 'hunt' || kind === 'point' || kind === 'actions' || kind === 'instructions' ? beginWithGender(kind) : begin(kind);
 
   const onCustomChanged = async () => {
     await refreshCustom();
@@ -996,6 +1042,7 @@ function Shell({
           key={kid.run}
           pack={kid.pack}
           packs={allPacks}
+          raw={builtin?.packs ?? []}
           config={kid.config}
           snapshot={kid.snapshot}
           telemetryEnabled={settings.telemetryEnabled}
@@ -1074,6 +1121,9 @@ function Shell({
           onPotty={() => setScreen('potty')}
           canPhrases={Boolean(phrasesPack)}
           canManners={Boolean(mannersPack)}
+          canLearn={Boolean(learnPack)}
+          canInstructions={canInstructions}
+          lesson={lessonCard}
           canMenu={menuKinds.length >= 2}
           recordLeft={!recordCardOff && recordedToday() < SESSION_DAILY ? wordsToRecord(builtin?.packs ?? [], (path) => custom.overrides.some((o) => o.path === path)).length : 0}
           onRecordToday={() => {

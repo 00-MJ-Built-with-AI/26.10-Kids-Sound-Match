@@ -440,7 +440,7 @@ export function KidGame({ pack, packs, config, snapshot, telemetryEnabled, picke
         <AskAbout
           questionNo={questionNo}
           picture={promptPicture}
-          answer={view.celebratedKey ? pictures[view.celebratedKey] : null}
+          answer={typeof view.celebratedKey === 'string' ? pictures[view.celebratedKey] : null}
           celebration={pack.association?.celebration ?? 'eat'}
           onTap={replay}
         >

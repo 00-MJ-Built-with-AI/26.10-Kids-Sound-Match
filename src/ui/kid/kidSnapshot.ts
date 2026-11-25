@@ -42,7 +42,14 @@ export type KidKind =
   | 'sleep'
   | 'phrases'
   | 'manners'
-  | 'menu';
+  | 'menu'
+  | 'lesson'
+  | 'variety'
+  | 'newone'
+  | 'verbs'
+  | 'showme'
+  | 'places'
+  | 'instructions';
 
 /** The settings a game was started with. Changing Settings mid-game doesn't affect it. */
 export interface KidConfig {
@@ -79,6 +86,8 @@ export interface KidConfig {
   storyId?: string;
   /** Started from her own menu: the end screen goes back to its four pictures. */
   fromMenu?: boolean;
+  /** The Learn games: today's new words, the reviews due and the words she knows (word ids). */
+  learn?: { fresh: string[]; review: string[]; known: string[] };
   sleep?: { sound: 'rain' | 'waves' | 'lullaby' | 'none'; minutes: number };
 }
 
